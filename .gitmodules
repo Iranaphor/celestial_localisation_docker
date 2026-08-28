@@ -1,0 +1,3 @@
+[submodule "realsense_docker"]
+	path = realsense_docker
+	url = git@github.com:Iranaphor/realsense_docker.git
