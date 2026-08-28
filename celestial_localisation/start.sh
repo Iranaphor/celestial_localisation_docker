@@ -6,4 +6,4 @@ cd /home/ros/ros2_ws
 colcon build --symlink-install
 source install/setup.bash
 
-exec ros2 launch celestial_bringup celestial_localization.launch.py
+exec ros2 launch celestial_bringup celestial_localisation.launch.py

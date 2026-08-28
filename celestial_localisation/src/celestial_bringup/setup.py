@@ -19,7 +19,7 @@ setup(
     zip_safe=True,
     maintainer='james',
     maintainer_email='primordia@live.com',
-    description='Launch files bringing up the full celestial localization pipeline.',
+    description='Launch files bringing up the full celestial localisation pipeline.',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={

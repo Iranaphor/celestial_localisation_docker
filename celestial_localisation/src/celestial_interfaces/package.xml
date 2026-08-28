@@ -2,7 +2,7 @@
 <package format="3">
   <name>celestial_interfaces</name>
   <version>0.1.0</version>
-  <description>Custom messages for the celestial localization pipeline.</description>
+  <description>Custom messages for the celestial localisation pipeline.</description>
   <maintainer email="primordia@live.com">james</maintainer>
   <license>Apache-2.0</license>
 

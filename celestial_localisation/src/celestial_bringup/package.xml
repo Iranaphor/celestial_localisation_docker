@@ -2,7 +2,7 @@
 <package format="3">
   <name>celestial_bringup</name>
   <version>0.1.0</version>
-  <description>Launch files and configuration bringing up the full celestial localization pipeline.</description>
+  <description>Launch files and configuration bringing up the full celestial localisation pipeline.</description>
   <maintainer email="primordia@live.com">james</maintainer>
   <license>Apache-2.0</license>
 

@@ -1,8 +1,8 @@
-# Celestial localization
+# Celestial localisation
 
 This ROS 2 Humble docker service hosts the full GNSS-independent celestial
-localization pipeline described in
-[ROS 2 Celestial Localization System.md](../ROS%202%20Celestial%20Localization%20System.md).
+localisation pipeline described in
+[ROS 2 Celestial Localisation System.md](../ROS%202%20Celestial%20Localisation%20System.md).
 
 A single container builds and runs a colcon workspace containing five
 packages under `src/`:
