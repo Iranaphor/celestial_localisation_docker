@@ -1,8 +1,7 @@
 # Celestial localisation
 
 This ROS 2 Humble docker service hosts the full GNSS-independent celestial
-localisation pipeline described in
-[ROS 2 Celestial Localisation System.md](../ROS%202%20Celestial%20Localisation%20System.md).
+localisation pipeline described in the repository [README](../README.md).
 
 A single container builds and runs a colcon workspace containing five
 packages under `src/`:
@@ -31,7 +30,7 @@ so the localizer can subscribe directly to the RealSense image topic.
 
 ## Configuration
 
-Copy `.env.example` to the repository root as `.env`, or export any of these
+Copy `example.env` to the repository root as `.env`, or export any of these
 variables before running Compose:
 
 - `CELESTIAL_CAMERA_TOPIC`
