@@ -1,0 +1,26 @@
+celestial_localizer:
+  ros__parameters:
+    input_topic: "/celestial_observations"
+    pose_topic: "/celestial_pose"
+    fix_topic: "/celestial_fix"
+
+    use_stars: true
+    use_sun: true
+    use_moon: true
+
+    use_imu: false
+    imu_topic: "/imu/data"
+
+    fixed_altitude: 0.0
+
+    initial_latitude: 51.5
+    initial_longitude: -0.1
+
+    global_search: false
+    search_radius_km: 500.0
+
+    robust_loss: "soft_l1"
+    publish_tf: true
+
+    map_frame: "map"
+    base_frame: "base_link"

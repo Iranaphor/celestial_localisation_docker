@@ -1,0 +1,10 @@
+# Example overrides: docker compose -f compose.yml -f compose.how_to_use.yml up --build
+services:
+  celestial_localisation_service:
+    environment:
+      ROS_DOMAIN_ID: "10"
+      CELESTIAL_CAMERA_TOPIC: /camera/camera/color/image_raw
+      CELESTIAL_SKY_MAP_TOPIC: /sky_map
+      CELESTIAL_OBSERVATIONS_TOPIC: /celestial_observations
+      CELESTIAL_INITIAL_LATITUDE: "51.5"
+      CELESTIAL_INITIAL_LONGITUDE: "-0.1"

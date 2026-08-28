@@ -1,0 +1,14 @@
+celestial_detector:
+  ros__parameters:
+    input_topic: "/sky_map"
+    output_topic: "/celestial_observations"
+
+    detect_stars: true
+    detect_sun: true
+    detect_moon: true
+
+    reject_aircraft: true
+    reject_satellites: true
+
+    star_detection_threshold: 5.0
+    minimum_confidence: 0.5

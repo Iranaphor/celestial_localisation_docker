@@ -1,0 +1,8 @@
+sky_mapper:
+  ros__parameters:
+    panorama_width: 2048
+    panorama_height: 1024
+    projection: "equirectangular"
+    calibration_file: ""
+    input_topic: "/camera/camera/color/image_raw"
+    output_topic: "/sky_map"

@@ -1,0 +1,48 @@
+services:
+  celestial_localisation_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: ${HOST_UID:-1000}
+        GID: ${HOST_GID:-1000}
+    image: celestial-localisation-service
+    # container_name: celestial_localisation_container_simple
+    network_mode: host
+    ipc: host
+    stdin_open: true
+    tty: true
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./src:/home/ros/ros2_ws/src:rw
+      - ./start.sh:/home/ros/start.sh:ro
+
+    environment:
+      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
+      ROS_LOCALHOST_ONLY: ${ROS_LOCALHOST_ONLY:-0}
+      CELESTIAL_CAMERA_TOPIC: ${CELESTIAL_CAMERA_TOPIC:-/camera/camera/color/image_raw}
+      CELESTIAL_SKY_MAP_TOPIC: ${CELESTIAL_SKY_MAP_TOPIC:-/sky_map}
+      CELESTIAL_OBSERVATIONS_TOPIC: ${CELESTIAL_OBSERVATIONS_TOPIC:-/celestial_observations}
+      CELESTIAL_POSE_TOPIC: ${CELESTIAL_POSE_TOPIC:-/celestial_pose}
+      CELESTIAL_FIX_TOPIC: ${CELESTIAL_FIX_TOPIC:-/celestial_fix}
+      CELESTIAL_PANORAMA_WIDTH: ${CELESTIAL_PANORAMA_WIDTH:-2048}
+      CELESTIAL_PANORAMA_HEIGHT: ${CELESTIAL_PANORAMA_HEIGHT:-1024}
+      CELESTIAL_CALIBRATION_FILE: ${CELESTIAL_CALIBRATION_FILE:-}
+      CELESTIAL_DETECT_STARS: ${CELESTIAL_DETECT_STARS:-true}
+      CELESTIAL_DETECT_SUN: ${CELESTIAL_DETECT_SUN:-true}
+      CELESTIAL_DETECT_MOON: ${CELESTIAL_DETECT_MOON:-true}
+      CELESTIAL_STAR_THRESHOLD: ${CELESTIAL_STAR_THRESHOLD:-5.0}
+      CELESTIAL_MIN_CONFIDENCE: ${CELESTIAL_MIN_CONFIDENCE:-0.5}
+      CELESTIAL_USE_SUN: ${CELESTIAL_USE_SUN:-true}
+      CELESTIAL_USE_MOON: ${CELESTIAL_USE_MOON:-true}
+      CELESTIAL_USE_STARS: ${CELESTIAL_USE_STARS:-true}
+      CELESTIAL_FIXED_ALTITUDE: ${CELESTIAL_FIXED_ALTITUDE:-0.0}
+      CELESTIAL_INITIAL_LATITUDE: ${CELESTIAL_INITIAL_LATITUDE:-51.5}
+      CELESTIAL_INITIAL_LONGITUDE: ${CELESTIAL_INITIAL_LONGITUDE:--0.1}
+      CELESTIAL_PUBLISH_TF: ${CELESTIAL_PUBLISH_TF:-true}
+      CELESTIAL_MAP_FRAME: ${CELESTIAL_MAP_FRAME:-map}
+      CELESTIAL_BASE_FRAME: ${CELESTIAL_BASE_FRAME:-base_link}
+
+    command: ["bash", "/home/ros/start.sh"]
