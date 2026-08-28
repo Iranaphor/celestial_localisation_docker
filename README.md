@@ -1,8 +1,8 @@
-# ROS 2 Celestial Localization System
+# ROS 2 Celestial Localisation System
 
 ## 1. Project Overview
 
-This project will develop a ROS 2 system for **GNSS-independent celestial localization** using an upward-facing 360° camera.
+This project will develop a ROS 2 system for **GNSS-independent celestial localisation** using an upward-facing 360° camera.
 
 The system will observe the sky and use known celestial objects, including:
 
@@ -23,9 +23,9 @@ The system should be designed so that it can later be extended with:
 - Aircraft rejection
 - Temporal sky observations
 - IMU fusion
-- Continuous localization
+- Continuous localisation
 
-The initial development should therefore focus on a modular **celestial localization pipeline** rather than implementing the later atmospheric odometry system.
+The initial development should therefore focus on a modular **celestial localisation pipeline** rather than implementing the later atmospheric odometry system.
 
 ---
 
@@ -79,7 +79,7 @@ The modules should be kept independent so that individual implementations can be
 Create a ROS 2 Python workspace/package structure similar to:
 
 ```text
-celestial_localization_ws/
+celestial_localisation_ws/
 │
 └── src/
     │
@@ -138,12 +138,12 @@ celestial_localization_ws/
         ├── package.xml
         ├── setup.py
         ├── launch/
-        │   └── celestial_localization.launch.py
+        │   └── celestial_localisation.launch.py
         └── config/
-            └── celestial_localization.yaml
+            └── celestial_localisation.yaml
 ```
 
-The exact package structure may be adjusted where appropriate, but image construction, celestial detection and localization should remain logically separated.
+The exact package structure may be adjusted where appropriate, but image construction, celestial detection and localisation should remain logically separated.
 
 ---
 
@@ -368,7 +368,7 @@ UNKNOWN_POINT_SOURCE
 CLOUD
 ```
 
-Satellites and aircraft should initially primarily be treated as contaminants/rejection classes rather than localization landmarks.
+Satellites and aircraft should initially primarily be treated as contaminants/rejection classes rather than localisation landmarks.
 
 ---
 
@@ -421,7 +421,7 @@ centroid uncertainty
 detection confidence
 ```
 
-Subpixel centroid estimation is desirable because celestial localization accuracy is directly related to angular measurement accuracy.
+Subpixel centroid estimation is desirable because celestial localisation accuracy is directly related to angular measurement accuracy.
 
 ---
 
@@ -605,7 +605,7 @@ Potential OpenCV functionality:
 cv2.calcOpticalFlowPyrLK
 ```
 
-Initially, unidentified moving objects should simply be rejected from the localization solver.
+Initially, unidentified moving objects should simply be rejected from the localisation solver.
 
 Future versions may use identified satellites as additional known celestial references.
 
@@ -874,7 +874,7 @@ For a candidate terrestrial location, calculate predicted values and compare the
 
 ---
 
-# 20. Localization State
+# 20. Localisation State
 
 Initial optimization state:
 
@@ -1061,7 +1061,7 @@ If prior location information is available, allow the global search to be constr
 Example ROS parameters:
 
 ```yaml
-localization:
+localisation:
   global_search: true
 
   initial_latitude: null
@@ -1093,7 +1093,7 @@ An IMU should eventually provide:
 - Pitch
 - Approximate heading where available
 
-Gravity is particularly valuable because celestial localization depends on the relationship between celestial observations and the local vertical.
+Gravity is particularly valuable because celestial localisation depends on the relationship between celestial observations and the local vertical.
 
 Potential input:
 
@@ -1111,7 +1111,7 @@ The system should allow IMU use to be enabled/disabled through parameters.
 
 ---
 
-# 27. Localization Outputs
+# 27. Localisation Outputs
 
 Primary output:
 
@@ -1125,7 +1125,7 @@ Type:
 geometry_msgs/msg/PoseWithCovarianceStamped
 ```
 
-The localization system should also publish a global geographic position where useful:
+The localisation system should also publish a global geographic position where useful:
 
 ```text
 /celestial_fix
@@ -1152,7 +1152,7 @@ covariance
 
 # 28. TF Output
 
-Publish an appropriate TF representing the resulting localization.
+Publish an appropriate TF representing the resulting localisation.
 
 Potential frames:
 
@@ -1169,14 +1169,14 @@ odom
 base_link
 ```
 
-The celestial localizer should NOT unnecessarily replace normal ROS localization architecture.
+The celestial localizer should NOT unnecessarily replace normal ROS localisation architecture.
 
-Instead, treat celestial localization as a **global absolute positioning source**, conceptually similar to GNSS.
+Instead, treat celestial localisation as a **global absolute positioning source**, conceptually similar to GNSS.
 
 The exact TF ownership should be configurable so the system can later integrate with:
 
 ```text
-robot_localization
+robot_localisation
 Nav2
 ```
 
@@ -1370,14 +1370,14 @@ Create a Python/ROS test that:
 1. Defines a known latitude/longitude.
 2. Defines a known UTC timestamp.
 3. Uses Astropy/Skyfield to generate synthetic celestial observations.
-4. Passes these observations to the localization solver.
+4. Passes these observations to the localisation solver.
 5. Starts the solver from an incorrect location.
 6. Attempts to recover the original location.
 7. Reports position error in metres.
 
 This should be implemented FIRST.
 
-It isolates the fundamental localization mathematics from camera/perception problems.
+It isolates the fundamental localisation mathematics from camera/perception problems.
 
 ---
 
@@ -1394,14 +1394,14 @@ Introduce controlled angular noise:
 1 arcsec
 ```
 
-Measure resulting localization accuracy.
+Measure resulting localisation accuracy.
 
 Produce:
 
 ```text
 angular measurement error
         versus
-position localization error
+position localisation error
 ```
 
 This experiment will establish the required camera/angular accuracy.
@@ -1410,7 +1410,7 @@ This experiment will establish the required camera/angular accuracy.
 
 ## Stage 3 — Sun and Moon Solver
 
-Test localization using synthetic:
+Test localisation using synthetic:
 
 ```text
 Sun
@@ -1433,7 +1433,7 @@ Investigate:
 number of stars
 star geometry
 angular uncertainty
-localization accuracy
+localisation accuracy
 ```
 
 ---
@@ -1468,7 +1468,7 @@ Validate measured celestial angles against expected Astropy/Skyfield positions f
 
 ---
 
-## Stage 7 — Full Celestial Localization
+## Stage 7 — Full Celestial Localisation
 
 Run:
 
@@ -1484,12 +1484,12 @@ Compare estimated position against known ground truth.
 
 ---
 
-## Stage 8 — ROS Localization Integration
+## Stage 8 — ROS Localisation Integration
 
 Integrate output with:
 
 ```text
-robot_localization
+robot_localisation
 ```
 
 and potentially:
@@ -1498,7 +1498,7 @@ and potentially:
 Nav2
 ```
 
-Treat the celestial position estimate as an intermittent global absolute localization measurement.
+Treat the celestial position estimate as an intermittent global absolute localisation measurement.
 
 ---
 
@@ -1519,14 +1519,14 @@ Future architecture:
           │                │
           ▼                ▼
      Celestial         Atmospheric
-     Localization       Odometry
+    Localisation       Odometry
           │                │
  absolute global      relative motion
      position             estimate
           │                │
           └───────┬────────┘
                   ▼
-            localization
+            localisation
                fusion
                   │
                   ▼
@@ -1566,7 +1566,7 @@ When generating the project, follow these principles.
 
 ### Modularity
 
-Do not tightly couple perception and localization.
+Do not tightly couple perception and localisation.
 
 Each detector should be replaceable.
 
@@ -1613,11 +1613,11 @@ Convert to azimuth/elevation primarily for human readability and ROS messages.
 
 ---
 
-### Uncertainty-aware localization
+### Uncertainty-aware localisation
 
 Every observation should have confidence/uncertainty.
 
-The localization solver should weight observations appropriately.
+The localisation solver should weight observations appropriately.
 
 ---
 
@@ -1625,7 +1625,7 @@ The localization solver should weight observations appropriately.
 
 Develop and validate the celestial position solver using synthetic perfect observations before introducing camera perception.
 
-This allows localization mathematics and perception errors to be evaluated independently.
+This allows localisation mathematics and perception errors to be evaluated independently.
 
 ---
 
@@ -1675,7 +1675,7 @@ OUTPUT:
     TF
 ```
 
-Cloud-based localization is explicitly outside the minimum viable implementation.
+Cloud-based localisation is explicitly outside the minimum viable implementation.
 
 ---
 
