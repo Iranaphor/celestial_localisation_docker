@@ -51,3 +51,7 @@ variables before running Compose:
 The `./src` directory is bind-mounted read/write into the container, so
 package sources can be edited on the host and rebuilt inside the container
 with `colcon build --symlink-install`.
+
+The default bringup includes the in-container `test_publisher`, which exposes
+`/test/publish_camera_image`, `/test/publish_sky_map`,
+`/test/publish_observations`, and `/test/publish_all` services.

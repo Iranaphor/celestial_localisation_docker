@@ -7,7 +7,7 @@ frame is not necessarily aligned with true north.
 import numpy as np
 from scipy.optimize import least_squares
 
-from celestial_localizer.coordinate_transforms import az_el_to_unit_vector
+from celestial_localiser.coordinate_transforms import az_el_to_unit_vector
 
 
 def _residuals(state, observations, timestamp, ephemeris):

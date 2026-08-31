@@ -10,7 +10,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + '/config', ['config/celestial_localizer.yaml']),
+        ('share/' + package_name + '/config', ['config/celestial_localiser.yaml']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -21,7 +21,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'celestial_localizer_node = celestial_localizer.celestial_localizer_node:main',
+            'celestial_localizer_node = celestial_localiser.celestial_localiser_node:main',
         ],
     },
 )

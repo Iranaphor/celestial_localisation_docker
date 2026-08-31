@@ -89,6 +89,12 @@ The bringup launch file also publishes the configured TF between `map` and
 `base_link` when `CELESTIAL_PUBLISH_TF=true`. Topic names and detector,
 localiser, and panorama parameters are passed from environment variables.
 
+The bringup launch file also starts the `test_publisher` node and exposes
+`/test/publish_camera_image`,
+`/test/publish_sky_map`, `/test/publish_observations`, and `/test/publish_all`
+services. Those services publish sample messages onto the configured camera,
+sky-map, and celestial-observation topics.
+
 ## Source layout
 
 ```text
@@ -117,6 +123,5 @@ script runs `colcon build --symlink-install` again.
 
 ## Development notes
 
-The celestial localiser currently expects accurate UTC time and is intended
-for a stationary platform. Star identification, transient rejection, and
-some sensor-fusion capabilities remain extension points in the source tree.
+See [Future directions](docs/future-directions.md) for planned developments.
++

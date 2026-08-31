@@ -14,6 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*.launch.py')),
         (os.path.join('share', package_name, 'config'), glob('config/*.yaml')),
+        (os.path.join('share', package_name, 'data'), glob('data/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -23,6 +24,8 @@ setup(
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [],
+        'console_scripts': [
+            'test_publisher = celestial_bringup.test_publisher:main',
+        ],
     },
 )

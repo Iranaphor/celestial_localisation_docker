@@ -2,66 +2,66 @@ services:
 
 #########################################################
 
-  # On the host, allow local Docker clients to access the X server before starting:
-  # xhost +local:
-  rviz_service:
-    build:
-      context: ./rviz
-      dockerfile: Dockerfile
-      args:
-        UID: ${HOST_UID:-1000}
-        GID: ${HOST_GID:-1000}
-    #container_name: rviz_container_grouped
-    pull_policy: build
-    network_mode: host
-    ipc: "host"
+  # # On the host, allow local Docker clients to access the X server before starting:
+  # # xhost +local:
+  # rviz_service:
+  #   build:
+  #     context: ./rviz
+  #     dockerfile: Dockerfile
+  #     args:
+  #       UID: ${HOST_UID:-1000}
+  #       GID: ${HOST_GID:-1000}
+  #   #container_name: rviz_container_grouped
+  #   pull_policy: build
+  #   network_mode: host
+  #   ipc: "host"
 
-    environment:
-      DISPLAY: ${DISPLAY}
-      QT_X11_NO_MITSHM: "1"
-      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
-      ROS_LOCALHOST_ONLY: ${ROS_LOCALHOST_ONLY:-0}
+  #   environment:
+  #     DISPLAY: ${DISPLAY}
+  #     QT_X11_NO_MITSHM: "1"
+  #     ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
+  #     ROS_LOCALHOST_ONLY: ${ROS_LOCALHOST_ONLY:-0}
 
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ./rviz/all.rviz:/home/ros/all.rviz:ro
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  #     - ./rviz/all.rviz:/home/ros/all.rviz:ro
 
-    command: ["bash", "-lc", "source /opt/ros/humble/setup.bash && exec rviz2 -d /home/ros/all.rviz"]
+  #   command: ["bash", "-lc", "source /opt/ros/humble/setup.bash && exec rviz2 -d /home/ros/all.rviz"]
 
 #########################################################
 
-  realsense_service:
-    extends:
-      file: ./realsense_docker/compose.yml
-      service: realsense_service
-    build:
-      context: ./realsense_docker
-      dockerfile: Dockerfile
-      args:
-        UID: ${HOST_UID:-1000}
-        GID: ${HOST_GID:-1000}
-    #container_name: realsense_container_grouped
-    pull_policy: build
+  # realsense_service:
+  #   extends:
+  #     file: ./realsense_docker/compose.yml
+  #     service: realsense_service
+  #   build:
+  #     context: ./realsense_docker
+  #     dockerfile: Dockerfile
+  #     args:
+  #       UID: ${HOST_UID:-1000}
+  #       GID: ${HOST_GID:-1000}
+  #   #container_name: realsense_container_grouped
+  #   pull_policy: build
 
-    # Host networking lets ROS 2 DDS discovery work across the host and containers.
-    network_mode: host
-    ipc: "host"
+  #   # Host networking lets ROS 2 DDS discovery work across the host and containers.
+  #   network_mode: host
+  #   ipc: "host"
 
-    environment:
-      ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
-      ROS_LOCALHOST_ONLY: ${ROS_LOCALHOST_ONLY:-0}
-      REALSENSE_SERIAL_NUMBER: ${REALSENSE_SERIAL_NUMBER:-}
-      REALSENSE_CAMERA_NAME: ${REALSENSE_CAMERA_NAME:-camera}
-      REALSENSE_CAMERA_NAMESPACE: ${REALSENSE_CAMERA_NAMESPACE:-camera}
-      REALSENSE_BASE_FRAME_ID: ${REALSENSE_BASE_FRAME_ID:-link}
-      REALSENSE_TF_PARENT_FRAME: ${SENSORS_BASE_LINK_FRAME:-sensors_base_link}
-      REALSENSE_TF_CHILD_FRAME: ${REALSENSE_TF_CHILD_FRAME:-camera_link}
-      REALSENSE_TF_X: "0.11"
-      REALSENSE_TF_Y: "-0.235"
-      REALSENSE_TF_Z: "0.08"
-      REALSENSE_TF_ROLL: "0.0"
-      REALSENSE_TF_PITCH: "0.0"
-      REALSENSE_TF_YAW: "-1.57079632679"
+  #   environment:
+  #     ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
+  #     ROS_LOCALHOST_ONLY: ${ROS_LOCALHOST_ONLY:-0}
+  #     REALSENSE_SERIAL_NUMBER: ${REALSENSE_SERIAL_NUMBER:-}
+  #     REALSENSE_CAMERA_NAME: ${REALSENSE_CAMERA_NAME:-camera}
+  #     REALSENSE_CAMERA_NAMESPACE: ${REALSENSE_CAMERA_NAMESPACE:-camera}
+  #     REALSENSE_BASE_FRAME_ID: ${REALSENSE_BASE_FRAME_ID:-link}
+  #     REALSENSE_TF_PARENT_FRAME: ${SENSORS_BASE_LINK_FRAME:-sensors_base_link}
+  #     REALSENSE_TF_CHILD_FRAME: ${REALSENSE_TF_CHILD_FRAME:-camera_link}
+  #     REALSENSE_TF_X: "0.11"
+  #     REALSENSE_TF_Y: "-0.235"
+  #     REALSENSE_TF_Z: "0.08"
+  #     REALSENSE_TF_ROLL: "0.0"
+  #     REALSENSE_TF_PITCH: "0.0"
+  #     REALSENSE_TF_YAW: "-1.57079632679"
 
 #########################################################
 
@@ -79,8 +79,8 @@ services:
     pull_policy: build
     network_mode: host
     ipc: host
-    depends_on:
-      - realsense_service
+    # depends_on:
+    #   - realsense_service
 
     environment:
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
@@ -107,9 +107,15 @@ services:
       CELESTIAL_PUBLISH_TF: ${CELESTIAL_PUBLISH_TF:-true}
       CELESTIAL_MAP_FRAME: ${CELESTIAL_MAP_FRAME:-map}
       CELESTIAL_BASE_FRAME: ${CELESTIAL_BASE_FRAME:-base_link}
+      CELESTIAL_DEBUG_OUTPUT_DIR: ${CELESTIAL_DEBUG_OUTPUT_DIR:-/home/ros/debug_output}
+      CELESTIAL_TEST_CAMERA_IMAGE_FILE: ${CELESTIAL_TEST_CAMERA_IMAGE_FILE:-}
+      CELESTIAL_TEST_SKY_MAP_IMAGE_FILE: ${CELESTIAL_TEST_SKY_MAP_IMAGE_FILE:-}
+      CELESTIAL_TEST_SKY_MAP_IMAGE_DIR: ${CELESTIAL_TEST_SKY_MAP_IMAGE_DIR:-}
+      CELESTIAL_TEST_CAPTURE_TIMESTAMP: ${CELESTIAL_TEST_CAPTURE_TIMESTAMP:-}
 
     volumes:
       - ./celestial_localisation/src:/home/ros/ros2_ws/src:rw
       - ./celestial_localisation/start.sh:/home/ros/start.sh:ro
+      - ./celestial_localisation/debug_output:/home/ros/debug_output:rw
 
 #########################################################

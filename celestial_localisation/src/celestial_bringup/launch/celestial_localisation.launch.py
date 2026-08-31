@@ -6,6 +6,7 @@ mirroring the motion_extractor pattern of env-driven configuration.
 """
 import os
 
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -14,10 +15,15 @@ def _env(name, default):
     return os.environ.get(name, default)
 
 
+def _package_file(*parts):
+    return os.path.join(get_package_share_directory('celestial_bringup'), *parts)
+
+
 def generate_launch_description():
     camera_input_topic = _env('CELESTIAL_CAMERA_TOPIC', '/camera/camera/color/image_raw')
     sky_map_topic = _env('CELESTIAL_SKY_MAP_TOPIC', '/sky_map')
     observations_topic = _env('CELESTIAL_OBSERVATIONS_TOPIC', '/celestial_observations')
+    debug_output_dir = _env('CELESTIAL_DEBUG_OUTPUT_DIR', '')
 
     sky_mapper_node = Node(
         package='sky_mapper',
@@ -30,6 +36,7 @@ def generate_launch_description():
             'panorama_width': int(_env('CELESTIAL_PANORAMA_WIDTH', '2048')),
             'panorama_height': int(_env('CELESTIAL_PANORAMA_HEIGHT', '1024')),
             'calibration_file': _env('CELESTIAL_CALIBRATION_FILE', ''),
+            'debug_output_dir': debug_output_dir,
         }],
     )
 
@@ -46,6 +53,7 @@ def generate_launch_description():
             'detect_moon': _env('CELESTIAL_DETECT_MOON', 'true') == 'true',
             'star_detection_threshold': float(_env('CELESTIAL_STAR_THRESHOLD', '5.0')),
             'minimum_confidence': float(_env('CELESTIAL_MIN_CONFIDENCE', '0.5')),
+            'debug_output_dir': debug_output_dir,
         }],
     )
 
@@ -67,6 +75,24 @@ def generate_launch_description():
             'publish_tf': _env('CELESTIAL_PUBLISH_TF', 'true') == 'true',
             'map_frame': _env('CELESTIAL_MAP_FRAME', 'map'),
             'base_frame': _env('CELESTIAL_BASE_FRAME', 'base_link'),
+            'debug_output_dir': debug_output_dir,
+        }],
+    )
+
+    test_publisher_node = Node(
+        package='celestial_bringup',
+        executable='test_publisher',
+        name='test_publisher',
+        output='screen',
+        parameters=[{
+            'camera_topic': camera_input_topic,
+            'sky_map_topic': sky_map_topic,
+            'observations_topic': observations_topic,
+            'sample_observations_file': _package_file('data', 'sample_observations.json'),
+            'camera_image_file': _env('CELESTIAL_TEST_CAMERA_IMAGE_FILE', ''),
+            'sky_map_image_file': _env('CELESTIAL_TEST_SKY_MAP_IMAGE_FILE', ''),
+            'sky_map_image_dir': _env('CELESTIAL_TEST_SKY_MAP_IMAGE_DIR', ''),
+            'capture_timestamp': _env('CELESTIAL_TEST_CAPTURE_TIMESTAMP', ''),
         }],
     )
 
@@ -74,4 +100,5 @@ def generate_launch_description():
         sky_mapper_node,
         celestial_detector_node,
         celestial_localizer_node,
+        test_publisher_node,
     ])

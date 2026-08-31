@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-08-29T12:00:00Z",
+  "observations": [
+    {
+      "object_type": "SUN",
+      "object_id": "sun",
+      "azimuth": 180.0,
+      "elevation": 45.0,
+      "angular_uncertainty": 0.5,
+      "confidence": 0.95,
+      "pixel_x": 1024.0,
+      "pixel_y": 384.0,
+      "brightness": 255.0
+    },
+    {
+      "object_type": "MOON",
+      "object_id": "moon",
+      "azimuth": 270.0,
+      "elevation": 25.0,
+      "angular_uncertainty": 0.5,
+      "confidence": 0.85,
+      "pixel_x": 1536.0,
+      "pixel_y": 455.0,
+      "brightness": 220.0
+    }
+  ]
+}

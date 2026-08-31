@@ -18,6 +18,7 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - ./src:/home/ros/ros2_ws/src:rw
       - ./start.sh:/home/ros/start.sh:ro
+      - ./debug_output:/home/ros/debug_output:rw
 
     environment:
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}
@@ -44,5 +45,10 @@ services:
       CELESTIAL_PUBLISH_TF: ${CELESTIAL_PUBLISH_TF:-true}
       CELESTIAL_MAP_FRAME: ${CELESTIAL_MAP_FRAME:-map}
       CELESTIAL_BASE_FRAME: ${CELESTIAL_BASE_FRAME:-base_link}
+      CELESTIAL_DEBUG_OUTPUT_DIR: ${CELESTIAL_DEBUG_OUTPUT_DIR:-/home/ros/debug_output}
+      CELESTIAL_TEST_CAMERA_IMAGE_FILE: ${CELESTIAL_TEST_CAMERA_IMAGE_FILE:-}
+      CELESTIAL_TEST_SKY_MAP_IMAGE_FILE: ${CELESTIAL_TEST_SKY_MAP_IMAGE_FILE:-}
+      CELESTIAL_TEST_SKY_MAP_IMAGE_DIR: ${CELESTIAL_TEST_SKY_MAP_IMAGE_DIR:-}
+      CELESTIAL_TEST_CAPTURE_TIMESTAMP: ${CELESTIAL_TEST_CAPTURE_TIMESTAMP:-}
 
     command: ["bash", "/home/ros/start.sh"]

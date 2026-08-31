@@ -8,6 +8,7 @@ find_package(std_msgs REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/CelestialObservation.msg"
   "msg/CelestialObservationArray.msg"
+  "srv/PublishImageFile.srv"
   DEPENDENCIES std_msgs
 )
 

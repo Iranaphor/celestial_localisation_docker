@@ -1,0 +1,214 @@
+{
+  "used_observations": [
+    {
+      "object_id": "sun",
+      "azimuth": 180.0,
+      "elevation": 30.05859375,
+      "confidence": 0.9831436977365003
+    },
+    {
+      "object_id": "moon",
+      "azimuth": 180.0,
+      "elevation": 30.05859375,
+      "confidence": 0.9831436977365003
+    }
+  ],
+  "skipped_observations": [
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    },
+    {
+      "object_type": "STAR",
+      "object_id": "UNKNOWN",
+      "reason": "no ephemeris support for this object"
+    }
+  ],
+  "previous_state": {
+    "latitude": 51.5,
+    "longitude": -0.1,
+    "heading": 0.0
+  },
+  "solved_state": {
+    "latitude": 87.2952441414123,
+    "longitude": -146.79471904745438,
+    "heading": -12.794012663273584
+  },
+  "cost": 0.9956030198308912,
+  "covariance_diagonal": [
+    1.4978015099154456,
+    1.4978015099154456,
+    5.991206039661782
+  ]
+}

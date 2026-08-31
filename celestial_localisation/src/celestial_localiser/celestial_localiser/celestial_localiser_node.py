@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+import json
+from pathlib import Path
+
 import rclpy
 from rclpy.node import Node
 from rclpy.time import Time as RclpyTime
@@ -8,13 +11,19 @@ from tf2_ros import TransformBroadcaster
 
 from celestial_interfaces.msg import CelestialObservation, CelestialObservationArray
 
-from celestial_localizer.ephemeris import EphemerisProvider
-from celestial_localizer.pose_solver import solve
-from celestial_localizer.uncertainty import estimate_covariance
+from celestial_localiser.ephemeris import EphemerisProvider
+from celestial_localiser.pose_solver import solve
+from celestial_localiser.uncertainty import estimate_covariance
 
 _OBJECT_ID_BY_TYPE = {
     CelestialObservation.SUN: 'sun',
     CelestialObservation.MOON: 'moon',
+}
+
+_TYPE_NAMES = {
+    CelestialObservation.SUN: 'SUN',
+    CelestialObservation.MOON: 'MOON',
+    CelestialObservation.STAR: 'STAR',
 }
 
 
@@ -35,6 +44,7 @@ class CelestialLocalizerNode(Node):
         self.declare_parameter('publish_tf', True)
         self.declare_parameter('map_frame', 'map')
         self.declare_parameter('base_frame', 'base_link')
+        self.declare_parameter('debug_output_dir', '')
 
         input_topic = self.get_parameter('input_topic').value
         pose_topic = self.get_parameter('pose_topic').value
@@ -47,6 +57,11 @@ class CelestialLocalizerNode(Node):
         self.publish_tf = self.get_parameter('publish_tf').value
         self.map_frame = self.get_parameter('map_frame').value
         self.base_frame = self.get_parameter('base_frame').value
+
+        debug_output_dir = self.get_parameter('debug_output_dir').value
+        self.debug_dir = Path(debug_output_dir) if debug_output_dir else None
+        if self.debug_dir:
+            self.debug_dir.mkdir(parents=True, exist_ok=True)
 
         self.state = [
             self.get_parameter('initial_latitude').value,
@@ -61,21 +76,32 @@ class CelestialLocalizerNode(Node):
         self.fix_pub = self.create_publisher(NavSatFix, fix_topic, 10)
         self.tf_broadcaster = TransformBroadcaster(self)
 
-        self.get_logger().info(f"celestial_localizer listening on {input_topic}")
+        self.get_logger().info(
+            f"celestial_localizer listening on {input_topic}"
+            + (f", saving debug output to {self.debug_dir}" if self.debug_dir else "")
+        )
 
     def _on_observations(self, msg):
+        self.get_logger().info(f"received {len(msg.observations)} observations")
         usable = []
+        skipped = []
         for obs in msg.observations:
+            type_name = _TYPE_NAMES.get(obs.object_type, 'UNKNOWN')
+
             if obs.object_type == CelestialObservation.SUN and not self.use_sun:
+                skipped.append((obs, 'use_sun is disabled'))
                 continue
             if obs.object_type == CelestialObservation.MOON and not self.use_moon:
+                skipped.append((obs, 'use_moon is disabled'))
                 continue
             if obs.object_type == CelestialObservation.STAR and not self.use_stars:
+                skipped.append((obs, 'use_stars is disabled'))
                 continue
 
             object_id = _OBJECT_ID_BY_TYPE.get(obs.object_type)
             if object_id is None:
                 # Unidentified stars / rejection classes are not yet ephemeris-predictable.
+                skipped.append((obs, 'no ephemeris support for this object'))
                 continue
 
             usable.append({
@@ -84,11 +110,21 @@ class CelestialLocalizerNode(Node):
                 'elevation': obs.elevation,
                 'confidence': max(obs.confidence, 1e-3),
             })
+            self.get_logger().info(
+                f"using {type_name} '{object_id}' az={obs.azimuth:.2f} el={obs.elevation:.2f} "
+                f"confidence={obs.confidence:.2f} for pose solve"
+            )
+
+        for obs, reason in skipped:
+            self.get_logger().debug(
+                f"skipping {_TYPE_NAMES.get(obs.object_type, 'UNKNOWN')} '{obs.object_id}': {reason}"
+            )
 
         timestamp = RclpyTime.from_msg(msg.header.stamp).nanoseconds / 1e9
         if timestamp <= 0:
             timestamp = self.get_clock().now().nanoseconds / 1e9
 
+        previous_state = list(self.state)
         result = solve(usable, timestamp, self.ephemeris, self.state, self.robust_loss)
         self.state = list(result.x)
         covariance = estimate_covariance(result, len(usable))
@@ -97,6 +133,41 @@ class CelestialLocalizerNode(Node):
         self._publish_fix(msg.header, covariance)
         if self.publish_tf:
             self._publish_tf(msg.header)
+
+        self.get_logger().info(
+            f"solved pose lat={self.state[0]:.5f} lon={self.state[1]:.5f} heading={self.state[2]:.2f} "
+            f"(delta lat={self.state[0] - previous_state[0]:+.5f}, lon={self.state[1] - previous_state[1]:+.5f}) "
+            f"cost={result.cost:.6f} using {len(usable)}/{len(msg.observations)} observations; "
+            f"published to {self.pose_pub.topic_name}, {self.fix_pub.topic_name}"
+            + (", and broadcast tf" if self.publish_tf else "")
+        )
+
+        self._save_debug_output(msg, usable, skipped, previous_state, result, covariance)
+
+    def _save_debug_output(self, msg, usable, skipped, previous_state, result, covariance):
+        if self.debug_dir is None:
+            return
+
+        stamp = f"{msg.header.stamp.sec}_{msg.header.stamp.nanosec:09d}"
+        payload = {
+            'used_observations': usable,
+            'skipped_observations': [
+                {
+                    'object_type': _TYPE_NAMES.get(obs.object_type, 'UNKNOWN'),
+                    'object_id': obs.object_id,
+                    'reason': reason,
+                }
+                for obs, reason in skipped
+            ],
+            'previous_state': {'latitude': previous_state[0], 'longitude': previous_state[1], 'heading': previous_state[2]},
+            'solved_state': {'latitude': self.state[0], 'longitude': self.state[1], 'heading': self.state[2]},
+            'cost': float(result.cost),
+            'covariance_diagonal': [float(covariance[i][i]) for i in range(3)],
+        }
+        debug_path = self.debug_dir / f"pose_{stamp}.json"
+        with debug_path.open('w', encoding='utf-8') as stream:
+            json.dump(payload, stream, indent=2)
+        self.get_logger().info(f"saved pose debug output to {debug_path}")
 
     def _publish_pose(self, header, covariance):
         pose_msg = PoseWithCovarianceStamped()
