@@ -1,2 +1,6 @@
 **/*.pyc
 **/__pycache__/
+
+celestial_localisation/debug_output/
+
+**/*~
