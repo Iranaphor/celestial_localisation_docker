@@ -61,7 +61,11 @@ class CelestialLocalizerNode(Node):
         debug_output_dir = self.get_parameter('debug_output_dir').value
         self.debug_dir = Path(debug_output_dir) if debug_output_dir else None
         if self.debug_dir:
-            self.debug_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                self.debug_dir.mkdir(parents=True, exist_ok=True)
+            except OSError as error:
+                self.get_logger().error(f"cannot create debug output directory {self.debug_dir}: {error}")
+                self.debug_dir = None
 
         self.state = [
             self.get_parameter('initial_latitude').value,
@@ -165,8 +169,13 @@ class CelestialLocalizerNode(Node):
             'covariance_diagonal': [float(covariance[i][i]) for i in range(3)],
         }
         debug_path = self.debug_dir / f"pose_{stamp}.json"
-        with debug_path.open('w', encoding='utf-8') as stream:
-            json.dump(payload, stream, indent=2)
+        try:
+            with debug_path.open('w', encoding='utf-8') as stream:
+                json.dump(payload, stream, indent=2)
+        except OSError as error:
+            self.get_logger().error(f"disabling debug output after write failure: {error}")
+            self.debug_dir = None
+            return
         self.get_logger().info(f"saved pose debug output to {debug_path}")
 
     def _publish_pose(self, header, covariance):

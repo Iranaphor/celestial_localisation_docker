@@ -54,7 +54,11 @@ class CelestialDetectorNode(Node):
         debug_output_dir = self.get_parameter('debug_output_dir').value
         self.debug_dir = Path(debug_output_dir) if debug_output_dir else None
         if self.debug_dir:
-            self.debug_dir.mkdir(parents=True, exist_ok=True)
+            try:
+                self.debug_dir.mkdir(parents=True, exist_ok=True)
+            except OSError as error:
+                self.get_logger().error(f"cannot create debug output directory {self.debug_dir}: {error}")
+                self.debug_dir = None
 
         self.bridge = CvBridge()
         self.sub = self.create_subscription(Image, input_topic, self._on_sky_map, 10)
@@ -133,38 +137,44 @@ class CelestialDetectorNode(Node):
         if self.debug_dir is None:
             return
 
-        stamp = f"{header.stamp.sec}_{header.stamp.nanosec:09d}"
+        try:
+            stamp = f"{header.stamp.sec}_{header.stamp.nanosec:09d}"
 
-        annotated = image_bgr.copy()
-        for obs in observations:
-            type_name = _TYPE_NAMES.get(obs.object_type, 'UNKNOWN')
-            color = _MARKER_COLOR_BGR.get(type_name, (255, 255, 255))
-            center = (int(obs.pixel_x), int(obs.pixel_y))
-            cv2.circle(annotated, center, 10, color, 2)
-            cv2.putText(
-                annotated, f"{obs.object_id} {obs.confidence:.2f}",
-                (center[0] + 12, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA,
-            )
+            annotated = image_bgr.copy()
+            for obs in observations:
+                type_name = _TYPE_NAMES.get(obs.object_type, 'UNKNOWN')
+                color = _MARKER_COLOR_BGR.get(type_name, (255, 255, 255))
+                center = (int(obs.pixel_x), int(obs.pixel_y))
+                cv2.circle(annotated, center, 10, color, 2)
+                cv2.putText(
+                    annotated, f"{obs.object_id} {obs.confidence:.2f}",
+                    (center[0] + 12, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA,
+                )
 
-        image_path = self.debug_dir / f"sky_map_{stamp}.png"
-        cv2.imwrite(str(image_path), annotated)
+            image_path = self.debug_dir / f"sky_map_{stamp}.png"
+            if not cv2.imwrite(str(image_path), annotated):
+                raise OSError(f"failed to write {image_path}")
 
-        observations_payload = [
-            {
-                'object_type': _TYPE_NAMES.get(obs.object_type, 'UNKNOWN'),
-                'object_id': obs.object_id,
-                'azimuth': obs.azimuth,
-                'elevation': obs.elevation,
-                'confidence': obs.confidence,
-                'pixel_x': obs.pixel_x,
-                'pixel_y': obs.pixel_y,
-                'brightness': obs.brightness,
-            }
-            for obs in observations
-        ]
-        observations_path = self.debug_dir / f"observations_{stamp}.json"
-        with observations_path.open('w', encoding='utf-8') as stream:
-            json.dump(observations_payload, stream, indent=2)
+            observations_payload = [
+                {
+                    'object_type': _TYPE_NAMES.get(obs.object_type, 'UNKNOWN'),
+                    'object_id': obs.object_id,
+                    'azimuth': obs.azimuth,
+                    'elevation': obs.elevation,
+                    'confidence': obs.confidence,
+                    'pixel_x': obs.pixel_x,
+                    'pixel_y': obs.pixel_y,
+                    'brightness': obs.brightness,
+                }
+                for obs in observations
+            ]
+            observations_path = self.debug_dir / f"observations_{stamp}.json"
+            with observations_path.open('w', encoding='utf-8') as stream:
+                json.dump(observations_payload, stream, indent=2)
+        except OSError as error:
+            self.get_logger().error(f"disabling debug output after write failure: {error}")
+            self.debug_dir = None
+            return
 
         self.get_logger().info(f"saved annotated image and observations to {self.debug_dir}")
 

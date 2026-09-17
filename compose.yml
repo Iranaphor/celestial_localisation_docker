@@ -116,6 +116,10 @@ services:
     volumes:
       - ./celestial_localisation/src:/home/ros/ros2_ws/src:rw
       - ./celestial_localisation/start.sh:/home/ros/start.sh:ro
-      - ./celestial_localisation/debug_output:/home/ros/debug_output:rw
+      - type: bind
+        source: ./celestial_localisation/debug_output
+        target: /home/ros/debug_output
+        bind:
+          create_host_path: false
 
 #########################################################

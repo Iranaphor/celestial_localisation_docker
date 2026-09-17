@@ -18,7 +18,11 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - ./src:/home/ros/ros2_ws/src:rw
       - ./start.sh:/home/ros/start.sh:ro
-      - ./debug_output:/home/ros/debug_output:rw
+      - type: bind
+        source: ./debug_output
+        target: /home/ros/debug_output
+        bind:
+          create_host_path: false
 
     environment:
       ROS_DOMAIN_ID: ${ROS_DOMAIN_ID:-10}

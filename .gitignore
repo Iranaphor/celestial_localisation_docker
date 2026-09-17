@@ -1,6 +1,8 @@
 **/*.pyc
 **/__pycache__/
 
-celestial_localisation/debug_output/
+celestial_localisation/debug_output/*
+!celestial_localisation/debug_output/README.md
+!celestial_localisation/debug_output/
 
 **/*~
