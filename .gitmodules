@@ -1,3 +1,6 @@
 [submodule "realsense_docker"]
 	path = realsense_docker
 	url = git@github.com:Iranaphor/realsense_docker.git
+[submodule "stellarium-web-engine"]
+	path = stellarium-web-engine
+	url = git@github.com:Stellarium/stellarium-web-engine.git
