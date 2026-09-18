@@ -5,4 +5,9 @@ celestial_localisation/debug_output/*
 !celestial_localisation/debug_output/README.md
 !celestial_localisation/debug_output/
 
+celestial_localisation/stellarium_assets/*
+!celestial_localisation/stellarium_assets/.gitkeep
+!celestial_localisation/stellarium_assets/
+
 **/*~
+tmp/

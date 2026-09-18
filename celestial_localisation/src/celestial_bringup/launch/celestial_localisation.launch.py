@@ -1,4 +1,4 @@
-"""Brings up sky_mapper, celestial_detector and celestial_localizer together.
+"""Brings up the celestial pipeline and its optional simulation service.
 
 Topic names and key parameters are overridable via environment variables so
 the same launch file can be reused across docker-compose deployments,
@@ -37,6 +37,34 @@ def generate_launch_description():
             'panorama_height': int(_env('CELESTIAL_PANORAMA_HEIGHT', '1024')),
             'calibration_file': _env('CELESTIAL_CALIBRATION_FILE', ''),
             'debug_output_dir': debug_output_dir,
+        }],
+    )
+
+    celestial_simulation_node = Node(
+        package='celestial_simulation',
+        executable='celestial_simulation_node',
+        name='celestial_simulation_node',
+        output='screen',
+        parameters=[{
+            'output_topic': sky_map_topic,
+            'load_gps_service': _env('CELESTIAL_LOAD_GPS_SERVICE', '/test/load_gps'),
+            'frame_id': _env('CELESTIAL_SKY_MAP_FRAME', 'sky_map'),
+            'panorama_width': int(_env('CELESTIAL_PANORAMA_WIDTH', '2048')),
+            'panorama_height': int(_env('CELESTIAL_PANORAMA_HEIGHT', '1024')),
+            'face_size': int(_env('CELESTIAL_SIMULATION_FACE_SIZE', '512')),
+            'face_field_of_view': float(_env('CELESTIAL_SIMULATION_FACE_FOV', '95.0')),
+            'render_timeout_seconds': float(_env('CELESTIAL_SIMULATION_RENDER_TIMEOUT', '60.0')),
+            'debug_output_dir': debug_output_dir,
+            'engine_js': _env(
+                'CELESTIAL_STELLARIUM_ENGINE_JS',
+                '/opt/stellarium/stellarium-web-engine.js',
+            ),
+            'engine_wasm': _env(
+                'CELESTIAL_STELLARIUM_ENGINE_WASM',
+                '/opt/stellarium/stellarium-web-engine.wasm',
+            ),
+            'data_root': _env('CELESTIAL_STELLARIUM_DATA_ROOT', '/opt/stellarium/data'),
+            'browser_executable': _env('CELESTIAL_BROWSER_EXECUTABLE', ''),
         }],
     )
 
@@ -98,6 +126,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         sky_mapper_node,
+        celestial_simulation_node,
         celestial_detector_node,
         celestial_localizer_node,
         test_publisher_node,

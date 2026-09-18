@@ -3,7 +3,7 @@
 This ROS 2 Humble docker service hosts the full GNSS-independent celestial
 localisation pipeline described in the repository [README](../README.md).
 
-A single container builds and runs a colcon workspace containing five
+A single container builds and runs a colcon workspace containing six
 packages under `src/`:
 
 - `celestial_interfaces` — custom `CelestialObservation`/`CelestialObservationArray` messages.
@@ -11,7 +11,9 @@ packages under `src/`:
 - `celestial_detector` — detects stars (photutils), sun and moon (OpenCV) in the sky map.
 - `celestial_localizer` — matches observations against Astropy ephemeris predictions
   and solves for latitude/longitude/heading with SciPy, publishing pose/fix/TF.
-- `celestial_bringup` — launch file that starts all three nodes together.
+- `celestial_simulation` — renders Stellarium Web Engine views into an
+  equirectangular sky map after a GPS/time request.
+- `celestial_bringup` — launch file that starts the pipeline nodes together.
 
 Star identification (catalogue matching), aircraft/satellite rejection, and
 IMU fusion are stubbed as documented in the relevant source files — they are
@@ -55,3 +57,39 @@ with `colcon build --symlink-install`.
 The default bringup includes the in-container `test_publisher`, which exposes
 `/test/publish_camera_image`, `/test/publish_sky_map`,
 `/test/publish_observations`, and `/test/publish_all` services.
+
+## Run the Stellarium simulator
+
+Provide a local Stellarium Web Engine asset bundle in
+`celestial_localisation/stellarium_assets/`. The directory is
+mounted at `/opt/stellarium` by Compose. It should contain:
+
+```text
+stellarium_assets/
+|-- stellarium-web-engine.js
+|-- stellarium-web-engine.wasm
+`-- data/
+    |-- stars/
+    |-- skycultures/western/
+    |-- dso/
+    `-- surveys/
+        |-- milkyway/
+        `-- sso/{sun,moon}/
+```
+
+The engine and sky-data files are not bundled in this repository. Stellarium
+Web Engine is AGPL-3.0 or commercially licensed; obtain and distribute those
+assets under the license that applies to your use.
+
+The simulator node is launched alongside the live camera mapper and test
+publisher, but it does not initialize the browser until `/test/load_gps` is
+called. It exposes:
+
+```bash
+ros2 service call /test/load_gps celestial_interfaces/srv/LoadGps \
+  "{latitude: 51.5, longitude: -0.1, altitude: 30.0, timestamp: {sec: $(date -u +%s), nanosec: 0}}"
+```
+
+The timestamp is UTC and becomes the image header timestamp as well as the
+Stellarium observer time. A successful request renders and publishes one map;
+`/celestial_fix` remains a localizer output and is not used as simulator input.

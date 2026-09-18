@@ -11,7 +11,8 @@ The workspace is split into three Compose services:
   camera transform, and the depth point cloud node.
 - `celestial_localisation_service` builds and runs the ROS 2 workspace in
   `celestial_localisation/src`. It launches `sky_mapper`,
-  `celestial_detector`, and `celestial_localizer`.
+  `celestial_simulation`, `celestial_detector`, and `celestial_localizer`,
+  together with the test publisher.
 - `rviz_service` opens RViz with the configuration in `rviz/all.rviz`.
 
 The two runtime services use host networking and the same `ROS_DOMAIN_ID` so
@@ -72,6 +73,11 @@ values. The most commonly changed settings are:
 - `CELESTIAL_CALIBRATION_FILE` optionally supplies camera calibration.
 - `CELESTIAL_INITIAL_LATITUDE` and `CELESTIAL_INITIAL_LONGITUDE` set the
   localiser starting estimate.
+- `CELESTIAL_STELLARIUM_ASSET_DIR` supplies the mounted engine/data bundle.
+- `CELESTIAL_STELLARIUM_ENGINE_JS` / `CELESTIAL_STELLARIUM_ENGINE_WASM` /
+  `CELESTIAL_STELLARIUM_DATA_ROOT` select assets inside the container.
+- `CELESTIAL_BROWSER_EXECUTABLE` optionally selects a custom Chromium executable;
+  leave it blank to use the Playwright-managed browser in the image.
 - `ROS_DOMAIN_ID` must match for all ROS 2 services.
 
 ## ROS interfaces
@@ -95,6 +101,20 @@ The bringup launch file also starts the `test_publisher` node and exposes
 services. Those services publish sample messages onto the configured camera,
 sky-map, and celestial-observation topics.
 
+The simulator service is always available. Call `/test/load_gps` to render a
+map from an observer position and timestamp:
+
+```bash
+ros2 service call /test/load_gps celestial_interfaces/srv/LoadGps \
+  "{latitude: 51.5, longitude: -0.1, altitude: 30.0, timestamp: {sec: $(date -u +%s), nanosec: 0}}"
+```
+
+The request timestamp is UTC. The simulator publishes one `bgr8`
+equirectangular image on `/sky_map` with that timestamp. The engine JavaScript,
+WebAssembly, and external sky-data assets are intentionally mounted rather
+than copied into the repository; Stellarium Web Engine is AGPL-3.0 or
+commercially licensed.
+
 ## Source layout
 
 ```text
@@ -108,6 +128,7 @@ sky-map, and celestial-observation topics.
 |       |-- celestial_detector/
 |       |-- celestial_interfaces/
 |       |-- celestial_localiser/
+|       |-- celestial_simulation/
 |       `-- sky_mapper/
 |-- realsense_docker/
 |   |-- Dockerfile
@@ -124,4 +145,3 @@ script runs `colcon build --symlink-install` again.
 ## Development notes
 
 See [Future directions](docs/future-directions.md) for planned developments.
-+

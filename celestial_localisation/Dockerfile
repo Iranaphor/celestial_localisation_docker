@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
     git \
     build-essential \
+    emscripten \
+    scons \
     python3-colcon-common-extensions \
     python3-pip \
     ros-humble-cv-bridge \
@@ -31,7 +33,12 @@ RUN pip3 install --no-cache-dir \
     astropy \
     skyfield \
     photutils \
-    py360convert
+    py360convert \
+    playwright
+
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+RUN python3 -m playwright install --with-deps chromium \
+    && chmod -R a+rX ${PLAYWRIGHT_BROWSERS_PATH}
 
 RUN addgroup --gid ${GID} ${USERNAME} \
     && adduser --uid ${UID} --gid ${GID} --disabled-password --gecos "" ${USERNAME} \

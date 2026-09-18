@@ -108,6 +108,15 @@ services:
       CELESTIAL_MAP_FRAME: ${CELESTIAL_MAP_FRAME:-map}
       CELESTIAL_BASE_FRAME: ${CELESTIAL_BASE_FRAME:-base_link}
       CELESTIAL_DEBUG_OUTPUT_DIR: ${CELESTIAL_DEBUG_OUTPUT_DIR:-/home/ros/debug_output}
+      CELESTIAL_LOAD_GPS_SERVICE: ${CELESTIAL_LOAD_GPS_SERVICE:-/test/load_gps}
+      CELESTIAL_SKY_MAP_FRAME: ${CELESTIAL_SKY_MAP_FRAME:-sky_map}
+      CELESTIAL_SIMULATION_FACE_SIZE: ${CELESTIAL_SIMULATION_FACE_SIZE:-512}
+      CELESTIAL_SIMULATION_FACE_FOV: ${CELESTIAL_SIMULATION_FACE_FOV:-95.0}
+      CELESTIAL_SIMULATION_RENDER_TIMEOUT: ${CELESTIAL_SIMULATION_RENDER_TIMEOUT:-60.0}
+      CELESTIAL_STELLARIUM_ENGINE_JS: ${CELESTIAL_STELLARIUM_ENGINE_JS:-/opt/stellarium/stellarium-web-engine.js}
+      CELESTIAL_STELLARIUM_ENGINE_WASM: ${CELESTIAL_STELLARIUM_ENGINE_WASM:-/opt/stellarium/stellarium-web-engine.wasm}
+      CELESTIAL_STELLARIUM_DATA_ROOT: ${CELESTIAL_STELLARIUM_DATA_ROOT:-/opt/stellarium/data}
+      CELESTIAL_BROWSER_EXECUTABLE: ${CELESTIAL_BROWSER_EXECUTABLE:-}
       CELESTIAL_TEST_CAMERA_IMAGE_FILE: ${CELESTIAL_TEST_CAMERA_IMAGE_FILE:-}
       CELESTIAL_TEST_SKY_MAP_IMAGE_FILE: ${CELESTIAL_TEST_SKY_MAP_IMAGE_FILE:-}
       CELESTIAL_TEST_SKY_MAP_IMAGE_DIR: ${CELESTIAL_TEST_SKY_MAP_IMAGE_DIR:-}
@@ -121,5 +130,17 @@ services:
         target: /home/ros/debug_output
         bind:
           create_host_path: false
+      - type: bind
+        source: ${CELESTIAL_STELLARIUM_SOURCE_DIR:-./stellarium-web-engine}
+        target: /opt/stellarium-web-engine
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${CELESTIAL_STELLARIUM_ASSET_DIR:-./celestial_localisation/stellarium_assets}
+        target: /opt/stellarium
+        read_only: false
+        bind:
+          create_host_path: true
 
 #########################################################
