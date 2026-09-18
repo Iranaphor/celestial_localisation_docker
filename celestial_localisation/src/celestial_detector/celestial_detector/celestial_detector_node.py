@@ -146,10 +146,11 @@ class CelestialDetectorNode(Node):
                 color = _MARKER_COLOR_BGR.get(type_name, (255, 255, 255))
                 center = (int(obs.pixel_x), int(obs.pixel_y))
                 cv2.circle(annotated, center, 10, color, 2)
-                cv2.putText(
-                    annotated, f"{obs.object_id} {obs.confidence:.2f}",
-                    (center[0] + 12, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA,
-                )
+                if obs.object_id != 'UNKNOWN':
+                    cv2.putText(
+                        annotated, f"{obs.object_id} {obs.confidence:.2f}",
+                        (center[0] + 12, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA,
+                    )
 
             image_path = self.debug_dir / f"sky_map_{stamp}.png"
             if not cv2.imwrite(str(image_path), annotated):

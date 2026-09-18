@@ -47,6 +47,9 @@ variables before running Compose:
 - `CELESTIAL_FIXED_ALTITUDE`
 - `CELESTIAL_INITIAL_LATITUDE` / `CELESTIAL_INITIAL_LONGITUDE`
 - `CELESTIAL_PUBLISH_TF` / `CELESTIAL_MAP_FRAME` / `CELESTIAL_BASE_FRAME`
+- `CELESTIAL_SIMULATION_SHOW_LABELS` hides or shows Stellarium object names.
+- `CELESTIAL_SIMULATION_ENABLE_LANDSCAPE` enables the ground landscape.
+- `CELESTIAL_SIMULATION_LANDSCAPE_KEY` selects the landscape data source.
 
 ## Editing packages
 
@@ -72,6 +75,7 @@ stellarium_assets/
     |-- stars/
     |-- skycultures/western/
     |-- dso/
+    |-- landscapes/guereins/
     `-- surveys/
         |-- milkyway/
         `-- sso/{sun,moon}/
@@ -93,3 +97,6 @@ ros2 service call /test/load_gps celestial_interfaces/srv/LoadGps \
 The timestamp is UTC and becomes the image header timestamp as well as the
 Stellarium observer time. A successful request renders and publishes one map;
 `/celestial_fix` remains a localizer output and is not used as simulator input.
+Object labels are disabled and the `guereins` ground landscape is enabled by
+default. The landscape metadata points to the Stellarium HIPS service, so
+rendering it requires network access from the container.

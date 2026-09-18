@@ -26,6 +26,9 @@ class CelestialSimulationNode(Node):
         self.declare_parameter('face_size', 512)
         self.declare_parameter('face_field_of_view', 95.0)
         self.declare_parameter('render_timeout_seconds', 60.0)
+        self.declare_parameter('show_object_labels', False)
+        self.declare_parameter('enable_landscape', True)
+        self.declare_parameter('landscape_key', 'guereins')
         self.declare_parameter(
             'debug_output_dir',
             os.environ.get('CELESTIAL_DEBUG_OUTPUT_DIR', ''),
@@ -76,6 +79,9 @@ class CelestialSimulationNode(Node):
             panorama_width=self.get_parameter('panorama_width').value,
             panorama_height=self.get_parameter('panorama_height').value,
             face_field_of_view=self.get_parameter('face_field_of_view').value,
+            show_object_labels=self.get_parameter('show_object_labels').value,
+            enable_landscape=self.get_parameter('enable_landscape').value,
+            landscape_key=self.get_parameter('landscape_key').value,
         )
         self.get_logger().info(
             f'celestial_simulation publishing generated sky maps on {output_topic}; '

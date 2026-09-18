@@ -54,6 +54,9 @@ def generate_launch_description():
             'face_size': int(_env('CELESTIAL_SIMULATION_FACE_SIZE', '512')),
             'face_field_of_view': float(_env('CELESTIAL_SIMULATION_FACE_FOV', '95.0')),
             'render_timeout_seconds': float(_env('CELESTIAL_SIMULATION_RENDER_TIMEOUT', '60.0')),
+            'show_object_labels': _env('CELESTIAL_SIMULATION_SHOW_LABELS', 'false') == 'true',
+            'enable_landscape': _env('CELESTIAL_SIMULATION_ENABLE_LANDSCAPE', 'true') == 'true',
+            'landscape_key': _env('CELESTIAL_SIMULATION_LANDSCAPE_KEY', 'guereins'),
             'debug_output_dir': debug_output_dir,
             'engine_js': _env(
                 'CELESTIAL_STELLARIUM_ENGINE_JS',

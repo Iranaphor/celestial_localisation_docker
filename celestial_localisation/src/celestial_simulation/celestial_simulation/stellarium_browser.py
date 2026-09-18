@@ -78,6 +78,9 @@ class StellariumBrowserBridge:
         browser_executable='',
         face_size=512,
         timeout_seconds=60.0,
+        show_object_labels=False,
+        enable_landscape=True,
+        landscape_key='guereins',
     ):
         self.engine_js = Path(engine_js).expanduser() if engine_js else None
         self.engine_wasm = Path(engine_wasm).expanduser() if engine_wasm else None
@@ -85,6 +88,9 @@ class StellariumBrowserBridge:
         self.browser_executable = browser_executable
         self.face_size = int(face_size)
         self.timeout_seconds = float(timeout_seconds)
+        self.show_object_labels = bool(show_object_labels)
+        self.enable_landscape = bool(enable_landscape)
+        self.landscape_key = str(landscape_key)
         self._playwright = None
         self._browser = None
         self._context = None
@@ -109,18 +115,27 @@ class StellariumBrowserBridge:
         for face in cube_faces():
             azimuth = math.degrees(math.atan2(face.center[1], face.center[0])) % 360.0
             elevation = math.degrees(math.asin(face.center[2]))
-            self._page.evaluate(
-                'args => window.__renderFace(args.azimuth, args.elevation)',
-                {'azimuth': azimuth, 'elevation': elevation},
-            )
-            self._page.wait_for_timeout(100)
-            png = self._page.locator('#stel-canvas').screenshot(type='png')
-            image = cv2.imdecode(np.frombuffer(png, dtype=np.uint8), cv2.IMREAD_COLOR)
-            if image is None:
-                raise RendererError(f'failed to decode the {face.name} browser screenshot')
-            if image.shape[:2] != (self.face_size, self.face_size):
-                image = cv2.resize(image, (self.face_size, self.face_size), interpolation=cv2.INTER_AREA)
-            faces[face.name] = image
+            suppress_downward_sky = self.enable_landscape and face.name == 'nadir'
+            if suppress_downward_sky:
+                self._page.evaluate('() => window.__setDownwardSkyVisible(false)')
+                self._page.wait_for_timeout(350)
+            try:
+                self._page.evaluate(
+                    'args => window.__renderFace(args.azimuth, args.elevation)',
+                    {'azimuth': azimuth, 'elevation': elevation},
+                )
+                self._page.wait_for_timeout(100)
+                png = self._page.locator('#stel-canvas').screenshot(type='png')
+                image = cv2.imdecode(np.frombuffer(png, dtype=np.uint8), cv2.IMREAD_COLOR)
+                if image is None:
+                    raise RendererError(f'failed to decode the {face.name} browser screenshot')
+                if image.shape[:2] != (self.face_size, self.face_size):
+                    image = cv2.resize(image, (self.face_size, self.face_size), interpolation=cv2.INTER_AREA)
+                faces[face.name] = image
+            finally:
+                if suppress_downward_sky:
+                    self._page.evaluate('() => window.__setDownwardSkyVisible(true)')
+                    self._page.wait_for_timeout(350)
         return faces
 
     def _ensure_started(self):
@@ -203,6 +218,7 @@ class StellariumBrowserBridge:
             ('stars', 'stars', ''),
             ('skycultures', 'skycultures/western', 'western'),
             ('dsos', 'dso', ''),
+            ('landscapes', f'landscapes/{self.landscape_key}', self.landscape_key),
             ('milkyway', 'surveys/milkyway', ''),
             ('planets', 'surveys/sso/moon', 'moon'),
             ('planets', 'surveys/sso/sun', 'sun'),
@@ -211,10 +227,16 @@ class StellariumBrowserBridge:
             {'module': module, 'path': path, 'key': key}
             for module, path, key in candidates
             if (self.data_root / path).exists()
+            and (self.enable_landscape or module != 'landscapes')
         ] if self.data_root else []
 
     def _create_server(self):
-        html = self._build_html(self._data_sources())
+        html = self._build_html(
+            self._data_sources(),
+            self.show_object_labels,
+            self.enable_landscape,
+            self.landscape_key,
+        )
         server = _AssetServer(('127.0.0.1', 0), _AssetRequestHandler)
         server.html = html.encode('utf-8')
         server.engine_js = self.engine_js
@@ -224,7 +246,7 @@ class StellariumBrowserBridge:
         threading.Thread(target=server.serve_forever, daemon=True).start()
         return server
 
-    def _build_html(self, data_sources):
+    def _build_html(self, data_sources, show_object_labels, enable_landscape, landscape_key):
         html = r'''<!doctype html>
 <html>
 <head>
@@ -249,6 +271,9 @@ window.__stelError = null;
 window.__dataReady = false;
 window.__dataStableFrames = 0;
 const dataSources = __DATA_SOURCES__;
+const showObjectLabels = __SHOW_OBJECT_LABELS__;
+const enableLandscape = __ENABLE_LANDSCAPE__;
+const landscapeKey = __LANDSCAPE_KEY__;
 function fail(error) {
   window.__stelState = 'error';
   window.__stelError = String(error && error.stack ? error.stack : error);
@@ -298,6 +323,13 @@ window.__renderFace = function(azimuth, elevation) {
   stel._core_update();
   stel._core_render(window.innerWidth, window.innerHeight, 1);
 };
+window.__setDownwardSkyVisible = function(visible) {
+    const core = window.__stel.core;
+    [core.stars, core.milkyway, core.dsos, core.planets,
+     core.comets, core.minor_planets, core.satellites].forEach(module => {
+        if (module) module.visible = visible;
+    });
+};
 try {
   StelWebEngine({
     wasmFile: '/engine.wasm',
@@ -307,15 +339,28 @@ try {
         window.__stel = stel;
         const core = stel.core;
         core.projection = 1;
-        core.landscapes.visible = false;
+                if (core.landscapes) {
+                    core.landscapes.visible = enableLandscape;
+                    core.landscapes.fog_visible = enableLandscape;
+                }
         core.atmosphere.visible = false;
-        core.stars.hints_visible = false;
+                core.cardinals.visible = false;
+                core.stars.hints_visible = showObjectLabels;
+                core.planets.hints_visible = showObjectLabels;
+                core.dsos.hints_visible = showObjectLabels;
+                core.comets.hints_visible = showObjectLabels;
+                core.minor_planets.hints_visible = showObjectLabels;
+                core.satellites.hints_visible = showObjectLabels;
+                core.constellations.labels_visible = showObjectLabels;
         dataSources.forEach(source => {
           const module = core[source.module];
           if (module) {
             module.addDataSource({url: '/data/' + source.path, key: source.key || 0});
           }
         });
+                if (enableLandscape && core.landscapes) {
+                    core.landscapes.current_id = landscapeKey;
+                }
         window.__stelState = 'ready';
         window.requestAnimationFrame(checkDataReady);
       } catch (error) {
@@ -330,7 +375,13 @@ try {
 </body>
 </html>
 '''
-        return html.replace('__DATA_SOURCES__', json.dumps(data_sources, separators=(',', ':')))
+        return (
+            html
+            .replace('__DATA_SOURCES__', json.dumps(data_sources, separators=(',', ':')))
+            .replace('__SHOW_OBJECT_LABELS__', json.dumps(show_object_labels))
+            .replace('__ENABLE_LANDSCAPE__', json.dumps(enable_landscape))
+            .replace('__LANDSCAPE_KEY__', json.dumps(landscape_key))
+        )
 
     def close(self):
         if self._page is not None:

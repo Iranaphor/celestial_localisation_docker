@@ -17,6 +17,9 @@ class StellariumRenderer:
         panorama_width=2048,
         panorama_height=1024,
         face_field_of_view=95.0,
+        show_object_labels=False,
+        enable_landscape=True,
+        landscape_key='guereins',
     ):
         self.panorama_width = int(panorama_width)
         self.panorama_height = int(panorama_height)
@@ -28,6 +31,9 @@ class StellariumRenderer:
             browser_executable=browser_executable,
             face_size=face_size,
             timeout_seconds=timeout_seconds,
+            show_object_labels=show_object_labels,
+            enable_landscape=enable_landscape,
+            landscape_key=landscape_key,
         )
 
     def render(self, latitude, longitude, altitude, timestamp_ms):
