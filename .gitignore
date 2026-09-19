@@ -10,4 +10,8 @@ celestial_localisation/stellarium_assets/*
 !celestial_localisation/stellarium_assets/
 
 **/*~
+*~
+
 tmp/
+
+.env
