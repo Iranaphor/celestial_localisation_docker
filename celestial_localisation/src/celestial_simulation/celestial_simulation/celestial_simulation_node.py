@@ -125,7 +125,7 @@ class CelestialSimulationNode(Node):
         message.step = image.shape[1] * 3
         message.data = image.tobytes()
         self.publisher.publish(message)
-        self._save_debug_output(image, message.header)
+        self._save_debug_output(image)
 
         response.success = True
         response.message = (
@@ -135,12 +135,11 @@ class CelestialSimulationNode(Node):
         )
         return response
 
-    def _save_debug_output(self, image, header):
+    def _save_debug_output(self, image):
         if self.debug_dir is None:
             return
 
-        stamp = f'{header.stamp.sec}_{header.stamp.nanosec:09d}'
-        image_path = self.debug_dir / f'simulated_sky_map_{stamp}.png'
+        image_path = self.debug_dir / 'simulated_sky_map.png'
         try:
             if not cv2.imwrite(str(image_path), image):
                 raise OSError(f'failed to write {image_path}')

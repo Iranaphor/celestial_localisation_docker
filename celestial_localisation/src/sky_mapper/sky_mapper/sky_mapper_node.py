@@ -69,9 +69,8 @@ class SkyMapperNode(Node):
         )
 
         if self.debug_dir is not None:
-            stamp = f"{header.stamp.sec}_{header.stamp.nanosec:09d}"
-            cv2.imwrite(str(self.debug_dir / f"camera_frame_{stamp}.png"), frame)
-            cv2.imwrite(str(self.debug_dir / f"panorama_{stamp}.png"), panorama)
+            cv2.imwrite(str(self.debug_dir / "camera_frame.png"), frame)
+            cv2.imwrite(str(self.debug_dir / "panorama.png"), panorama)
             self.get_logger().info(f"saved camera frame and panorama to {self.debug_dir}")
 
     def _on_capture(self, request, response):

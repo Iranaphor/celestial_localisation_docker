@@ -117,7 +117,7 @@ class CelestialDetectorNode(Node):
             f"star={star_count}) to celestial_localizer"
         )
 
-        self._save_debug_output(image, observations, msg.header)
+        self._save_debug_output(image, observations)
 
     def _build_observation(self, detection, width, height, object_type, object_id):
         azimuth, elevation = pixel_to_az_el(detection['pixel_x'], detection['pixel_y'], width, height)
@@ -133,13 +133,11 @@ class CelestialDetectorNode(Node):
         obs.brightness = detection['brightness']
         return obs
 
-    def _save_debug_output(self, image_bgr, observations, header):
+    def _save_debug_output(self, image_bgr, observations):
         if self.debug_dir is None:
             return
 
         try:
-            stamp = f"{header.stamp.sec}_{header.stamp.nanosec:09d}"
-
             annotated = image_bgr.copy()
             for obs in observations:
                 type_name = _TYPE_NAMES.get(obs.object_type, 'UNKNOWN')
@@ -152,7 +150,7 @@ class CelestialDetectorNode(Node):
                         (center[0] + 12, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA,
                     )
 
-            image_path = self.debug_dir / f"sky_map_{stamp}.png"
+            image_path = self.debug_dir / "sky_map.png"
             if not cv2.imwrite(str(image_path), annotated):
                 raise OSError(f"failed to write {image_path}")
 
@@ -169,7 +167,7 @@ class CelestialDetectorNode(Node):
                 }
                 for obs in observations
             ]
-            observations_path = self.debug_dir / f"observations_{stamp}.json"
+            observations_path = self.debug_dir / "observations.json"
             with observations_path.open('w', encoding='utf-8') as stream:
                 json.dump(observations_payload, stream, indent=2)
         except OSError as error:

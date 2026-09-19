@@ -146,13 +146,12 @@ class CelestialLocalizerNode(Node):
             + (", and broadcast tf" if self.publish_tf else "")
         )
 
-        self._save_debug_output(msg, usable, skipped, previous_state, result, covariance)
+        self._save_debug_output(usable, skipped, previous_state, result, covariance)
 
-    def _save_debug_output(self, msg, usable, skipped, previous_state, result, covariance):
+    def _save_debug_output(self, usable, skipped, previous_state, result, covariance):
         if self.debug_dir is None:
             return
 
-        stamp = f"{msg.header.stamp.sec}_{msg.header.stamp.nanosec:09d}"
         payload = {
             'used_observations': usable,
             'skipped_observations': [
@@ -168,7 +167,7 @@ class CelestialLocalizerNode(Node):
             'cost': float(result.cost),
             'covariance_diagonal': [float(covariance[i][i]) for i in range(3)],
         }
-        debug_path = self.debug_dir / f"pose_{stamp}.json"
+        debug_path = self.debug_dir / "pose.json"
         try:
             with debug_path.open('w', encoding='utf-8') as stream:
                 json.dump(payload, stream, indent=2)
