@@ -462,7 +462,11 @@
     const FOCUS_FOV_PADDING_DEGREES = 3;
     const FOCUS_DURATION_MS = 650;
     const BASE_MARKER_RADIUS = 0.075;
-    const CSV_URL = "random_localisation_metrics.csv";
+    const CSV_URLS = [
+      "celestial_localisation/debug_output/random_localisation_metrics.csv",
+      "../celestial_localisation/debug_output/random_localisation_metrics.csv",
+      "random_localisation_metrics.csv"
+    ];
     const EARTH_TEXTURE_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
     const EARTH_NORMAL_URL = "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg";
     const dom = {
@@ -889,9 +893,22 @@
 
     async function loadMetrics() {
       try {
-        const response = await fetch(CSV_URL, { cache: "no-store" });
-        if (!response.ok) throw new Error(`CSV request failed with ${response.status}`);
-        state.rows = parseCsv(await response.text());
+        let csvText;
+        let lastError;
+        for (const csvUrl of CSV_URLS) {
+          try {
+            const response = await fetch(csvUrl, { cache: "no-store" });
+            if (response.ok) {
+              csvText = await response.text();
+              break;
+            }
+            lastError = new Error(`CSV request failed with ${response.status}: ${csvUrl}`);
+          } catch (error) {
+            lastError = error;
+          }
+        }
+        if (csvText === undefined) throw lastError || new Error("CSV request failed");
+        state.rows = parseCsv(csvText);
         state.filtered = state.rows;
         if (state.rows.length) {
           state.selectedIndex = state.rows[0]._index;
