@@ -668,9 +668,9 @@
     }
 
     .description-header {
-      position: sticky;
+      position: relative;
       z-index: 2;
-      top: -36px;
+      top: auto;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
@@ -897,6 +897,72 @@
       line-height: 1.6;
     }
 
+    .flowchart-entry,
+    .flowchart-merge,
+    .flowchart-gate {
+      --domain-accent: var(--domain-sensor);
+      position: relative;
+      width: min(100%, 360px);
+      margin-right: auto;
+      margin-left: auto;
+      padding: 11px 16px 12px;
+      border: 1px solid color-mix(in srgb, var(--domain-accent) 52%, var(--line));
+      border-top: 2px solid var(--domain-accent);
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--domain-accent) 7%, var(--flow-card-background));
+      text-align: center;
+    }
+
+    .flowchart-entry { margin-bottom: 29px; }
+    .flowchart-merge { --domain-accent: var(--domain-celestial); margin-top: 29px; }
+    .flowchart-gate { --domain-accent: var(--domain-condition); margin-bottom: 29px; }
+
+    .flowchart-entry::after,
+    .flowchart-merge::before,
+    .flowchart-gate::after {
+      position: absolute;
+      left: 50%;
+      width: 1px;
+      height: 29px;
+      background: var(--domain-accent);
+      content: "";
+      transform: translateX(-50%);
+    }
+
+    .flowchart-entry::after,
+    .flowchart-gate::after { top: 100%; }
+    .flowchart-merge::before { bottom: 100%; }
+
+    .flowchart-port {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--domain-accent);
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .flowchart-entry strong,
+    .flowchart-merge strong,
+    .flowchart-gate strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .flowchart-entry small,
+    .flowchart-merge small,
+    .flowchart-gate small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      line-height: 1.4;
+    }
+
     .flow-section {
       margin: 0 0 42px;
     }
@@ -962,7 +1028,47 @@
       gap: 12px;
     }
 
-    .route-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .route-grid {
+      position: relative;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .route-grid::before,
+    .condition-grid::before,
+    .future-grid::before {
+      position: absolute;
+      top: -29px;
+      right: 12.5%;
+      left: 12.5%;
+      border-top: 1px solid var(--flow-line);
+      content: "";
+    }
+
+    .route-card::before,
+    .condition-card::before,
+    .future-card::before {
+      position: absolute;
+      top: -29px;
+      left: 50%;
+      width: 1px;
+      height: 29px;
+      background: var(--domain-accent);
+      content: "";
+      transform: translateX(-50%);
+    }
+
+    .route-card::after,
+    .condition-card::after,
+    .future-card::after {
+      position: absolute;
+      top: -32px;
+      left: calc(50% - 3px);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--domain-accent);
+      content: "";
+    }
 
     .route-card,
     .core-card,
@@ -1087,12 +1193,63 @@
     .core-grid .core-card:nth-child(1),
     .core-grid .core-card:nth-child(2) { grid-column: span 1; }
 
+    .core-grid {
+      position: relative;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-flow: row;
+      gap: 28px 14px;
+    }
+
+    .core-grid .core-card:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .core-grid .core-card:nth-child(2) { grid-column: 2; grid-row: 1; }
+    .core-grid .core-card:nth-child(3) { grid-column: 2; grid-row: 2; }
+    .core-grid .core-card:nth-child(4) { grid-column: 3; grid-row: 1; }
+    .core-grid .core-card:nth-child(5) { grid-column: 3; grid-row: 2; }
+    .core-grid .core-card:nth-child(6) { grid-column: 3; grid-row: 3; }
+
+    .core-card::after {
+      position: absolute;
+      z-index: 1;
+      color: var(--domain-accent);
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      line-height: 1;
+    }
+
+    .core-grid .core-card:nth-child(1)::after,
+    .core-grid .core-card:nth-child(2)::after {
+      top: 50%;
+      right: -16px;
+      content: "→";
+      transform: translateY(-50%);
+    }
+
+    .core-grid .core-card:nth-child(2)::before {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 1px;
+      height: 28px;
+      border-left: 1px dashed var(--domain-accent);
+      content: "";
+      transform: translateX(-50%);
+    }
+
+    .core-grid .core-card:nth-child(4)::after,
+    .core-grid .core-card:nth-child(5)::after {
+      bottom: -22px;
+      left: 50%;
+      content: "↓";
+      transform: translateX(-50%);
+    }
+
     .core-grid .core-card:nth-child(3),
     .core-grid .core-card:nth-child(4),
     .core-grid .core-card:nth-child(5),
     .core-grid .core-card:nth-child(6) { min-height: 230px; }
 
     .condition-grid {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
@@ -1133,7 +1290,32 @@
     .availability-list strong { color: var(--domain-accent); font-weight: 500; }
     .availability-list em { color: var(--muted); font-style: normal; text-align: right; }
 
-    .future-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .future-grid {
+      position: relative;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .flow-bypass {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 8px 12px;
+      max-width: 900px;
+      margin: 20px auto 0;
+      padding: 9px 13px;
+      border: 1px dashed color-mix(in srgb, var(--domain-sensor) 55%, var(--line));
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--domain-sensor) 4%, transparent);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.55rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .flow-bypass strong { color: var(--domain-sensor); font-weight: 500; }
+    .flow-bypass-arrow { color: var(--domain-sensor); font-size: 0.9rem; }
+    .flow-bypass small { grid-column: 2 / -1; color: var(--faint); font-size: 0.5rem; }
 
     .future-card h4 { font-size: 1rem; }
     .future-card > p { min-height: 62px; }
@@ -1181,6 +1363,410 @@
     .flow-io div { min-width: 0; padding-top: 9px; border-top: 1px solid var(--line); }
     .flow-io dt { color: var(--faint); font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; }
     .flow-io dd { margin: 5px 0 0; color: var(--ink); font-family: var(--mono); font-size: 0.62rem; line-height: 1.45; }
+
+    .tech-tree {
+      --tech-line: var(--flow-line);
+      margin: 28px 0 8px;
+    }
+
+    .tech-tree-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 17px;
+      margin: 0 0 12px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .tech-tree-legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .tech-tree-legend i { display: inline-block; width: 9px; height: 9px; border: 1px solid var(--faint); border-radius: 2px; }
+    .tech-tree-legend .legend-built i { border-color: var(--ground); background: color-mix(in srgb, var(--ground) 20%, transparent); }
+    .tech-tree-legend .legend-locked i { border-style: dashed; background: color-mix(in srgb, var(--faint) 9%, transparent); }
+    .tech-tree-legend .legend-optional i { border-color: var(--domain-condition); background: color-mix(in srgb, var(--domain-condition) 15%, transparent); }
+
+    .tech-tree-board {
+      position: relative;
+      margin: 0;
+      padding: 18px 22px 25px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--flow-card-background) 72%, transparent);
+    }
+
+    .tech-tree-board + .tech-tree-board { margin-top: 27px; }
+
+    .tech-tree-columns {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 30px;
+      margin: 0 0 12px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .tech-tree-columns span { min-width: 0; }
+    .tech-tree-links { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+
+    .tech-tree-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-auto-rows: minmax(106px, auto);
+      align-items: stretch;
+      gap: 25px 30px;
+    }
+
+    .tech-tree-grid.tech-tree-conditions {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-auto-rows: minmax(108px, auto);
+      gap: 25px 32px;
+    }
+
+    .tech-tree-conditions + .tech-tree-links { display: block; }
+
+    .tech-node {
+      --domain-accent: var(--domain-condition);
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 106px;
+      flex-direction: column;
+      padding: 12px 13px 13px;
+      border: 1px solid var(--line-strong);
+      border-top: 3px solid var(--domain-accent);
+      border-radius: 3px;
+      background: var(--flow-card-background);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+      scroll-margin-top: 110px;
+      transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, opacity 180ms ease, transform 180ms ease;
+    }
+
+    .tech-node.domain-sensor { --domain-accent: var(--domain-sensor); }
+    .tech-node.domain-celestial { --domain-accent: var(--domain-celestial); }
+    .tech-node.domain-satellite { --domain-accent: var(--domain-satellite); }
+    .tech-node.domain-aircraft { --domain-accent: var(--domain-aircraft); }
+    .tech-node.domain-atmosphere { --domain-accent: var(--domain-atmosphere); }
+    .tech-node.domain-fusion { --domain-accent: var(--domain-fusion); }
+    .tech-node.domain-condition { --domain-accent: var(--domain-condition); }
+
+    .tech-node[data-status="locked"] {
+      border-style: dashed;
+      border-top-style: solid;
+      background: var(--flow-wip-card-background);
+      filter: grayscale(0.18) saturate(0.55);
+      opacity: 0.38;
+    }
+
+    .tech-node[data-status="partial"] {
+      border-style: dashed;
+      border-top-style: solid;
+      opacity: 0.72;
+    }
+
+    .tech-node.is-current {
+      border-color: var(--line-strong);
+      border-top-color: var(--domain-accent);
+      background: var(--flow-card-current-background);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--domain-accent) 11%, transparent), 0 8px 18px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .tech-node[data-status="locked"].is-current { opacity: 0.64; }
+
+    .tech-node-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 9px;
+      color: var(--domain-accent);
+      font-family: var(--mono);
+      font-size: 0.51rem;
+      letter-spacing: 0.07em;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .tech-node-id { min-width: 0; color: var(--domain-accent); }
+    .tech-node-status { order: 3; flex: 0 0 auto; color: var(--faint); text-align: right; }
+    .tech-node-status::before { content: "○ "; color: var(--domain-accent); }
+    .tech-node[data-status="locked"] .tech-node-status::before { content: "▱ "; }
+    .tech-node[data-status="partial"] .tech-node-status::before { content: "◐ "; }
+
+    .tech-node[data-status="locked"] .tech-node-head::after,
+    .tech-node[data-status="partial"] .tech-node-head::after {
+      order: 2;
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      padding: 2px 4px 2px 3px;
+      border: 1px solid color-mix(in srgb, var(--domain-fusion) 62%, var(--line));
+      border-radius: 2px;
+      background: color-mix(in srgb, var(--domain-fusion) 8%, transparent);
+      color: var(--domain-fusion);
+      content: "[RO \1F393]";
+      font-size: 0.44rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .tech-node h4 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 0.96rem;
+      font-weight: 500;
+      letter-spacing: -0.018em;
+      line-height: 1.15;
+    }
+
+    .tech-node > p {
+      margin: 7px 0 11px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.48;
+    }
+
+    .tech-node code { font-size: 0.92em; }
+
+    .tech-dependency {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 5px 7px;
+      align-items: baseline;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.49rem;
+      line-height: 1.35;
+      text-transform: uppercase;
+    }
+
+    .tech-dependency strong { color: var(--domain-accent); font-weight: 500; }
+
+    .tech-node .flow-media.tech-node-media {
+      margin: 10px 0 10px;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .tech-node-media img {
+      aspect-ratio: 2.4 / 1;
+      border-color: color-mix(in srgb, var(--domain-accent) 35%, var(--line-strong));
+    }
+
+    .tech-node-media figcaption { display: none; }
+
+    .tech-node-asset {
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--domain-accent) 35%, var(--line-strong));
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--domain-accent) 5%, var(--background));
+    }
+
+    .tech-asset-art {
+      position: relative;
+      display: grid;
+      height: 56px;
+      place-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg, color-mix(in srgb, var(--domain-accent) 12%, transparent), transparent 58%),
+        color-mix(in srgb, var(--domain-accent) 4%, var(--background));
+      color: var(--domain-accent);
+    }
+
+    .tech-asset-art::before,
+    .tech-asset-art::after {
+      position: absolute;
+      content: "";
+    }
+
+    .tech-asset-label {
+      position: absolute;
+      z-index: 1;
+      right: 6px;
+      bottom: 5px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.45rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tech-asset-realsense::before {
+      width: 67px;
+      height: 22px;
+      border: 1px solid currentColor;
+      border-radius: 3px;
+      background: color-mix(in srgb, currentColor 10%, transparent);
+      box-shadow: 0 5px 0 -3px currentColor;
+    }
+
+    .tech-asset-realsense::after {
+      width: 11px;
+      height: 11px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      box-shadow: 23px 0 0 -3px var(--domain-accent);
+      transform: translateX(-11px);
+    }
+
+    .tech-asset-stellarium {
+      background:
+        radial-gradient(circle at 19% 25%, currentColor 0 1px, transparent 2px),
+        radial-gradient(circle at 73% 31%, currentColor 0 1px, transparent 2px),
+        radial-gradient(circle at 57% 68%, currentColor 0 1px, transparent 2px),
+        radial-gradient(circle at 87% 76%, currentColor 0 1px, transparent 2px),
+        color-mix(in srgb, var(--domain-accent) 8%, var(--background));
+    }
+
+    .tech-asset-stellarium::before {
+      width: 28px;
+      height: 28px;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 10%, transparent);
+    }
+
+    .tech-asset-stellarium::after {
+      width: 48px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.8;
+      transform: rotate(-28deg);
+    }
+
+    .tech-asset-fisheye::before {
+      width: 35px;
+      height: 35px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      background: radial-gradient(circle, color-mix(in srgb, currentColor 28%, transparent) 0 19%, transparent 20% 42%, color-mix(in srgb, currentColor 18%, transparent) 43% 45%, transparent 46%);
+      box-shadow: 0 0 0 5px color-mix(in srgb, currentColor 9%, transparent);
+    }
+
+    .tech-asset-fisheye::after {
+      width: 51px;
+      height: 51px;
+      border: 1px dashed currentColor;
+      border-radius: 50%;
+      opacity: 0.65;
+    }
+
+    .tech-asset-dwarflab::before {
+      width: 67px;
+      height: 13px;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      background: color-mix(in srgb, currentColor 10%, transparent);
+      transform: rotate(-14deg);
+    }
+
+    .tech-asset-dwarflab::after {
+      width: 9px;
+      height: 23px;
+      border-right: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+      transform: translate(17px, 12px) rotate(22deg);
+    }
+
+    .tech-node-asset figcaption {
+      display: block;
+      margin: 4px 6px 5px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.44rem;
+      letter-spacing: 0.05em;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    .tech-link {
+      fill: none;
+      stroke: var(--tech-line);
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.35;
+    }
+
+    .tech-link.is-built { stroke: var(--ground); }
+    .tech-link.is-partial { stroke: var(--domain-condition); stroke-dasharray: 4 4; }
+    .tech-link.is-locked { stroke: var(--faint); stroke-dasharray: 5 5; opacity: 0.58; }
+    .tech-link.is-optional { stroke: var(--domain-condition); stroke-dasharray: 2 4; opacity: 0.72; }
+
+    .tech-tree-transition {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 27px auto 0;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.07em;
+      line-height: 1.4;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .tech-tree-transition::before,
+    .tech-tree-transition::after {
+      width: 42px;
+      height: 1px;
+      background: var(--flow-line);
+      content: "";
+    }
+
+    .tech-tree-transition strong { color: var(--domain-condition); font-weight: 500; }
+
+    .tech-node-realsense { grid-column: 1; grid-row: 1; }
+    .tech-node-image-capture { grid-column: 2; grid-row: 1; }
+    .tech-node-stellarium { grid-column: 1; grid-row: 2; }
+    .tech-node-render-sky { grid-column: 2; grid-row: 2; }
+    .tech-node-create-panorama { grid-column: 3; grid-row: 1; }
+    .tech-node-fisheye { grid-column: 1; grid-row: 3; }
+    .tech-node-fisheye-calibration { grid-column: 2; grid-row: 3; }
+    .tech-node-celestial-detector { grid-column: 4; grid-row: 1; }
+    .tech-node-ephemeris { grid-column: 3; grid-row: 2; }
+    .tech-node-catalogue { grid-column: 4; grid-row: 2; }
+    .tech-node-celestial-pose { grid-column: 5; grid-row: 1; }
+    .tech-node-dwarflab { grid-column: 1; grid-row: 4; }
+    .tech-node-dwarflab-calibration { grid-column: 2; grid-row: 4; }
+    .tech-node-dwarflab-pose { grid-column: 4; grid-row: 4; }
+    .tech-node-pose-merge { grid-column: 5; grid-row: 3; }
+    .tech-node-publish-pose { grid-column: 6; grid-row: 3; }
+    .tech-node-temporal-refinement { grid-column: 5; grid-row: 4; }
+    .tech-node-evaluate { grid-column: 6; grid-row: 5; }
+
+    .tech-node-condition-classifier { grid-column: 3; grid-row: 1; }
+    .tech-node-daytime { grid-column: 1; grid-row: 2; }
+    .tech-node-nighttime { grid-column: 3; grid-row: 2; }
+    .tech-node-overcast { grid-column: 5; grid-row: 2; }
+    .tech-node-solar-cues { grid-column: 1; grid-row: 3; }
+    .tech-node-aircraft { grid-column: 2; grid-row: 3; }
+    .tech-node-star-catalogue { grid-column: 3; grid-row: 3; }
+    .tech-node-satellites { grid-column: 4; grid-row: 3; }
+    .tech-node-cloud-segmentation { grid-column: 5; grid-row: 3; }
+    .tech-node-polarization { grid-column: 1; grid-row: 4; }
+    .tech-node-cloud-layers { grid-column: 5; grid-row: 4; }
+    .tech-node-imu { grid-column: 2; grid-row: 5; }
+    .tech-node-fusion { grid-column: 3; grid-row: 5; }
 
     .mode-dock {
       position: absolute;
@@ -1412,7 +1998,11 @@
       .route-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .condition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .future-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .description-header { top: -28px; margin-top: -28px; padding-top: 28px; }
+      .tech-tree-board { padding-right: 16px; padding-left: 16px; }
+      .tech-tree-columns { gap: 18px; }
+      .tech-tree-grid,
+      .tech-tree-grid.tech-tree-conditions { gap: 22px 18px; }
+      .description-header { top: auto; margin-top: -28px; padding-top: 28px; }
       .mode-dock { bottom: 0; }
     }
 
@@ -1429,6 +2019,61 @@
       .core-grid,
       .condition-grid,
       .future-grid { grid-template-columns: 1fr; }
+      .route-grid,
+      .condition-grid,
+      .future-grid { padding-left: 28px; }
+      .tech-tree-board { padding: 16px clamp(28px, 9vw, 40px) 20px 14px; overflow: hidden; }
+      .tech-tree-columns { display: block; margin-bottom: 10px; text-align: left; }
+      .tech-tree-columns span { display: none; }
+      .tech-tree-columns span:first-child { display: block; }
+      .tech-tree-columns span:first-child::after { content: " / dependency order"; color: var(--muted); }
+      .tech-tree-grid,
+      .tech-tree-grid.tech-tree-conditions { grid-template-columns: 1fr; grid-auto-rows: auto; gap: 17px; }
+      .tech-node { grid-column: 1 !important; grid-row: auto !important; min-height: 0; }
+      .tech-tree-transition { gap: 8px; font-size: 0.48rem; }
+      .tech-tree-transition::before,
+      .tech-tree-transition::after { width: 18px; }
+      .route-grid::before,
+      .condition-grid::before,
+      .future-grid::before {
+        top: 0;
+        right: auto;
+        bottom: 0;
+        left: 12px;
+        border-top: 0;
+        border-left: 1px solid var(--flow-line);
+      }
+      .route-card::before,
+      .condition-card::before,
+      .future-card::before {
+        top: 50%;
+        left: -16px;
+        width: 16px;
+        height: 1px;
+        background: none;
+        border-top: 1px solid var(--domain-accent);
+        transform: none;
+      }
+      .route-card::after,
+      .condition-card::after,
+      .future-card::after {
+        top: calc(50% - 2px);
+        left: -19px;
+      }
+      .core-grid .core-card:nth-child(n) {
+        grid-column: 1;
+        grid-row: auto;
+      }
+      .core-grid .core-card::after {
+        top: auto;
+        right: auto;
+        bottom: -22px;
+        left: 50%;
+        content: "↓";
+        transform: translateX(-50%);
+      }
+      .core-grid .core-card:nth-child(2)::before { display: none; }
+      .flow-bypass { grid-template-columns: auto minmax(0, 1fr) auto; }
       .flow-index { width: 42px; height: 42px; font-size: 0.58rem; }
       .flow-list::before { left: 20px; }
       .flow-card { padding: 15px 14px 16px; }
@@ -1566,216 +2211,261 @@
       <div class="visual-view description-view" id="description-view" role="tabpanel" aria-labelledby="description-tab" aria-hidden="true" tabindex="-1">
         <header class="description-header">
           <div>
-            <p class="eyebrow">Pipeline / current core + future branches</p>
-            <h2>One sky, several routes.</h2>
-            <p>The implemented system is one branch of a larger sky-localisation framework. Follow the routes that exist today, then the condition-dependent layers and research paths that are still being defined.</p>
+            <p class="eyebrow">Pipeline / dependency graph</p>
+            <h2>Unlocking a sky-localisation stack.</h2>
+            <p>Each node becomes useful only when its prerequisites exist. Sensor routes merge into shared observations, independent calculations meet at the pose solver, published fixes can feed optional temporal refinement, and later work branches by sky condition.</p>
           </div>
-          <div class="description-progress">Node <strong id="description-step">01</strong> / <span id="description-total">17</span></div>
+          <div class="description-progress">Node <strong id="description-step">01</strong> / <span id="description-total">31</span></div>
         </header>
 
         <div class="description-flow">
-          <p class="flow-intro">Read the solid cards as the current foundation and the muted cards as proposed routes. A RealSense camera and the simulator use the normalisation path; a future fisheye adapter can join later, while a DWARFLAB3 telescope adapter could enter at the published-position boundary.</p>
+          <p class="flow-intro">Read solid nodes as unlocked work and dashed nodes as locked research. Arrows mean “requires”; when several arrows meet, the downstream node unlocks only when the required inputs are available.</p>
 
           <section class="flow-section" aria-labelledby="sensor-routes-title">
             <div class="flow-section-heading">
               <div>
-                <p class="flow-kicker">A / sensor and source branches</p>
-                <h3 id="sensor-routes-title">Different instruments enter at different points.</h3>
-                <p>The source contract is not one camera forever. Each adapter should declare what it provides, which calibration it owns, and where it joins the shared ROS path.</p>
+                <p class="flow-kicker">A / source unlocks</p>
+                <h3 id="sensor-routes-title">Start from the endpoints we can actually feed.</h3>
+                <p>The graph keeps each instrument honest: RealSense and Stellarium reach the panorama through separate prerequisites, fisheye can bypass panorama creation, and DWARFLAB3 owns a separate calibration route.</p>
               </div>
-              <div class="flow-legend" aria-label="Flow status legend"><span class="legend-current"><i></i> current</span><span class="legend-future"><i></i> proposed</span></div>
+              <div class="tech-tree-legend" aria-label="Dependency graph legend"><span class="legend-built"><i></i> unlocked</span><span class="legend-locked"><i></i> locked / future</span><span class="legend-optional"><i></i> optional or conditional</span></div>
             </div>
-            <div class="route-grid">
-              <article class="route-card flow-step is-current domain-sensor" data-step="01">
-                <div class="flow-card-top"><span><span class="flow-stage">01</span>RealSense camera</span><span class="flow-signal">current</span></div>
-                <h4>Start with a time-stamped sky</h4>
-                <p>The live camera path supplies an image and capture time. Calibration and projection are handled downstream before celestial detection.</p>
-                <div class="route-track"><span class="route-node">frame + UTC</span><span class="route-arrow">→</span><span class="route-node">normalise</span><span class="route-arrow">→</span><span class="route-node">detect</span></div>
-                <dl class="flow-io"><div><dt>Source</dt><dd>RealSense colour frame</dd></div><div><dt>Joins</dt><dd>camera normalisation</dd></div></dl>
-              </article>
-              <article class="route-card flow-step is-current domain-sensor" data-step="02">
-                <div class="flow-card-top"><span><span class="flow-stage">02</span>Stellarium simulator</span><span class="flow-signal">current</span></div>
-                <h4>Exercise the same sky-map contract</h4>
-                <p>A GPS request and UTC timestamp render six views into the same equirectangular image shape, allowing the downstream path to be tested without a camera.</p>
-                <div class="route-track"><span class="route-node">GPS + UTC</span><span class="route-arrow">→</span><span class="route-node">six faces</span><span class="route-arrow">→</span><span class="route-node">sky map</span></div>
-                <dl class="flow-io"><div><dt>Source</dt><dd>service request + renderer</dd></div><div><dt>Joins</dt><dd>sky-map topic</dd></div></dl>
-              </article>
-              <article class="route-card flow-step is-wip domain-sensor" data-step="03">
-                <div class="flow-card-top"><span><span class="flow-stage">03</span>Fisheye camera</span><span class="flow-signal">proposed</span></div>
-                <h4>Join after projection when calibration allows</h4>
-                <p>A calibrated fisheye adapter could provide the spherical representation directly. In that case it skips the existing “make one consistent view” step and joins at detection.</p>
-                <div class="route-track"><span class="route-node">fisheye + calibration</span><span class="route-arrow">→</span><span class="route-node">detect</span><span class="route-skip">bypasses normalise</span></div>
-                <dl class="flow-io"><div><dt>Needs</dt><dd>projection contract</dd></div><div><dt>Joins</dt><dd>celestial detector</dd></div></dl>
-              </article>
-              <article class="route-card flow-step is-wip domain-sensor" data-step="04">
-                <div class="flow-card-top"><span><span class="flow-stage">04</span>DWARFLAB3 telescope</span><span class="flow-signal">proposed</span></div>
-                <h4>Use an external solution when available</h4>
-                <p>A telescope adapter could skip image perception entirely when it already produces a usable position or orientation solution, joining at the publish boundary.</p>
-                <div class="route-track"><span class="route-node">telescope solution</span><span class="route-arrow">→</span><span class="route-node">publish</span><span class="route-skip">skips perception</span></div>
-                <dl class="flow-io"><div><dt>Needs</dt><dd>timestamped pose contract</dd></div><div><dt>Joins</dt><dd>ROS outputs</dd></div></dl>
-              </article>
+            <div class="tech-tree" aria-label="Sensor and celestial dependency tree">
+              <div class="tech-tree-board" data-tech-tree="core">
+                <div class="tech-tree-columns" aria-hidden="true"><span>Sources</span><span>Preparation</span><span>Shared inputs</span><span>Observation</span><span>Pose solve</span><span>Output</span></div>
+                <svg class="tech-tree-links" aria-hidden="true" focusable="false"></svg>
+                <div class="tech-tree-grid">
+                  <article class="tech-node tech-node-realsense flow-step domain-sensor" id="node-realsense" data-step="01" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">01 / sensor endpoint</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>RealSense</h4>
+                    <p>Colour frame and capture timestamp.</p>
+                    <figure class="flow-media tech-node-media tech-node-asset" role="img" aria-label="RealSense camera image placeholder">
+                      <div class="tech-asset-art tech-asset-realsense" aria-hidden="true"><span class="tech-asset-label">RealSense</span></div>
+                      <figcaption>placeholder / hardware asset</figcaption>
+                    </figure>
+                    <div class="tech-dependency"><span>Unlocks</span><strong>image capture</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-image-capture flow-step domain-sensor" id="node-image-capture" data-step="02" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">02 / preparation</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Image capture</h4>
+                    <p>Acquire and timestamp the camera frame.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>RealSense</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-stellarium flow-step domain-sensor" id="node-stellarium" data-step="03" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">03 / simulator endpoint</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Stellarium simulator</h4>
+                    <p>GPS request plus UTC render target.</p>
+                    <figure class="flow-media tech-node-media tech-node-asset" role="img" aria-label="Stellarium logo image placeholder">
+                      <div class="tech-asset-art tech-asset-stellarium" aria-hidden="true"><span class="tech-asset-label">Stellarium</span></div>
+                      <figcaption>placeholder / logo asset</figcaption>
+                    </figure>
+                    <div class="tech-dependency"><span>Unlocks</span><strong>render sky views</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-render-sky flow-step domain-sensor" id="node-render-sky" data-step="04" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">04 / preparation</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Render sky views</h4>
+                    <p>Render six faces with the same sky-map contract.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>Stellarium</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-create-panorama flow-step domain-sensor" id="node-create-panorama" data-step="05" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">05 / merge</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Create panorama</h4>
+                    <p>Make one equirectangular sky map from either input route.</p>
+                    <figure class="flow-media tech-node-media"><img src="media/simulated_sky_map.png" alt="Simulated equirectangular sky panorama." loading="lazy" decoding="async"></figure>
+                    <div class="tech-dependency"><span>Requires</span><strong>image capture OR render views</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-fisheye flow-step domain-sensor" id="node-fisheye" data-step="06" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">06 / sensor endpoint</span><span class="tech-node-status">locked</span></div>
+                    <h4>Fisheye camera</h4>
+                    <p>Direct spherical image source.</p>
+                    <figure class="flow-media tech-node-media tech-node-asset" role="img" aria-label="Fisheye camera representation placeholder">
+                      <div class="tech-asset-art tech-asset-fisheye" aria-hidden="true"><span class="tech-asset-label">Fisheye</span></div>
+                      <figcaption>placeholder / camera asset</figcaption>
+                    </figure>
+                    <div class="tech-dependency"><span>Unlocks</span><strong>fisheye calibration</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-fisheye-calibration flow-step domain-sensor" id="node-fisheye-calibration" data-step="07" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">07 / calibration</span><span class="tech-node-status">locked</span></div>
+                    <h4>Calibrate fisheye projection</h4>
+                    <p>Map rays directly into sky coordinates.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>fisheye camera</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-celestial-detector flow-step domain-celestial" id="node-celestial-detector" data-step="08" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">08 / observation</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Detect celestial objects</h4>
+                    <p>Find raw stars, the Sun, and the Moon.</p>
+                    <figure class="flow-media tech-node-media"><img src="media/sky_map.png" alt="Detector sky map with celestial candidates." loading="lazy" decoding="async"></figure>
+                    <div class="tech-dependency"><span>Requires</span><strong>panorama OR fisheye map</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-ephemeris flow-step domain-celestial" id="node-ephemeris" data-step="09" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">09 / calculation</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Do ephemeris calculations</h4>
+                    <p>Predict celestial directions for UTC and observer state.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>UTC + ephemerides</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-catalogue flow-step domain-celestial" id="node-catalogue" data-step="10" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">10 / research unlock</span><span class="tech-node-status">locked</span></div>
+                    <h4>Identify star catalogue entries</h4>
+                    <p>Turn anonymous star patterns into named references.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>raw star detections</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-celestial-pose flow-step domain-celestial" id="node-celestial-pose" data-step="11" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">11 / merge</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Solve celestial pose</h4>
+                    <p>Match observations against predicted directions.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>detector + ephemeris</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-dwarflab flow-step domain-sensor" id="node-dwarflab" data-step="12" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">12 / sensor endpoint</span><span class="tech-node-status">locked</span></div>
+                    <h4>DWARFLAB3</h4>
+                    <p>Telescope or external observation source.</p>
+                    <figure class="flow-media tech-node-media tech-node-asset" role="img" aria-label="DWARFLAB3 telescope image placeholder">
+                      <div class="tech-asset-art tech-asset-dwarflab" aria-hidden="true"><span class="tech-asset-label">DWARFLAB3</span></div>
+                      <figcaption>placeholder / telescope asset</figcaption>
+                    </figure>
+                    <div class="tech-dependency"><span>Unlocks</span><strong>telescope calibration</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-dwarflab-calibration flow-step domain-sensor" id="node-dwarflab-calibration" data-step="13" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">13 / calibration</span><span class="tech-node-status">locked</span></div>
+                    <h4>Calibrate DWARFLAB3</h4>
+                    <p>Establish optical axis, mount, and timestamp transform.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>DWARFLAB3</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-dwarflab-pose flow-step domain-sensor" id="node-dwarflab-pose" data-step="14" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">14 / alternate solve</span><span class="tech-node-status">locked</span></div>
+                    <h4>Produce telescope pose</h4>
+                    <p>Generate a pose candidate without the camera detector path.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>DWARFLAB3 calibration</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-pose-merge flow-step domain-fusion" id="node-pose-merge" data-step="15" data-status="partial">
+                    <div class="tech-node-head"><span class="tech-node-id">15 / merge</span><span class="tech-node-status">partial</span></div>
+                    <h4>Merge pose candidates</h4>
+                    <p>Accept the available celestial or telescope solution.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>one valid pose path</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-publish-pose flow-step domain-fusion" id="node-publish-pose" data-step="16" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">16 / output</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Publish a pose</h4>
+                    <p>Expose a geographic fix and pose to other nodes.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>pose candidate merge</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-temporal-refinement flow-step domain-fusion" id="node-temporal-refinement" data-step="17" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">17 / temporal research</span><span class="tech-node-status">locked</span></div>
+                    <h4>Refine pose over time</h4>
+                    <p>Fuse multiple published pose estimates across a sliding window to reduce noise and expose uncertainty.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>published poses + time history</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-evaluate flow-step domain-fusion" id="node-evaluate" data-step="18" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">18 / evaluation</span><span class="tech-node-status">unlocked</span></div>
+                    <h4>Evaluate the fix</h4>
+                    <p>Compare truth and estimate, then preserve metrics.</p>
+                    <div class="tech-dependency"><span>Accepts</span><strong>published pose + optional refinement</strong></div>
+                  </article>
+                </div>
+              </div>
             </div>
           </section>
 
-          <section class="flow-section" aria-labelledby="core-path-title">
-            <div class="flow-section-heading">
-              <div>
-                <p class="flow-kicker">B / implemented celestial core</p>
-                <h3 id="core-path-title">One shared path, with deliberate join points.</h3>
-                <p>RealSense and simulated images pass through normalisation. Fisheye is intended to join at detection; DWARFLAB3 is intended to join at publishing. The cards below show what is implemented now and what remains incomplete.</p>
-              </div>
-            </div>
-            <div class="core-grid">
-              <article class="core-card flow-card flow-step is-current domain-sensor" data-step="05">
-                <div class="flow-card-top"><span><span class="flow-stage">05</span>Sky map / normalise</span><span class="flow-signal">current</span></div>
-                <h4>Make one consistent view of the sky</h4>
-                <p><code>sky_mapper</code> applies calibration and unwraps camera imagery into an equirectangular panorama. This is the branch a future fisheye adapter would be able to bypass.</p>
-                <figure class="flow-media">
-                  <img src="media/simulated_sky_map.png" alt="Captured simulated equirectangular night-sky panorama produced by the simulator." loading="lazy" decoding="async">
-                  <figcaption><span>Captured simulator output</span><code>simulated_sky_map.png</code></figcaption>
-                </figure>
-                <dl class="flow-io"><div><dt>Receives</dt><dd>calibrated image or rendered faces</dd></div><div><dt>Hands off</dt><dd>equirectangular sky map</dd></div></dl>
-              </article>
-              <article class="core-card flow-card flow-step is-current domain-celestial" data-step="06">
-                <div class="flow-card-top"><span><span class="flow-stage">06</span>Celestial detector</span><span class="flow-signal">current</span></div>
-                <h4>Find useful lights in the image</h4>
-                <p><code>celestial_detector</code> looks for stars, the Sun, and the Moon, recording pixel location, confidence, and object type as observations.</p>
-                <figure class="flow-media">
-                  <img src="media/sky_map.png" alt="Captured sky map annotated with detected celestial candidates and their observation labels." loading="lazy" decoding="async">
-                  <figcaption><span>Captured detector output</span><code>sky_map.png</code></figcaption>
-                </figure>
-                <dl class="flow-io"><div><dt>Receives</dt><dd><code>/sky_map</code></dd></div><div><dt>Hands off</dt><dd>celestial observations</dd></div></dl>
-              </article>
-              <article class="core-card flow-card flow-step is-wip domain-celestial" data-step="07">
-                <div class="flow-card-top"><span><span class="flow-stage">07</span>Catalogue / identify</span><span class="flow-signal">future</span></div>
-                <h4>Turn bright points into identities</h4>
-                <p>Lost-in-space matching could turn anonymous star centroids into catalogue objects using geometric patterns and tools such as tetra3. Raw star detection exists; catalogue identification does not.</p>
-                <dl class="flow-io"><div><dt>Receives</dt><dd>candidate geometry + brightness</dd></div><div><dt>Would hand off</dt><dd>identified stars + uncertainty</dd></div></dl>
-              </article>
-              <article class="core-card flow-card flow-step is-current domain-celestial" data-step="08">
-                <div class="flow-card-top"><span><span class="flow-stage">08</span>Celestial localiser</span><span class="flow-signal">current</span></div>
-                <h4>Compare what was seen with what should be seen</h4>
-                <p><code>celestial_localiser</code> combines observation time, ephemerides, and SciPy optimisation to search for the pose that best explains the observed directions.</p>
-                <dl class="flow-io"><div><dt>Receives</dt><dd>observations + ephemeris</dd></div><div><dt>Hands off</dt><dd>estimated pose + confidence</dd></div></dl>
-              </article>
-              <article class="core-card flow-card flow-step is-current domain-fusion" data-step="09">
-                <div class="flow-card-top"><span><span class="flow-stage">09</span>ROS outputs</span><span class="flow-signal">current</span></div>
-                <h4>Publish a position other nodes can use</h4>
-                <p>The solved pose is published as a pose, geographic fix, and optional transforms. This is the proposed DWARFLAB3 adapter’s destination as well.</p>
-                <dl class="flow-io"><div><dt>Publishes</dt><dd><code>/celestial_pose</code> + <code>/celestial_fix</code></dd></div><div><dt>Preserves</dt><dd>pose + observation debug files</dd></div></dl>
-              </article>
-              <article class="core-card flow-card flow-step is-current domain-fusion" data-step="10">
-                <div class="flow-card-top"><span><span class="flow-stage">10</span>Evaluation / measure</span><span class="flow-signal">current</span></div>
-                <h4>Measure the distance to truth</h4>
-                <p>The evaluator compares ground truth, estimate, object count, and haversine error. This dashboard turns the resulting CSV into the globe, summary, and run list.</p>
-                <dl class="flow-io"><div><dt>Compares</dt><dd>ground truth vs estimated fix</dd></div><div><dt>Publishes</dt><dd><code>random_localisation_metrics.csv</code></dd></div></dl>
-              </article>
-            </div>
-          </section>
+          <div class="tech-tree-transition"><span>Pose published</span><strong>feeds condition classifier</strong><span>day / night / cloud cover</span></div>
 
           <section class="flow-section" aria-labelledby="availability-title">
             <div class="flow-section-heading">
               <div>
-                <p class="flow-kicker">C / availability gate</p>
-                <h3 id="availability-title">The visible sky decides which branch is credible.</h3>
-                <p>Time of day, cloud cover, visibility, motion evidence, confidence, and detected object classes should become a selection gate. These are research hypotheses, not automatic decisions in the current implementation.</p>
+                <p class="flow-kicker">B / condition unlocks</p>
+                <h3 id="availability-title">Then the graph forks on what the sky contains.</h3>
+                <p>Daylight, nighttime, and poor visibility unlock different observation families. These branches are deliberately muted because the classifier and the downstream fusion are future work.</p>
               </div>
             </div>
-            <div class="condition-grid">
-              <article class="condition-card domain-celestial">
-                <div class="flow-card-top"><span>Clear night</span><span class="flow-signal">stars first</span></div>
-                <h4>Stable celestial references</h4>
-                <p>Best case for inertial sky references and the current pose-solving direction.</p>
-                <ul class="availability-list"><li><strong>Stars</strong><em>strong</em></li><li><strong>Moon</strong><em>useful</em></li><li><strong>Satellites / aircraft</strong><em>conditional</em></li><li><strong>Clouds</strong><em>context-dependent</em></li></ul>
-              </article>
-              <article class="condition-card domain-celestial">
-                <div class="flow-card-top"><span>Clear day</span><span class="flow-signal">sun first</span></div>
-                <h4>Solar and polarisation cues</h4>
-                <p>Stars may disappear, while the Sun, aircraft, clouds, and future polarisation sensing remain candidates.</p>
-                <ul class="availability-list"><li><strong>Sun</strong><em>strong</em></li><li><strong>Aircraft</strong><em>useful</em></li><li><strong>Clouds</strong><em>useful</em></li><li><strong>Polarisation</strong><em>future</em></li></ul>
-              </article>
-              <article class="condition-card domain-atmosphere">
-                <div class="flow-card-top"><span>Overcast</span><span class="flow-signal">atmosphere</span></div>
-                <h4>Absolute sky cues may disappear</h4>
-                <p>Clouds become the dominant visible layer, but they are better suited to relative motion than absolute position.</p>
-                <ul class="availability-list"><li><strong>Clouds</strong><em>strong candidate</em></li><li><strong>Aircraft</strong><em>conditional</em></li><li><strong>Sun / stars</strong><em>obscured</em></li><li><strong>Odometry</strong><em>future</em></li></ul>
-              </article>
-              <article class="condition-card domain-condition">
-                <div class="flow-card-top"><span>Broken cloud</span><span class="flow-signal">mixed layers</span></div>
-                <h4>Several depths at once</h4>
-                <p>Open sky plus cloud layers could expose the differential parallax the long-term system is designed to study.</p>
-                <ul class="availability-list"><li><strong>Stars / Sun / Moon</strong><em>gaps permitting</em></li><li><strong>Cloud layers</strong><em>multiple</em></li><li><strong>Aircraft / satellites</strong><em>conditional</em></li><li><strong>Fusion</strong><em>future</em></li></ul>
-              </article>
+            <div class="tech-tree" aria-label="Condition-dependent observation dependency tree">
+              <div class="tech-tree-board" data-tech-tree="conditions">
+                <div class="tech-tree-columns" aria-hidden="true"><span>Daylight route</span><span>Day evidence</span><span>Condition gate</span><span>Night evidence</span><span>Atmosphere route</span></div>
+                <svg class="tech-tree-links" aria-hidden="true" focusable="false"></svg>
+                <div class="tech-tree-grid tech-tree-conditions">
+                  <article class="tech-node tech-node-condition-classifier flow-step domain-condition" id="node-condition-classifier" data-step="19" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">19 / conditional gate</span><span class="tech-node-status">locked</span></div>
+                    <h4>Classify sky condition</h4>
+                    <p>Decide which observations are credible from time, visibility, motion, and confidence.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>published pose + evidence</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-daytime flow-step domain-celestial" id="node-daytime" data-step="20" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">20 / branch</span><span class="tech-node-status">locked</span></div>
+                    <h4>Daytime route</h4>
+                    <p>Prefer solar and atmospheric cues when stars are unavailable.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>condition classifier</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-nighttime flow-step domain-celestial" id="node-nighttime" data-step="21" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">21 / branch</span><span class="tech-node-status">locked</span></div>
+                    <h4>Nighttime route</h4>
+                    <p>Prefer stars, Moon, and predictable moving lights.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>condition classifier</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-overcast flow-step domain-atmosphere" id="node-overcast" data-step="22" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">22 / branch</span><span class="tech-node-status">locked</span></div>
+                    <h4>Overcast / poor visibility</h4>
+                    <p>Fall back toward cloud motion and contextual priors.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>condition classifier</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-solar-cues flow-step domain-celestial" id="node-solar-cues" data-step="23" data-status="partial">
+                    <div class="tech-node-head"><span class="tech-node-id">23 / observation</span><span class="tech-node-status">partial</span></div>
+                    <h4>Sun + Moon cues</h4>
+                    <p>Use current solar/lunar detections when the scene supports them.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>daytime route</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-aircraft flow-step domain-aircraft" id="node-aircraft" data-step="24" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">24 / moving objects</span><span class="tech-node-status">locked</span></div>
+                    <h4>Detect / reject aircraft</h4>
+                    <p>Separate aircraft motion from stable celestial candidates.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>daylight + motion evidence</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-star-catalogue flow-step domain-celestial" id="node-star-catalogue" data-step="25" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">25 / stellar unlock</span><span class="tech-node-status">locked</span></div>
+                    <h4>Catalogue star identities</h4>
+                    <p>Validate patterns and name the raw star detections.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>nighttime + detector</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-satellites flow-step domain-satellite" id="node-satellites" data-step="26" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">26 / moving objects</span><span class="tech-node-status">locked</span></div>
+                    <h4>Track satellites</h4>
+                    <p>Add predictable orbital references without making them mandatory.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>nighttime + temporal evidence</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-cloud-segmentation flow-step domain-atmosphere" id="node-cloud-segmentation" data-step="27" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">27 / atmosphere</span><span class="tech-node-status">locked</span></div>
+                    <h4>Segment cloud regions</h4>
+                    <p>Turn visible cloud texture into trackable regions.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>overcast route</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-polarization flow-step domain-celestial" id="node-polarization" data-step="28" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">28 / daylight research</span><span class="tech-node-status">locked</span></div>
+                    <h4>Polarized sunlight</h4>
+                    <p>Explore absolute heading when the solar disc is obscured.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>daytime + new sensor</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-cloud-layers flow-step domain-atmosphere" id="node-cloud-layers" data-step="29" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">29 / atmospheric research</span><span class="tech-node-status">locked</span></div>
+                    <h4>Cloud layers + parallax</h4>
+                    <p>Estimate layer motion, deformation, and relative odometry.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>cloud segmentation + history</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-imu flow-step domain-fusion" id="node-imu" data-step="30" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">30 / motion research</span><span class="tech-node-status">locked</span></div>
+                    <h4>Compensate camera rotation</h4>
+                    <p>Use IMU evidence before interpreting sky motion as translation.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>IMU + temporal tracks</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-fusion flow-step domain-fusion" id="node-fusion" data-step="31" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">31 / final unlock</span><span class="tech-node-status">locked</span></div>
+                    <h4>Condition-adaptive fusion</h4>
+                    <p>Combine whichever absolute and relative cues are trustworthy.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>available branches + uncertainty</strong></div>
+                  </article>
+                </div>
+              </div>
             </div>
-            <p class="flow-note">Rain and poor visibility are expected to degrade celestial performance; weather, ADS-B, and orbital data are optional priors rather than required inputs.</p>
+            <p class="flow-note">A clear night, clear day, broken cloud, or rain should not unlock the same nodes. Weather, ADS-B, and orbital data remain optional priors rather than required dependencies.</p>
           </section>
 
-          <section class="flow-section" aria-labelledby="future-layers-title">
-            <div class="flow-section-heading">
-              <div>
-                <p class="flow-kicker">D / future observation layers</p>
-                <h3 id="future-layers-title">The roadmap is layered, not linear.</h3>
-                <p>These branches are deliberately greyed out. They describe research directions from the roadmap, not capabilities the current dashboard should imply are complete.</p>
-              </div>
-            </div>
-            <div class="future-grid">
-              <article class="future-card flow-step is-wip domain-celestial" data-step="11">
-                <div class="flow-card-top"><span><span class="flow-stage">11</span>Stars / catalogue identity</span><span class="flow-signal">future</span></div>
-                <h4>Make stellar points nameable</h4>
-                <p>Stars are the most stable orientation reference, but the current detector still reports many raw points as unknown.</p>
-                <ul class="future-points"><li><strong>Pattern extraction</strong> match geometric arrangements against a catalogue.</li><li><strong>Known directions</strong> attach HIP identifiers, angular uncertainty, and confidence.</li><li><strong>Solver input</strong> feed identified stars into the existing ephemeris path.</li></ul>
-              </article>
-              <article class="future-card flow-step is-wip domain-satellite" data-step="12">
-                <div class="flow-card-top"><span><span class="flow-stage">12</span>Satellites / orbital layer</span><span class="flow-signal">exploratory</span></div>
-                <h4>Use predictable moving references</h4>
-                <p>Satellites sit between inertial stars and atmospheric motion: fast-moving, but potentially predictable from orbital data.</p>
-                <ul class="future-points"><li><strong>Reject or identify</strong> separate moving points from stellar candidates.</li><li><strong>Orbit + UTC</strong> predict directions for a candidate robot position.</li><li><strong>Localization</strong> test additional absolute constraints without making them a dependency.</li></ul>
-              </article>
-              <article class="future-card flow-step is-wip domain-aircraft" data-step="13">
-                <div class="flow-card-top"><span><span class="flow-stage">13</span>Aircraft / intermediate layer</span><span class="flow-signal">exploratory</span></div>
-                <h4>Track opportunistic moving landmarks</h4>
-                <p>Aircraft are not static landmarks. Their motion mixes aircraft movement, robot motion, and camera rotation.</p>
-                <ul class="future-points"><li><strong>Detection / rejection</strong> separate moving aircraft from stable celestial candidates first.</li><li><strong>Optional ADS-B</strong> associate position, altitude, heading, and timestamp when available.</li><li><strong>Parallax</strong> compare aircraft depth with cloud and stellar layers.</li></ul>
-              </article>
-              <article class="future-card flow-step is-wip domain-atmosphere" data-step="14">
-                <div class="flow-card-top"><span><span class="flow-stage">14</span>Clouds / atmospheric layers</span><span class="flow-signal">future</span></div>
-                <h4>Read atmosphere as motion, not truth</h4>
-                <p>High, mid, low, and vertically developing clouds have different persistence, deformation, and wind behaviour.</p>
-                <ul class="future-points"><li><strong>Perception</strong> segment, classify, and estimate layer altitude with uncertainty.</li><li><strong>Tracking</strong> use optical flow and approximately 30 seconds of overlapping history.</li><li><strong>Parallax</strong> compare motion across cloud layers and distant celestial references.</li><li><strong>Role</strong> estimate relative odometry, not absolute global position by itself.</li></ul>
-              </article>
-            </div>
-          </section>
-
-          <section class="flow-section" aria-labelledby="fusion-title">
-            <div class="flow-section-heading">
-              <div>
-                <p class="flow-kicker">E / long-term estimator</p>
-                <h3 id="fusion-title">Turn whichever layers exist into one state estimate.</h3>
-                <p>The eventual architecture is a condition-adaptive estimator, not a larger single detector. It should separate absolute pose cues from relative motion cues and carry uncertainty forward.</p>
-              </div>
-            </div>
-            <div class="future-grid">
-              <article class="future-card flow-step is-wip domain-fusion" data-step="15">
-                <div class="flow-card-top"><span><span class="flow-stage">15</span>Rotation compensation</span><span class="flow-signal">future</span></div>
-                <h4>Remove camera motion before sky motion</h4>
-                <p>IMU gravity, roll, pitch, and rotational velocity could isolate residual sky motion before translation and atmospheric movement are estimated.</p>
-                <ul class="future-points"><li><strong>Observed motion</strong> split robot motion, atmosphere, and deformation.</li><li><strong>IMU fusion</strong> compensate the largest rotational component first.</li></ul>
-              </article>
-              <article class="future-card flow-step is-wip domain-condition" data-step="16">
-                <div class="flow-card-top"><span><span class="flow-stage">16</span>Daylight orientation</span><span class="flow-signal">future</span></div>
-                <h4>Add cues when stars are absent</h4>
-                <p>Polarised sunlight could add Sun-direction and heading constraints when the solar disc is obscured. Horizon and terrain could provide local geometric context.</p>
-                <ul class="future-points"><li><strong>Polarisation</strong> complementary absolute orientation.</li><li><strong>Horizon / terrain</strong> local constraint, not global celestial truth.</li></ul>
-              </article>
-              <article class="future-card flow-step is-wip domain-fusion" data-step="17">
-                <div class="flow-card-top"><span><span class="flow-stage">17</span>Condition-adaptive fusion</span><span class="flow-signal">future</span></div>
-                <h4>Choose reliable evidence in context</h4>
-                <p>A probabilistic or factor-graph estimator could combine stars, Sun, Moon, satellites, aircraft, clouds, weather priors, IMU, and robot odometry without requiring every layer.</p>
-                <ul class="future-points"><li><strong>Offline mode</strong> camera + ephemerides + IMU.</li><li><strong>Enhanced mode</strong> optional weather, ADS-B, and orbital information.</li><li><strong>Output</strong> confidence-aware robot pose and relative motion.</li></ul>
-              </article>
-            </div>
-            <div class="flow-callout"><strong>Research boundary</strong><span>The project is at the foundation stage: calibrated sky maps, raw Sun/Moon/star detection, ROS interfaces, ephemeris calculations, and the current pose solver are the established core. The coloured, muted branches are hypotheses to validate experimentally.</span></div>
-          </section>
+          <div class="flow-callout"><strong>Research boundary</strong><span>The unlocked path is the foundation: sky-map generation, raw Sun/Moon/star detection, ephemeris calculations, ROS interfaces, and the current pose solver. Catalogue identity, alternate sensors, multi-fix temporal refinement, satellites, aircraft, cloud parallax, IMU compensation, and adaptive fusion remain locked until their prerequisites are built and experimentally validated.</span></div>
         </div>
       </div>
 
@@ -1867,9 +2557,49 @@
       descriptionView: document.getElementById("description-view"),
       descriptionStep: document.getElementById("description-step"),
       descriptionTotal: document.getElementById("description-total"),
-      descriptionSteps: [...document.querySelectorAll(".flow-step")]
+      descriptionSteps: [...document.querySelectorAll(".flow-step")],
+      techTreeBoards: [...document.querySelectorAll("[data-tech-tree]")]
     };
     const state = { rows: [], filtered: [], selectedIndex: -1 };
+    const TECH_TREE_LINKS = {
+      core: [
+        { from: "node-realsense", to: "node-image-capture", status: "built" },
+        { from: "node-stellarium", to: "node-render-sky", status: "built" },
+        { from: "node-image-capture", to: "node-create-panorama", status: "built" },
+        { from: "node-render-sky", to: "node-create-panorama", status: "built" },
+        { from: "node-fisheye", to: "node-fisheye-calibration", status: "locked" },
+        { from: "node-create-panorama", to: "node-celestial-detector", status: "built" },
+        { from: "node-fisheye-calibration", to: "node-celestial-detector", status: "locked" },
+        { from: "node-celestial-detector", to: "node-celestial-pose", status: "built" },
+        { from: "node-ephemeris", to: "node-celestial-pose", status: "built", route: "around-catalogue" },
+        { from: "node-catalogue", to: "node-celestial-pose", status: "optional" },
+        { from: "node-dwarflab", to: "node-dwarflab-calibration", status: "locked" },
+        { from: "node-dwarflab-calibration", to: "node-dwarflab-pose", status: "locked" },
+        { from: "node-celestial-pose", to: "node-pose-merge", status: "built" },
+        { from: "node-dwarflab-pose", to: "node-pose-merge", status: "locked" },
+        { from: "node-pose-merge", to: "node-publish-pose", status: "partial" },
+        { from: "node-publish-pose", to: "node-temporal-refinement", status: "locked" },
+        { from: "node-temporal-refinement", to: "node-evaluate", status: "optional" },
+        { from: "node-publish-pose", to: "node-evaluate", status: "built" }
+      ],
+      conditions: [
+        { from: "node-condition-classifier", to: "node-daytime", status: "locked" },
+        { from: "node-condition-classifier", to: "node-nighttime", status: "locked" },
+        { from: "node-condition-classifier", to: "node-overcast", status: "locked" },
+        { from: "node-daytime", to: "node-solar-cues", status: "partial" },
+        { from: "node-daytime", to: "node-aircraft", status: "locked" },
+        { from: "node-nighttime", to: "node-star-catalogue", status: "locked" },
+        { from: "node-nighttime", to: "node-satellites", status: "locked" },
+        { from: "node-overcast", to: "node-cloud-segmentation", status: "locked" },
+        { from: "node-daytime", to: "node-polarization", status: "locked" },
+        { from: "node-cloud-segmentation", to: "node-cloud-layers", status: "locked" },
+        { from: "node-aircraft", to: "node-fusion", status: "locked" },
+        { from: "node-star-catalogue", to: "node-fusion", status: "locked" },
+        { from: "node-satellites", to: "node-fusion", status: "optional", route: "satellite-fusion" },
+        { from: "node-cloud-layers", to: "node-fusion", status: "locked" },
+        { from: "node-imu", to: "node-fusion", status: "locked" }
+      ]
+    };
     const numericFields = new Set([
       "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
       "estimated_longitude", "identified_objects_used", "latitude_error_degrees",
@@ -1917,6 +2647,7 @@
       dom.themeToggle.title = `Theme: ${THEME_LABELS[mode]}. Tap for ${THEME_LABELS[nextMode]} mode.`;
       dom.themeColor.setAttribute("content", resolvedTheme(mode) === "light" ? "#f2f7f4" : "#071216");
       updateGlobeLighting();
+      if (dom.visual.dataset.mode === "description") requestAnimationFrame(drawTechTreeLinks);
       if (persist) saveThemeMode(mode);
     }
 
@@ -2116,6 +2847,109 @@
       renderErrorHistogram(errorKilometers);
     }
 
+    function drawTechTreeLinks() {
+      const svgNamespace = "http://www.w3.org/2000/svg";
+      const themeStyles = getComputedStyle(document.documentElement);
+      const linkColors = {
+        built: themeStyles.getPropertyValue("--ground").trim(),
+        partial: themeStyles.getPropertyValue("--domain-condition").trim(),
+        locked: themeStyles.getPropertyValue("--faint").trim(),
+        optional: themeStyles.getPropertyValue("--domain-condition").trim()
+      };
+      dom.techTreeBoards.forEach((board) => {
+        const svg = board.querySelector(".tech-tree-links");
+        const boardRect = board.getBoundingClientRect();
+        if (!svg || !boardRect.width || !boardRect.height) return;
+        svg.setAttribute("viewBox", `0 0 ${boardRect.width} ${boardRect.height}`);
+        svg.replaceChildren();
+        const definitions = document.createElementNS(svgNamespace, "defs");
+        const markerIds = {};
+        Object.entries(linkColors).forEach(([status, color]) => {
+          const markerId = `tech-arrow-${board.dataset.techTree}-${status}`;
+          const marker = document.createElementNS(svgNamespace, "marker");
+          marker.setAttribute("id", markerId);
+          marker.setAttribute("viewBox", "0 0 6 6");
+          marker.setAttribute("refX", "5.5");
+          marker.setAttribute("refY", "3");
+          marker.setAttribute("markerWidth", "5");
+          marker.setAttribute("markerHeight", "5");
+          marker.setAttribute("orient", "auto");
+          const arrow = document.createElementNS(svgNamespace, "path");
+          arrow.setAttribute("d", "M 0 0 L 6 3 L 0 6 z");
+          arrow.setAttribute("fill", color || "currentColor");
+          marker.append(arrow);
+          definitions.append(marker);
+          markerIds[status] = markerId;
+        });
+        svg.append(definitions);
+        const isNarrow = board.clientWidth <= 540;
+        const nodes = [...board.querySelectorAll(".tech-node")];
+        (TECH_TREE_LINKS[board.dataset.techTree] || []).forEach((link) => {
+          const source = board.querySelector(`#${link.from}`);
+          const target = board.querySelector(`#${link.to}`);
+          if (!source || !target) return;
+          const sourceRect = source.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+          const sourceCenterX = sourceRect.left + sourceRect.width / 2 - boardRect.left;
+          const sourceCenterY = sourceRect.top + sourceRect.height / 2 - boardRect.top;
+          const targetCenterX = targetRect.left + targetRect.width / 2 - boardRect.left;
+          const targetCenterY = targetRect.top + targetRect.height / 2 - boardRect.top;
+          let pathData;
+          if (!isNarrow && link.route === "around-catalogue") {
+            const obstacle = board.querySelector("#node-catalogue").getBoundingClientRect();
+            const railX = obstacle.right - boardRect.left + 18;
+            const railY = obstacle.bottom - boardRect.top + 18;
+            const startX = sourceRect.right - boardRect.left;
+            const endX = targetRect.left - boardRect.left;
+            pathData = `M ${startX} ${sourceCenterY} V ${railY} H ${railX} V ${targetCenterY} H ${endX}`;
+          } else if (!isNarrow && link.route === "satellite-fusion") {
+            const railX = targetRect.right - boardRect.left + 16;
+            const startX = sourceRect.left - boardRect.left;
+            const endX = targetRect.right - boardRect.left;
+            const endY = targetRect.top - boardRect.top + targetRect.height * 0.32;
+            pathData = `M ${startX} ${sourceCenterY} H ${railX} V ${endY} H ${endX}`;
+          } else if (isNarrow) {
+            const sourceIndex = nodes.indexOf(source);
+            const targetIndex = nodes.indexOf(target);
+            const targetIsBelow = targetCenterY >= sourceCenterY;
+            const startY = (targetIsBelow ? sourceRect.bottom : sourceRect.top) - boardRect.top;
+            const endY = (targetIsBelow ? targetRect.top : targetRect.bottom) - boardRect.top;
+            if (Math.abs(targetIndex - sourceIndex) === 1) {
+              pathData = `M ${sourceCenterX} ${startY} V ${endY}`;
+            } else {
+              const railX = boardRect.width - 7;
+              const startX = sourceRect.right - boardRect.left;
+              const endX = targetRect.right - boardRect.left;
+              pathData = `M ${startX} ${sourceCenterY} H ${railX} V ${targetCenterY} H ${endX}`;
+            }
+          } else if (Math.abs(sourceCenterX - targetCenterX) < 4) {
+            const targetIsBelow = targetCenterY >= sourceCenterY;
+            const x = sourceCenterX;
+            const startY = (targetIsBelow ? sourceRect.bottom : sourceRect.top) - boardRect.top;
+            const endY = (targetIsBelow ? targetRect.top : targetRect.bottom) - boardRect.top;
+            pathData = `M ${x} ${startY} V ${endY}`;
+          } else {
+            const targetIsRight = targetCenterX >= sourceCenterX;
+            const startX = (targetIsRight ? sourceRect.right : sourceRect.left) - boardRect.left;
+            const endX = (targetIsRight ? targetRect.left : targetRect.right) - boardRect.left;
+            const startY = sourceCenterY;
+            const endY = targetCenterY;
+            if (Math.abs(startY - endY) < 3) {
+              pathData = `M ${startX} ${startY} H ${endX}`;
+            } else {
+              const bendX = startX + (endX - startX) * 0.5;
+              pathData = `M ${startX} ${startY} H ${bendX} V ${endY} H ${endX}`;
+            }
+          }
+          const path = document.createElementNS(svgNamespace, "path");
+          path.setAttribute("class", `tech-link is-${link.status}`);
+          path.setAttribute("d", pathData);
+          path.setAttribute("marker-end", `url(#${markerIds[link.status] || markerIds.locked})`);
+          svg.append(path);
+        });
+      });
+    }
+
     function updateDescriptionProgress(stepNumber) {
       const formattedStep = String(stepNumber).padStart(2, "0");
       dom.descriptionStep.textContent = formattedStep;
@@ -2164,7 +2998,10 @@
       dom.summaryView.setAttribute("aria-hidden", String(mode !== "summary"));
       dom.descriptionView.setAttribute("aria-hidden", String(mode !== "description"));
       if (mode === "summary") renderSummary();
-      if (mode === "description") updateDescriptionProgressFromScroll();
+      if (mode === "description") {
+        updateDescriptionProgressFromScroll();
+        requestAnimationFrame(drawTechTreeLinks);
+      }
     }
 
     function latLonToVector(latitude, longitude, radius = EARTH_RADIUS) {
@@ -2552,6 +3389,7 @@
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
     });
+    window.addEventListener("resize", drawTechTreeLinks);
     dom.reset.addEventListener("click", () => {
       if (!camera || !controls) return;
       focusTransition = null;
