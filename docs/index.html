@@ -69,6 +69,13 @@
       --visual-danger: #ffad9c;
       --globe-filter: none;
       --visual-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+      --domain-sensor: #76c9d9;
+      --domain-celestial: #e4d47b;
+      --domain-satellite: #c0a0ed;
+      --domain-aircraft: #ffad6b;
+      --domain-atmosphere: #78c7b5;
+      --domain-fusion: #ef837a;
+      --domain-condition: #9eacc2;
     }
 
     [data-theme="light"] {
@@ -117,6 +124,13 @@
       --theme-shadow: rgba(31, 65, 56, 0.16);
       --globe-filter: brightness(1.8) saturate(1.16);
       --visual-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.78);
+      --domain-sensor: #247b91;
+      --domain-celestial: #8b7000;
+      --domain-satellite: #7851a9;
+      --domain-aircraft: #a74e20;
+      --domain-atmosphere: #1d7d68;
+      --domain-fusion: #a53e3e;
+      --domain-condition: #52657e;
     }
 
     @media (prefers-color-scheme: light) {
@@ -166,6 +180,13 @@
         --theme-shadow: rgba(31, 65, 56, 0.16);
         --globe-filter: brightness(1.8) saturate(1.16);
         --visual-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.78);
+        --domain-sensor: #247b91;
+        --domain-celestial: #8b7000;
+        --domain-satellite: #7851a9;
+        --domain-aircraft: #a74e20;
+        --domain-atmosphere: #1d7d68;
+        --domain-fusion: #a53e3e;
+        --domain-condition: #52657e;
       }
     }
 
@@ -863,6 +884,293 @@
     .flow-media figcaption span { color: var(--ground); }
     .flow-media figcaption code { color: var(--muted); font-size: inherit; }
 
+    .description-flow {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .flow-intro {
+      max-width: 820px;
+      margin: 0 0 32px;
+      color: var(--faint);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .flow-section {
+      margin: 0 0 42px;
+    }
+
+    .flow-section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 0 0 17px;
+    }
+
+    .flow-section-heading h3 {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(1.25rem, 2vw, 1.7rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+
+    .flow-section-heading p:not(.flow-kicker) {
+      max-width: 700px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.55;
+    }
+
+    .flow-kicker {
+      margin: 0 0 7px;
+      color: var(--domain-accent, var(--ground));
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .flow-legend {
+      display: flex;
+      flex: 0 0 auto;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px 14px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.53rem;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .flow-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .flow-legend i { width: 8px; height: 8px; border-radius: 50%; background: var(--domain-accent); }
+    .flow-legend .legend-current i { background: var(--ground); }
+    .flow-legend .legend-future i { background: var(--faint); opacity: 0.55; }
+
+    .route-grid,
+    .core-grid,
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .route-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .route-card,
+    .core-card,
+    .future-card,
+    .condition-card {
+      --domain-accent: var(--domain-condition);
+      position: relative;
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--domain-accent);
+      border-radius: 4px;
+      background: var(--flow-card-background);
+    }
+
+    .route-card,
+    .core-card,
+    .future-card { padding: 17px 18px 18px; }
+
+    .route-card .flow-card-top,
+    .core-card .flow-card-top,
+    .future-card .flow-card-top,
+    .condition-card .flow-card-top { color: var(--domain-accent); }
+
+    .domain-sensor { --domain-accent: var(--domain-sensor); }
+    .domain-celestial { --domain-accent: var(--domain-celestial); }
+    .domain-satellite { --domain-accent: var(--domain-satellite); }
+    .domain-aircraft { --domain-accent: var(--domain-aircraft); }
+    .domain-atmosphere { --domain-accent: var(--domain-atmosphere); }
+    .domain-fusion { --domain-accent: var(--domain-fusion); }
+    .domain-condition { --domain-accent: var(--domain-condition); }
+
+    .flow-step {
+      position: relative;
+      display: block;
+      grid-template-columns: none;
+      gap: 0;
+      min-height: 0;
+      padding-bottom: 0;
+      scroll-margin-top: 110px;
+    }
+
+    .flow-card.flow-step.is-current,
+    .route-card.is-current,
+    .core-card.is-current,
+    .future-card.is-current {
+      border-color: var(--line-strong);
+      border-left-color: var(--domain-accent);
+      background: var(--flow-card-current-background);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--domain-accent) 10%, transparent);
+      transform: translateY(-2px);
+    }
+
+    .route-card.is-wip,
+    .future-card.is-wip {
+      border-color: color-mix(in srgb, var(--domain-accent) 35%, var(--line));
+      border-left-color: color-mix(in srgb, var(--domain-accent) 65%, var(--faint));
+      background: var(--flow-wip-card-background);
+      opacity: 0.48;
+    }
+
+    .route-card.is-wip.is-current,
+    .future-card.is-wip.is-current {
+      background: var(--flow-wip-current-card-background);
+      opacity: 0.64;
+    }
+
+    .flow-stage {
+      display: inline-grid;
+      width: 25px;
+      height: 19px;
+      margin-right: 6px;
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+      font-size: 0.5rem;
+      line-height: 1;
+      vertical-align: middle;
+    }
+
+    .route-card h4,
+    .future-card h4,
+    .condition-card h4 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 1.06rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .route-card > p,
+    .future-card > p,
+    .condition-card > p {
+      margin: 9px 0 15px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      line-height: 1.55;
+    }
+
+    .route-track {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 38px;
+      margin: 13px 0 15px;
+      padding: 8px 9px;
+      border: 1px solid color-mix(in srgb, var(--domain-accent) 32%, var(--line));
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--domain-accent) 7%, transparent);
+      color: var(--domain-accent);
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .route-node { color: var(--ink); }
+    .route-arrow { color: var(--domain-accent); font-size: 0.8rem; }
+    .route-skip { color: var(--faint); }
+
+    .core-grid .core-card:nth-child(1),
+    .core-grid .core-card:nth-child(2) { grid-column: span 1; }
+
+    .core-grid .core-card:nth-child(3),
+    .core-grid .core-card:nth-child(4),
+    .core-grid .core-card:nth-child(5),
+    .core-grid .core-card:nth-child(6) { min-height: 230px; }
+
+    .condition-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .condition-card {
+      padding: 15px 15px 16px;
+      border-color: color-mix(in srgb, var(--domain-condition) 35%, var(--line));
+      background: color-mix(in srgb, var(--domain-condition) 5%, var(--flow-card-background));
+    }
+
+    .condition-card h4 { font-size: 0.95rem; }
+    .condition-card > p { margin-bottom: 12px; font-size: 0.7rem; }
+
+    .availability-list,
+    .future-points {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .availability-list li,
+    .future-points li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding-top: 7px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.53rem;
+      line-height: 1.4;
+    }
+
+    .availability-list strong { color: var(--domain-accent); font-weight: 500; }
+    .availability-list em { color: var(--muted); font-style: normal; text-align: right; }
+
+    .future-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .future-card h4 { font-size: 1rem; }
+    .future-card > p { min-height: 62px; }
+    .future-points li { display: block; color: var(--muted); }
+    .future-points li strong { color: var(--domain-accent); font-weight: 500; }
+
+    .flow-callout {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 13px;
+      align-items: start;
+      margin-top: 15px;
+      padding: 13px 15px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--domain-fusion) 5%, transparent);
+      color: var(--muted);
+      font-size: 0.73rem;
+      line-height: 1.55;
+    }
+
+    .flow-callout strong {
+      color: var(--domain-fusion);
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .flow-note {
+      margin: 14px 0 0;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      line-height: 1.55;
+    }
+
     .flow-io {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1101,6 +1409,9 @@
       .view-heading, .summary-stat-grid, .summary-charts, .description-header, .description-flow { max-width: none; }
       .summary-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .summary-charts { grid-template-columns: 1fr; }
+      .route-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .condition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .future-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .description-header { top: -28px; margin-top: -28px; padding-top: 28px; }
       .mode-dock { bottom: 0; }
     }
@@ -1114,7 +1425,10 @@
       .view-heading, .description-header { align-items: flex-start; flex-direction: column; gap: 16px; }
       .view-heading-meta { text-align: left; }
       .flow-intro { margin-left: 0; }
-      .flow-step { grid-template-columns: 42px minmax(0, 1fr); gap: 11px; }
+      .route-grid,
+      .core-grid,
+      .condition-grid,
+      .future-grid { grid-template-columns: 1fr; }
       .flow-index { width: 42px; height: 42px; font-size: 0.58rem; }
       .flow-list::before { left: 20px; }
       .flow-card { padding: 15px 14px 16px; }
@@ -1252,133 +1566,216 @@
       <div class="visual-view description-view" id="description-view" role="tabpanel" aria-labelledby="description-tab" aria-hidden="true" tabindex="-1">
         <header class="description-header">
           <div>
-            <p class="eyebrow">Pipeline / connected components</p>
-            <h2>From photons to a fix.</h2>
-            <p>Follow one position through the system. Each step names the component, the signal it receives, and the hand-off it creates for the next stage.</p>
+            <p class="eyebrow">Pipeline / current core + future branches</p>
+            <h2>One sky, several routes.</h2>
+            <p>The implemented system is one branch of a larger sky-localisation framework. Follow the routes that exist today, then the condition-dependent layers and research paths that are still being defined.</p>
           </div>
-          <div class="description-progress">Step <strong id="description-step">01</strong> / <span id="description-total">07</span></div>
+          <div class="description-progress">Node <strong id="description-step">01</strong> / <span id="description-total">17</span></div>
         </header>
 
         <div class="description-flow">
-          <p class="flow-intro">The line is the data path. Scroll through it as a sequence: an image becomes a map, a map becomes observations, and observations become a position estimate that can be measured against truth.</p>
-          <ol class="flow-list" id="description-flow-list">
-            <li class="flow-step is-current" data-step="01">
-              <div class="flow-index" aria-hidden="true">01</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Input / capture</span><span class="flow-signal">image + UTC</span></div>
-                <h3>Start with a time-stamped sky</h3>
-                <p>A RealSense frame enters the live pipeline with its capture time. During a simulated evaluation, a service supplies a known location and UTC time instead, so the same downstream path can be exercised without the camera.</p>
-                <dl class="flow-io"><div><dt>Receives</dt><dd>camera image or GPS request</dd></div><div><dt>Hands off</dt><dd>image with a precise timestamp</dd></div></dl>
+          <p class="flow-intro">Read the solid cards as the current foundation and the muted cards as proposed routes. A RealSense camera and the simulator use the normalisation path; a future fisheye adapter can join later, while a DWARFLAB3 telescope adapter could enter at the published-position boundary.</p>
+
+          <section class="flow-section" aria-labelledby="sensor-routes-title">
+            <div class="flow-section-heading">
+              <div>
+                <p class="flow-kicker">A / sensor and source branches</p>
+                <h3 id="sensor-routes-title">Different instruments enter at different points.</h3>
+                <p>The source contract is not one camera forever. Each adapter should declare what it provides, which calibration it owns, and where it joins the shared ROS path.</p>
+              </div>
+              <div class="flow-legend" aria-label="Flow status legend"><span class="legend-current"><i></i> current</span><span class="legend-future"><i></i> proposed</span></div>
+            </div>
+            <div class="route-grid">
+              <article class="route-card flow-step is-current domain-sensor" data-step="01">
+                <div class="flow-card-top"><span><span class="flow-stage">01</span>RealSense camera</span><span class="flow-signal">current</span></div>
+                <h4>Start with a time-stamped sky</h4>
+                <p>The live camera path supplies an image and capture time. Calibration and projection are handled downstream before celestial detection.</p>
+                <div class="route-track"><span class="route-node">frame + UTC</span><span class="route-arrow">→</span><span class="route-node">normalise</span><span class="route-arrow">→</span><span class="route-node">detect</span></div>
+                <dl class="flow-io"><div><dt>Source</dt><dd>RealSense colour frame</dd></div><div><dt>Joins</dt><dd>camera normalisation</dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step" data-step="02">
-              <div class="flow-index" aria-hidden="true">02</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Sky map / normalise</span><span class="flow-signal">/sky_map</span></div>
-                <h3>Make one consistent view of the sky</h3>
-                <p><code>sky_mapper</code> applies calibration and unwraps the camera image into an equirectangular panorama. The simulator can create an equivalent map from six Stellarium views, giving tests the same topic shape as live input.</p>
+              <article class="route-card flow-step is-current domain-sensor" data-step="02">
+                <div class="flow-card-top"><span><span class="flow-stage">02</span>Stellarium simulator</span><span class="flow-signal">current</span></div>
+                <h4>Exercise the same sky-map contract</h4>
+                <p>A GPS request and UTC timestamp render six views into the same equirectangular image shape, allowing the downstream path to be tested without a camera.</p>
+                <div class="route-track"><span class="route-node">GPS + UTC</span><span class="route-arrow">→</span><span class="route-node">six faces</span><span class="route-arrow">→</span><span class="route-node">sky map</span></div>
+                <dl class="flow-io"><div><dt>Source</dt><dd>service request + renderer</dd></div><div><dt>Joins</dt><dd>sky-map topic</dd></div></dl>
+              </article>
+              <article class="route-card flow-step is-wip domain-sensor" data-step="03">
+                <div class="flow-card-top"><span><span class="flow-stage">03</span>Fisheye camera</span><span class="flow-signal">proposed</span></div>
+                <h4>Join after projection when calibration allows</h4>
+                <p>A calibrated fisheye adapter could provide the spherical representation directly. In that case it skips the existing “make one consistent view” step and joins at detection.</p>
+                <div class="route-track"><span class="route-node">fisheye + calibration</span><span class="route-arrow">→</span><span class="route-node">detect</span><span class="route-skip">bypasses normalise</span></div>
+                <dl class="flow-io"><div><dt>Needs</dt><dd>projection contract</dd></div><div><dt>Joins</dt><dd>celestial detector</dd></div></dl>
+              </article>
+              <article class="route-card flow-step is-wip domain-sensor" data-step="04">
+                <div class="flow-card-top"><span><span class="flow-stage">04</span>DWARFLAB3 telescope</span><span class="flow-signal">proposed</span></div>
+                <h4>Use an external solution when available</h4>
+                <p>A telescope adapter could skip image perception entirely when it already produces a usable position or orientation solution, joining at the publish boundary.</p>
+                <div class="route-track"><span class="route-node">telescope solution</span><span class="route-arrow">→</span><span class="route-node">publish</span><span class="route-skip">skips perception</span></div>
+                <dl class="flow-io"><div><dt>Needs</dt><dd>timestamped pose contract</dd></div><div><dt>Joins</dt><dd>ROS outputs</dd></div></dl>
+              </article>
+            </div>
+          </section>
+
+          <section class="flow-section" aria-labelledby="core-path-title">
+            <div class="flow-section-heading">
+              <div>
+                <p class="flow-kicker">B / implemented celestial core</p>
+                <h3 id="core-path-title">One shared path, with deliberate join points.</h3>
+                <p>RealSense and simulated images pass through normalisation. Fisheye is intended to join at detection; DWARFLAB3 is intended to join at publishing. The cards below show what is implemented now and what remains incomplete.</p>
+              </div>
+            </div>
+            <div class="core-grid">
+              <article class="core-card flow-card flow-step is-current domain-sensor" data-step="05">
+                <div class="flow-card-top"><span><span class="flow-stage">05</span>Sky map / normalise</span><span class="flow-signal">current</span></div>
+                <h4>Make one consistent view of the sky</h4>
+                <p><code>sky_mapper</code> applies calibration and unwraps camera imagery into an equirectangular panorama. This is the branch a future fisheye adapter would be able to bypass.</p>
                 <figure class="flow-media">
                   <img src="media/simulated_sky_map.png" alt="Captured simulated equirectangular night-sky panorama produced by the simulator." loading="lazy" decoding="async">
                   <figcaption><span>Captured simulator output</span><code>simulated_sky_map.png</code></figcaption>
                 </figure>
                 <dl class="flow-io"><div><dt>Receives</dt><dd>calibrated image or rendered faces</dd></div><div><dt>Hands off</dt><dd>equirectangular sky map</dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step" data-step="03">
-              <div class="flow-index" aria-hidden="true">03</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Celestial detector</span><span class="flow-signal">candidate points</span></div>
-                <h3>Find useful lights in the image</h3>
-                <p><code>celestial_detector</code> looks for stars, the Sun, and the Moon. It records where each candidate appears in the panorama and attaches a confidence and object type to the observation.</p>
+              <article class="core-card flow-card flow-step is-current domain-celestial" data-step="06">
+                <div class="flow-card-top"><span><span class="flow-stage">06</span>Celestial detector</span><span class="flow-signal">current</span></div>
+                <h4>Find useful lights in the image</h4>
+                <p><code>celestial_detector</code> looks for stars, the Sun, and the Moon, recording pixel location, confidence, and object type as observations.</p>
                 <figure class="flow-media">
                   <img src="media/sky_map.png" alt="Captured sky map annotated with detected celestial candidates and their observation labels." loading="lazy" decoding="async">
                   <figcaption><span>Captured detector output</span><code>sky_map.png</code></figcaption>
                 </figure>
                 <dl class="flow-io"><div><dt>Receives</dt><dd><code>/sky_map</code></dd></div><div><dt>Hands off</dt><dd>celestial observations</dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step" data-step="04">
-              <div class="flow-index" aria-hidden="true">04</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Catalogue / identify</span><span class="flow-signal">evidence</span></div>
-                <h3>Turn bright points into identities</h3>
-                <p>Star candidates can be projected through virtual perspective tiles and matched against the offline catalogue. Identified stars give the solver named celestial references instead of anonymous image points.</p>
-                <dl class="flow-io"><div><dt>Receives</dt><dd>candidate positions and brightness</dd></div><div><dt>Hands off</dt><dd>identified objects and confidence</dd></div></dl>
+              <article class="core-card flow-card flow-step is-wip domain-celestial" data-step="07">
+                <div class="flow-card-top"><span><span class="flow-stage">07</span>Catalogue / identify</span><span class="flow-signal">future</span></div>
+                <h4>Turn bright points into identities</h4>
+                <p>Lost-in-space matching could turn anonymous star centroids into catalogue objects using geometric patterns and tools such as tetra3. Raw star detection exists; catalogue identification does not.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd>candidate geometry + brightness</dd></div><div><dt>Would hand off</dt><dd>identified stars + uncertainty</dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step" data-step="05">
-              <div class="flow-index" aria-hidden="true">05</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Celestial localiser</span><span class="flow-signal">pose solve</span></div>
-                <h3>Compare what was seen with what should be seen</h3>
-                <p><code>celestial_localiser</code> uses the observation timestamp and ephemeris predictions to solve for latitude, longitude, and heading. It rejects unusable evidence, then searches for the pose that best explains the remaining directions.</p>
-                <dl class="flow-io"><div><dt>Receives</dt><dd>observations + ephemeris</dd></div><div><dt>Hands off</dt><dd>estimated pose and confidence</dd></div></dl>
+              <article class="core-card flow-card flow-step is-current domain-celestial" data-step="08">
+                <div class="flow-card-top"><span><span class="flow-stage">08</span>Celestial localiser</span><span class="flow-signal">current</span></div>
+                <h4>Compare what was seen with what should be seen</h4>
+                <p><code>celestial_localiser</code> combines observation time, ephemerides, and SciPy optimisation to search for the pose that best explains the observed directions.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd>observations + ephemeris</dd></div><div><dt>Hands off</dt><dd>estimated pose + confidence</dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step" data-step="06">
-              <div class="flow-index" aria-hidden="true">06</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>ROS outputs</span><span class="flow-signal">pose + fix + TF</span></div>
-                <h3>Publish a position other nodes can use</h3>
-                <p>The solved pose is published to the ROS graph as a pose, a geographic fix, and optional transforms. Debug files preserve the timestamped result so a run can be inspected after the live pipeline has moved on.</p>
-                <dl class="flow-io"><div><dt>Publishes</dt><dd><code>/celestial_pose</code> and <code>/celestial_fix</code></dd></div><div><dt>Preserves</dt><dd>pose and observation debug files</dd></div></dl>
+              <article class="core-card flow-card flow-step is-current domain-fusion" data-step="09">
+                <div class="flow-card-top"><span><span class="flow-stage">09</span>ROS outputs</span><span class="flow-signal">current</span></div>
+                <h4>Publish a position other nodes can use</h4>
+                <p>The solved pose is published as a pose, geographic fix, and optional transforms. This is the proposed DWARFLAB3 adapter’s destination as well.</p>
+                <dl class="flow-io"><div><dt>Publishes</dt><dd><code>/celestial_pose</code> + <code>/celestial_fix</code></dd></div><div><dt>Preserves</dt><dd>pose + observation debug files</dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step" data-step="07">
-              <div class="flow-index" aria-hidden="true">07</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Evaluation / measure</span><span class="flow-signal">CSV metrics</span></div>
-                <h3>Measure the distance to truth</h3>
-                <p>The random evaluator samples surface positions, waits for the matching timestamped pose, and appends ground truth, estimate, object count, and haversine error to the metrics CSV. This dashboard turns those rows into the globe, summary, and run list.</p>
-                <dl class="flow-io"><div><dt>Compares</dt><dd>ground truth against estimated fix</dd></div><div><dt>Publishes</dt><dd><code>random_localisation_metrics.csv</code></dd></div></dl>
+              <article class="core-card flow-card flow-step is-current domain-fusion" data-step="10">
+                <div class="flow-card-top"><span><span class="flow-stage">10</span>Evaluation / measure</span><span class="flow-signal">current</span></div>
+                <h4>Measure the distance to truth</h4>
+                <p>The evaluator compares ground truth, estimate, object count, and haversine error. This dashboard turns the resulting CSV into the globe, summary, and run list.</p>
+                <dl class="flow-io"><div><dt>Compares</dt><dd>ground truth vs estimated fix</dd></div><div><dt>Publishes</dt><dd><code>random_localisation_metrics.csv</code></dd></div></dl>
               </article>
-            </li>
-            <li class="flow-step is-wip" data-step="08">
-              <div class="flow-index" aria-hidden="true">08</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Future / satellite layer</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
-                <h3>Add predictable moving references</h3>
-                <p>Satellite observations could add another sky layer with known orbital motion. The planned stage would detect and reject or identify satellites, then pass their time-dependent directions into the same observation interface.</p>
-                <dl class="flow-io"><div><dt>Would receive</dt><dd>moving sky detections + time</dd></div><div><dt>Would hand off</dt><dd>satellite candidates and tracks</dd></div></dl>
+            </div>
+          </section>
+
+          <section class="flow-section" aria-labelledby="availability-title">
+            <div class="flow-section-heading">
+              <div>
+                <p class="flow-kicker">C / availability gate</p>
+                <h3 id="availability-title">The visible sky decides which branch is credible.</h3>
+                <p>Time of day, cloud cover, visibility, motion evidence, confidence, and detected object classes should become a selection gate. These are research hypotheses, not automatic decisions in the current implementation.</p>
+              </div>
+            </div>
+            <div class="condition-grid">
+              <article class="condition-card domain-celestial">
+                <div class="flow-card-top"><span>Clear night</span><span class="flow-signal">stars first</span></div>
+                <h4>Stable celestial references</h4>
+                <p>Best case for inertial sky references and the current pose-solving direction.</p>
+                <ul class="availability-list"><li><strong>Stars</strong><em>strong</em></li><li><strong>Moon</strong><em>useful</em></li><li><strong>Satellites / aircraft</strong><em>conditional</em></li><li><strong>Clouds</strong><em>context-dependent</em></li></ul>
               </article>
-            </li>
-            <li class="flow-step is-wip" data-step="09">
-              <div class="flow-index" aria-hidden="true">09</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Future / aircraft layer</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
-                <h3>Use aircraft as relative motion cues</h3>
-                <p>Aircraft detection and rejection are future work. When tracked over time, an aircraft could become a source of differential motion or be excluded when it conflicts with the stable celestial solution.</p>
-                <dl class="flow-io"><div><dt>Would receive</dt><dd>frame-to-frame moving objects</dd></div><div><dt>Would hand off</dt><dd>tracks, confidence, and exclusions</dd></div></dl>
+              <article class="condition-card domain-celestial">
+                <div class="flow-card-top"><span>Clear day</span><span class="flow-signal">sun first</span></div>
+                <h4>Solar and polarisation cues</h4>
+                <p>Stars may disappear, while the Sun, aircraft, clouds, and future polarisation sensing remain candidates.</p>
+                <ul class="availability-list"><li><strong>Sun</strong><em>strong</em></li><li><strong>Aircraft</strong><em>useful</em></li><li><strong>Clouds</strong><em>useful</em></li><li><strong>Polarisation</strong><em>future</em></li></ul>
               </article>
-            </li>
-            <li class="flow-step is-wip" data-step="10">
-              <div class="flow-index" aria-hidden="true">10</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Future / cloud layers</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
-                <h3>Read the atmosphere as a layered map</h3>
-                <p>Cloud classification and tracking could provide local motion and atmospheric structure when stars are obscured. The roadmap separates high-, mid-, and low-altitude clouds because each layer carries a different reliability and motion model.</p>
-                <dl class="flow-io"><div><dt>Would receive</dt><dd>cloud texture and temporal tracks</dd></div><div><dt>Would hand off</dt><dd>layer estimates and motion cues</dd></div></dl>
+              <article class="condition-card domain-atmosphere">
+                <div class="flow-card-top"><span>Overcast</span><span class="flow-signal">atmosphere</span></div>
+                <h4>Absolute sky cues may disappear</h4>
+                <p>Clouds become the dominant visible layer, but they are better suited to relative motion than absolute position.</p>
+                <ul class="availability-list"><li><strong>Clouds</strong><em>strong candidate</em></li><li><strong>Aircraft</strong><em>conditional</em></li><li><strong>Sun / stars</strong><em>obscured</em></li><li><strong>Odometry</strong><em>future</em></li></ul>
               </article>
-            </li>
-            <li class="flow-step is-wip" data-step="11">
-              <div class="flow-index" aria-hidden="true">11</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Future / horizon layer</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
-                <h3>Anchor the sky to local terrain</h3>
-                <p>Horizon shape and nearby terrain could constrain the camera pose when the sky is only partly visible. This stage would connect the spherical sky representation to a local geometric or visual map.</p>
-                <dl class="flow-io"><div><dt>Would receive</dt><dd>horizon profile and terrain features</dd></div><div><dt>Would hand off</dt><dd>local scene constraints</dd></div></dl>
+              <article class="condition-card domain-condition">
+                <div class="flow-card-top"><span>Broken cloud</span><span class="flow-signal">mixed layers</span></div>
+                <h4>Several depths at once</h4>
+                <p>Open sky plus cloud layers could expose the differential parallax the long-term system is designed to study.</p>
+                <ul class="availability-list"><li><strong>Stars / Sun / Moon</strong><em>gaps permitting</em></li><li><strong>Cloud layers</strong><em>multiple</em></li><li><strong>Aircraft / satellites</strong><em>conditional</em></li><li><strong>Fusion</strong><em>future</em></li></ul>
               </article>
-            </li>
-            <li class="flow-step is-wip" data-step="12">
-              <div class="flow-index" aria-hidden="true">12</div>
-              <article class="flow-card">
-                <div class="flow-card-top"><span>Future / adaptive fusion</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
-                <h3>Choose the reliable layers in context</h3>
-                <p>A future fusion stage could adapt to weather, time of day, motion, and visibility. It would weight stars, satellites, aircraft, clouds, terrain, and IMU data according to which observations are trustworthy at that moment.</p>
-                <dl class="flow-io"><div><dt>Would combine</dt><dd>available sky and motion layers</dd></div><div><dt>Would produce</dt><dd>condition-aware pose confidence</dd></div></dl>
+            </div>
+            <p class="flow-note">Rain and poor visibility are expected to degrade celestial performance; weather, ADS-B, and orbital data are optional priors rather than required inputs.</p>
+          </section>
+
+          <section class="flow-section" aria-labelledby="future-layers-title">
+            <div class="flow-section-heading">
+              <div>
+                <p class="flow-kicker">D / future observation layers</p>
+                <h3 id="future-layers-title">The roadmap is layered, not linear.</h3>
+                <p>These branches are deliberately greyed out. They describe research directions from the roadmap, not capabilities the current dashboard should imply are complete.</p>
+              </div>
+            </div>
+            <div class="future-grid">
+              <article class="future-card flow-step is-wip domain-celestial" data-step="11">
+                <div class="flow-card-top"><span><span class="flow-stage">11</span>Stars / catalogue identity</span><span class="flow-signal">future</span></div>
+                <h4>Make stellar points nameable</h4>
+                <p>Stars are the most stable orientation reference, but the current detector still reports many raw points as unknown.</p>
+                <ul class="future-points"><li><strong>Pattern extraction</strong> match geometric arrangements against a catalogue.</li><li><strong>Known directions</strong> attach HIP identifiers, angular uncertainty, and confidence.</li><li><strong>Solver input</strong> feed identified stars into the existing ephemeris path.</li></ul>
               </article>
-            </li>
-          </ol>
+              <article class="future-card flow-step is-wip domain-satellite" data-step="12">
+                <div class="flow-card-top"><span><span class="flow-stage">12</span>Satellites / orbital layer</span><span class="flow-signal">exploratory</span></div>
+                <h4>Use predictable moving references</h4>
+                <p>Satellites sit between inertial stars and atmospheric motion: fast-moving, but potentially predictable from orbital data.</p>
+                <ul class="future-points"><li><strong>Reject or identify</strong> separate moving points from stellar candidates.</li><li><strong>Orbit + UTC</strong> predict directions for a candidate robot position.</li><li><strong>Localization</strong> test additional absolute constraints without making them a dependency.</li></ul>
+              </article>
+              <article class="future-card flow-step is-wip domain-aircraft" data-step="13">
+                <div class="flow-card-top"><span><span class="flow-stage">13</span>Aircraft / intermediate layer</span><span class="flow-signal">exploratory</span></div>
+                <h4>Track opportunistic moving landmarks</h4>
+                <p>Aircraft are not static landmarks. Their motion mixes aircraft movement, robot motion, and camera rotation.</p>
+                <ul class="future-points"><li><strong>Detection / rejection</strong> separate moving aircraft from stable celestial candidates first.</li><li><strong>Optional ADS-B</strong> associate position, altitude, heading, and timestamp when available.</li><li><strong>Parallax</strong> compare aircraft depth with cloud and stellar layers.</li></ul>
+              </article>
+              <article class="future-card flow-step is-wip domain-atmosphere" data-step="14">
+                <div class="flow-card-top"><span><span class="flow-stage">14</span>Clouds / atmospheric layers</span><span class="flow-signal">future</span></div>
+                <h4>Read atmosphere as motion, not truth</h4>
+                <p>High, mid, low, and vertically developing clouds have different persistence, deformation, and wind behaviour.</p>
+                <ul class="future-points"><li><strong>Perception</strong> segment, classify, and estimate layer altitude with uncertainty.</li><li><strong>Tracking</strong> use optical flow and approximately 30 seconds of overlapping history.</li><li><strong>Parallax</strong> compare motion across cloud layers and distant celestial references.</li><li><strong>Role</strong> estimate relative odometry, not absolute global position by itself.</li></ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="flow-section" aria-labelledby="fusion-title">
+            <div class="flow-section-heading">
+              <div>
+                <p class="flow-kicker">E / long-term estimator</p>
+                <h3 id="fusion-title">Turn whichever layers exist into one state estimate.</h3>
+                <p>The eventual architecture is a condition-adaptive estimator, not a larger single detector. It should separate absolute pose cues from relative motion cues and carry uncertainty forward.</p>
+              </div>
+            </div>
+            <div class="future-grid">
+              <article class="future-card flow-step is-wip domain-fusion" data-step="15">
+                <div class="flow-card-top"><span><span class="flow-stage">15</span>Rotation compensation</span><span class="flow-signal">future</span></div>
+                <h4>Remove camera motion before sky motion</h4>
+                <p>IMU gravity, roll, pitch, and rotational velocity could isolate residual sky motion before translation and atmospheric movement are estimated.</p>
+                <ul class="future-points"><li><strong>Observed motion</strong> split robot motion, atmosphere, and deformation.</li><li><strong>IMU fusion</strong> compensate the largest rotational component first.</li></ul>
+              </article>
+              <article class="future-card flow-step is-wip domain-condition" data-step="16">
+                <div class="flow-card-top"><span><span class="flow-stage">16</span>Daylight orientation</span><span class="flow-signal">future</span></div>
+                <h4>Add cues when stars are absent</h4>
+                <p>Polarised sunlight could add Sun-direction and heading constraints when the solar disc is obscured. Horizon and terrain could provide local geometric context.</p>
+                <ul class="future-points"><li><strong>Polarisation</strong> complementary absolute orientation.</li><li><strong>Horizon / terrain</strong> local constraint, not global celestial truth.</li></ul>
+              </article>
+              <article class="future-card flow-step is-wip domain-fusion" data-step="17">
+                <div class="flow-card-top"><span><span class="flow-stage">17</span>Condition-adaptive fusion</span><span class="flow-signal">future</span></div>
+                <h4>Choose reliable evidence in context</h4>
+                <p>A probabilistic or factor-graph estimator could combine stars, Sun, Moon, satellites, aircraft, clouds, weather priors, IMU, and robot odometry without requiring every layer.</p>
+                <ul class="future-points"><li><strong>Offline mode</strong> camera + ephemerides + IMU.</li><li><strong>Enhanced mode</strong> optional weather, ADS-B, and orbital information.</li><li><strong>Output</strong> confidence-aware robot pose and relative motion.</li></ul>
+              </article>
+            </div>
+            <div class="flow-callout"><strong>Research boundary</strong><span>The project is at the foundation stage: calibrated sky maps, raw Sun/Moon/star detection, ROS interfaces, ephemeris calculations, and the current pose solver are the established core. The coloured, muted branches are hypotheses to validate experimentally.</span></div>
+          </section>
         </div>
       </div>
 
