@@ -21,6 +21,10 @@
       --ground: #94e3c4;
       --estimate: #ff9d6b;
       --accent: #e4d47b;
+      --category-close: #94e3c4;
+      --category-near: #e4d47b;
+      --category-far: #ffb65c;
+      --category-outlier: #ff7164;
       --danger: #ff8976;
       --mono: "IBM Plex Mono", monospace;
       --sans: "Space Grotesk", sans-serif;
@@ -204,6 +208,471 @@
       font-size: 0.8rem;
       line-height: 1;
     }
+
+    .visual-view {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      display: none;
+      overflow-y: auto;
+      padding: 36px 38px 112px;
+      background: rgba(5, 15, 18, 0.96);
+      scrollbar-color: rgba(154, 196, 190, 0.35) transparent;
+      scrollbar-width: thin;
+    }
+
+    .visual[data-mode="summary"] #summary-view,
+    .visual[data-mode="description"] #description-view {
+      display: block;
+    }
+
+    .visual[data-mode="summary"] .visual-copy,
+    .visual[data-mode="summary"] .visual-status,
+    .visual[data-mode="summary"] .visual-footer,
+    .visual[data-mode="summary"] .visual-legend,
+    .visual[data-mode="description"] .visual-copy,
+    .visual[data-mode="description"] .visual-status,
+    .visual[data-mode="description"] .visual-footer,
+    .visual[data-mode="description"] .visual-legend {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .view-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      max-width: 980px;
+      margin: 0 auto 28px;
+    }
+
+    .view-heading h2 {
+      max-width: 600px;
+      margin: 0;
+      font-size: clamp(1.8rem, 3.4vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .view-heading p:not(.eyebrow) {
+      max-width: 600px;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .view-heading-meta {
+      flex: 0 0 auto;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+      text-align: right;
+      text-transform: uppercase;
+    }
+
+    .summary-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 980px;
+      margin: 0 auto 18px;
+    }
+
+    .summary-stat-card {
+      min-width: 0;
+      padding: 15px 16px 14px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(16, 39, 43, 0.76);
+    }
+
+    .summary-stat-card .metric-label { margin-bottom: 9px; }
+
+    .summary-stat-value {
+      display: block;
+      overflow: hidden;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: clamp(1rem, 2.1vw, 1.55rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .summary-stat-card small {
+      display: block;
+      margin-top: 8px;
+      color: var(--faint);
+      font-size: 0.67rem;
+      line-height: 1.35;
+    }
+
+    .summary-charts {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+      gap: 12px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .summary-chart {
+      min-width: 0;
+      min-height: 270px;
+      margin: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(10, 26, 30, 0.88);
+    }
+
+    .summary-chart figcaption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 23px;
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 500;
+    }
+
+    .chart-caption-meta {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .summary-category-key {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      max-width: 980px;
+      margin: 0 auto 12px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+
+    .category-key-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .category-dot {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+    }
+
+    .category-close { background: var(--category-close); }
+    .category-near { background: var(--category-near); }
+    .category-far { background: var(--category-far); }
+    .category-outlier { background: var(--category-outlier); }
+
+    .summary-scatter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .summary-histogram-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
+
+    .coordinate-chart {
+      display: block;
+      width: 100%;
+      height: 220px;
+      overflow: visible;
+    }
+
+    .coordinate-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
+    .coordinate-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .coordinate-reference { stroke: rgba(228, 212, 123, 0.52); stroke-dasharray: 5 6; stroke-width: 1.5; }
+    .coordinate-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
+    .coordinate-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .coordinate-point { stroke: var(--panel-raised); stroke-width: 1.5; opacity: 0.86; }
+    .coordinate-point.category-close { fill: var(--category-close); }
+    .coordinate-point.category-near { fill: var(--category-near); }
+    .coordinate-point.category-far { fill: var(--category-far); }
+    .coordinate-point.category-outlier { fill: var(--category-outlier); }
+
+    .histogram {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      align-items: end;
+      gap: 8px;
+      min-height: 220px;
+      padding: 4px 0 0;
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .histogram-column {
+      display: grid;
+      grid-template-rows: 18px 160px 30px;
+      align-items: end;
+      min-width: 0;
+      gap: 6px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      text-align: center;
+    }
+
+    .histogram-count { color: var(--ink); }
+    .histogram-track { display: flex; height: 160px; align-items: flex-end; }
+    .histogram-bar { width: 100%; min-height: 0; border-radius: 3px 3px 0 0; transition: height 300ms ease; }
+    .histogram-bar.category-close { background: var(--category-close); }
+    .histogram-bar.category-near { background: var(--category-near); }
+    .histogram-bar.category-far { background: var(--category-far); }
+    .histogram-bar.category-outlier { background: var(--category-outlier); }
+    .histogram-label { color: var(--faint); line-height: 1.25; }
+
+    .summary-footnote {
+      max-width: 980px;
+      margin: 14px auto 0;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.59rem;
+      line-height: 1.55;
+    }
+
+    .description-header {
+      position: sticky;
+      z-index: 2;
+      top: -36px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 22px;
+      max-width: 820px;
+      margin: -36px auto 0;
+      padding: 36px 0 22px;
+      background: linear-gradient(rgba(5, 15, 18, 1) 75%, rgba(5, 15, 18, 0));
+    }
+
+    .description-header h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3.4vw, 3.4rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .description-header p:not(.eyebrow) {
+      max-width: 570px;
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .description-progress {
+      flex: 0 0 auto;
+      color: var(--ground);
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .description-progress strong { color: var(--ink); font-weight: 500; }
+
+    .description-flow {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .flow-intro {
+      max-width: 650px;
+      margin: 0 0 28px 72px;
+      color: var(--faint);
+      font-size: 0.78rem;
+      line-height: 1.6;
+    }
+
+    .flow-list {
+      position: relative;
+      margin: 0;
+      padding: 0 0 36px;
+      list-style: none;
+    }
+
+    .flow-list::before {
+      position: absolute;
+      top: 31px;
+      bottom: 82px;
+      left: 27px;
+      width: 1px;
+      background: linear-gradient(var(--ground), rgba(148, 227, 196, 0.12));
+      content: "";
+    }
+
+    .flow-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 16px;
+      min-height: 218px;
+      padding-bottom: 34px;
+      scroll-margin-top: 110px;
+    }
+
+    .flow-index {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 56px;
+      height: 56px;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: var(--background);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .flow-step.is-current .flow-index {
+      border-color: var(--ground);
+      background: rgba(148, 227, 196, 0.13);
+      color: var(--ground);
+      box-shadow: 0 0 0 7px rgba(148, 227, 196, 0.06);
+    }
+
+    .flow-card {
+      min-width: 0;
+      padding: 18px 20px 19px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: rgba(16, 39, 43, 0.74);
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .flow-step.is-current .flow-card {
+      border-color: var(--line-strong);
+      background: rgba(16, 39, 43, 0.94);
+      transform: translateX(3px);
+    }
+
+    .flow-step.is-wip .flow-index {
+      border-color: rgba(154, 196, 190, 0.2);
+      background: rgba(95, 119, 121, 0.08);
+      color: var(--faint);
+      box-shadow: none;
+    }
+
+    .flow-step.is-wip .flow-card {
+      border-color: rgba(154, 196, 190, 0.12);
+      background: rgba(16, 27, 30, 0.48);
+      opacity: 0.58;
+    }
+
+    .flow-step.is-wip.is-current .flow-index {
+      border-color: rgba(154, 196, 190, 0.34);
+      background: rgba(95, 119, 121, 0.14);
+      color: var(--muted);
+      box-shadow: 0 0 0 7px rgba(95, 119, 121, 0.05);
+    }
+
+    .flow-step.is-wip.is-current .flow-card {
+      border-color: rgba(154, 196, 190, 0.24);
+      background: rgba(16, 27, 30, 0.68);
+      opacity: 0.72;
+      transform: translateX(3px);
+    }
+
+    .flow-wip {
+      padding: 3px 5px 2px;
+      border: 1px solid rgba(154, 196, 190, 0.25);
+      border-radius: 2px;
+      color: var(--faint);
+      font-size: 0.5rem;
+    }
+
+    .flow-card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: var(--ground);
+      font-family: var(--mono);
+      font-size: 0.57rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .flow-signal { color: var(--faint); text-align: right; }
+
+    .flow-card h3 {
+      margin: 0;
+      font-size: 1.22rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+
+    .flow-card > p {
+      margin: 10px 0 17px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+
+    .flow-io {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0;
+    }
+
+    .flow-io div { min-width: 0; padding-top: 9px; border-top: 1px solid var(--line); }
+    .flow-io dt { color: var(--faint); font-family: var(--mono); font-size: 0.54rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .flow-io dd { margin: 5px 0 0; color: var(--ink); font-family: var(--mono); font-size: 0.62rem; line-height: 1.45; }
+
+    .mode-dock {
+      position: absolute;
+      z-index: 6;
+      bottom: 0;
+      left: 50%;
+      display: flex;
+      gap: 3px;
+      padding: 4px;
+      border: 1px solid var(--line-strong);
+      border-radius: 5px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      background: rgba(7, 19, 23, 0.94);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.26);
+      transform: translateX(-50%);
+    }
+
+    .mode-tab {
+      min-width: 100px;
+      padding: 9px 13px 8px;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      background: transparent;
+      color: var(--faint);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+    }
+
+    .mode-tab:hover, .mode-tab:focus-visible { border-color: var(--line-strong); color: var(--ink); outline: none; }
+    .mode-tab[aria-selected="true"] { border-color: rgba(148, 227, 196, 0.45); background: rgba(148, 227, 196, 0.13); color: var(--ground); }
+    .mode-tab span { display: block; margin-bottom: 3px; color: var(--faint); font-size: 0.5rem; }
+    .mode-tab[aria-selected="true"] span { color: var(--ground); }
 
     .panel {
       display: flex;
@@ -391,19 +860,39 @@
       .visual-status { top: 27px; right: 24px; }
       .visual-footer { right: 24px; bottom: 20px; left: 24px; }
       .visual-legend { right: 24px; bottom: 20px; }
+      .visual-view { padding: 28px 24px 104px; }
+      .view-heading, .summary-stat-grid, .summary-charts, .description-header, .description-flow { max-width: none; }
+      .summary-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .summary-charts { grid-template-columns: 1fr; }
+      .description-header { top: -28px; margin-top: -28px; padding-top: 28px; }
+      .mode-dock { bottom: 0; }
     }
 
     @media (max-width: 540px) {
       .visual-status { display: none; }
+      .visual-view { padding: 24px 16px 96px; }
       .list-heading { padding-right: 20px; padding-left: 20px; }
       .selection { margin-right: 12px; margin-left: 12px; }
       .selection-foot { align-items: flex-start; flex-direction: column; }
+      .view-heading, .description-header { align-items: flex-start; flex-direction: column; gap: 16px; }
+      .view-heading-meta { text-align: left; }
+      .flow-intro { margin-left: 0; }
+      .flow-step { grid-template-columns: 42px minmax(0, 1fr); gap: 11px; }
+      .flow-index { width: 42px; height: 42px; font-size: 0.58rem; }
+      .flow-list::before { left: 20px; }
+      .flow-card { padding: 15px 14px 16px; }
+      .flow-card h3 { font-size: 1.05rem; }
+      .flow-io { grid-template-columns: 1fr; }
+      .visual-footer { display: none; }
+      .visual-legend { right: 16px; bottom: 52px; left: 16px; justify-content: flex-end; font-size: 0.52rem; }
+      .mode-dock { right: 0; bottom: 0; left: 0; transform: none; }
+      .mode-tab { min-width: 0; flex: 1 1 0; padding-right: 8px; padding-left: 8px; }
     }
   </style>
 </head>
 <body>
   <main class="app-shell">
-    <section class="visual" aria-label="3D Earth view">
+    <section class="visual" id="visual-workspace" data-mode="globe" aria-label="Localisation workspace">
       <div id="globe-stage"></div>
       <div class="visual-copy">
         <p class="eyebrow">Celestial localisation / field report</p>
@@ -421,6 +910,234 @@
         <span><b style="color: #94e3c4">&#9679;</b> ground truth</span>
         <span><b style="color: #ff9d6b">&#9679;</b> estimated fix</span>
       </div>
+
+      <div class="visual-view summary-view" id="summary-view" role="tabpanel" aria-labelledby="summary-tab" aria-hidden="true" tabindex="-1">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Evaluation / summary</p>
+            <h2>Signal quality, at a glance.</h2>
+            <p>Read the run set as a whole: how far fixes land from truth, how often they stay close, and how much celestial evidence the solver used.</p>
+          </div>
+          <div class="view-heading-meta" id="summary-run-meta">Current dataset<br>waiting for metrics</div>
+        </div>
+
+        <div class="summary-stat-grid" aria-label="Summary statistics">
+          <article class="summary-stat-card">
+            <span class="metric-label">Runs</span>
+            <strong class="summary-stat-value" id="summary-runs">--</strong>
+            <small>recorded evaluations</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Mean error</span>
+            <strong class="summary-stat-value" id="summary-mean-error">--</strong>
+            <small>average distance to truth</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Median error</span>
+            <strong class="summary-stat-value" id="summary-median-error">--</strong>
+            <small>middle run by distance</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Within 10 km</span>
+            <strong class="summary-stat-value" id="summary-within-ten">--</strong>
+            <small>share of close fixes</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Mean objects</span>
+            <strong class="summary-stat-value" id="summary-objects">--</strong>
+            <small>identified objects used</small>
+          </article>
+        </div>
+
+          <div class="summary-category-key" aria-label="Point categories by error distance">
+            <span class="category-key-item"><b class="category-dot category-close"></b>under 10 km</span>
+            <span class="category-key-item"><b class="category-dot category-near"></b>10-100 km</span>
+            <span class="category-key-item"><b class="category-dot category-far"></b>100-1k km</span>
+            <span class="category-key-item"><b class="category-dot category-outlier"></b>over 1k km</span>
+          </div>
+
+          <div class="summary-charts summary-scatter-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Latitude / GT vs estimated</span><span class="chart-caption-meta" id="latitude-point-count">-- points</span></figcaption>
+              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="latitude-chart-title latitude-chart-description">
+                <title id="latitude-chart-title">Ground-truth latitude compared with estimated latitude</title>
+                <desc id="latitude-chart-description">Each point is one independent evaluation. Points are colored by error distance. The dashed diagonal marks a perfect estimate.</desc>
+                <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
+                <line class="coordinate-grid" x1="56" y1="133" x2="606" y2="133"></line>
+                <line class="coordinate-grid" x1="331" y1="18" x2="331" y2="248"></line>
+                <line class="coordinate-reference" x1="56" y1="248" x2="606" y2="18"></line>
+                <g id="latitude-points"></g>
+                <text class="coordinate-axis" x="47" y="252" text-anchor="end">-90</text>
+                <text class="coordinate-axis" x="47" y="137" text-anchor="end">0</text>
+                <text class="coordinate-axis" x="47" y="22" text-anchor="end">90</text>
+                <text class="coordinate-axis" x="56" y="267">-90</text>
+                <text class="coordinate-axis" x="331" y="267" text-anchor="middle">0</text>
+                <text class="coordinate-axis" x="606" y="267" text-anchor="end">90</text>
+                <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth latitude</text>
+                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated latitude</text>
+              </svg>
+            </figure>
+            <figure class="summary-chart">
+              <figcaption><span>Longitude / GT vs estimated</span><span class="chart-caption-meta" id="longitude-point-count">-- points</span></figcaption>
+              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="longitude-chart-title longitude-chart-description">
+                <title id="longitude-chart-title">Ground-truth longitude compared with estimated longitude</title>
+                <desc id="longitude-chart-description">Each point is one independent evaluation. Points are colored by error distance. The dashed diagonal marks a perfect estimate.</desc>
+                <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
+                <line class="coordinate-grid" x1="56" y1="133" x2="606" y2="133"></line>
+                <line class="coordinate-grid" x1="331" y1="18" x2="331" y2="248"></line>
+                <line class="coordinate-reference" x1="56" y1="248" x2="606" y2="18"></line>
+                <g id="longitude-points"></g>
+                <text class="coordinate-axis" x="47" y="252" text-anchor="end">-180</text>
+                <text class="coordinate-axis" x="47" y="137" text-anchor="end">0</text>
+                <text class="coordinate-axis" x="47" y="22" text-anchor="end">180</text>
+                <text class="coordinate-axis" x="56" y="267">-180</text>
+                <text class="coordinate-axis" x="331" y="267" text-anchor="middle">0</text>
+                <text class="coordinate-axis" x="606" y="267" text-anchor="end">180</text>
+                <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth longitude</text>
+                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated longitude</text>
+              </svg>
+            </figure>
+          </div>
+
+          <div class="summary-charts summary-histogram-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Error histogram</span><span class="chart-caption-meta" id="histogram-total">-- runs</span></figcaption>
+              <div class="histogram" id="error-histogram" role="img" aria-label="Independent error histogram"></div>
+            </figure>
+          </div>
+        <p class="summary-footnote" id="summary-footnote">Metrics will appear when the CSV is available.</p>
+      </div>
+
+      <div class="visual-view description-view" id="description-view" role="tabpanel" aria-labelledby="description-tab" aria-hidden="true" tabindex="-1">
+        <header class="description-header">
+          <div>
+            <p class="eyebrow">Pipeline / connected components</p>
+            <h2>From photons to a fix.</h2>
+            <p>Follow one position through the system. Each step names the component, the signal it receives, and the hand-off it creates for the next stage.</p>
+          </div>
+          <div class="description-progress">Step <strong id="description-step">01</strong> / <span id="description-total">07</span></div>
+        </header>
+
+        <div class="description-flow">
+          <p class="flow-intro">The line is the data path. Scroll through it as a sequence: an image becomes a map, a map becomes observations, and observations become a position estimate that can be measured against truth.</p>
+          <ol class="flow-list" id="description-flow-list">
+            <li class="flow-step is-current" data-step="01">
+              <div class="flow-index" aria-hidden="true">01</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Input / capture</span><span class="flow-signal">image + UTC</span></div>
+                <h3>Start with a time-stamped sky</h3>
+                <p>A RealSense frame enters the live pipeline with its capture time. During a simulated evaluation, a service supplies a known location and UTC time instead, so the same downstream path can be exercised without the camera.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd>camera image or GPS request</dd></div><div><dt>Hands off</dt><dd>image with a precise timestamp</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step" data-step="02">
+              <div class="flow-index" aria-hidden="true">02</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Sky map / normalise</span><span class="flow-signal">/sky_map</span></div>
+                <h3>Make one consistent view of the sky</h3>
+                <p><code>sky_mapper</code> applies calibration and unwraps the camera image into an equirectangular panorama. The simulator can create an equivalent map from six Stellarium views, giving tests the same topic shape as live input.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd>calibrated image or rendered faces</dd></div><div><dt>Hands off</dt><dd>equirectangular sky map</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step" data-step="03">
+              <div class="flow-index" aria-hidden="true">03</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Celestial detector</span><span class="flow-signal">candidate points</span></div>
+                <h3>Find useful lights in the image</h3>
+                <p><code>celestial_detector</code> looks for stars, the Sun, and the Moon. It records where each candidate appears in the panorama and attaches a confidence and object type to the observation.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd><code>/sky_map</code></dd></div><div><dt>Hands off</dt><dd>celestial observations</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step" data-step="04">
+              <div class="flow-index" aria-hidden="true">04</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Catalogue / identify</span><span class="flow-signal">evidence</span></div>
+                <h3>Turn bright points into identities</h3>
+                <p>Star candidates can be projected through virtual perspective tiles and matched against the offline catalogue. Identified stars give the solver named celestial references instead of anonymous image points.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd>candidate positions and brightness</dd></div><div><dt>Hands off</dt><dd>identified objects and confidence</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step" data-step="05">
+              <div class="flow-index" aria-hidden="true">05</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Celestial localiser</span><span class="flow-signal">pose solve</span></div>
+                <h3>Compare what was seen with what should be seen</h3>
+                <p><code>celestial_localiser</code> uses the observation timestamp and ephemeris predictions to solve for latitude, longitude, and heading. It rejects unusable evidence, then searches for the pose that best explains the remaining directions.</p>
+                <dl class="flow-io"><div><dt>Receives</dt><dd>observations + ephemeris</dd></div><div><dt>Hands off</dt><dd>estimated pose and confidence</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step" data-step="06">
+              <div class="flow-index" aria-hidden="true">06</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>ROS outputs</span><span class="flow-signal">pose + fix + TF</span></div>
+                <h3>Publish a position other nodes can use</h3>
+                <p>The solved pose is published to the ROS graph as a pose, a geographic fix, and optional transforms. Debug files preserve the timestamped result so a run can be inspected after the live pipeline has moved on.</p>
+                <dl class="flow-io"><div><dt>Publishes</dt><dd><code>/celestial_pose</code> and <code>/celestial_fix</code></dd></div><div><dt>Preserves</dt><dd>pose and observation debug files</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step" data-step="07">
+              <div class="flow-index" aria-hidden="true">07</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Evaluation / measure</span><span class="flow-signal">CSV metrics</span></div>
+                <h3>Measure the distance to truth</h3>
+                <p>The random evaluator samples surface positions, waits for the matching timestamped pose, and appends ground truth, estimate, object count, and haversine error to the metrics CSV. This dashboard turns those rows into the globe, summary, and run list.</p>
+                <dl class="flow-io"><div><dt>Compares</dt><dd>ground truth against estimated fix</dd></div><div><dt>Publishes</dt><dd><code>random_localisation_metrics.csv</code></dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step is-wip" data-step="08">
+              <div class="flow-index" aria-hidden="true">08</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Future / satellite layer</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
+                <h3>Add predictable moving references</h3>
+                <p>Satellite observations could add another sky layer with known orbital motion. The planned stage would detect and reject or identify satellites, then pass their time-dependent directions into the same observation interface.</p>
+                <dl class="flow-io"><div><dt>Would receive</dt><dd>moving sky detections + time</dd></div><div><dt>Would hand off</dt><dd>satellite candidates and tracks</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step is-wip" data-step="09">
+              <div class="flow-index" aria-hidden="true">09</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Future / aircraft layer</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
+                <h3>Use aircraft as relative motion cues</h3>
+                <p>Aircraft detection and rejection are future work. When tracked over time, an aircraft could become a source of differential motion or be excluded when it conflicts with the stable celestial solution.</p>
+                <dl class="flow-io"><div><dt>Would receive</dt><dd>frame-to-frame moving objects</dd></div><div><dt>Would hand off</dt><dd>tracks, confidence, and exclusions</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step is-wip" data-step="10">
+              <div class="flow-index" aria-hidden="true">10</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Future / cloud layers</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
+                <h3>Read the atmosphere as a layered map</h3>
+                <p>Cloud classification and tracking could provide local motion and atmospheric structure when stars are obscured. The roadmap separates high-, mid-, and low-altitude clouds because each layer carries a different reliability and motion model.</p>
+                <dl class="flow-io"><div><dt>Would receive</dt><dd>cloud texture and temporal tracks</dd></div><div><dt>Would hand off</dt><dd>layer estimates and motion cues</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step is-wip" data-step="11">
+              <div class="flow-index" aria-hidden="true">11</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Future / horizon layer</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
+                <h3>Anchor the sky to local terrain</h3>
+                <p>Horizon shape and nearby terrain could constrain the camera pose when the sky is only partly visible. This stage would connect the spherical sky representation to a local geometric or visual map.</p>
+                <dl class="flow-io"><div><dt>Would receive</dt><dd>horizon profile and terrain features</dd></div><div><dt>Would hand off</dt><dd>local scene constraints</dd></div></dl>
+              </article>
+            </li>
+            <li class="flow-step is-wip" data-step="12">
+              <div class="flow-index" aria-hidden="true">12</div>
+              <article class="flow-card">
+                <div class="flow-card-top"><span>Future / adaptive fusion</span><span class="flow-signal"><span class="flow-wip">WIP</span></span></div>
+                <h3>Choose the reliable layers in context</h3>
+                <p>A future fusion stage could adapt to weather, time of day, motion, and visibility. It would weight stars, satellites, aircraft, clouds, terrain, and IMU data according to which observations are trustworthy at that moment.</p>
+                <dl class="flow-io"><div><dt>Would combine</dt><dd>available sky and motion layers</dd></div><div><dt>Would produce</dt><dd>condition-aware pose confidence</dd></div></dl>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <nav class="mode-dock" aria-label="Globe workspace views" role="tablist">
+        <button class="mode-tab" id="globe-tab" type="button" role="tab" data-mode="globe" aria-selected="true" aria-controls="globe-stage"><span>01</span>Globe</button>
+        <button class="mode-tab" id="summary-tab" type="button" role="tab" data-mode="summary" aria-selected="false" aria-controls="summary-view"><span>02</span>Summary</button>
+        <button class="mode-tab" id="description-tab" type="button" role="tab" data-mode="description" aria-selected="false" aria-controls="description-view"><span>03</span>Description</button>
+      </nav>
     </section>
 
     <aside class="panel" aria-label="GPS point list">
@@ -470,6 +1187,7 @@
     const EARTH_TEXTURE_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
     const EARTH_NORMAL_URL = "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg";
     const dom = {
+      visual: document.getElementById("visual-workspace"),
       stage: document.getElementById("globe-stage"),
       status: document.getElementById("visual-status"),
       selectedRun: document.getElementById("selected-run"),
@@ -479,7 +1197,26 @@
       time: document.getElementById("selected-time"),
       search: document.getElementById("run-search"),
       list: document.getElementById("point-list"),
-      reset: document.getElementById("reset-view")
+      reset: document.getElementById("reset-view"),
+      modeTabs: [...document.querySelectorAll(".mode-tab")],
+      summaryView: document.getElementById("summary-view"),
+      summaryRuns: document.getElementById("summary-runs"),
+      summaryMeanError: document.getElementById("summary-mean-error"),
+      summaryMedianError: document.getElementById("summary-median-error"),
+      summaryWithinTen: document.getElementById("summary-within-ten"),
+      summaryObjects: document.getElementById("summary-objects"),
+      summaryRunMeta: document.getElementById("summary-run-meta"),
+      latitudePoints: document.getElementById("latitude-points"),
+      longitudePoints: document.getElementById("longitude-points"),
+      latitudePointCount: document.getElementById("latitude-point-count"),
+      longitudePointCount: document.getElementById("longitude-point-count"),
+      errorHistogram: document.getElementById("error-histogram"),
+      histogramTotal: document.getElementById("histogram-total"),
+      summaryFootnote: document.getElementById("summary-footnote"),
+      descriptionView: document.getElementById("description-view"),
+      descriptionStep: document.getElementById("description-step"),
+      descriptionTotal: document.getElementById("description-total"),
+      descriptionSteps: [...document.querySelectorAll(".flow-step")]
     };
     const state = { rows: [], filtered: [], selectedIndex: -1 };
     const numericFields = new Set([
@@ -555,6 +1292,184 @@
     function setStatus(message, status = "ready") {
       dom.status.textContent = message;
       dom.status.dataset.state = status;
+    }
+
+    function formatSummaryKilometers(kilometers) {
+      if (!Number.isFinite(kilometers)) return "--";
+      if (kilometers < 10) return `${kilometers.toFixed(2)} km`;
+      if (kilometers < 100) return `${kilometers.toFixed(1)} km`;
+      return `${Math.round(kilometers).toLocaleString("en-US")} km`;
+    }
+
+    function getErrorCategory(errorKilometers) {
+      if (errorKilometers < 10) return "category-close";
+      if (errorKilometers < 100) return "category-near";
+      if (errorKilometers < 1000) return "category-far";
+      return "category-outlier";
+    }
+
+    function renderCoordinateChart(pointGroup, rows, coordinateName, countElement) {
+      const domain = coordinateName === "latitude"
+        ? { minimum: -90, maximum: 90 }
+        : { minimum: -180, maximum: 180 };
+      const plotLeft = 56;
+      const plotRight = 606;
+      const plotTop = 18;
+      const plotBottom = 248;
+      const scaleX = (value) => plotLeft + ((value - domain.minimum) / (domain.maximum - domain.minimum)) * (plotRight - plotLeft);
+      const scaleY = (value) => plotBottom - ((value - domain.minimum) / (domain.maximum - domain.minimum)) * (plotBottom - plotTop);
+      const validRows = rows.filter((row) => (
+        Number.isFinite(Number(row[`ground_truth_${coordinateName}`]))
+        && Number.isFinite(Number(row[`estimated_${coordinateName}`]))
+      ));
+      pointGroup.replaceChildren();
+      validRows.forEach((row) => {
+        const groundValue = Number(row[`ground_truth_${coordinateName}`]);
+        const estimatedValue = Number(row[`estimated_${coordinateName}`]);
+        const errorKilometers = Number(row.error_distance_meters) / 1000;
+        const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        point.setAttribute("class", `coordinate-point ${getErrorCategory(errorKilometers)}`);
+        point.setAttribute("cx", scaleX(groundValue).toFixed(2));
+        point.setAttribute("cy", scaleY(estimatedValue).toFixed(2));
+        point.setAttribute("r", row._index === state.selectedIndex ? "5.5" : "4");
+        const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+        title.textContent = `Run ${row.run_index}: ground truth ${groundValue.toFixed(3)}, estimated ${estimatedValue.toFixed(3)}, error ${formatSummaryKilometers(errorKilometers)}`;
+        point.append(title);
+        pointGroup.append(point);
+      });
+      countElement.textContent = `${validRows.length} points`;
+    }
+
+    function renderErrorHistogram(errorKilometers) {
+      const bins = [
+        { label: "0-5", minimum: 0, maximum: 5, category: "category-close" },
+        { label: "5-10", minimum: 5, maximum: 10, category: "category-close" },
+        { label: "10-25", minimum: 10, maximum: 25, category: "category-near" },
+        { label: "25-100", minimum: 25, maximum: 100, category: "category-near" },
+        { label: "100-500", minimum: 100, maximum: 500, category: "category-far" },
+        { label: "500-2k", minimum: 500, maximum: 2000, category: "category-far" },
+        { label: "2k-10k", minimum: 2000, maximum: 10000, category: "category-outlier" },
+        { label: "10k+", minimum: 10000, maximum: Number.POSITIVE_INFINITY, category: "category-outlier" }
+      ].map((bin) => ({
+        ...bin,
+        count: errorKilometers.filter((value) => value >= bin.minimum && value < bin.maximum).length
+      }));
+      const largestBin = Math.max(...bins.map((bin) => bin.count), 1);
+      dom.errorHistogram.replaceChildren();
+      bins.forEach((bin) => {
+        const column = document.createElement("div");
+        column.className = "histogram-column";
+        column.setAttribute("role", "img");
+        column.setAttribute("aria-label", `${bin.label} km: ${bin.count} runs`);
+        const count = document.createElement("span");
+        count.className = "histogram-count";
+        count.textContent = bin.count;
+        const track = document.createElement("div");
+        track.className = "histogram-track";
+        const bar = document.createElement("div");
+        bar.className = `histogram-bar ${bin.category}`;
+        bar.style.height = bin.count ? `${(bin.count / largestBin) * 100}%` : "0";
+        track.append(bar);
+        const label = document.createElement("span");
+        label.className = "histogram-label";
+        label.textContent = bin.label;
+        column.append(count, track, label);
+        dom.errorHistogram.append(column);
+      });
+      dom.histogramTotal.textContent = `${errorKilometers.length} runs`;
+    }
+
+    function renderSummary() {
+      const rows = state.rows;
+      const errorKilometers = rows.map((row) => Number(row.error_distance_meters) / 1000).filter((value) => Number.isFinite(value));
+      if (!errorKilometers.length) {
+        dom.summaryRuns.textContent = "--";
+        dom.summaryMeanError.textContent = "--";
+        dom.summaryMedianError.textContent = "--";
+        dom.summaryWithinTen.textContent = "--";
+        dom.summaryObjects.textContent = "--";
+        dom.summaryRunMeta.textContent = "Current dataset / waiting for metrics";
+        dom.latitudePointCount.textContent = "-- points";
+        dom.longitudePointCount.textContent = "-- points";
+        dom.histogramTotal.textContent = "-- runs";
+        dom.summaryFootnote.textContent = "Metrics will appear when the CSV is available.";
+        renderCoordinateChart(dom.latitudePoints, [], "latitude", dom.latitudePointCount);
+        renderCoordinateChart(dom.longitudePoints, [], "longitude", dom.longitudePointCount);
+        renderErrorHistogram([]);
+        return;
+      }
+
+      const sortedErrors = [...errorKilometers].sort((first, second) => first - second);
+      const meanError = errorKilometers.reduce((total, value) => total + value, 0) / errorKilometers.length;
+      const middle = Math.floor(sortedErrors.length / 2);
+      const medianError = sortedErrors.length % 2 === 0
+        ? (sortedErrors[middle - 1] + sortedErrors[middle]) / 2
+        : sortedErrors[middle];
+      const withinTen = errorKilometers.filter((value) => value < 10).length;
+      const objectValues = rows.map((row) => Number(row.identified_objects_used)).filter((value) => Number.isFinite(value));
+      const meanObjects = objectValues.length
+        ? objectValues.reduce((total, value) => total + value, 0) / objectValues.length
+        : 0;
+      dom.summaryRuns.textContent = rows.length.toLocaleString("en-US");
+      dom.summaryMeanError.textContent = formatSummaryKilometers(meanError);
+      dom.summaryMedianError.textContent = formatSummaryKilometers(medianError);
+      dom.summaryWithinTen.textContent = `${((withinTen / errorKilometers.length) * 100).toFixed(0)}%`;
+      dom.summaryObjects.textContent = meanObjects.toFixed(1);
+      dom.summaryRunMeta.textContent = `${rows.length.toLocaleString("en-US")} runs / metrics CSV`;
+      dom.summaryFootnote.textContent = `${withinTen} of ${rows.length} independent fixes are within 10 km. Point colors use the error-distance categories above.`;
+      renderCoordinateChart(dom.latitudePoints, rows, "latitude", dom.latitudePointCount);
+      renderCoordinateChart(dom.longitudePoints, rows, "longitude", dom.longitudePointCount);
+      renderErrorHistogram(errorKilometers);
+    }
+
+    function updateDescriptionProgress(stepNumber) {
+      const formattedStep = String(stepNumber).padStart(2, "0");
+      dom.descriptionStep.textContent = formattedStep;
+      dom.descriptionSteps.forEach((step) => {
+        const isCurrent = step.dataset.step === formattedStep;
+        step.classList.toggle("is-current", isCurrent);
+        step.setAttribute("aria-current", isCurrent ? "step" : "false");
+      });
+    }
+
+    function updateDescriptionProgressFromScroll() {
+      if (!dom.descriptionSteps.length) return;
+      const atEnd = dom.descriptionView.scrollTop + dom.descriptionView.clientHeight >= dom.descriptionView.scrollHeight - 8;
+      if (atEnd) {
+        updateDescriptionProgress(dom.descriptionSteps[dom.descriptionSteps.length - 1].dataset.step);
+        return;
+      }
+      const activationLine = dom.descriptionView.getBoundingClientRect().top + dom.descriptionView.clientHeight * 0.32;
+      let currentStep = dom.descriptionSteps[0];
+      dom.descriptionSteps.forEach((step) => {
+        if (step.getBoundingClientRect().top <= activationLine) currentStep = step;
+      });
+      updateDescriptionProgress(currentStep.dataset.step);
+    }
+
+    function initDescriptionProgress() {
+      dom.descriptionTotal.textContent = String(dom.descriptionSteps.length).padStart(2, "0");
+      dom.descriptionView.addEventListener("scroll", updateDescriptionProgressFromScroll, { passive: true });
+      if (!("IntersectionObserver" in window)) return;
+      const observer = new IntersectionObserver((entries) => {
+        const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+        if (!visibleEntries.length) return;
+        updateDescriptionProgressFromScroll();
+      }, { root: dom.descriptionView, rootMargin: "-16% 0px -58% 0px", threshold: [0.2, 0.5, 0.8] });
+      dom.descriptionSteps.forEach((step) => observer.observe(step));
+    }
+
+    function setVisualMode(mode) {
+      dom.visual.dataset.mode = mode;
+      dom.modeTabs.forEach((tab) => {
+        const isSelected = tab.dataset.mode === mode;
+        tab.setAttribute("aria-selected", String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+      });
+      dom.summaryView.setAttribute("aria-hidden", String(mode !== "summary"));
+      dom.descriptionView.setAttribute("aria-hidden", String(mode !== "description"));
+      if (mode === "summary") renderSummary();
+      if (mode === "description") updateDescriptionProgressFromScroll();
     }
 
     function latLonToVector(latitude, longitude, radius = EARTH_RADIUS) {
@@ -915,17 +1830,22 @@
           updateSelection(state.rows[0]);
         }
         renderList();
+        renderSummary();
         setStatus(`${state.rows.length} fixes / ${fallback ? "2D preview" : "drag to orbit"}`);
       } catch (error) {
         state.rows = [];
         state.filtered = [];
         renderList();
+        renderSummary();
         setStatus("Could not load metrics CSV", "error");
         console.error(error);
       }
     }
 
     dom.search.addEventListener("input", filterRows);
+    dom.modeTabs.forEach((tab) => {
+      tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
+    });
     dom.reset.addEventListener("click", () => {
       if (!camera || !controls) return;
       focusTransition = null;
@@ -941,6 +1861,8 @@
       setStatus("WebGL unavailable / 2D preview");
       console.error(error);
     }
+    initDescriptionProgress();
+    setVisualMode("globe");
     loadMetrics();
   </script>
 </body>
