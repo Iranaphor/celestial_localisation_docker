@@ -2160,6 +2160,170 @@
       .workspace-brand strong { display: none; }
       .workspace-brand { gap: 0; }
     }
+
+    .description-flow {
+      max-width: 1160px;
+    }
+
+    .description-flow > .flow-intro {
+      max-width: 760px;
+      margin: 0 0 18px;
+    }
+
+    .tech-tree-viewport {
+      position: relative;
+      height: min(68svh, 760px);
+      min-height: 520px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background:
+        linear-gradient(rgba(154, 196, 190, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(154, 196, 190, 0.045) 1px, transparent 1px),
+        var(--chart-background);
+      background-size: 42px 42px;
+      box-shadow: inset 0 0 70px rgba(0, 0, 0, 0.08);
+      cursor: grab;
+      overscroll-behavior: contain;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .tech-tree-viewport.is-panning { cursor: grabbing; }
+
+    .tech-tree-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1420px;
+      height: 3210px;
+      transform-origin: 0 0;
+      will-change: transform;
+    }
+
+    .tech-tree-viewport .tech-tree {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    .tech-tree-viewport .tech-tree-board {
+      width: 1420px;
+      height: 3210px;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background:
+        linear-gradient(90deg, transparent 0 25%, color-mix(in srgb, var(--domain-celestial) 4%, transparent) 25% 25.08%, transparent 25.08% 50%, color-mix(in srgb, var(--domain-condition) 4%, transparent) 50% 50.08%, transparent 50.08% 75%, color-mix(in srgb, var(--domain-fusion) 4%, transparent) 75% 75.08%, transparent 75.08%);
+    }
+
+    .tech-tree-viewport .tech-tree-columns { display: none; }
+
+    .tech-tree-viewport .tech-tree-links {
+      z-index: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .tech-tree-viewport .tech-tree-grid {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      display: block;
+    }
+
+    .tech-tree-viewport .tech-node {
+      position: absolute;
+      box-sizing: border-box;
+      width: 214px;
+      min-height: 184px;
+      margin: 0;
+    }
+
+    .tech-stage-label {
+      position: absolute;
+      z-index: 2;
+      right: 24px;
+      left: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.5rem;
+      letter-spacing: 0.09em;
+      line-height: 1.3;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .tech-stage-label::after {
+      height: 1px;
+      flex: 1;
+      background: var(--line);
+      content: "";
+    }
+
+    .tech-tree-tools {
+      position: absolute;
+      z-index: 5;
+      top: 12px;
+      right: 12px;
+      display: flex;
+      gap: 4px;
+    }
+
+    .tech-tree-tool {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--chart-background) 88%, transparent);
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 1rem;
+      line-height: 1;
+      backdrop-filter: blur(8px);
+    }
+
+    .tech-tree-tool:hover,
+    .tech-tree-tool:focus-visible {
+      border-color: var(--ground);
+      color: var(--ground);
+      outline: none;
+    }
+
+    .tech-tree-zoom {
+      position: absolute;
+      z-index: 5;
+      right: 14px;
+      bottom: 12px;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--chart-background) 88%, transparent);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.51rem;
+      letter-spacing: 0.07em;
+      backdrop-filter: blur(8px);
+    }
+
+    @media (max-width: 900px) {
+      .tech-tree-viewport { height: min(66svh, 700px); min-height: 500px; }
+    }
+
+    @media (max-width: 540px) {
+      .tech-tree-viewport { height: min(64svh, 590px); min-height: 440px; }
+      .tech-tree-tool { width: 30px; height: 30px; }
+      .tech-stage-label { font-size: 0.46rem; }
+    }
   </style>
 </head>
 <body>
@@ -2297,7 +2461,7 @@
           <div>
             <p class="eyebrow">Pipeline / dependency graph</p>
             <h2>Unlocking a sky-localisation stack.</h2>
-            <p>Each node becomes useful only when its prerequisites exist. Sensor routes merge into shared observations, independent calculations meet at the pose solver, published fixes can feed optional temporal refinement, and later work branches by sky condition.</p>
+            <p>Each node becomes useful only when its prerequisites exist. Source routes merge into shared observations, the sky-contents fork selects credible evidence before pose candidates merge, and published fixes can feed temporal refinement and adaptive fusion.</p>
           </div>
           <div class="description-progress">Node <strong id="description-step">01</strong> / <span id="description-total">31</span></div>
         </header>
@@ -2310,11 +2474,13 @@
               <div>
                 <p class="flow-kicker">A / source unlocks</p>
                 <h3 id="sensor-routes-title">Start from the endpoints we can actually feed.</h3>
-                <p>The graph keeps each instrument honest: RealSense and Stellarium reach the panorama through separate prerequisites, fisheye can bypass panorama creation, and DWARFLAB3 owns a separate calibration route.</p>
+                <p>The graph keeps each instrument honest: source routes converge into a shared sky map, the sky-contents fork selects credible evidence before pose candidates merge, and published fixes can feed later temporal and adaptive research.</p>
               </div>
               <div class="tech-tree-legend" aria-label="Dependency graph legend"><span class="legend-built"><i></i> unlocked</span><span class="legend-locked"><i></i> locked / future</span><span class="legend-optional"><i></i> optional or conditional</span></div>
             </div>
-            <div class="tech-tree" aria-label="Sensor and celestial dependency tree">
+            <div class="tech-tree" aria-label="Unified vertical sky-localisation dependency diagram">
+              <div class="tech-tree-viewport" id="tech-tree-viewport" tabindex="0" aria-label="Navigable dependency diagram. Use pointer drag, wheel, or pinch to explore.">
+                <div class="tech-tree-canvas" id="tech-tree-canvas">
               <div class="tech-tree-board" data-tech-tree="core">
                 <div class="tech-tree-columns" aria-hidden="true"><span>Sources</span><span>Preparation</span><span>Shared inputs</span><span>Observation</span><span>Pose solve</span><span>Output</span></div>
                 <svg class="tech-tree-links" aria-hidden="true" focusable="false"></svg>
@@ -2447,6 +2613,14 @@
                   </article>
                 </div>
               </div>
+                </div>
+                <div class="tech-tree-tools" role="group" aria-label="Diagram zoom controls">
+                  <button class="tech-tree-tool" id="tech-zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+                  <button class="tech-tree-tool" id="tech-zoom-reset" type="button" aria-label="Reset diagram view" title="Reset diagram view">↺</button>
+                  <button class="tech-tree-tool" id="tech-zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+                </div>
+                <span class="tech-tree-zoom" id="tech-tree-zoom" aria-live="polite">--%</span>
+              </div>
             </div>
           </section>
 
@@ -2469,7 +2643,7 @@
                     <div class="tech-node-head"><span class="tech-node-id">19 / conditional gate</span><span class="tech-node-status">locked</span></div>
                     <h4>Classify sky condition</h4>
                     <p>Decide which observations are credible from time, visibility, motion, and confidence.</p>
-                    <div class="tech-dependency"><span>Requires</span><strong>published pose + evidence</strong></div>
+                    <div class="tech-dependency"><span>Requires</span><strong>detector evidence + UTC</strong></div>
                   </article>
                   <article class="tech-node tech-node-daytime flow-step domain-celestial" id="node-daytime" data-step="20" data-status="locked">
                     <div class="tech-node-head"><span class="tech-node-id">20 / branch</span><span class="tech-node-status">locked</span></div>
@@ -2637,31 +2811,37 @@
       descriptionStep: document.getElementById("description-step"),
       descriptionTotal: document.getElementById("description-total"),
       descriptionSteps: [...document.querySelectorAll(".flow-step")],
-      techTreeBoards: [...document.querySelectorAll("[data-tech-tree]")]
+      techTreeBoards: [document.querySelector('[data-tech-tree="core"]')],
+      techTreeViewport: document.getElementById("tech-tree-viewport"),
+      techTreeCanvas: document.getElementById("tech-tree-canvas"),
+      techTreeZoom: document.getElementById("tech-tree-zoom"),
+      techZoomIn: document.getElementById("tech-zoom-in"),
+      techZoomOut: document.getElementById("tech-zoom-out"),
+      techZoomReset: document.getElementById("tech-zoom-reset")
     };
     const state = { rows: [], filtered: [], selectedIndex: -1 };
     const TECH_TREE_LINKS = {
-      core: [
+      pipeline: [
         { from: "node-realsense", to: "node-image-capture", status: "built" },
         { from: "node-stellarium", to: "node-render-sky", status: "built" },
         { from: "node-image-capture", to: "node-create-panorama", status: "built" },
         { from: "node-render-sky", to: "node-create-panorama", status: "built" },
         { from: "node-fisheye", to: "node-fisheye-calibration", status: "locked" },
         { from: "node-create-panorama", to: "node-celestial-detector", status: "built" },
-        { from: "node-fisheye-calibration", to: "node-celestial-detector", status: "locked" },
-        { from: "node-celestial-detector", to: "node-celestial-pose", status: "built" },
-        { from: "node-ephemeris", to: "node-celestial-pose", status: "built", route: "around-catalogue" },
-        { from: "node-catalogue", to: "node-celestial-pose", status: "optional" },
+        { from: "node-fisheye-calibration", to: "node-celestial-detector", status: "locked", route: "top-left", lane: 2, topY: 18 },
+        { from: "node-celestial-detector", to: "node-celestial-pose", status: "built", route: "left-rail", lane: 0 },
+        { from: "node-ephemeris", to: "node-celestial-pose", status: "built", route: "top-left", lane: 1 },
+        { from: "node-catalogue", to: "node-celestial-pose", status: "optional", route: "bottom-right", lane: 0 },
         { from: "node-dwarflab", to: "node-dwarflab-calibration", status: "locked" },
         { from: "node-dwarflab-calibration", to: "node-dwarflab-pose", status: "locked" },
         { from: "node-celestial-pose", to: "node-pose-merge", status: "built" },
-        { from: "node-dwarflab-pose", to: "node-pose-merge", status: "locked" },
+        { from: "node-dwarflab-pose", to: "node-pose-merge", status: "locked", route: "right-rail", lane: 0 },
         { from: "node-pose-merge", to: "node-publish-pose", status: "partial" },
         { from: "node-publish-pose", to: "node-temporal-refinement", status: "locked" },
         { from: "node-temporal-refinement", to: "node-evaluate", status: "optional" },
-        { from: "node-publish-pose", to: "node-evaluate", status: "built" }
-      ],
-      conditions: [
+        { from: "node-publish-pose", to: "node-evaluate", status: "built" },
+        { from: "node-celestial-detector", to: "node-condition-classifier", status: "locked" },
+        { from: "node-celestial-detector", to: "node-catalogue", status: "optional", route: "right-rail", lane: 2, exitOffset: 20 },
         { from: "node-condition-classifier", to: "node-daytime", status: "locked" },
         { from: "node-condition-classifier", to: "node-nighttime", status: "locked" },
         { from: "node-condition-classifier", to: "node-overcast", status: "locked" },
@@ -2670,14 +2850,70 @@
         { from: "node-nighttime", to: "node-star-catalogue", status: "locked" },
         { from: "node-nighttime", to: "node-satellites", status: "locked" },
         { from: "node-overcast", to: "node-cloud-segmentation", status: "locked" },
-        { from: "node-daytime", to: "node-polarization", status: "locked" },
+        { from: "node-daytime", to: "node-polarization", status: "locked", route: "bottom-middle", lane: 0, exitOffset: 20 },
+        { from: "node-solar-cues", to: "node-celestial-pose", status: "optional", route: "bottom-right", lane: 4, exitOffset: 20, bottomOffset: 44 },
+        { from: "node-star-catalogue", to: "node-celestial-pose", status: "locked" },
         { from: "node-cloud-segmentation", to: "node-cloud-layers", status: "locked" },
-        { from: "node-aircraft", to: "node-fusion", status: "locked" },
-        { from: "node-star-catalogue", to: "node-fusion", status: "locked" },
-        { from: "node-satellites", to: "node-fusion", status: "optional", route: "satellite-fusion" },
-        { from: "node-cloud-layers", to: "node-fusion", status: "locked" },
+        { from: "node-aircraft", to: "node-fusion", status: "locked", route: "left-rail", lane: 2 },
+        { from: "node-star-catalogue", to: "node-fusion", status: "locked", route: "left-rail", lane: 3, exitOffset: 40 },
+        { from: "node-satellites", to: "node-fusion", status: "optional", route: "right-rail", lane: 2 },
+        { from: "node-cloud-layers", to: "node-fusion", status: "locked", route: "right-rail", lane: 1 },
         { from: "node-imu", to: "node-fusion", status: "locked" }
       ]
+    };
+    const TECH_TREE_CANVAS = { width: 1420, height: 3210, nodeWidth: 214 };
+    const TECH_TREE_LAYOUT = {
+      "node-realsense": [40, 54],
+      "node-stellarium": [350, 54],
+      "node-fisheye": [660, 54],
+      "node-dwarflab": [970, 54],
+      "node-image-capture": [40, 300],
+      "node-render-sky": [350, 300],
+      "node-fisheye-calibration": [660, 300],
+      "node-dwarflab-calibration": [970, 300],
+      "node-create-panorama": [195, 575],
+      "node-ephemeris": [760, 575],
+      "node-dwarflab-pose": [970, 575],
+      "node-celestial-detector": [195, 850],
+      "node-condition-classifier": [505, 1125],
+      "node-catalogue": [1000, 1125],
+      "node-daytime": [40, 1390],
+      "node-nighttime": [600, 1390],
+      "node-overcast": [1160, 1390],
+      "node-solar-cues": [40, 1660],
+      "node-aircraft": [270, 1660],
+      "node-star-catalogue": [500, 1660],
+      "node-satellites": [730, 1660],
+      "node-cloud-segmentation": [960, 1660],
+      "node-polarization": [1190, 1660],
+      "node-celestial-pose": [505, 1950],
+      "node-cloud-layers": [940, 1950],
+      "node-pose-merge": [505, 2240],
+      "node-publish-pose": [505, 2500],
+      "node-imu": [40, 2760],
+      "node-temporal-refinement": [285, 2760],
+      "node-evaluate": [940, 2760],
+      "node-fusion": [505, 3040]
+    };
+    const TECH_TREE_STAGES = [
+      [18, "01 / acquisition endpoints"],
+      [264, "02 / calibration + preparation"],
+      [539, "03 / shared observation inputs"],
+      [814, "04 / raw celestial detections"],
+      [1089, "05 / what the sky contains"],
+      [1354, "06 / condition-specific evidence"],
+      [1914, "07 / pose candidates"],
+      [2204, "08 / publish + refine"],
+      [2704, "09 / adaptive fusion"]
+    ];
+    const techTreeNavigation = {
+      scale: 0.8,
+      offsetX: 0,
+      offsetY: 0,
+      hasFit: false,
+      pointers: new Map(),
+      lastPoint: null,
+      pinchStart: null
     };
     const numericFields = new Set([
       "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
@@ -2926,6 +3162,385 @@
       renderErrorHistogram(errorKilometers);
     }
 
+    function unifyDescriptionTechTree() {
+      const board = document.querySelector('[data-tech-tree="core"]');
+      const conditionBoard = document.querySelector('[data-tech-tree="conditions"]');
+      const primaryGrid = board?.querySelector(".tech-tree-grid");
+      const conditionGrid = conditionBoard?.querySelector(".tech-tree-grid");
+      if (!board || !conditionBoard || !primaryGrid || !conditionGrid || board.dataset.techTree === "pipeline") return;
+
+      conditionGrid.querySelectorAll(".tech-node").forEach((node) => primaryGrid.append(node));
+      board.dataset.techTree = "pipeline";
+      board.setAttribute("aria-label", "Unified vertical sky-localisation dependency diagram");
+
+      const primarySection = board.closest(".flow-section");
+      const conditionSection = conditionBoard.closest(".flow-section");
+      const conditionNote = conditionSection?.querySelector(".flow-note");
+      if (conditionNote && primarySection) primarySection.append(conditionNote);
+      conditionSection?.remove();
+      document.querySelector(".tech-tree-transition")?.remove();
+
+      const kicker = primarySection?.querySelector(".flow-kicker");
+      const heading = primarySection?.querySelector("h3");
+      const copy = primarySection?.querySelector(".flow-section-heading p:not(.flow-kicker)");
+      if (kicker) kicker.textContent = "A / unified dependency";
+      if (heading) heading.textContent = "From sky capture to an adaptive fix.";
+      if (copy) copy.textContent = "Follow one vertical progression: source routes converge into observations, the sky-contents fork selects credible evidence before pose candidates merge, and later branches feed refinement and adaptive fusion.";
+
+      TECH_TREE_STAGES.forEach(([top, label]) => {
+        const stage = document.createElement("div");
+        stage.className = "tech-stage-label";
+        stage.style.top = `${top}px`;
+        stage.textContent = label;
+        board.append(stage);
+      });
+    }
+
+    function applyTechTreeLayout() {
+      const board = dom.techTreeBoards[0];
+      if (!board) return;
+      board.style.width = `${TECH_TREE_CANVAS.width}px`;
+      board.style.height = `${TECH_TREE_CANVAS.height}px`;
+      Object.entries(TECH_TREE_LAYOUT).forEach(([nodeId, [left, top]]) => {
+        const node = board.querySelector(`#${nodeId}`);
+        if (!node) return;
+        node.style.left = `${left}px`;
+        node.style.top = `${top}px`;
+        node.style.width = `${TECH_TREE_CANVAS.nodeWidth}px`;
+      });
+    }
+
+    function updateTechTreeTransform() {
+      if (!dom.techTreeCanvas || !dom.techTreeViewport) return;
+      const { scale, offsetX, offsetY } = techTreeNavigation;
+      dom.techTreeCanvas.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale})`;
+      if (dom.techTreeZoom) dom.techTreeZoom.textContent = `${Math.round(scale * 100)}%`;
+      if (dom.visual.dataset.mode === "description") {
+        requestAnimationFrame(() => {
+          drawTechTreeLinks();
+          updateDescriptionProgressFromScroll();
+        });
+      }
+    }
+
+    function clampTechTreeScale(scale) {
+      return Math.min(1.35, Math.max(0.42, scale));
+    }
+
+    function resetTechTreeView() {
+      if (!dom.techTreeViewport?.clientWidth) return;
+      const viewportWidth = dom.techTreeViewport.clientWidth;
+      const minimumScale = window.matchMedia("(max-width: 540px)").matches ? 0.68 : 0.52;
+      techTreeNavigation.scale = clampTechTreeScale(Math.min(0.9, Math.max(minimumScale, (viewportWidth - 18) / TECH_TREE_CANVAS.width)));
+      techTreeNavigation.offsetX = (viewportWidth - TECH_TREE_CANVAS.width * techTreeNavigation.scale) / 2;
+      techTreeNavigation.offsetY = 18;
+      techTreeNavigation.hasFit = true;
+      updateTechTreeTransform();
+    }
+
+    function getTechTreePoint(event) {
+      const rect = dom.techTreeViewport.getBoundingClientRect();
+      return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    }
+
+    function getPinchState() {
+      const points = [...techTreeNavigation.pointers.values()];
+      const first = points[0];
+      const second = points[1];
+      const deltaX = second.x - first.x;
+      const deltaY = second.y - first.y;
+      return {
+        distance: Math.hypot(deltaX, deltaY),
+        center: { x: (first.x + second.x) / 2, y: (first.y + second.y) / 2 }
+      };
+    }
+
+    function zoomTechTreeAt(factor, point) {
+      if (!dom.techTreeViewport) return;
+      const rect = dom.techTreeViewport.getBoundingClientRect();
+      const anchor = point || { x: rect.width / 2, y: rect.height / 2 };
+      const previousScale = techTreeNavigation.scale;
+      const nextScale = clampTechTreeScale(previousScale * factor);
+      const contentX = (anchor.x - techTreeNavigation.offsetX) / previousScale;
+      const contentY = (anchor.y - techTreeNavigation.offsetY) / previousScale;
+      techTreeNavigation.scale = nextScale;
+      techTreeNavigation.offsetX = anchor.x - contentX * nextScale;
+      techTreeNavigation.offsetY = anchor.y - contentY * nextScale;
+      techTreeNavigation.hasFit = true;
+      updateTechTreeTransform();
+    }
+
+    function handleTechTreePointerDown(event) {
+      if (event.target.closest("button")) return;
+      event.preventDefault();
+      const point = getTechTreePoint(event);
+      techTreeNavigation.pointers.set(event.pointerId, point);
+      dom.techTreeViewport.setPointerCapture(event.pointerId);
+      dom.techTreeViewport.classList.add("is-panning");
+      if (techTreeNavigation.pointers.size === 1) techTreeNavigation.lastPoint = point;
+      if (techTreeNavigation.pointers.size === 2) {
+        const pinch = getPinchState();
+        techTreeNavigation.pinchStart = {
+          distance: pinch.distance,
+          center: pinch.center,
+          scale: techTreeNavigation.scale,
+          offsetX: techTreeNavigation.offsetX,
+          offsetY: techTreeNavigation.offsetY
+        };
+      }
+    }
+
+    function handleTechTreePointerMove(event) {
+      if (!techTreeNavigation.pointers.has(event.pointerId)) return;
+      event.preventDefault();
+      const point = getTechTreePoint(event);
+      techTreeNavigation.pointers.set(event.pointerId, point);
+      if (techTreeNavigation.pointers.size >= 2 && techTreeNavigation.pinchStart) {
+        const pinch = getPinchState();
+        const start = techTreeNavigation.pinchStart;
+        const nextScale = clampTechTreeScale(start.scale * (pinch.distance / Math.max(start.distance, 1)));
+        const contentX = (start.center.x - start.offsetX) / start.scale;
+        const contentY = (start.center.y - start.offsetY) / start.scale;
+        techTreeNavigation.scale = nextScale;
+        techTreeNavigation.offsetX = pinch.center.x - contentX * nextScale;
+        techTreeNavigation.offsetY = pinch.center.y - contentY * nextScale;
+        updateTechTreeTransform();
+        return;
+      }
+      if (!techTreeNavigation.lastPoint) return;
+      techTreeNavigation.offsetX += point.x - techTreeNavigation.lastPoint.x;
+      techTreeNavigation.offsetY += point.y - techTreeNavigation.lastPoint.y;
+      techTreeNavigation.lastPoint = point;
+      updateTechTreeTransform();
+    }
+
+    function handleTechTreePointerUp(event) {
+      techTreeNavigation.pointers.delete(event.pointerId);
+      if (dom.techTreeViewport.hasPointerCapture(event.pointerId)) dom.techTreeViewport.releasePointerCapture(event.pointerId);
+      if (techTreeNavigation.pointers.size === 1) {
+        techTreeNavigation.lastPoint = [...techTreeNavigation.pointers.values()][0];
+        techTreeNavigation.pinchStart = null;
+      } else {
+        techTreeNavigation.lastPoint = null;
+        techTreeNavigation.pinchStart = null;
+      }
+      if (!techTreeNavigation.pointers.size) dom.techTreeViewport.classList.remove("is-panning");
+    }
+
+    function initTechTreeNavigation() {
+      const viewport = dom.techTreeViewport;
+      if (!viewport || viewport.dataset.navigationReady) return;
+      viewport.dataset.navigationReady = "true";
+      viewport.addEventListener("pointerdown", handleTechTreePointerDown);
+      viewport.addEventListener("pointermove", handleTechTreePointerMove);
+      viewport.addEventListener("pointerup", handleTechTreePointerUp);
+      viewport.addEventListener("pointercancel", handleTechTreePointerUp);
+      viewport.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        zoomTechTreeAt(Math.exp(-event.deltaY * 0.001), getTechTreePoint(event));
+      }, { passive: false });
+      viewport.addEventListener("keydown", (event) => {
+        if (["+", "=", "-", "_", "0", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) event.preventDefault();
+        if (event.key === "+" || event.key === "=") zoomTechTreeAt(1.14);
+        if (event.key === "-" || event.key === "_") zoomTechTreeAt(0.88);
+        if (event.key === "0") resetTechTreeView();
+        if (event.key === "ArrowLeft") { techTreeNavigation.offsetX += 42; updateTechTreeTransform(); }
+        if (event.key === "ArrowRight") { techTreeNavigation.offsetX -= 42; updateTechTreeTransform(); }
+        if (event.key === "ArrowUp") { techTreeNavigation.offsetY += 42; updateTechTreeTransform(); }
+        if (event.key === "ArrowDown") { techTreeNavigation.offsetY -= 42; updateTechTreeTransform(); }
+      });
+      dom.techZoomIn?.addEventListener("click", () => zoomTechTreeAt(1.18));
+      dom.techZoomOut?.addEventListener("click", () => zoomTechTreeAt(0.84));
+      dom.techZoomReset?.addEventListener("click", resetTechTreeView);
+    }
+
+    function techTreeSegmentHitsRect(first, second, rect) {
+      if (Math.abs(first.x - second.x) < 0.1) {
+        if (first.x <= rect.left || first.x >= rect.right) return false;
+        const top = Math.min(first.y, second.y);
+        const bottom = Math.max(first.y, second.y);
+        return top < rect.bottom && bottom > rect.top;
+      }
+      if (Math.abs(first.y - second.y) < 0.1) {
+        if (first.y <= rect.top || first.y >= rect.bottom) return false;
+        const left = Math.min(first.x, second.x);
+        const right = Math.max(first.x, second.x);
+        return left < rect.right && right > rect.left;
+      }
+      return true;
+    }
+
+    function techTreeSegmentsOverlap(first, second) {
+      const firstVertical = Math.abs(first.x1 - first.x2) < 0.1;
+      const secondVertical = Math.abs(second.x1 - second.x2) < 0.1;
+      if (firstVertical !== secondVertical) return false;
+      if (firstVertical && Math.abs(first.x1 - second.x1) < 0.1) {
+        return Math.max(Math.min(first.y1, first.y2), Math.min(second.y1, second.y2)) < Math.min(Math.max(first.y1, first.y2), Math.max(second.y1, second.y2));
+      }
+      if (!firstVertical && Math.abs(first.y1 - second.y1) < 0.1) {
+        return Math.max(Math.min(first.x1, first.x2), Math.min(second.x1, second.x2)) < Math.min(Math.max(first.x1, first.x2), Math.max(second.x1, second.x2));
+      }
+      return false;
+    }
+
+    function techTreeSegmentsCross(first, second) {
+      const firstVertical = Math.abs(first.x1 - first.x2) < 0.1;
+      const secondVertical = Math.abs(second.x1 - second.x2) < 0.1;
+      if (firstVertical === secondVertical) return false;
+      const vertical = firstVertical ? first : second;
+      const horizontal = firstVertical ? second : first;
+      return vertical.x1 > Math.min(horizontal.x1, horizontal.x2)
+        && vertical.x1 < Math.max(horizontal.x1, horizontal.x2)
+        && horizontal.y1 > Math.min(vertical.y1, vertical.y2)
+        && horizontal.y1 < Math.max(vertical.y1, vertical.y2);
+    }
+
+    function routeTechTreePath(start, goal, obstacles, occupied, boardWidth, boardHeight) {
+      const coordinateValues = (values, limit) => [...new Set(values
+        .map((value) => Math.max(8, Math.min(limit - 8, Number(value.toFixed(2))))))].sort((first, second) => first - second);
+      const xValues = [8, boardWidth - 8, start.x, goal.x];
+      const yValues = [8, boardHeight - 8, start.y, goal.y];
+      obstacles.forEach((rect) => {
+        xValues.push(rect.left, rect.right, rect.left - 14, rect.right + 14, (rect.left + rect.right) / 2);
+        yValues.push(rect.top, rect.bottom, rect.top - 14, rect.bottom + 14, (rect.top + rect.bottom) / 2);
+      });
+      const xs = coordinateValues(xValues, boardWidth);
+      const ys = coordinateValues(yValues, boardHeight);
+      const keyFor = (xIndex, yIndex) => `${xIndex}:${yIndex}`;
+      const pointFor = (key) => {
+        const [xIndex, yIndex] = key.split(":").map(Number);
+        return { x: xs[xIndex], y: ys[yIndex] };
+      };
+      const indexFor = (values, value) => values.reduce((bestIndex, current, index) => Math.abs(current - value) < Math.abs(values[bestIndex] - value) ? index : bestIndex, 0);
+      const startKey = keyFor(indexFor(xs, start.x), indexFor(ys, start.y));
+      const goalKey = keyFor(indexFor(xs, goal.x), indexFor(ys, goal.y));
+      const open = new Set([startKey]);
+      const gScore = new Map([[startKey, 0]]);
+      const previous = new Map();
+      const directions = new Map();
+      let iterations = 0;
+      while (open.size && iterations < 12000) {
+        iterations += 1;
+        let currentKey;
+        let currentScore = Infinity;
+        open.forEach((candidate) => {
+          const point = pointFor(candidate);
+          const goalDistance = Math.abs(point.x - goal.x) + Math.abs(point.y - goal.y);
+          const score = (gScore.get(candidate) || Infinity) + goalDistance;
+          if (score < currentScore) { currentScore = score; currentKey = candidate; }
+        });
+        if (!currentKey) break;
+        if (currentKey === goalKey) {
+          const points = [];
+          let key = currentKey;
+          while (key) { points.push(pointFor(key)); key = previous.get(key); }
+          return points.reverse();
+        }
+        open.delete(currentKey);
+        const currentPoint = pointFor(currentKey);
+        const [currentX, currentY] = currentKey.split(":").map(Number);
+        [[currentX - 1, currentY], [currentX + 1, currentY], [currentX, currentY - 1], [currentX, currentY + 1]].forEach(([nextX, nextY]) => {
+          if (nextX < 0 || nextY < 0 || nextX >= xs.length || nextY >= ys.length) return;
+          const nextPoint = { x: xs[nextX], y: ys[nextY] };
+          const segment = { x1: currentPoint.x, y1: currentPoint.y, x2: nextPoint.x, y2: nextPoint.y };
+          if (obstacles.some((obstacle) => techTreeSegmentHitsRect(currentPoint, nextPoint, obstacle))) return;
+          const nextKey = keyFor(nextX, nextY);
+          const direction = Math.abs(segment.x1 - segment.x2) < 0.1 ? "vertical" : "horizontal";
+          const turnCost = directions.has(currentKey) && directions.get(currentKey) !== direction ? 24 : 0;
+          const overlapCost = occupied.filter((existing) => techTreeSegmentsOverlap(segment, existing)).length * 900;
+          const crossingCost = occupied.filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140;
+          const nextScore = (gScore.get(currentKey) || 0) + Math.abs(segment.x1 - segment.x2) + Math.abs(segment.y1 - segment.y2) + turnCost + overlapCost + crossingCost;
+          if (nextScore >= (gScore.get(nextKey) ?? Infinity)) return;
+          previous.set(nextKey, currentKey);
+          directions.set(nextKey, direction);
+          gScore.set(nextKey, nextScore);
+          open.add(nextKey);
+        });
+      }
+      return null;
+    }
+
+    function simplifyTechTreePath(points) {
+      if (points.length < 3) return points;
+      const simplified = [points[0]];
+      for (let index = 1; index < points.length - 1; index += 1) {
+        const previous = simplified[simplified.length - 1];
+        const current = points[index];
+        const next = points[index + 1];
+        const sameHorizontal = Math.abs(previous.y - current.y) < 0.1 && Math.abs(current.y - next.y) < 0.1;
+        const sameVertical = Math.abs(previous.x - current.x) < 0.1 && Math.abs(current.x - next.x) < 0.1;
+        if (!sameHorizontal && !sameVertical) simplified.push(current);
+      }
+      simplified.push(points[points.length - 1]);
+      return simplified;
+    }
+
+    function buildManualTechTreePath(link, sourceRect, targetRect, start, goal, boardWidth) {
+      const lane = link.lane || 0;
+      const exitOffset = link.exitOffset || 0;
+      if (link.route === "left-rail") {
+        const railX = 8 + lane * 10;
+        const exitY = start.y + exitOffset;
+        return [start, { x: start.x, y: exitY }, { x: railX, y: exitY }, { x: railX, y: goal.y }, goal];
+      }
+      if (link.route === "right-rail") {
+        const railX = boardWidth - 8 - lane * 10;
+        const exitY = start.y + exitOffset;
+        return [start, { x: start.x, y: exitY }, { x: railX, y: exitY }, { x: railX, y: goal.y }, goal];
+      }
+      if (link.route === "top-left") {
+        const railX = 8 + lane * 10;
+        const topY = link.topY ?? Math.max(18, sourceRect.top - 18);
+        return [
+          { x: sourceRect.left, y: sourceRect.top },
+          { x: sourceRect.left, y: topY },
+          { x: railX, y: topY },
+          { x: railX, y: goal.y },
+          goal
+        ];
+      }
+      if (link.route === "bottom-left") {
+        const railX = 8 + lane * 10;
+        const exitY = start.y + exitOffset;
+        const bottomY = targetRect.bottom + (link.bottomOffset || 22);
+        return [
+          start,
+          { x: start.x, y: exitY },
+          { x: railX, y: exitY },
+          { x: railX, y: bottomY },
+          { x: goal.x, y: bottomY },
+          { x: goal.x, y: targetRect.bottom }
+        ];
+      }
+      if (link.route === "bottom-middle") {
+        const railX = 262 + lane * 14;
+        const exitY = start.y + exitOffset;
+        const bottomY = targetRect.bottom + (link.bottomOffset || 22);
+        return [
+          start,
+          { x: start.x, y: exitY },
+          { x: railX, y: exitY },
+          { x: railX, y: bottomY },
+          { x: goal.x, y: bottomY },
+          { x: goal.x, y: targetRect.bottom }
+        ];
+      }
+      if (link.route === "bottom-right") {
+        const railX = boardWidth - 8 - lane * 10;
+        const bottomY = targetRect.bottom + (link.bottomOffset || 22);
+        const exitY = sourceRect.bottom + exitOffset;
+        return [
+          { x: sourceRect.right, y: sourceRect.bottom },
+          { x: sourceRect.right, y: exitY },
+          { x: railX, y: exitY },
+          { x: railX, y: bottomY },
+          { x: goal.x, y: bottomY },
+          { x: goal.x, y: targetRect.bottom }
+        ];
+      }
+      return null;
+    }
+
     function drawTechTreeLinks() {
       const svgNamespace = "http://www.w3.org/2000/svg";
       const themeStyles = getComputedStyle(document.documentElement);
@@ -2936,10 +3551,13 @@
         optional: themeStyles.getPropertyValue("--domain-condition").trim()
       };
       dom.techTreeBoards.forEach((board) => {
-        const svg = board.querySelector(".tech-tree-links");
-        const boardRect = board.getBoundingClientRect();
-        if (!svg || !boardRect.width || !boardRect.height) return;
-        svg.setAttribute("viewBox", `0 0 ${boardRect.width} ${boardRect.height}`);
+        const svg = board?.querySelector(".tech-tree-links");
+        const boardRect = board?.getBoundingClientRect();
+        if (!svg || !boardRect?.width || !boardRect.height) return;
+        const boardWidth = board.offsetWidth || TECH_TREE_CANVAS.width;
+        const boardHeight = board.offsetHeight || TECH_TREE_CANVAS.height;
+        const scale = techTreeNavigation.scale || 1;
+        svg.setAttribute("viewBox", `0 0 ${boardWidth} ${boardHeight}`);
         svg.replaceChildren();
         const definitions = document.createElementNS(svgNamespace, "defs");
         const markerIds = {};
@@ -2961,68 +3579,70 @@
           markerIds[status] = markerId;
         });
         svg.append(definitions);
-        const isNarrow = board.clientWidth <= 540;
-        const nodes = [...board.querySelectorAll(".tech-node")];
-        (TECH_TREE_LINKS[board.dataset.techTree] || []).forEach((link) => {
+        const toLocalRect = (element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            left: (rect.left - boardRect.left) / scale,
+            top: (rect.top - boardRect.top) / scale,
+            right: (rect.right - boardRect.left) / scale,
+            bottom: (rect.bottom - boardRect.top) / scale,
+            width: rect.width / scale,
+            height: rect.height / scale,
+            centerX: (rect.left + rect.width / 2 - boardRect.left) / scale,
+            centerY: (rect.top + rect.height / 2 - boardRect.top) / scale
+          };
+        };
+        const links = TECH_TREE_LINKS[board.dataset.techTree] || [];
+        const occupiedSegments = [];
+        const outgoing = new Map();
+        const incoming = new Map();
+        links.forEach((link) => {
+          if (!outgoing.has(link.from)) outgoing.set(link.from, []);
+          if (!incoming.has(link.to)) incoming.set(link.to, []);
+          outgoing.get(link.from).push(link);
+          incoming.get(link.to).push(link);
+        });
+        const nodeRects = [...board.querySelectorAll(".tech-node")].map((node) => ({ id: node.id, rect: toLocalRect(node) }));
+        links.forEach((link) => {
           const source = board.querySelector(`#${link.from}`);
           const target = board.querySelector(`#${link.to}`);
           if (!source || !target) return;
-          const sourceRect = source.getBoundingClientRect();
-          const targetRect = target.getBoundingClientRect();
-          const sourceCenterX = sourceRect.left + sourceRect.width / 2 - boardRect.left;
-          const sourceCenterY = sourceRect.top + sourceRect.height / 2 - boardRect.top;
-          const targetCenterX = targetRect.left + targetRect.width / 2 - boardRect.left;
-          const targetCenterY = targetRect.top + targetRect.height / 2 - boardRect.top;
-          let pathData;
-          if (!isNarrow && link.route === "around-catalogue") {
-            const obstacle = board.querySelector("#node-catalogue").getBoundingClientRect();
-            const railX = obstacle.right - boardRect.left + 18;
-            const railY = obstacle.bottom - boardRect.top + 18;
-            const startX = sourceRect.right - boardRect.left;
-            const endX = targetRect.left - boardRect.left;
-            pathData = `M ${startX} ${sourceCenterY} V ${railY} H ${railX} V ${targetCenterY} H ${endX}`;
-          } else if (!isNarrow && link.route === "satellite-fusion") {
-            const railX = targetRect.right - boardRect.left + 16;
-            const startX = sourceRect.left - boardRect.left;
-            const endX = targetRect.right - boardRect.left;
-            const endY = targetRect.top - boardRect.top + targetRect.height * 0.32;
-            pathData = `M ${startX} ${sourceCenterY} H ${railX} V ${endY} H ${endX}`;
-          } else if (isNarrow) {
-            const sourceIndex = nodes.indexOf(source);
-            const targetIndex = nodes.indexOf(target);
-            const targetIsBelow = targetCenterY >= sourceCenterY;
-            const startY = (targetIsBelow ? sourceRect.bottom : sourceRect.top) - boardRect.top;
-            const endY = (targetIsBelow ? targetRect.top : targetRect.bottom) - boardRect.top;
-            if (Math.abs(targetIndex - sourceIndex) === 1) {
-              pathData = `M ${sourceCenterX} ${startY} V ${endY}`;
-            } else {
-              const railX = boardRect.width - 7;
-              const startX = sourceRect.right - boardRect.left;
-              const endX = targetRect.right - boardRect.left;
-              pathData = `M ${startX} ${sourceCenterY} H ${railX} V ${targetCenterY} H ${endX}`;
-            }
-          } else if (Math.abs(sourceCenterX - targetCenterX) < 4) {
-            const targetIsBelow = targetCenterY >= sourceCenterY;
-            const x = sourceCenterX;
-            const startY = (targetIsBelow ? sourceRect.bottom : sourceRect.top) - boardRect.top;
-            const endY = (targetIsBelow ? targetRect.top : targetRect.bottom) - boardRect.top;
-            pathData = `M ${x} ${startY} V ${endY}`;
-          } else {
-            const targetIsRight = targetCenterX >= sourceCenterX;
-            const startX = (targetIsRight ? sourceRect.right : sourceRect.left) - boardRect.left;
-            const endX = (targetIsRight ? targetRect.left : targetRect.right) - boardRect.left;
-            const startY = sourceCenterY;
-            const endY = targetCenterY;
-            if (Math.abs(startY - endY) < 3) {
-              pathData = `M ${startX} ${startY} H ${endX}`;
-            } else {
-              const bendX = startX + (endX - startX) * 0.5;
-              pathData = `M ${startX} ${startY} H ${bendX} V ${endY} H ${endX}`;
+          const sourceRect = toLocalRect(source);
+          const targetRect = toLocalRect(target);
+          const sourceLinks = outgoing.get(link.from) || [link];
+          const targetLinks = incoming.get(link.to) || [link];
+          const sourceIndex = sourceLinks.indexOf(link);
+          const targetIndex = targetLinks.indexOf(link);
+          const sourcePort = sourceRect.left + sourceRect.width * ((sourceIndex + 1) / (sourceLinks.length + 1));
+          const targetPort = targetRect.left + targetRect.width * ((targetIndex + 1) / (targetLinks.length + 1));
+          const targetIsBelow = targetRect.centerY >= sourceRect.centerY;
+          const sameRow = Math.abs(sourceRect.centerY - targetRect.centerY) < 8;
+          const entersTargetSide = link.route === "left-rail" || link.route === "right-rail";
+          const targetSideY = targetRect.top + targetRect.height * ((targetIndex + 1) / (targetLinks.length + 1));
+          const start = sameRow
+            ? { x: targetRect.centerX >= sourceRect.centerX ? sourceRect.right : sourceRect.left, y: sourceRect.top + sourceRect.height * ((sourceIndex + 1) / (sourceLinks.length + 1)) }
+            : { x: sourcePort, y: targetIsBelow ? sourceRect.bottom : sourceRect.top };
+          const goal = sameRow
+            ? { x: targetRect.centerX >= sourceRect.centerX ? targetRect.left : targetRect.right, y: targetRect.top + targetRect.height * ((targetIndex + 1) / (targetLinks.length + 1)) }
+            : entersTargetSide
+              ? { x: link.route === "left-rail" ? targetRect.left : targetRect.right, y: targetSideY }
+            : { x: targetPort, y: targetIsBelow ? targetRect.top : targetRect.bottom };
+          const obstacles = nodeRects
+            .filter(({ id }) => id !== link.from && id !== link.to)
+            .map(({ rect }) => ({ left: rect.left - 10, right: rect.right + 10, top: rect.top - 10, bottom: rect.bottom + 10 }));
+          const routedPoints = buildManualTechTreePath(link, sourceRect, targetRect, start, goal, boardWidth)
+            || routeTechTreePath(start, goal, obstacles, occupiedSegments, boardWidth, boardHeight);
+          const points = simplifyTechTreePath(routedPoints || [start, { x: goal.x, y: start.y }, goal]);
+          for (let index = 1; index < points.length; index += 1) {
+            if (Math.abs(points[index - 1].x - points[index].x) + Math.abs(points[index - 1].y - points[index].y) > 0.1) {
+              occupiedSegments.push({ x1: points[index - 1].x, y1: points[index - 1].y, x2: points[index].x, y2: points[index].y });
             }
           }
           const path = document.createElementNS(svgNamespace, "path");
           path.setAttribute("class", `tech-link is-${link.status}`);
-          path.setAttribute("d", pathData);
+          path.setAttribute("d", points.map((point, index) => `${index ? "L" : "M"} ${point.x} ${point.y}`).join(" "));
+          path.setAttribute("data-from", link.from);
+          path.setAttribute("data-to", link.to);
           path.setAttribute("marker-end", `url(#${markerIds[link.status] || markerIds.locked})`);
           svg.append(path);
         });
@@ -3078,8 +3698,11 @@
       dom.descriptionView.setAttribute("aria-hidden", String(mode !== "description"));
       if (mode === "summary") renderSummary();
       if (mode === "description") {
-        updateDescriptionProgressFromScroll();
-        requestAnimationFrame(drawTechTreeLinks);
+        requestAnimationFrame(() => {
+          if (!techTreeNavigation.hasFit) resetTechTreeView();
+          updateDescriptionProgressFromScroll();
+          drawTechTreeLinks();
+        });
       }
     }
 
@@ -3468,7 +4091,10 @@
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
     });
-    window.addEventListener("resize", drawTechTreeLinks);
+    window.addEventListener("resize", () => {
+      if (dom.visual.dataset.mode === "description" && !techTreeNavigation.hasFit) resetTechTreeView();
+      drawTechTreeLinks();
+    });
     dom.reset.addEventListener("click", () => {
       if (!camera || !controls) return;
       focusTransition = null;
@@ -3477,6 +4103,9 @@
       controls.update();
     });
 
+    unifyDescriptionTechTree();
+    applyTechTreeLayout();
+    initTechTreeNavigation();
     applyTheme(themeMode);
     try {
       initGlobe();
