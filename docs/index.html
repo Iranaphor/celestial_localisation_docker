@@ -1556,6 +1556,31 @@
       opacity: 0.38;
     }
 
+    .tech-node[data-status="locked"]::before,
+    .tech-node[data-status="locked"]::after,
+    .tech-node[data-status="partial"]::before,
+    .tech-node[data-status="partial"]::after {
+      position: absolute;
+      z-index: 0;
+      inset: 1px;
+      border-radius: 2px;
+      background: linear-gradient(135deg, transparent 49.35%, color-mix(in srgb, var(--domain-accent) 46%, transparent) 50%, transparent 50.65%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .tech-node[data-status="locked"]::after,
+    .tech-node[data-status="partial"]::after {
+      background: linear-gradient(45deg, transparent 49.35%, color-mix(in srgb, var(--domain-accent) 46%, transparent) 50%, transparent 50.65%);
+    }
+
+    .tech-node[data-status="locked"]::before,
+    .tech-node[data-status="locked"]::after { opacity: 0.82; }
+    .tech-node[data-status="partial"]::before,
+    .tech-node[data-status="partial"]::after { opacity: 0.48; }
+    .tech-node[data-status="locked"] > *,
+    .tech-node[data-status="partial"] > * { position: relative; z-index: 1; }
+
     .tech-node[data-status="partial"] {
       border-style: dashed;
       border-top-style: solid;
@@ -1603,6 +1628,13 @@
       opacity: 1;
     }
 
+    .tech-tree-board.has-selection .tech-link.is-highlighted {
+      filter: drop-shadow(0 0 3px color-mix(in srgb, var(--selection-accent) 72%, transparent));
+      opacity: 1 !important;
+      stroke: var(--selection-accent) !important;
+      stroke-width: 3.6;
+    }
+
     .tech-node-head {
       display: flex;
       align-items: flex-start;
@@ -1634,13 +1666,16 @@
       border-radius: 2px;
       background: color-mix(in srgb, var(--domain-fusion) 8%, transparent);
       color: var(--domain-fusion);
-      content: "[RO \1F393]";
+      content: "[RO|★★]";
       font-size: 0.44rem;
       font-weight: 600;
       letter-spacing: 0.03em;
       line-height: 1;
       white-space: nowrap;
     }
+
+    .tech-node[data-ro="1"] .tech-node-head::after { content: "[RO|★]"; }
+    .tech-node[data-ro="3"] .tech-node-head::after { content: "[RO|★★★]"; }
 
     .tech-node h4 {
       margin: 0;
@@ -2259,7 +2294,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      width: 1420px;
+      width: 1540px;
       height: 3210px;
       transform-origin: 0 0;
       will-change: transform;
@@ -2272,7 +2307,7 @@
     }
 
     .tech-tree-viewport .tech-tree-board {
-      width: 1420px;
+      width: 1540px;
       height: 3210px;
       box-sizing: border-box;
       margin: 0;
@@ -2308,26 +2343,37 @@
     }
 
     .tech-stage-label {
+      --stage-accent: var(--ground);
       position: absolute;
       z-index: 2;
-      right: 24px;
-      left: 24px;
+      top: 0;
+      left: 22px;
+      width: 56px;
+      box-sizing: border-box;
       display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--faint);
+      align-items: flex-start;
+      padding: 8px 7px 8px 9px;
+      border-left: 2px solid color-mix(in srgb, var(--stage-accent) 72%, var(--line-strong));
+      background: linear-gradient(90deg, color-mix(in srgb, var(--stage-accent) 9%, transparent), transparent 84%);
+      color: var(--stage-accent);
       font-family: var(--mono);
-      font-size: 0.5rem;
-      letter-spacing: 0.09em;
-      line-height: 1.3;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      line-height: 1.08;
       text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
       pointer-events: none;
     }
 
     .tech-stage-label::after {
-      height: 1px;
-      flex: 1;
-      background: var(--line);
+      position: absolute;
+      top: 0;
+      right: -12px;
+      bottom: 0;
+      width: 1px;
+      background: color-mix(in srgb, var(--stage-accent) 24%, var(--line));
       content: "";
     }
 
@@ -2386,7 +2432,7 @@
     @media (max-width: 540px) {
       .tech-tree-viewport { height: min(64svh, 590px); min-height: 440px; }
       .tech-tree-tool { width: 30px; height: 30px; }
-      .tech-stage-label { font-size: 0.46rem; }
+      .tech-stage-label { font-size: 0.58rem; }
     }
 
     .visual[data-mode="description"] #description-view {
@@ -2713,7 +2759,7 @@
                     <div class="tech-node-head"><span class="tech-node-id">05 / merge</span><span class="tech-node-status">unlocked</span></div>
                     <h4>Create panorama</h4>
                     <p>Make one equirectangular sky map from either input route.</p>
-                    <figure class="flow-media tech-node-media"><img src="media/simulated_sky_map.png" alt="Simulated equirectangular sky panorama." loading="lazy" decoding="async"></figure>
+                    <figure class="flow-media tech-node-media"><img src="media/simulated_sky_map.png" data-low-src="media/simulated_sky_map.png" data-high-src="../celestial_localisation/src/celestial_bringup/data/sample_sky_map.png" alt="Simulated equirectangular sky panorama." loading="lazy" decoding="async"></figure>
                     <div class="tech-dependency"><span>Requires</span><strong>image capture OR render views</strong></div>
                   </article>
                   <article class="tech-node tech-node-fisheye flow-step domain-sensor" id="node-fisheye" data-step="06" data-status="locked">
@@ -2736,7 +2782,7 @@
                     <div class="tech-node-head"><span class="tech-node-id">08 / observation</span><span class="tech-node-status">unlocked</span></div>
                     <h4>Detect celestial objects</h4>
                     <p>Find raw stars, the Sun, and the Moon.</p>
-                    <figure class="flow-media tech-node-media"><img src="media/sky_map.png" alt="Detector sky map with celestial candidates." loading="lazy" decoding="async"></figure>
+                    <figure class="flow-media tech-node-media"><img src="media/sky_map.png" data-low-src="media/sky_map.png" data-high-src="../celestial_localisation/src/celestial_bringup/data/sample_sky_map.png" alt="Detector sky map with celestial candidates." loading="lazy" decoding="async"></figure>
                     <div class="tech-dependency"><span>Requires</span><strong>panorama OR fisheye map</strong></div>
                   </article>
                   <article class="tech-node tech-node-ephemeris flow-step domain-celestial" id="node-ephemeris" data-step="09" data-status="ready">
@@ -3063,7 +3109,10 @@
         { from: "node-imu", to: "node-fusion", status: "locked" }
       ]
     };
-    const TECH_TREE_CANVAS = { width: 1420, height: 3210, nodeWidth: 214 };
+    const TECH_TREE_CANVAS = { width: 1540, height: 3210, nodeWidth: 214 };
+    const TECH_TREE_CONTENT_OFFSET_X = 112;
+    const TECH_TREE_ROUTE_INSET_X = 96;
+    const TECH_TREE_PAN_PADDING = 48;
     const TECH_TREE_LAYOUT = {
       "node-realsense": [40, 54],
       "node-stellarium": [350, 54],
@@ -3108,8 +3157,32 @@
       [2204, "08 / publish + refine"],
       [2704, "09 / adaptive fusion"]
     ];
+    const TECH_TREE_RESEARCH_RATINGS = {
+      "node-fisheye": 1,
+      "node-fisheye-calibration": 1,
+      "node-catalogue": 2,
+      "node-dwarflab": 3,
+      "node-dwarflab-calibration": 3,
+      "node-dwarflab-pose": 3,
+      "node-pose-merge": 1,
+      "node-temporal-refinement": 3,
+      "node-condition-classifier": 2,
+      "node-daytime": 1,
+      "node-nighttime": 1,
+      "node-overcast": 2,
+      "node-solar-cues": 2,
+      "node-aircraft": 2,
+      "node-star-catalogue": 2,
+      "node-satellites": 3,
+      "node-cloud-segmentation": 2,
+      "node-polarization": 3,
+      "node-cloud-layers": 3,
+      "node-imu": 2,
+      "node-fusion": 3
+    };
     const techTreeNavigation = {
       scale: 0.8,
+      minimumScale: 0.42,
       offsetX: 0,
       offsetY: 0,
       hasFit: false,
@@ -3277,12 +3350,52 @@
       const domain = coordinateName === "latitude"
         ? { minimum: -90, maximum: 90 }
         : { minimum: -180, maximum: 180 };
+      const svg = pointGroup.closest("svg");
+      const signedLogConstant = coordinateName === "latitude" ? 8 : 16;
+      const transformCoordinate = (value) => Math.sign(value) * Math.log1p(Math.abs(value) / signedLogConstant);
+      const transformedMinimum = transformCoordinate(domain.minimum);
+      const transformedMaximum = transformCoordinate(domain.maximum);
       const plotLeft = 56;
       const plotRight = 606;
       const plotTop = 18;
       const plotBottom = 248;
-      const scaleX = (value) => plotLeft + ((value - domain.minimum) / (domain.maximum - domain.minimum)) * (plotRight - plotLeft);
-      const scaleY = (value) => plotBottom - ((value - domain.minimum) / (domain.maximum - domain.minimum)) * (plotBottom - plotTop);
+      const scaleX = (value) => plotLeft + ((transformCoordinate(value) - transformedMinimum) / (transformedMaximum - transformedMinimum)) * (plotRight - plotLeft);
+      const scaleY = (value) => plotBottom - ((transformCoordinate(value) - transformedMinimum) / (transformedMaximum - transformedMinimum)) * (plotBottom - plotTop);
+      if (svg) {
+        svg.dataset.scale = "signed-log";
+        const existingLogGrid = svg.querySelector(".coordinate-log-grid-group");
+        existingLogGrid?.remove();
+        const baseGridLines = [...svg.querySelectorAll(".coordinate-grid")];
+        if (baseGridLines[0]) {
+          baseGridLines[0].setAttribute("y1", scaleY(0));
+          baseGridLines[0].setAttribute("y2", scaleY(0));
+        }
+        if (baseGridLines[1]) {
+          baseGridLines[1].setAttribute("x1", scaleX(0));
+          baseGridLines[1].setAttribute("x2", scaleX(0));
+        }
+        const tickValues = coordinateName === "latitude" ? [-30, -10, 10, 30] : [-60, -10, 10, 60];
+        const logGrid = createSvgElement("g", { class: "coordinate-log-grid-group", "aria-hidden": "true" });
+        tickValues.forEach((value) => {
+          const x = scaleX(value);
+          const y = scaleY(value);
+          logGrid.append(
+            createSvgElement("line", { class: "coordinate-grid coordinate-log-grid", x1: x, y1: plotTop, x2: x, y2: plotBottom }),
+            createSvgElement("line", { class: "coordinate-grid coordinate-log-grid", x1: plotLeft, y1: y, x2: plotRight, y2: y })
+          );
+        });
+        pointGroup.before(logGrid);
+        const axisLabels = [...svg.querySelectorAll(".coordinate-axis")];
+        [scaleY(domain.minimum), scaleY(0), scaleY(domain.maximum)].forEach((y, index) => axisLabels[index]?.setAttribute("y", y + 4));
+        [scaleX(domain.minimum), scaleX(0), scaleX(domain.maximum)].forEach((x, index) => axisLabels[index + 3]?.setAttribute("x", x));
+        const axisTitles = [...svg.querySelectorAll(".coordinate-axis-title")];
+        if (axisTitles[0]) axisTitles[0].textContent = `ground truth ${coordinateName} / signed-log`;
+        if (axisTitles[1]) axisTitles[1].textContent = `estimated ${coordinateName} / signed-log`;
+        const title = svg.querySelector("title");
+        if (title && !title.textContent.includes("signed-log")) title.textContent += " / signed-log coordinates";
+        const description = svg.querySelector("desc");
+        if (description && !description.textContent.includes("symmetric logarithmic")) description.textContent += " The axes use a symmetric logarithmic coordinate scale to expand differences near zero while retaining negative coordinates.";
+      }
       const validRows = rows.filter((row) => (
         Number.isFinite(Number(row[`ground_truth_${coordinateName}`]))
         && Number.isFinite(Number(row[`estimated_${coordinateName}`]))
@@ -3526,10 +3639,18 @@
       if (heading) heading.textContent = "From sky capture to an adaptive fix.";
       if (copy) copy.textContent = "Follow one vertical progression: source routes converge into observations, the sky-contents fork selects credible evidence before pose candidates merge, and later branches feed refinement and adaptive fusion.";
 
-      TECH_TREE_STAGES.forEach(([top, label]) => {
+      const stageAccents = [
+        "var(--domain-sensor)", "var(--domain-sensor)", "var(--domain-celestial)",
+        "var(--domain-celestial)", "var(--domain-condition)", "var(--domain-condition)",
+        "var(--domain-fusion)", "var(--domain-fusion)", "var(--domain-fusion)"
+      ];
+      TECH_TREE_STAGES.forEach(([top, label], index) => {
         const stage = document.createElement("div");
         stage.className = "tech-stage-label";
+        stage.dataset.stage = String(index + 1).padStart(2, "0");
         stage.style.top = `${top}px`;
+        stage.style.height = `${Math.max(178, (TECH_TREE_STAGES[index + 1]?.[0] || TECH_TREE_CANVAS.height) - top - 18)}px`;
+        stage.style.setProperty("--stage-accent", stageAccents[index] || "var(--ground)");
         stage.textContent = label;
         board.append(stage);
       });
@@ -3543,15 +3664,37 @@
       Object.entries(TECH_TREE_LAYOUT).forEach(([nodeId, [left, top]]) => {
         const node = board.querySelector(`#${nodeId}`);
         if (!node) return;
-        node.style.left = `${left}px`;
+        node.style.left = `${left + TECH_TREE_CONTENT_OFFSET_X}px`;
         node.style.top = `${top}px`;
         node.style.width = `${TECH_TREE_CANVAS.nodeWidth}px`;
       });
     }
 
+    function applyTechTreeResearchRatings() {
+      const board = dom.techTreeBoards[0];
+      if (!board) return;
+      Object.entries(TECH_TREE_RESEARCH_RATINGS).forEach(([nodeId, rating]) => {
+        const node = board.querySelector(`#${nodeId}`);
+        if (node) node.dataset.ro = String(rating);
+      });
+    }
+
+    function updateTechTreeImageResolution() {
+      const useHighResolution = techTreeNavigation.scale >= 1.05;
+      dom.techTreeCanvas?.querySelectorAll("img[data-high-src]").forEach((image) => {
+        const nextSource = useHighResolution ? image.dataset.highSrc : image.dataset.lowSrc;
+        if (!nextSource || image.getAttribute("src") === nextSource) return;
+        image.setAttribute("src", nextSource);
+        image.dataset.resolution = useHighResolution ? "high" : "low";
+      });
+    }
+
     function updateTechTreeTransform() {
       if (!dom.techTreeCanvas || !dom.techTreeViewport) return;
+      techTreeNavigation.scale = clampTechTreeScale(techTreeNavigation.scale);
+      clampTechTreeOffsets();
       const { scale, offsetX, offsetY } = techTreeNavigation;
+      updateTechTreeImageResolution();
       dom.techTreeCanvas.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale})`;
       if (dom.techTreeZoom) dom.techTreeZoom.textContent = `${Math.round(scale * 100)}%`;
       if (dom.visual.dataset.mode === "description") {
@@ -3563,14 +3706,35 @@
     }
 
     function clampTechTreeScale(scale) {
-      return Math.min(2.4, Math.max(0.42, scale));
+      return Math.min(2.4, Math.max(techTreeNavigation.minimumScale, scale));
+    }
+
+    function clampTechTreeOffsets() {
+      if (!dom.techTreeViewport) return;
+      const viewportWidth = dom.techTreeViewport.clientWidth;
+      const viewportHeight = dom.techTreeViewport.clientHeight;
+      const contentWidth = TECH_TREE_CANVAS.width * techTreeNavigation.scale;
+      const contentHeight = TECH_TREE_CANVAS.height * techTreeNavigation.scale;
+      const getAxisBounds = (viewportSize, contentSize) => {
+        if (contentSize <= viewportSize) {
+          const freeSpace = viewportSize - contentSize;
+          if (freeSpace < TECH_TREE_PAN_PADDING * 2) return [freeSpace / 2, freeSpace / 2];
+          return [TECH_TREE_PAN_PADDING, freeSpace - TECH_TREE_PAN_PADDING];
+        }
+        return [viewportSize - contentSize + TECH_TREE_PAN_PADDING, TECH_TREE_PAN_PADDING];
+      };
+      const [minimumOffsetX, maximumOffsetX] = getAxisBounds(viewportWidth, contentWidth);
+      const [minimumOffsetY, maximumOffsetY] = getAxisBounds(viewportHeight, contentHeight);
+      techTreeNavigation.offsetX = Math.min(maximumOffsetX, Math.max(minimumOffsetX, techTreeNavigation.offsetX));
+      techTreeNavigation.offsetY = Math.min(maximumOffsetY, Math.max(minimumOffsetY, techTreeNavigation.offsetY));
     }
 
     function resetTechTreeView() {
       if (!dom.techTreeViewport?.clientWidth) return;
       const viewportWidth = dom.techTreeViewport.clientWidth;
       const minimumScale = window.matchMedia("(max-width: 540px)").matches ? 0.68 : 0.52;
-      techTreeNavigation.scale = clampTechTreeScale(Math.min(0.9, Math.max(minimumScale, (viewportWidth - 18) / TECH_TREE_CANVAS.width)));
+      techTreeNavigation.minimumScale = Math.min(0.9, Math.max(minimumScale, (viewportWidth - 18) / TECH_TREE_CANVAS.width));
+      techTreeNavigation.scale = techTreeNavigation.minimumScale;
       techTreeNavigation.offsetX = (viewportWidth - TECH_TREE_CANVAS.width * techTreeNavigation.scale) / 2;
       techTreeNavigation.offsetY = 18;
       techTreeNavigation.hasFit = true;
@@ -3616,7 +3780,9 @@
       });
       links.forEach((link) => {
         const key = `${link.dataset.from}->${link.dataset.to}`;
-        link.classList.toggle("is-highlighted", connectedLinks.has(key));
+        const isHighlighted = connectedLinks.has(key);
+        link.classList.toggle("is-highlighted", isHighlighted);
+        link.setAttribute("marker-end", isHighlighted ? link.dataset.selectedMarker : link.dataset.defaultMarker || "");
       });
     }
 
@@ -3679,7 +3845,7 @@
     }
 
     function handleTechTreePointerDown(event) {
-      if (event.target.closest("button")) return;
+      if (event.target.closest("button, .tech-node")) return;
       event.preventDefault();
       const point = getTechTreePoint(event);
       techTreeNavigation.pointers.set(event.pointerId, point);
@@ -3808,8 +3974,8 @@
 
     function routeTechTreePath(start, goal, obstacles, occupied, boardWidth, boardHeight) {
       const coordinateValues = (values, limit) => [...new Set(values
-        .map((value) => Math.max(8, Math.min(limit - 8, Number(value.toFixed(2))))))].sort((first, second) => first - second);
-      const xValues = [8, boardWidth - 8, start.x, goal.x];
+        .map((value) => Math.max(TECH_TREE_ROUTE_INSET_X, Math.min(limit - 8, Number(value.toFixed(2))))))].sort((first, second) => first - second);
+      const xValues = [TECH_TREE_ROUTE_INSET_X, boardWidth - 8, start.x, goal.x];
       const yValues = [8, boardHeight - 8, start.y, goal.y];
       obstacles.forEach((rect) => {
         xValues.push(rect.left, rect.right, rect.left - 14, rect.right + 14, (rect.left + rect.right) / 2);
@@ -3890,7 +4056,7 @@
       const lane = link.lane || 0;
       const exitOffset = link.exitOffset || 0;
       if (link.route === "left-rail") {
-        const railX = 8 + lane * 10;
+        const railX = TECH_TREE_ROUTE_INSET_X + lane * 10;
         const exitY = start.y + exitOffset;
         return [start, { x: start.x, y: exitY }, { x: railX, y: exitY }, { x: railX, y: goal.y }, goal];
       }
@@ -3900,7 +4066,7 @@
         return [start, { x: start.x, y: exitY }, { x: railX, y: exitY }, { x: railX, y: goal.y }, goal];
       }
       if (link.route === "top-left") {
-        const railX = 8 + lane * 10;
+        const railX = TECH_TREE_ROUTE_INSET_X + lane * 10;
         const topY = link.topY ?? Math.max(18, sourceRect.top - 18);
         return [
           { x: sourceRect.left, y: sourceRect.top },
@@ -3911,7 +4077,7 @@
         ];
       }
       if (link.route === "bottom-left") {
-        const railX = 8 + lane * 10;
+        const railX = TECH_TREE_ROUTE_INSET_X + lane * 10;
         const exitY = start.y + exitOffset;
         const bottomY = targetRect.bottom + (link.bottomOffset || 22);
         return [
@@ -3924,7 +4090,7 @@
         ];
       }
       if (link.route === "bottom-middle") {
-        const railX = 262 + lane * 14;
+        const railX = TECH_TREE_CONTENT_OFFSET_X + 262 + lane * 14;
         const exitY = start.y + exitOffset;
         const bottomY = targetRect.bottom + (link.bottomOffset || 22);
         return [
@@ -3989,6 +4155,20 @@
           definitions.append(marker);
           markerIds[status] = markerId;
         });
+        const selectionMarkerId = `tech-arrow-${board.dataset.techTree}-selected`;
+        const selectionMarker = document.createElementNS(svgNamespace, "marker");
+        selectionMarker.setAttribute("id", selectionMarkerId);
+        selectionMarker.setAttribute("viewBox", "0 0 6 6");
+        selectionMarker.setAttribute("refX", "5.5");
+        selectionMarker.setAttribute("refY", "3");
+        selectionMarker.setAttribute("markerWidth", "6");
+        selectionMarker.setAttribute("markerHeight", "6");
+        selectionMarker.setAttribute("orient", "auto");
+        const selectionArrow = document.createElementNS(svgNamespace, "path");
+        selectionArrow.setAttribute("d", "M 0 0 L 6 3 L 0 6 z");
+        selectionArrow.setAttribute("fill", themeStyles.getPropertyValue("--ground").trim() || "currentColor");
+        selectionMarker.append(selectionArrow);
+        definitions.append(selectionMarker);
         svg.append(definitions);
         const toLocalRect = (element) => {
           const rect = element.getBoundingClientRect();
@@ -4054,7 +4234,10 @@
           path.setAttribute("d", points.map((point, index) => `${index ? "L" : "M"} ${point.x} ${point.y}`).join(" "));
           path.setAttribute("data-from", link.from);
           path.setAttribute("data-to", link.to);
-          path.setAttribute("marker-end", `url(#${markerIds[link.status] || markerIds.locked})`);
+          const defaultMarker = `url(#${markerIds[link.status] || markerIds.locked})`;
+          path.setAttribute("data-default-marker", defaultMarker);
+          path.setAttribute("data-selected-marker", `url(#${selectionMarkerId})`);
+          path.setAttribute("marker-end", defaultMarker);
           svg.append(path);
         });
       });
@@ -4523,6 +4706,7 @@
 
     unifyDescriptionTechTree();
     applyTechTreeLayout();
+    applyTechTreeResearchRatings();
     initTechTreeNavigation();
     initTechTreeSelection();
     applyTheme(themeMode);
