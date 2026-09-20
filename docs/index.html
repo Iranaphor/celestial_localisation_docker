@@ -828,6 +828,41 @@
       line-height: 1.6;
     }
 
+    .flow-media {
+      margin: 18px 0 17px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .flow-media img {
+      display: block;
+      filter: var(--globe-filter);
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      background: var(--background);
+      object-fit: cover;
+    }
+
+    .flow-media figcaption {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      margin-top: 9px;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.05em;
+      line-height: 1.45;
+      text-transform: uppercase;
+    }
+
+    .flow-media figcaption span { color: var(--ground); }
+    .flow-media figcaption code { color: var(--muted); font-size: inherit; }
+
     .flow-io {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1242,6 +1277,10 @@
                 <div class="flow-card-top"><span>Sky map / normalise</span><span class="flow-signal">/sky_map</span></div>
                 <h3>Make one consistent view of the sky</h3>
                 <p><code>sky_mapper</code> applies calibration and unwraps the camera image into an equirectangular panorama. The simulator can create an equivalent map from six Stellarium views, giving tests the same topic shape as live input.</p>
+                <figure class="flow-media">
+                  <img src="media/simulated_sky_map.png" alt="Captured simulated equirectangular night-sky panorama produced by the simulator." loading="lazy" decoding="async">
+                  <figcaption><span>Captured simulator output</span><code>simulated_sky_map.png</code></figcaption>
+                </figure>
                 <dl class="flow-io"><div><dt>Receives</dt><dd>calibrated image or rendered faces</dd></div><div><dt>Hands off</dt><dd>equirectangular sky map</dd></div></dl>
               </article>
             </li>
@@ -1251,6 +1290,10 @@
                 <div class="flow-card-top"><span>Celestial detector</span><span class="flow-signal">candidate points</span></div>
                 <h3>Find useful lights in the image</h3>
                 <p><code>celestial_detector</code> looks for stars, the Sun, and the Moon. It records where each candidate appears in the panorama and attaches a confidence and object type to the observation.</p>
+                <figure class="flow-media">
+                  <img src="media/sky_map.png" alt="Captured sky map annotated with detected celestial candidates and their observation labels." loading="lazy" decoding="async">
+                  <figcaption><span>Captured detector output</span><code>sky_map.png</code></figcaption>
+                </figure>
                 <dl class="flow-io"><div><dt>Receives</dt><dd><code>/sky_map</code></dd></div><div><dt>Hands off</dt><dd>celestial observations</dd></div></dl>
               </article>
             </li>
