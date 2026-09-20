@@ -1719,8 +1719,10 @@
     }
 
     .tech-node-media img {
-      aspect-ratio: 2.4 / 1;
+      aspect-ratio: 2 / 1;
       border-color: color-mix(in srgb, var(--domain-accent) 35%, var(--line-strong));
+      image-rendering: high-quality;
+      object-fit: contain;
     }
 
     .tech-node-media figcaption { display: none; }
@@ -2628,14 +2630,14 @@
 
           <div class="summary-charts summary-scatter-grid summary-reasonable-grid">
             <figure class="summary-chart">
-              <figcaption><span>Latitude / reasonable runs</span><span class="chart-caption-meta" id="reasonable-latitude-point-count">-- points</span></figcaption>
+              <figcaption><span>Latitude / reasonable residuals</span><span class="chart-caption-meta" id="reasonable-latitude-point-count">-- points</span></figcaption>
               <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-latitude-chart-title reasonable-latitude-chart-description">
-                <title id="reasonable-latitude-chart-title">Ground-truth latitude compared with estimated latitude for runs at or below 100 kilometres error</title>
-                <desc id="reasonable-latitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground truth on the horizontal axis and estimated latitude on the vertical axis.</desc>
+                <title id="reasonable-latitude-chart-title">Latitude residuals for runs at or below 100 kilometres error</title>
+                <desc id="reasonable-latitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground-truth latitude on the horizontal axis and estimated minus ground-truth latitude on the vertical axis.</desc>
                 <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
                 <line class="coordinate-grid" x1="56" y1="133" x2="606" y2="133"></line>
                 <line class="coordinate-grid" x1="331" y1="18" x2="331" y2="248"></line>
-                <line class="coordinate-reference" x1="56" y1="248" x2="606" y2="18"></line>
+                <line class="coordinate-reference" x1="56" y1="133" x2="606" y2="133"></line>
                 <g id="reasonable-latitude-points"></g>
                 <text class="coordinate-axis" x="47" y="252" text-anchor="end">-90</text>
                 <text class="coordinate-axis" x="47" y="137" text-anchor="end">0</text>
@@ -2644,18 +2646,18 @@
                 <text class="coordinate-axis" x="331" y="267" text-anchor="middle">0</text>
                 <text class="coordinate-axis" x="606" y="267" text-anchor="end">90</text>
                 <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth latitude</text>
-                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated latitude</text>
+                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated - ground truth latitude</text>
               </svg>
             </figure>
             <figure class="summary-chart">
-              <figcaption><span>Longitude / reasonable runs</span><span class="chart-caption-meta" id="reasonable-longitude-point-count">-- points</span></figcaption>
+              <figcaption><span>Longitude / reasonable residuals</span><span class="chart-caption-meta" id="reasonable-longitude-point-count">-- points</span></figcaption>
               <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-longitude-chart-title reasonable-longitude-chart-description">
-                <title id="reasonable-longitude-chart-title">Ground-truth longitude compared with estimated longitude for runs at or below 100 kilometres error</title>
-                <desc id="reasonable-longitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground truth on the horizontal axis and estimated longitude on the vertical axis.</desc>
+                <title id="reasonable-longitude-chart-title">Longitude residuals for runs at or below 100 kilometres error</title>
+                <desc id="reasonable-longitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground-truth longitude on the horizontal axis and estimated minus ground-truth longitude on the vertical axis.</desc>
                 <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
                 <line class="coordinate-grid" x1="56" y1="133" x2="606" y2="133"></line>
                 <line class="coordinate-grid" x1="331" y1="18" x2="331" y2="248"></line>
-                <line class="coordinate-reference" x1="56" y1="248" x2="606" y2="18"></line>
+                <line class="coordinate-reference" x1="56" y1="133" x2="606" y2="133"></line>
                 <g id="reasonable-longitude-points"></g>
                 <text class="coordinate-axis" x="47" y="252" text-anchor="end">-180</text>
                 <text class="coordinate-axis" x="47" y="137" text-anchor="end">0</text>
@@ -2664,7 +2666,7 @@
                 <text class="coordinate-axis" x="331" y="267" text-anchor="middle">0</text>
                 <text class="coordinate-axis" x="606" y="267" text-anchor="end">180</text>
                 <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth longitude</text>
-                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated longitude</text>
+                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated - ground truth longitude</text>
               </svg>
             </figure>
           </div>
@@ -3109,53 +3111,59 @@
         { from: "node-imu", to: "node-fusion", status: "locked" }
       ]
     };
-    const TECH_TREE_CANVAS = { width: 1540, height: 3210, nodeWidth: 214 };
+    const TECH_TREE_CANVAS = { width: 1540, height: 3610, nodeWidth: 214 };
     const TECH_TREE_CONTENT_OFFSET_X = 112;
     const TECH_TREE_ROUTE_INSET_X = 96;
+    const TECH_TREE_SOURCE_DROP = 14;
+    const TECH_TREE_TARGET_APPROACH = 24;
+    const TECH_TREE_HORIZONTAL_LANE_STEP = 10;
+    const TECH_TREE_HORIZONTAL_LANE_COUNT = 7;
+    const TECH_TREE_HORIZONTAL_LANE_BUCKET = 168;
+    const TECH_TREE_HORIZONTAL_LANE_ATTEMPTS = 24;
     const TECH_TREE_PAN_PADDING = 48;
     const TECH_TREE_LAYOUT = {
       "node-realsense": [40, 54],
       "node-stellarium": [350, 54],
       "node-fisheye": [660, 54],
       "node-dwarflab": [970, 54],
-      "node-image-capture": [40, 300],
-      "node-render-sky": [350, 300],
-      "node-fisheye-calibration": [660, 300],
-      "node-dwarflab-calibration": [970, 300],
-      "node-create-panorama": [195, 575],
-      "node-ephemeris": [760, 575],
-      "node-dwarflab-pose": [970, 575],
-      "node-celestial-detector": [195, 850],
-      "node-condition-classifier": [505, 1125],
-      "node-catalogue": [1000, 1125],
-      "node-daytime": [40, 1390],
-      "node-nighttime": [600, 1390],
-      "node-overcast": [1160, 1390],
-      "node-solar-cues": [40, 1660],
-      "node-aircraft": [270, 1660],
-      "node-star-catalogue": [500, 1660],
-      "node-satellites": [730, 1660],
-      "node-cloud-segmentation": [960, 1660],
-      "node-polarization": [1190, 1660],
-      "node-celestial-pose": [505, 1950],
-      "node-cloud-layers": [940, 1950],
-      "node-pose-merge": [505, 2240],
-      "node-publish-pose": [505, 2500],
-      "node-imu": [40, 2760],
-      "node-temporal-refinement": [285, 2760],
-      "node-evaluate": [940, 2760],
-      "node-fusion": [505, 3040]
+      "node-image-capture": [40, 328],
+      "node-render-sky": [350, 328],
+      "node-fisheye-calibration": [660, 328],
+      "node-dwarflab-calibration": [970, 328],
+      "node-create-panorama": [195, 631],
+      "node-ephemeris": [760, 631],
+      "node-dwarflab-pose": [970, 631],
+      "node-celestial-detector": [195, 934],
+      "node-condition-classifier": [505, 1237],
+      "node-catalogue": [1000, 1237],
+      "node-daytime": [40, 1530],
+      "node-nighttime": [600, 1530],
+      "node-overcast": [1160, 1530],
+      "node-solar-cues": [40, 1828],
+      "node-aircraft": [270, 1828],
+      "node-star-catalogue": [500, 1828],
+      "node-satellites": [730, 1828],
+      "node-cloud-segmentation": [960, 1828],
+      "node-polarization": [1190, 1828],
+      "node-celestial-pose": [505, 2146],
+      "node-cloud-layers": [940, 2146],
+      "node-pose-merge": [505, 2464],
+      "node-publish-pose": [505, 2752],
+      "node-imu": [40, 3040],
+      "node-temporal-refinement": [285, 3040],
+      "node-evaluate": [940, 3040],
+      "node-fusion": [505, 3348]
     };
     const TECH_TREE_STAGES = [
       [18, "01 / acquisition endpoints"],
-      [264, "02 / calibration + preparation"],
-      [539, "03 / shared observation inputs"],
-      [814, "04 / raw celestial detections"],
-      [1089, "05 / what the sky contains"],
-      [1354, "06 / condition-specific evidence"],
-      [1914, "07 / pose candidates"],
-      [2204, "08 / publish + refine"],
-      [2704, "09 / adaptive fusion"]
+      [292, "02 / calibration + preparation"],
+      [595, "03 / shared observation inputs"],
+      [898, "04 / raw celestial detections"],
+      [1201, "05 / what the sky contains"],
+      [1494, "06 / condition-specific evidence"],
+      [2110, "07 / pose candidates"],
+      [2428, "08 / publish + refine"],
+      [3004, "09 / adaptive fusion"]
     ];
     const TECH_TREE_RESEARCH_RATINGS = {
       "node-fisheye": 1,
@@ -3346,25 +3354,52 @@
       return element;
     }
 
-    function renderCoordinateChart(pointGroup, rows, coordinateName, countElement) {
+    function renderCoordinateChart(pointGroup, rows, coordinateName, countElement, options = {}) {
       const domain = coordinateName === "latitude"
         ? { minimum: -90, maximum: 90 }
         : { minimum: -180, maximum: 180 };
       const svg = pointGroup.closest("svg");
+      const residualMode = Boolean(options.residual);
+      const validRows = rows.filter((row) => (
+        Number.isFinite(Number(row[`ground_truth_${coordinateName}`]))
+        && Number.isFinite(Number(row[`estimated_${coordinateName}`]))
+      ));
+      const coordinateDelta = (estimatedValue, groundValue) => coordinateName === "longitude"
+        ? ((estimatedValue - groundValue + 540) % 360) - 180
+        : estimatedValue - groundValue;
+      const residualValues = residualMode
+        ? validRows.map((row) => Math.abs(coordinateDelta(Number(row[`estimated_${coordinateName}`]), Number(row[`ground_truth_${coordinateName}`]))))
+        : [];
+      const residualLimit = residualMode
+        ? Math.max(coordinateName === "latitude" ? 0.5 : 1, Math.max(...residualValues, 0) * 1.12)
+        : 0;
+      const xDomain = domain;
+      const yDomain = residualMode ? { minimum: -residualLimit, maximum: residualLimit } : domain;
       const signedLogConstant = coordinateName === "latitude" ? 8 : 16;
       const transformCoordinate = (value) => Math.sign(value) * Math.log1p(Math.abs(value) / signedLogConstant);
-      const transformedMinimum = transformCoordinate(domain.minimum);
-      const transformedMaximum = transformCoordinate(domain.maximum);
+      const xTransform = residualMode ? (value) => value : transformCoordinate;
+      const yTransform = residualMode ? (value) => value : transformCoordinate;
+      const transformedXMinimum = xTransform(xDomain.minimum);
+      const transformedXMaximum = xTransform(xDomain.maximum);
+      const transformedYMinimum = yTransform(yDomain.minimum);
+      const transformedYMaximum = yTransform(yDomain.maximum);
       const plotLeft = 56;
       const plotRight = 606;
       const plotTop = 18;
       const plotBottom = 248;
-      const scaleX = (value) => plotLeft + ((transformCoordinate(value) - transformedMinimum) / (transformedMaximum - transformedMinimum)) * (plotRight - plotLeft);
-      const scaleY = (value) => plotBottom - ((transformCoordinate(value) - transformedMinimum) / (transformedMaximum - transformedMinimum)) * (plotBottom - plotTop);
+      const scaleX = (value) => plotLeft + ((xTransform(value) - transformedXMinimum) / (transformedXMaximum - transformedXMinimum)) * (plotRight - plotLeft);
+      const scaleY = (value) => plotBottom - ((yTransform(value) - transformedYMinimum) / (transformedYMaximum - transformedYMinimum)) * (plotBottom - plotTop);
+      const formatAxisValue = (value) => {
+        if (Math.abs(value) >= 100) return String(Math.round(value));
+        if (Math.abs(value) >= 10) return value.toFixed(0);
+        return value.toFixed(1);
+      };
       if (svg) {
-        svg.dataset.scale = "signed-log";
+        svg.dataset.scale = residualMode ? "residual" : "signed-log";
         const existingLogGrid = svg.querySelector(".coordinate-log-grid-group");
         existingLogGrid?.remove();
+        const existingResidualGrid = svg.querySelector(".coordinate-residual-grid-group");
+        existingResidualGrid?.remove();
         const baseGridLines = [...svg.querySelectorAll(".coordinate-grid")];
         if (baseGridLines[0]) {
           baseGridLines[0].setAttribute("y1", scaleY(0));
@@ -3374,44 +3409,79 @@
           baseGridLines[1].setAttribute("x1", scaleX(0));
           baseGridLines[1].setAttribute("x2", scaleX(0));
         }
-        const tickValues = coordinateName === "latitude" ? [-30, -10, 10, 30] : [-60, -10, 10, 60];
-        const logGrid = createSvgElement("g", { class: "coordinate-log-grid-group", "aria-hidden": "true" });
-        tickValues.forEach((value) => {
-          const x = scaleX(value);
-          const y = scaleY(value);
-          logGrid.append(
-            createSvgElement("line", { class: "coordinate-grid coordinate-log-grid", x1: x, y1: plotTop, x2: x, y2: plotBottom }),
-            createSvgElement("line", { class: "coordinate-grid coordinate-log-grid", x1: plotLeft, y1: y, x2: plotRight, y2: y })
-          );
-        });
-        pointGroup.before(logGrid);
+        if (residualMode) {
+          const residualGrid = createSvgElement("g", { class: "coordinate-residual-grid-group", "aria-hidden": "true" });
+          [-0.5, 0, 0.5].forEach((fraction) => {
+            const y = scaleY(residualLimit * fraction);
+            residualGrid.append(createSvgElement("line", { class: "coordinate-grid coordinate-residual-grid", x1: plotLeft, y1: y, x2: plotRight, y2: y }));
+          });
+          [-0.5, 0, 0.5].forEach((fraction) => {
+            const value = domain.minimum + (domain.maximum - domain.minimum) * (fraction + 0.5);
+            const x = scaleX(value);
+            residualGrid.append(createSvgElement("line", { class: "coordinate-grid coordinate-residual-grid", x1: x, y1: plotTop, x2: x, y2: plotBottom }));
+          });
+          pointGroup.before(residualGrid);
+        } else {
+          const tickValues = coordinateName === "latitude" ? [-30, -10, 10, 30] : [-60, -10, 10, 60];
+          const logGrid = createSvgElement("g", { class: "coordinate-log-grid-group", "aria-hidden": "true" });
+          tickValues.forEach((value) => {
+            const x = scaleX(value);
+            const y = scaleY(value);
+            logGrid.append(
+              createSvgElement("line", { class: "coordinate-grid coordinate-log-grid", x1: x, y1: plotTop, x2: x, y2: plotBottom }),
+              createSvgElement("line", { class: "coordinate-grid coordinate-log-grid", x1: plotLeft, y1: y, x2: plotRight, y2: y })
+            );
+          });
+          pointGroup.before(logGrid);
+        }
         const axisLabels = [...svg.querySelectorAll(".coordinate-axis")];
-        [scaleY(domain.minimum), scaleY(0), scaleY(domain.maximum)].forEach((y, index) => axisLabels[index]?.setAttribute("y", y + 4));
-        [scaleX(domain.minimum), scaleX(0), scaleX(domain.maximum)].forEach((x, index) => axisLabels[index + 3]?.setAttribute("x", x));
+        [yDomain.minimum, 0, yDomain.maximum].forEach((value, index) => {
+          axisLabels[index]?.setAttribute("y", scaleY(value) + 4);
+          if (axisLabels[index]) axisLabels[index].textContent = formatAxisValue(value);
+        });
+        [xDomain.minimum, 0, xDomain.maximum].forEach((value, index) => {
+          axisLabels[index + 3]?.setAttribute("x", scaleX(value));
+          if (axisLabels[index + 3]) axisLabels[index + 3].textContent = formatAxisValue(value);
+        });
+        const reference = svg.querySelector(".coordinate-reference");
+        if (reference) {
+          if (residualMode) {
+            reference.setAttribute("x1", plotLeft);
+            reference.setAttribute("y1", scaleY(0));
+            reference.setAttribute("x2", plotRight);
+            reference.setAttribute("y2", scaleY(0));
+          } else {
+            reference.setAttribute("x1", plotLeft);
+            reference.setAttribute("y1", scaleY(domain.minimum));
+            reference.setAttribute("x2", plotRight);
+            reference.setAttribute("y2", scaleY(domain.maximum));
+          }
+        }
         const axisTitles = [...svg.querySelectorAll(".coordinate-axis-title")];
-        if (axisTitles[0]) axisTitles[0].textContent = `ground truth ${coordinateName} / signed-log`;
-        if (axisTitles[1]) axisTitles[1].textContent = `estimated ${coordinateName} / signed-log`;
+        if (axisTitles[0]) axisTitles[0].textContent = `ground truth ${coordinateName}${residualMode ? "" : " / signed-log"}`;
+        if (axisTitles[1]) axisTitles[1].textContent = residualMode ? `estimated - ground truth ${coordinateName}` : `estimated ${coordinateName} / signed-log`;
         const title = svg.querySelector("title");
-        if (title && !title.textContent.includes("signed-log")) title.textContent += " / signed-log coordinates";
+        if (title && residualMode && !title.textContent.includes("residuals")) title.textContent += " / residuals";
+        if (title && !residualMode && !title.textContent.includes("signed-log")) title.textContent += " / signed-log coordinates";
         const description = svg.querySelector("desc");
-        if (description && !description.textContent.includes("symmetric logarithmic")) description.textContent += " The axes use a symmetric logarithmic coordinate scale to expand differences near zero while retaining negative coordinates.";
+        if (description && residualMode && !description.textContent.includes("zero-centred")) description.textContent += " The residual axis is zero-centred and scaled to the reasonable-run spread.";
+        if (description && !residualMode && !description.textContent.includes("symmetric logarithmic")) description.textContent += " The axes use a symmetric logarithmic coordinate scale to expand differences near zero while retaining negative coordinates.";
       }
-      const validRows = rows.filter((row) => (
-        Number.isFinite(Number(row[`ground_truth_${coordinateName}`]))
-        && Number.isFinite(Number(row[`estimated_${coordinateName}`]))
-      ));
       pointGroup.replaceChildren();
       validRows.forEach((row) => {
         const groundValue = Number(row[`ground_truth_${coordinateName}`]);
         const estimatedValue = Number(row[`estimated_${coordinateName}`]);
+        const residualValue = coordinateDelta(estimatedValue, groundValue);
         const errorKilometers = Number(row.error_distance_meters) / 1000;
         const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         point.setAttribute("class", `coordinate-point ${getErrorCategory(errorKilometers)}`);
         point.setAttribute("cx", scaleX(groundValue).toFixed(2));
-        point.setAttribute("cy", scaleY(estimatedValue).toFixed(2));
+        point.setAttribute("cy", scaleY(residualMode ? residualValue : estimatedValue).toFixed(2));
         point.setAttribute("r", row._index === state.selectedIndex ? "5.5" : "4");
         const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
-        title.textContent = `Run ${row.run_index}: ground truth ${groundValue.toFixed(3)}, estimated ${estimatedValue.toFixed(3)}, error ${formatSummaryKilometers(errorKilometers)}`;
+        title.textContent = residualMode
+          ? `Run ${row.run_index}: ground truth ${groundValue.toFixed(3)}, residual ${residualValue >= 0 ? "+" : ""}${residualValue.toFixed(3)}, error ${formatSummaryKilometers(errorKilometers)}`
+          : `Run ${row.run_index}: ground truth ${groundValue.toFixed(3)}, estimated ${estimatedValue.toFixed(3)}, error ${formatSummaryKilometers(errorKilometers)}`;
         point.append(title);
         pointGroup.append(point);
       });
@@ -3579,8 +3649,8 @@
         dom.summaryFootnote.textContent = rows.length ? "No runs with identified objects are available for summary metrics." : "Metrics will appear when the CSV is available.";
         renderCoordinateChart(dom.latitudePoints, [], "latitude", dom.latitudePointCount);
         renderCoordinateChart(dom.longitudePoints, [], "longitude", dom.longitudePointCount);
-        renderCoordinateChart(dom.reasonableLatitudePoints, [], "latitude", dom.reasonableLatitudePointCount);
-        renderCoordinateChart(dom.reasonableLongitudePoints, [], "longitude", dom.reasonableLongitudePointCount);
+        renderCoordinateChart(dom.reasonableLatitudePoints, [], "latitude", dom.reasonableLatitudePointCount, { residual: true });
+        renderCoordinateChart(dom.reasonableLongitudePoints, [], "longitude", dom.reasonableLongitudePointCount, { residual: true });
         renderErrorHistogram([]);
         renderPercentileChart([]);
         renderSuccessRateChart([]);
@@ -3607,8 +3677,8 @@
       dom.summaryFootnote.textContent = `${withinTen} of ${summaryRows.length} valid fixes are within 10 km. ${rows.length - summaryRows.length} zero-object runs excluded from all summary metrics and graphs.`;
       renderCoordinateChart(dom.latitudePoints, summaryRows, "latitude", dom.latitudePointCount);
       renderCoordinateChart(dom.longitudePoints, summaryRows, "longitude", dom.longitudePointCount);
-      renderCoordinateChart(dom.reasonableLatitudePoints, reasonableRows, "latitude", dom.reasonableLatitudePointCount);
-      renderCoordinateChart(dom.reasonableLongitudePoints, reasonableRows, "longitude", dom.reasonableLongitudePointCount);
+      renderCoordinateChart(dom.reasonableLatitudePoints, reasonableRows, "latitude", dom.reasonableLatitudePointCount, { residual: true });
+      renderCoordinateChart(dom.reasonableLongitudePoints, reasonableRows, "longitude", dom.reasonableLongitudePointCount, { residual: true });
       renderErrorHistogram(errorKilometers);
       renderPercentileChart(errorKilometers);
       renderSuccessRateChart(errorKilometers);
@@ -3977,6 +4047,9 @@
         .map((value) => Math.max(TECH_TREE_ROUTE_INSET_X, Math.min(limit - 8, Number(value.toFixed(2))))))].sort((first, second) => first - second);
       const xValues = [TECH_TREE_ROUTE_INSET_X, boardWidth - 8, start.x, goal.x];
       const yValues = [8, boardHeight - 8, start.y, goal.y];
+      occupied.filter((segment) => Math.abs(segment.x1 - segment.x2) < 0.1).forEach((segment) => {
+        xValues.push(segment.x1 - 18, segment.x1 + 18);
+      });
       obstacles.forEach((rect) => {
         xValues.push(rect.left, rect.right, rect.left - 14, rect.right + 14, (rect.left + rect.right) / 2);
         yValues.push(rect.top, rect.bottom, rect.top - 14, rect.bottom + 14, (rect.top + rect.bottom) / 2);
@@ -4019,10 +4092,12 @@
         [[currentX - 1, currentY], [currentX + 1, currentY], [currentX, currentY - 1], [currentX, currentY + 1]].forEach(([nextX, nextY]) => {
           if (nextX < 0 || nextY < 0 || nextX >= xs.length || nextY >= ys.length) return;
           const nextPoint = { x: xs[nextX], y: ys[nextY] };
+          if (nextPoint.y < currentPoint.y - 0.1) return;
           const segment = { x1: currentPoint.x, y1: currentPoint.y, x2: nextPoint.x, y2: nextPoint.y };
           if (obstacles.some((obstacle) => techTreeSegmentHitsRect(currentPoint, nextPoint, obstacle))) return;
           const nextKey = keyFor(nextX, nextY);
           const direction = Math.abs(segment.x1 - segment.x2) < 0.1 ? "vertical" : "horizontal";
+          if (direction === "vertical" && occupied.some((existing) => techTreeSegmentsOverlap(segment, existing))) return;
           const turnCost = directions.has(currentKey) && directions.get(currentKey) !== direction ? 24 : 0;
           const overlapCost = occupied.filter((existing) => techTreeSegmentsOverlap(segment, existing)).length * 900;
           const crossingCost = occupied.filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140;
@@ -4050,6 +4125,67 @@
       }
       simplified.push(points[points.length - 1]);
       return simplified;
+    }
+
+    function getTechTreeHorizontalLaneOffset(sourceRect, targetRect, sourceIndex, targetIndex) {
+      const leftDistance = Math.max(0, Math.min(sourceRect.left, targetRect.left) - TECH_TREE_ROUTE_INSET_X);
+      const distanceLane = Math.floor(leftDistance / TECH_TREE_HORIZONTAL_LANE_BUCKET);
+      const laneSeed = distanceLane + sourceIndex * 2 + targetIndex * 3;
+      const laneIndex = ((laneSeed % TECH_TREE_HORIZONTAL_LANE_COUNT) + TECH_TREE_HORIZONTAL_LANE_COUNT) % TECH_TREE_HORIZONTAL_LANE_COUNT;
+      return laneIndex * TECH_TREE_HORIZONTAL_LANE_STEP;
+    }
+
+    function getTechTreeHorizontalLaneOffsets(baseOffset) {
+      const offsets = [baseOffset];
+      for (let attempt = 1; attempt <= TECH_TREE_HORIZONTAL_LANE_ATTEMPTS; attempt += 1) {
+        const offset = attempt * TECH_TREE_HORIZONTAL_LANE_STEP;
+        offsets.push(baseOffset + offset);
+        if (baseOffset >= offset) offsets.push(baseOffset - offset);
+      }
+      return [...new Set(offsets)];
+    }
+
+    function buildStaggeredTechTreePath(start, goal, obstacles, occupied, boardWidth, horizontalOffset = 0) {
+      const candidateValues = [start.x, goal.x];
+      for (let offset = 18; offset <= 126; offset += 18) {
+        candidateValues.push(start.x - offset, start.x + offset, goal.x - offset, goal.x + offset);
+      }
+      obstacles.forEach((rect) => candidateValues.push(rect.left - 18, rect.right + 18));
+      occupied.forEach((segment) => {
+        if (Math.abs(segment.x1 - segment.x2) < 0.1) candidateValues.push(segment.x1 - 18, segment.x1 + 18);
+      });
+      const candidates = [...new Set(candidateValues
+        .map((value) => Math.max(TECH_TREE_ROUTE_INSET_X, Math.min(boardWidth - 8, Number(value.toFixed(2)))))
+      )];
+      const scoredCandidates = getTechTreeHorizontalLaneOffsets(horizontalOffset).flatMap((candidateOffset) => {
+        const approachY = Math.max(start.y + 1, goal.y - TECH_TREE_TARGET_APPROACH - candidateOffset);
+        const sourceLaneY = Math.min(approachY - 1, start.y + candidateOffset);
+        return candidates.map((laneX) => {
+          const sourceDrop = { x1: start.x, y1: start.y, x2: start.x, y2: sourceLaneY };
+          const entry = { x1: start.x, y1: sourceLaneY, x2: laneX, y2: sourceLaneY };
+          const lane = { x1: laneX, y1: sourceLaneY, x2: laneX, y2: approachY };
+          const transfer = { x1: laneX, y1: approachY, x2: goal.x, y2: approachY };
+          const targetEntry = { x1: goal.x, y1: approachY, x2: goal.x, y2: goal.y };
+          const candidateSegments = [sourceDrop, entry, lane, transfer, targetEntry];
+          if (candidateSegments.some((segment) => obstacles.some((obstacle) => techTreeSegmentHitsRect(
+            { x: segment.x1, y: segment.y1 },
+            { x: segment.x2, y: segment.y2 },
+            obstacle
+          )))) return null;
+          const verticalCandidates = [sourceDrop, lane, targetEntry];
+          if (verticalCandidates.some((segment) => occupied.some((existing) => techTreeSegmentsOverlap(segment, existing)))) return null;
+          const horizontalCandidates = [entry, transfer];
+          if (horizontalCandidates.some((segment) => occupied.some((existing) => techTreeSegmentsOverlap(segment, existing)))) return null;
+          const crossingCost = candidateSegments.reduce((cost, segment) => cost + occupied.filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140, 0);
+          return {
+            laneX,
+            score: Math.abs(start.x - laneX) + Math.abs(goal.x - laneX) + Math.abs(candidateOffset - horizontalOffset) * 4 + crossingCost,
+            points: [start, { x: start.x, y: sourceLaneY }, { x: laneX, y: sourceLaneY }, { x: laneX, y: approachY }, { x: goal.x, y: approachY }, goal],
+            segments: candidateSegments
+          };
+        }).filter(Boolean);
+      }).sort((first, second) => first.score - second.score);
+      return scoredCandidates[0] || null;
     }
 
     function buildManualTechTreePath(link, sourceRect, targetRect, start, goal, boardWidth) {
@@ -4206,24 +4342,36 @@
           const targetIndex = targetLinks.indexOf(link);
           const sourcePort = sourceRect.left + sourceRect.width * ((sourceIndex + 1) / (sourceLinks.length + 1));
           const targetPort = targetRect.left + targetRect.width * ((targetIndex + 1) / (targetLinks.length + 1));
-          const targetIsBelow = targetRect.centerY >= sourceRect.centerY;
-          const sameRow = Math.abs(sourceRect.centerY - targetRect.centerY) < 8;
-          const entersTargetSide = link.route === "left-rail" || link.route === "right-rail";
-          const targetSideY = targetRect.top + targetRect.height * ((targetIndex + 1) / (targetLinks.length + 1));
+          const targetIsBelow = targetRect.top >= sourceRect.top;
+          const sameRow = Math.abs(sourceRect.top - targetRect.top) < 24;
+          const sameRowY = Math.max(sourceRect.top, targetRect.top) + Math.min(sourceRect.height, targetRect.height) / 2;
+          const sourceDrop = !sameRow && targetIsBelow
+            ? Math.min(TECH_TREE_SOURCE_DROP, Math.max(0, targetRect.top - sourceRect.bottom - 4))
+            : 0;
           const start = sameRow
-            ? { x: targetRect.centerX >= sourceRect.centerX ? sourceRect.right : sourceRect.left, y: sourceRect.top + sourceRect.height * ((sourceIndex + 1) / (sourceLinks.length + 1)) }
+            ? { x: targetRect.centerX >= sourceRect.centerX ? sourceRect.right : sourceRect.left, y: sameRowY }
             : { x: sourcePort, y: targetIsBelow ? sourceRect.bottom : sourceRect.top };
+          const routedStart = sourceDrop ? { x: start.x, y: start.y + sourceDrop } : start;
           const goal = sameRow
-            ? { x: targetRect.centerX >= sourceRect.centerX ? targetRect.left : targetRect.right, y: targetRect.top + targetRect.height * ((targetIndex + 1) / (targetLinks.length + 1)) }
-            : entersTargetSide
-              ? { x: link.route === "left-rail" ? targetRect.left : targetRect.right, y: targetSideY }
+            ? { x: targetRect.centerX >= sourceRect.centerX ? targetRect.left : targetRect.right, y: sameRowY }
             : { x: targetPort, y: targetIsBelow ? targetRect.top : targetRect.bottom };
           const obstacles = nodeRects
             .filter(({ id }) => id !== link.from && id !== link.to)
             .map(({ rect }) => ({ left: rect.left - 10, right: rect.right + 10, top: rect.top - 10, bottom: rect.bottom + 10 }));
-          const routedPoints = buildManualTechTreePath(link, sourceRect, targetRect, start, goal, boardWidth)
-            || routeTechTreePath(start, goal, obstacles, occupiedSegments, boardWidth, boardHeight);
-          const points = simplifyTechTreePath(routedPoints || [start, { x: goal.x, y: start.y }, goal]);
+          const horizontalOffset = !sameRow && targetIsBelow
+            ? getTechTreeHorizontalLaneOffset(sourceRect, targetRect, sourceIndex, targetIndex)
+            : 0;
+          const staggeredRoute = !sameRow && targetIsBelow
+            ? buildStaggeredTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, horizontalOffset)
+            : null;
+          const routedPoints = staggeredRoute?.points || (sameRow
+            ? [routedStart, goal]
+            : routeTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, boardHeight));
+          const approachY = Math.max(routedStart.y + 1, goal.y - TECH_TREE_TARGET_APPROACH - horizontalOffset);
+          const sourceLaneY = Math.min(approachY - 1, routedStart.y + horizontalOffset);
+          const points = simplifyTechTreePath(routedPoints
+            ? (sourceDrop ? [start, ...routedPoints] : routedPoints)
+            : [start, routedStart, { x: routedStart.x, y: sourceLaneY }, { x: goal.x, y: sourceLaneY }, { x: goal.x, y: approachY }, goal]);
           for (let index = 1; index < points.length; index += 1) {
             if (Math.abs(points[index - 1].x - points[index].x) + Math.abs(points[index - 1].y - points[index].y) > 0.1) {
               occupiedSegments.push({ x1: points[index - 1].x, y1: points[index - 1].y, x2: points[index].x, y2: points[index].y });
