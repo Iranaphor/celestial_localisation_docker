@@ -2506,7 +2506,7 @@
           <article class="summary-stat-card">
             <span class="metric-label">Runs</span>
             <strong class="summary-stat-value" id="summary-runs">--</strong>
-            <small>recorded evaluations</small>
+            <small>nonzero-object evaluations</small>
           </article>
           <article class="summary-stat-card">
             <span class="metric-label">Mean error</span>
@@ -2580,10 +2580,69 @@
             </figure>
           </div>
 
+          <div class="summary-charts summary-scatter-grid summary-reasonable-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Latitude / reasonable runs</span><span class="chart-caption-meta" id="reasonable-latitude-point-count">-- points</span></figcaption>
+              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-latitude-chart-title reasonable-latitude-chart-description">
+                <title id="reasonable-latitude-chart-title">Ground-truth latitude compared with estimated latitude for runs at or below 100 kilometres error</title>
+                <desc id="reasonable-latitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground truth on the horizontal axis and estimated latitude on the vertical axis.</desc>
+                <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
+                <line class="coordinate-grid" x1="56" y1="133" x2="606" y2="133"></line>
+                <line class="coordinate-grid" x1="331" y1="18" x2="331" y2="248"></line>
+                <line class="coordinate-reference" x1="56" y1="248" x2="606" y2="18"></line>
+                <g id="reasonable-latitude-points"></g>
+                <text class="coordinate-axis" x="47" y="252" text-anchor="end">-90</text>
+                <text class="coordinate-axis" x="47" y="137" text-anchor="end">0</text>
+                <text class="coordinate-axis" x="47" y="22" text-anchor="end">90</text>
+                <text class="coordinate-axis" x="56" y="267">-90</text>
+                <text class="coordinate-axis" x="331" y="267" text-anchor="middle">0</text>
+                <text class="coordinate-axis" x="606" y="267" text-anchor="end">90</text>
+                <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth latitude</text>
+                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated latitude</text>
+              </svg>
+            </figure>
+            <figure class="summary-chart">
+              <figcaption><span>Longitude / reasonable runs</span><span class="chart-caption-meta" id="reasonable-longitude-point-count">-- points</span></figcaption>
+              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-longitude-chart-title reasonable-longitude-chart-description">
+                <title id="reasonable-longitude-chart-title">Ground-truth longitude compared with estimated longitude for runs at or below 100 kilometres error</title>
+                <desc id="reasonable-longitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground truth on the horizontal axis and estimated longitude on the vertical axis.</desc>
+                <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
+                <line class="coordinate-grid" x1="56" y1="133" x2="606" y2="133"></line>
+                <line class="coordinate-grid" x1="331" y1="18" x2="331" y2="248"></line>
+                <line class="coordinate-reference" x1="56" y1="248" x2="606" y2="18"></line>
+                <g id="reasonable-longitude-points"></g>
+                <text class="coordinate-axis" x="47" y="252" text-anchor="end">-180</text>
+                <text class="coordinate-axis" x="47" y="137" text-anchor="end">0</text>
+                <text class="coordinate-axis" x="47" y="22" text-anchor="end">180</text>
+                <text class="coordinate-axis" x="56" y="267">-180</text>
+                <text class="coordinate-axis" x="331" y="267" text-anchor="middle">0</text>
+                <text class="coordinate-axis" x="606" y="267" text-anchor="end">180</text>
+                <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth longitude</text>
+                <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated longitude</text>
+              </svg>
+            </figure>
+          </div>
+
           <div class="summary-charts summary-histogram-grid">
             <figure class="summary-chart">
               <figcaption><span>Error histogram</span><span class="chart-caption-meta" id="histogram-total">-- runs</span></figcaption>
               <div class="histogram" id="error-histogram" role="img" aria-label="Independent error histogram"></div>
+            </figure>
+          </div>
+          <div class="summary-charts summary-analysis-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Percentile error distribution</span><span class="chart-caption-meta" id="percentile-total">-- runs</span></figcaption>
+              <svg class="distribution-chart" id="percentile-error-chart" viewBox="0 0 960 300" role="img" aria-labelledby="percentile-error-title percentile-error-description">
+                <title id="percentile-error-title">Percentile distribution of localisation error</title>
+                <desc id="percentile-error-description">Sorted localisation error by percentile. The vertical axis uses a logarithmic kilometre scale so the full distribution remains visible.</desc>
+              </svg>
+            </figure>
+            <figure class="summary-chart">
+              <figcaption><span>Localisation success rates</span><span class="chart-caption-meta" id="success-rate-total">-- runs</span></figcaption>
+              <svg class="distribution-chart" id="success-rate-chart" viewBox="0 0 960 300" role="img" aria-labelledby="success-rate-title success-rate-description">
+                <title id="success-rate-title">Localisation success rates by error threshold</title>
+                <desc id="success-rate-description">Percentage of valid runs achieving less than 1, 5, 25, 50, 100, 500, or 1000 kilometres error.</desc>
+              </svg>
             </figure>
           </div>
         <p class="summary-footnote" id="summary-footnote">Metrics will appear when the CSV is available.</p>
@@ -2938,8 +2997,16 @@
       longitudePoints: document.getElementById("longitude-points"),
       latitudePointCount: document.getElementById("latitude-point-count"),
       longitudePointCount: document.getElementById("longitude-point-count"),
+      reasonableLatitudePoints: document.getElementById("reasonable-latitude-points"),
+      reasonableLongitudePoints: document.getElementById("reasonable-longitude-points"),
+      reasonableLatitudePointCount: document.getElementById("reasonable-latitude-point-count"),
+      reasonableLongitudePointCount: document.getElementById("reasonable-longitude-point-count"),
       errorHistogram: document.getElementById("error-histogram"),
       histogramTotal: document.getElementById("histogram-total"),
+      percentileErrorChart: document.getElementById("percentile-error-chart"),
+      percentileTotal: document.getElementById("percentile-total"),
+      successRateChart: document.getElementById("success-rate-chart"),
+      successRateTotal: document.getElementById("success-rate-total"),
       summaryFootnote: document.getElementById("summary-footnote"),
       descriptionView: document.getElementById("description-view"),
       descriptionStep: document.getElementById("description-step"),
@@ -3050,6 +3117,7 @@
       lastPoint: null,
       pinchStart: null
     };
+    const techTreeSelection = { nodeId: null };
     const numericFields = new Set([
       "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
       "estimated_longitude", "identified_objects_used", "latitude_error_degrees",
@@ -3192,6 +3260,19 @@
       return "quality-red";
     }
 
+    function createSvgElement(name, attributes = {}) {
+      const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+      Object.entries(attributes).forEach(([attribute, value]) => element.setAttribute(attribute, String(value)));
+      return element;
+    }
+
+    function appendSvgText(parent, text, attributes) {
+      const element = createSvgElement("text", attributes);
+      element.textContent = text;
+      parent.append(element);
+      return element;
+    }
+
     function renderCoordinateChart(pointGroup, rows, coordinateName, countElement) {
       const domain = coordinateName === "latitude"
         ? { minimum: -90, maximum: 90 }
@@ -3222,6 +3303,108 @@
         pointGroup.append(point);
       });
       countElement.textContent = `${validRows.length} points`;
+    }
+
+    function renderPercentileChart(errorKilometers) {
+      const chart = dom.percentileErrorChart;
+      if (!chart) return;
+      chart.replaceChildren();
+      const title = createSvgElement("title", { id: "percentile-error-title" });
+      title.textContent = "Percentile distribution of localisation error";
+      const description = createSvgElement("desc", { id: "percentile-error-description" });
+      description.textContent = "Sorted localisation error by percentile. The vertical axis uses a logarithmic kilometre scale.";
+      chart.append(title, description);
+      dom.percentileTotal.textContent = errorKilometers.length ? `${errorKilometers.length} runs` : "-- runs";
+      if (!errorKilometers.length) {
+        appendSvgText(chart, "No valid runs", { class: "distribution-axis-title", x: 480, y: 150, "text-anchor": "middle" });
+        return;
+      }
+
+      const plot = { left: 62, right: 930, top: 24, bottom: 238 };
+      const values = [...errorKilometers].sort((first, second) => first - second);
+      const maximum = Math.max(values[values.length - 1], 1);
+      const maximumLog = Math.max(Math.log10(maximum + 1), 1);
+      const scaleX = (percentile) => plot.left + (percentile / 100) * (plot.right - plot.left);
+      const scaleY = (value) => plot.bottom - (Math.log10(value + 1) / maximumLog) * (plot.bottom - plot.top);
+      chart.append(createSvgElement("rect", { class: "distribution-plot", x: plot.left, y: plot.top, width: plot.right - plot.left, height: plot.bottom - plot.top, rx: 2 }));
+
+      [0, 25, 50, 75, 100].forEach((percentile) => {
+        const x = scaleX(percentile);
+        chart.append(createSvgElement("line", { class: "distribution-grid", x1: x, y1: plot.top, x2: x, y2: plot.bottom }));
+        appendSvgText(chart, `${percentile}%`, { class: "distribution-axis", x, y: 260, "text-anchor": "middle" });
+      });
+      const yTicks = [0, 1, 10, 100, 1000, 10000].filter((value) => value <= maximum);
+      if (!yTicks.includes(0)) yTicks.unshift(0);
+      if (!yTicks.includes(maximum)) yTicks.push(maximum);
+      [...new Set(yTicks)].sort((first, second) => first - second).forEach((value) => {
+        const y = scaleY(value);
+        chart.append(createSvgElement("line", { class: "distribution-grid", x1: plot.left, y1: y, x2: plot.right, y2: y }));
+        appendSvgText(chart, formatSummaryKilometers(value).replace(" km", ""), { class: "distribution-axis", x: plot.left - 9, y: y + 4, "text-anchor": "end" });
+      });
+
+      const points = values.map((value, index) => ({
+        x: scaleX(values.length === 1 ? 100 : (index / (values.length - 1)) * 100),
+        y: scaleY(value)
+      }));
+      chart.append(createSvgElement("path", {
+        class: "distribution-line",
+        d: points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ")
+      }));
+      points.forEach((point, index) => {
+        const circle = createSvgElement("circle", { class: "distribution-point", cx: point.x, cy: point.y, r: values.length > 120 ? 2 : 3 });
+        const pointTitle = createSvgElement("title");
+        pointTitle.textContent = `${values.length === 1 ? 100 : ((index / (values.length - 1)) * 100).toFixed(0)}th percentile: ${formatSummaryKilometers(values[index])}`;
+        circle.append(pointTitle);
+        chart.append(circle);
+      });
+      appendSvgText(chart, "percentile", { class: "distribution-axis-title", x: 496, y: 289, "text-anchor": "middle" });
+      appendSvgText(chart, "error km / log scale", { class: "distribution-axis-title", transform: "translate(14 132) rotate(-90)", "text-anchor": "middle" });
+    }
+
+    function renderSuccessRateChart(errorKilometers) {
+      const chart = dom.successRateChart;
+      if (!chart) return;
+      chart.replaceChildren();
+      const title = createSvgElement("title", { id: "success-rate-title" });
+      title.textContent = "Localisation success rates by error threshold";
+      const description = createSvgElement("desc", { id: "success-rate-description" });
+      description.textContent = "Percentage of valid runs achieving less than each kilometre threshold.";
+      chart.append(title, description);
+      dom.successRateTotal.textContent = errorKilometers.length ? `${errorKilometers.length} runs` : "-- runs";
+      if (!errorKilometers.length) {
+        appendSvgText(chart, "No valid runs", { class: "distribution-axis-title", x: 480, y: 150, "text-anchor": "middle" });
+        return;
+      }
+
+      const thresholds = [1, 5, 25, 50, 100, 500, 1000];
+      const plot = { left: 62, right: 930, top: 24, bottom: 238 };
+      const scaleX = (index) => plot.left + (index / (thresholds.length - 1)) * (plot.right - plot.left);
+      const scaleY = (rate) => plot.bottom - (rate / 100) * (plot.bottom - plot.top);
+      chart.append(createSvgElement("rect", { class: "distribution-plot", x: plot.left, y: plot.top, width: plot.right - plot.left, height: plot.bottom - plot.top, rx: 2 }));
+      [0, 25, 50, 75, 100].forEach((rate) => {
+        const y = scaleY(rate);
+        chart.append(createSvgElement("line", { class: "distribution-grid", x1: plot.left, y1: y, x2: plot.right, y2: y }));
+        appendSvgText(chart, `${rate}%`, { class: "distribution-axis", x: plot.left - 9, y: y + 4, "text-anchor": "end" });
+      });
+      const rates = thresholds.map((threshold) => (errorKilometers.filter((value) => value < threshold).length / errorKilometers.length) * 100);
+      const points = rates.map((rate, index) => ({ x: scaleX(index), y: scaleY(rate) }));
+      points.forEach((point, index) => {
+        chart.append(createSvgElement("line", { class: "distribution-grid", x1: point.x, y1: plot.top, x2: point.x, y2: plot.bottom }));
+        appendSvgText(chart, `<${thresholds[index]} km`, { class: "distribution-axis", x: point.x, y: 260, "text-anchor": "middle" });
+      });
+      chart.append(createSvgElement("path", {
+        class: "success-line",
+        d: points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ")
+      }));
+      points.forEach((point, index) => {
+        const circle = createSvgElement("circle", { class: "success-point", cx: point.x, cy: point.y, r: 4 });
+        const pointTitle = createSvgElement("title");
+        pointTitle.textContent = `${rates[index].toFixed(1)}% under ${thresholds[index]} km`;
+        circle.append(pointTitle);
+        chart.append(circle);
+      });
+      appendSvgText(chart, "error threshold", { class: "distribution-axis-title", x: 496, y: 289, "text-anchor": "middle" });
+      appendSvgText(chart, "successful runs", { class: "distribution-axis-title", transform: "translate(14 132) rotate(-90)", "text-anchor": "middle" });
     }
 
     function renderErrorHistogram(errorKilometers) {
@@ -3265,7 +3448,9 @@
 
     function renderSummary() {
       const rows = state.rows;
-      const errorKilometers = rows.map((row) => Number(row.error_distance_meters) / 1000).filter((value) => Number.isFinite(value));
+      const summaryRows = rows.filter((row) => Number(row.identified_objects_used) > 0 && Number.isFinite(Number(row.error_distance_meters)));
+      const errorKilometers = summaryRows.map((row) => Number(row.error_distance_meters) / 1000);
+      const reasonableRows = summaryRows.filter((row) => Number(row.error_distance_meters) / 1000 <= 100);
       if (!errorKilometers.length) {
         dom.summaryRuns.textContent = "--";
         dom.summaryMeanError.textContent = "--";
@@ -3275,11 +3460,17 @@
         dom.summaryRunMeta.textContent = "Current dataset / waiting for metrics";
         dom.latitudePointCount.textContent = "-- points";
         dom.longitudePointCount.textContent = "-- points";
+        dom.reasonableLatitudePointCount.textContent = "-- points";
+        dom.reasonableLongitudePointCount.textContent = "-- points";
         dom.histogramTotal.textContent = "-- runs";
-        dom.summaryFootnote.textContent = "Metrics will appear when the CSV is available.";
+        dom.summaryFootnote.textContent = rows.length ? "No runs with identified objects are available for summary metrics." : "Metrics will appear when the CSV is available.";
         renderCoordinateChart(dom.latitudePoints, [], "latitude", dom.latitudePointCount);
         renderCoordinateChart(dom.longitudePoints, [], "longitude", dom.longitudePointCount);
+        renderCoordinateChart(dom.reasonableLatitudePoints, [], "latitude", dom.reasonableLatitudePointCount);
+        renderCoordinateChart(dom.reasonableLongitudePoints, [], "longitude", dom.reasonableLongitudePointCount);
         renderErrorHistogram([]);
+        renderPercentileChart([]);
+        renderSuccessRateChart([]);
         return;
       }
 
@@ -3290,20 +3481,24 @@
         ? (sortedErrors[middle - 1] + sortedErrors[middle]) / 2
         : sortedErrors[middle];
       const withinTen = errorKilometers.filter((value) => value < 10).length;
-      const objectValues = rows.map((row) => Number(row.identified_objects_used)).filter((value) => Number.isFinite(value));
+      const objectValues = summaryRows.map((row) => Number(row.identified_objects_used)).filter((value) => Number.isFinite(value));
       const meanObjects = objectValues.length
         ? objectValues.reduce((total, value) => total + value, 0) / objectValues.length
         : 0;
-      dom.summaryRuns.textContent = rows.length.toLocaleString("en-US");
+      dom.summaryRuns.textContent = summaryRows.length.toLocaleString("en-US");
       dom.summaryMeanError.textContent = formatSummaryKilometers(meanError);
       dom.summaryMedianError.textContent = formatSummaryKilometers(medianError);
       dom.summaryWithinTen.textContent = `${((withinTen / errorKilometers.length) * 100).toFixed(0)}%`;
       dom.summaryObjects.textContent = meanObjects.toFixed(1);
-      dom.summaryRunMeta.textContent = `${rows.length.toLocaleString("en-US")} runs / metrics CSV`;
-      dom.summaryFootnote.textContent = `${withinTen} of ${rows.length} independent fixes are within 10 km. Point colors use the error-distance categories above.`;
-      renderCoordinateChart(dom.latitudePoints, rows, "latitude", dom.latitudePointCount);
-      renderCoordinateChart(dom.longitudePoints, rows, "longitude", dom.longitudePointCount);
+      dom.summaryRunMeta.textContent = `${summaryRows.length.toLocaleString("en-US")} valid runs / metrics CSV`;
+      dom.summaryFootnote.textContent = `${withinTen} of ${summaryRows.length} valid fixes are within 10 km. ${rows.length - summaryRows.length} zero-object runs excluded from all summary metrics and graphs.`;
+      renderCoordinateChart(dom.latitudePoints, summaryRows, "latitude", dom.latitudePointCount);
+      renderCoordinateChart(dom.longitudePoints, summaryRows, "longitude", dom.longitudePointCount);
+      renderCoordinateChart(dom.reasonableLatitudePoints, reasonableRows, "latitude", dom.reasonableLatitudePointCount);
+      renderCoordinateChart(dom.reasonableLongitudePoints, reasonableRows, "longitude", dom.reasonableLongitudePointCount);
       renderErrorHistogram(errorKilometers);
+      renderPercentileChart(errorKilometers);
+      renderSuccessRateChart(errorKilometers);
     }
 
     function unifyDescriptionTechTree() {
@@ -3368,7 +3563,7 @@
     }
 
     function clampTechTreeScale(scale) {
-      return Math.min(1.35, Math.max(0.42, scale));
+      return Math.min(2.4, Math.max(0.42, scale));
     }
 
     function resetTechTreeView() {
@@ -3392,6 +3587,62 @@
       requestAnimationFrame(() => {
         resetTechTreeView();
         drawTechTreeLinks();
+      });
+    }
+
+    function updateTechTreeSelection() {
+      const board = dom.techTreeBoards[0];
+      if (!board) return;
+      const selectedId = techTreeSelection.nodeId;
+      const nodes = [...board.querySelectorAll(".tech-node")];
+      const links = [...board.querySelectorAll(".tech-link")];
+      const connectedIds = new Set(selectedId ? [selectedId] : []);
+      const connectedLinks = new Set();
+      if (selectedId) {
+        (TECH_TREE_LINKS[board.dataset.techTree] || []).forEach((link) => {
+          if (link.from !== selectedId && link.to !== selectedId) return;
+          connectedIds.add(link.from);
+          connectedIds.add(link.to);
+          connectedLinks.add(`${link.from}->${link.to}`);
+        });
+      }
+      board.classList.toggle("has-selection", Boolean(selectedId));
+      nodes.forEach((node) => {
+        const isSelected = node.id === selectedId;
+        const isConnected = connectedIds.has(node.id) && !isSelected;
+        node.classList.toggle("is-selected", isSelected);
+        node.classList.toggle("is-connected", isConnected);
+        node.setAttribute("aria-pressed", String(isSelected));
+      });
+      links.forEach((link) => {
+        const key = `${link.dataset.from}->${link.dataset.to}`;
+        link.classList.toggle("is-highlighted", connectedLinks.has(key));
+      });
+    }
+
+    function setTechTreeSelection(node) {
+      techTreeSelection.nodeId = techTreeSelection.nodeId === node?.id ? null : node?.id || null;
+      updateTechTreeSelection();
+    }
+
+    function initTechTreeSelection() {
+      const board = dom.techTreeBoards[0];
+      if (!board || board.dataset.selectionReady) return;
+      board.dataset.selectionReady = "true";
+      board.querySelectorAll(".tech-node").forEach((node) => {
+        node.tabIndex = 0;
+        node.setAttribute("role", "button");
+        node.setAttribute("aria-pressed", "false");
+      });
+      board.addEventListener("click", (event) => {
+        const node = event.target.closest(".tech-node");
+        if (node && board.contains(node)) setTechTreeSelection(node);
+      });
+      board.addEventListener("keydown", (event) => {
+        const node = event.target.closest(".tech-node");
+        if (!node || !board.contains(node) || !["Enter", " "].includes(event.key)) return;
+        event.preventDefault();
+        setTechTreeSelection(node);
       });
     }
 
@@ -3807,6 +4058,7 @@
           svg.append(path);
         });
       });
+      updateTechTreeSelection();
     }
 
     function updateDescriptionProgress(stepNumber) {
@@ -4272,6 +4524,7 @@
     unifyDescriptionTechTree();
     applyTechTreeLayout();
     initTechTreeNavigation();
+    initTechTreeSelection();
     applyTheme(themeMode);
     try {
       initGlobe();
