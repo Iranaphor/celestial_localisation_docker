@@ -20,6 +20,7 @@ celestial_localizer:
     search_radius_km: 500.0
 
     robust_loss: "soft_l1"
+    solver_max_nfev: 30
     publish_tf: true
 
     map_frame: "map"

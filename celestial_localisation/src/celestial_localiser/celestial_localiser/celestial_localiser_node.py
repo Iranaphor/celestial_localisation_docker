@@ -37,10 +37,12 @@ class CelestialLocalizerNode(Node):
         self.declare_parameter('use_sun', True)
         self.declare_parameter('use_moon', True)
         self.declare_parameter('use_stars', True)
+        self.declare_parameter('star_database_path', '')
         self.declare_parameter('fixed_altitude', 0.0)
         self.declare_parameter('initial_latitude', 51.5)
         self.declare_parameter('initial_longitude', -0.1)
         self.declare_parameter('robust_loss', 'soft_l1')
+        self.declare_parameter('solver_max_nfev', 30)
         self.declare_parameter('publish_tf', True)
         self.declare_parameter('map_frame', 'map')
         self.declare_parameter('base_frame', 'base_link')
@@ -54,6 +56,9 @@ class CelestialLocalizerNode(Node):
         self.use_stars = self.get_parameter('use_stars').value
         self.fixed_altitude = self.get_parameter('fixed_altitude').value
         self.robust_loss = self.get_parameter('robust_loss').value
+        self.solver_max_nfev = int(self.get_parameter('solver_max_nfev').value)
+        if self.solver_max_nfev <= 0:
+            raise ValueError('solver_max_nfev must be greater than zero')
         self.publish_tf = self.get_parameter('publish_tf').value
         self.map_frame = self.get_parameter('map_frame').value
         self.base_frame = self.get_parameter('base_frame').value
@@ -73,7 +78,7 @@ class CelestialLocalizerNode(Node):
             0.0,
         ]
 
-        self.ephemeris = EphemerisProvider()
+        self.ephemeris = EphemerisProvider(self.get_parameter('star_database_path').value)
 
         self.sub = self.create_subscription(CelestialObservationArray, input_topic, self._on_observations, 10)
         self.pose_pub = self.create_publisher(PoseWithCovarianceStamped, pose_topic, 10)
@@ -84,6 +89,8 @@ class CelestialLocalizerNode(Node):
             f"celestial_localizer listening on {input_topic}"
             + (f", saving debug output to {self.debug_dir}" if self.debug_dir else "")
         )
+        if self.ephemeris.error:
+            self.get_logger().warning(f"star ephemeris support unavailable: {self.ephemeris.error}")
 
     def _on_observations(self, msg):
         self.get_logger().info(f"received {len(msg.observations)} observations")
@@ -102,9 +109,15 @@ class CelestialLocalizerNode(Node):
                 skipped.append((obs, 'use_stars is disabled'))
                 continue
 
-            object_id = _OBJECT_ID_BY_TYPE.get(obs.object_type)
+            if obs.object_type == CelestialObservation.STAR:
+                object_id = obs.object_id.strip()
+                if not object_id or object_id.upper() == 'UNKNOWN':
+                    skipped.append((obs, 'star has no catalogue identity'))
+                    continue
+            else:
+                object_id = _OBJECT_ID_BY_TYPE.get(obs.object_type)
+
             if object_id is None:
-                # Unidentified stars / rejection classes are not yet ephemeris-predictable.
                 skipped.append((obs, 'no ephemeris support for this object'))
                 continue
 
@@ -129,7 +142,14 @@ class CelestialLocalizerNode(Node):
             timestamp = self.get_clock().now().nanoseconds / 1e9
 
         previous_state = list(self.state)
-        result = solve(usable, timestamp, self.ephemeris, self.state, self.robust_loss)
+        result = solve(
+            usable,
+            timestamp,
+            self.ephemeris,
+            self.state,
+            self.robust_loss,
+            self.solver_max_nfev,
+        )
         self.state = list(result.x)
         covariance = estimate_covariance(result, len(usable))
 
@@ -142,28 +162,31 @@ class CelestialLocalizerNode(Node):
             f"solved pose lat={self.state[0]:.5f} lon={self.state[1]:.5f} heading={self.state[2]:.2f} "
             f"(delta lat={self.state[0] - previous_state[0]:+.5f}, lon={self.state[1] - previous_state[1]:+.5f}) "
             f"cost={result.cost:.6f} using {len(usable)}/{len(msg.observations)} observations; "
+            f"solver_status={result.status} nfev={result.nfev}; "
             f"published to {self.pose_pub.topic_name}, {self.fix_pub.topic_name}"
             + (", and broadcast tf" if self.publish_tf else "")
         )
 
-        self._save_debug_output(usable, skipped, previous_state, result, covariance)
+        self._save_debug_output(usable, skipped, previous_state, result, covariance, msg.header)
 
-    def _save_debug_output(self, usable, skipped, previous_state, result, covariance):
+    def _save_debug_output(self, usable, skipped, previous_state, result, covariance, header):
         if self.debug_dir is None:
             return
 
         payload = {
             'used_observations': usable,
-            'skipped_observations': [
-                {
-                    'object_type': _TYPE_NAMES.get(obs.object_type, 'UNKNOWN'),
-                    'object_id': obs.object_id,
-                    'reason': reason,
-                }
-                for obs, reason in skipped
-            ],
-            'previous_state': {'latitude': previous_state[0], 'longitude': previous_state[1], 'heading': previous_state[2]},
-            'solved_state': {'latitude': self.state[0], 'longitude': self.state[1], 'heading': self.state[2]},
+            'initial_guess': {'latitude': previous_state[0], 'longitude': previous_state[1], 'heading': previous_state[2]},
+            'refined_estimate': {'latitude': self.state[0], 'longitude': self.state[1], 'heading': self.state[2]},
+            'observation_timestamp': {
+                'sec': int(header.stamp.sec),
+                'nanosec': int(header.stamp.nanosec),
+            },
+            'solver': {
+                'status': int(result.status),
+                'nfev': int(result.nfev),
+                'optimality': float(result.optimality),
+                'message': str(result.message),
+            },
             'cost': float(result.cost),
             'covariance_diagonal': [float(covariance[i][i]) for i in range(3)],
         }

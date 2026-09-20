@@ -83,6 +83,15 @@ def generate_launch_description():
             'detect_sun': _env('CELESTIAL_DETECT_SUN', 'true') == 'true',
             'detect_moon': _env('CELESTIAL_DETECT_MOON', 'true') == 'true',
             'star_detection_threshold': float(_env('CELESTIAL_STAR_THRESHOLD', '5.0')),
+            'star_min_elevation_degrees': float(_env('CELESTIAL_STAR_MIN_ELEVATION_DEGREES', '25.0')),
+            'star_max_candidates': int(_env('CELESTIAL_STAR_MAX_CANDIDATES', '64')),
+            'star_database_path': _env('CELESTIAL_STAR_DATABASE_PATH', ''),
+            'star_fov_degrees': float(_env('CELESTIAL_STAR_FOV_DEGREES', '30.0')),
+            'star_fov_max_error_degrees': float(_env('CELESTIAL_STAR_FOV_MAX_ERROR_DEGREES', '3.0')),
+            'star_tile_size': int(_env('CELESTIAL_STAR_TILE_SIZE', '512')),
+            'star_match_radius': float(_env('CELESTIAL_STAR_MATCH_RADIUS', '0.02')),
+            'star_match_threshold': float(_env('CELESTIAL_STAR_MATCH_THRESHOLD', '0.001')),
+            'star_min_matches': int(_env('CELESTIAL_STAR_MIN_MATCHES', '4')),
             'minimum_confidence': float(_env('CELESTIAL_MIN_CONFIDENCE', '0.5')),
             'debug_output_dir': debug_output_dir,
         }],
@@ -100,9 +109,11 @@ def generate_launch_description():
             'use_sun': _env('CELESTIAL_USE_SUN', 'true') == 'true',
             'use_moon': _env('CELESTIAL_USE_MOON', 'true') == 'true',
             'use_stars': _env('CELESTIAL_USE_STARS', 'true') == 'true',
+            'star_database_path': _env('CELESTIAL_STAR_DATABASE_PATH', ''),
             'fixed_altitude': float(_env('CELESTIAL_FIXED_ALTITUDE', '0.0')),
             'initial_latitude': float(_env('CELESTIAL_INITIAL_LATITUDE', '51.5')),
             'initial_longitude': float(_env('CELESTIAL_INITIAL_LONGITUDE', '-0.1')),
+            'solver_max_nfev': int(_env('CELESTIAL_SOLVER_MAX_NFEV', '30')),
             'publish_tf': _env('CELESTIAL_PUBLISH_TF', 'true') == 'true',
             'map_frame': _env('CELESTIAL_MAP_FRAME', 'map'),
             'base_frame': _env('CELESTIAL_BASE_FRAME', 'base_link'),
@@ -127,10 +138,38 @@ def generate_launch_description():
         }],
     )
 
+    random_localisation_evaluator_node = Node(
+        package='celestial_bringup',
+        executable='random_localisation_evaluator',
+        name='random_localisation_evaluator',
+        output='screen',
+        parameters=[{
+            'load_gps_service': _env('CELESTIAL_LOAD_GPS_SERVICE', '/test/load_gps'),
+            'evaluation_service': _env(
+                'CELESTIAL_RANDOM_EVALUATION_SERVICE',
+                '/test/run_random_evaluation',
+            ),
+            'debug_output_dir': debug_output_dir,
+            'pose_filename': _env('CELESTIAL_POSE_DEBUG_FILENAME', 'pose.json'),
+            'metrics_filename': _env(
+                'CELESTIAL_RANDOM_METRICS_FILENAME',
+                'random_localisation_metrics.csv',
+            ),
+            'fixed_altitude': float(_env('CELESTIAL_FIXED_ALTITUDE', '0.0')),
+            'result_timeout_seconds': float(
+                _env('CELESTIAL_RANDOM_EVALUATION_TIMEOUT', '180.0')
+            ),
+            'poll_interval_seconds': float(
+                _env('CELESTIAL_RANDOM_EVALUATION_POLL_INTERVAL', '0.25')
+            ),
+        }],
+    )
+
     return LaunchDescription([
         sky_mapper_node,
         celestial_simulation_node,
         celestial_detector_node,
         celestial_localizer_node,
         test_publisher_node,
+        random_localisation_evaluator_node,
     ])

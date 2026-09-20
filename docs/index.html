@@ -1,0 +1,930 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081217">
+  <title>Celestial localisation | Fix explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #071216;
+      --panel: rgba(12, 27, 32, 0.97);
+      --panel-raised: #10272b;
+      --ink: #e8f1ee;
+      --muted: #91a8a8;
+      --faint: #5f7779;
+      --line: rgba(154, 196, 190, 0.18);
+      --line-strong: rgba(154, 196, 190, 0.34);
+      --ground: #94e3c4;
+      --estimate: #ff9d6b;
+      --accent: #e4d47b;
+      --danger: #ff8976;
+      --mono: "IBM Plex Mono", monospace;
+      --sans: "Space Grotesk", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+    }
+
+    body {
+      min-height: 100svh;
+      overflow: hidden;
+      font-family: var(--sans);
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    .app-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+      height: 100svh;
+      min-height: 100svh;
+    }
+
+    .visual {
+      position: relative;
+      min-width: 0;
+      height: 100svh;
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+      background:
+        linear-gradient(rgba(129, 181, 174, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(129, 181, 174, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 52% 48%, rgba(40, 100, 105, 0.42), transparent 40%),
+        #071216;
+      background-size: 44px 44px, 44px 44px, auto, auto;
+    }
+
+    .visual::after {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      background: linear-gradient(115deg, rgba(4, 12, 15, 0.55), transparent 30%, transparent 74%, rgba(4, 12, 15, 0.4));
+    }
+
+    #globe-stage {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+    }
+
+    #globe-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: grab;
+    }
+
+    #globe-stage canvas:active { cursor: grabbing; }
+
+    .visual-copy, .visual-status, .visual-footer, .visual-legend {
+      position: absolute;
+      z-index: 2;
+    }
+
+    .visual-copy {
+      top: 34px;
+      left: 38px;
+      max-width: 490px;
+      pointer-events: none;
+    }
+
+    .eyebrow, .section-label, .metric-label, .run-meta, .coordinate-label,
+    .visual-status, .visual-footer, .search, .error-unit, .timestamp {
+      font-family: var(--mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      margin: 0 0 15px;
+      color: var(--ground);
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .visual-copy h1 {
+      max-width: 430px;
+      margin: 0;
+      font-size: clamp(2.2rem, 4.4vw, 4.6rem);
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+    }
+
+    .visual-copy p:not(.eyebrow) {
+      max-width: 370px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .visual-actions {
+      display: flex;
+      gap: 9px;
+      margin-top: 22px;
+      pointer-events: auto;
+    }
+
+    .control {
+      padding: 9px 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      background: rgba(10, 27, 31, 0.75);
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+    }
+
+    .control:hover, .control:focus-visible {
+      border-color: var(--ground);
+      background: rgba(25, 58, 58, 0.86);
+      color: var(--ground);
+      outline: none;
+    }
+
+    .visual-status {
+      top: 37px;
+      right: 38px;
+      max-width: 245px;
+      color: var(--muted);
+      font-size: 0.6rem;
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    .visual-status[data-state="error"] { color: var(--danger); }
+
+    .visual-footer {
+      right: 38px;
+      bottom: 30px;
+      left: 38px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--faint);
+      font-size: 0.59rem;
+      line-height: 1.5;
+    }
+
+    .visual-legend {
+      right: 38px;
+      bottom: 30px;
+      display: flex;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.59rem;
+      line-height: 1.5;
+    }
+
+    .visual-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .visual-legend b {
+      font-size: 0.8rem;
+      line-height: 1;
+    }
+
+    .panel {
+      display: flex;
+      height: 100svh;
+      min-width: 0;
+      min-height: 0;
+      flex-direction: column;
+      background: var(--panel);
+    }
+
+    .section-label {
+      margin: 0 0 9px;
+      color: var(--ground);
+      font-size: 0.62rem;
+      font-weight: 600;
+    }
+
+    .selection {
+      flex: 0 0 auto;
+      margin: 20px 20px 0;
+      padding: 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: linear-gradient(120deg, rgba(148, 227, 196, 0.09), transparent 60%), var(--panel-raised);
+    }
+
+    .selection-top, .selection-run, .run-top, .list-heading, .selection-foot,
+    .legend-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .selection-run {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .selection-run strong { color: var(--ink); font-weight: 500; }
+
+    .error-display {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      margin: 14px 0 17px;
+    }
+
+    .error-value {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+
+    .error-unit { color: var(--muted); font-size: 0.64rem; }
+
+    .coordinates {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .coordinate-label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--faint);
+      font-size: 0.54rem;
+    }
+
+    .coordinate-value {
+      display: block;
+      overflow: hidden;
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      line-height: 1.45;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .coordinate-value.estimated { color: var(--estimate); }
+
+    .selection-foot {
+      margin-top: 17px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .legend-item {
+      justify-content: flex-start;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .swatch {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+    }
+
+    .swatch.ground { background: var(--ground); box-shadow: 0 0 0 3px rgba(148, 227, 196, 0.13); }
+    .swatch.estimate { background: var(--estimate); box-shadow: 0 0 0 3px rgba(255, 157, 107, 0.13); }
+    .timestamp { overflow: hidden; color: var(--faint); font-size: 0.51rem; text-overflow: ellipsis; white-space: nowrap; }
+
+    .list-heading {
+      flex: 0 0 auto;
+      padding: 19px 30px 11px;
+    }
+
+    .list-heading .section-label { margin: 0; }
+
+    .search {
+      width: 105px;
+      padding: 5px 0;
+      border: 0;
+      border-bottom: 1px solid var(--line-strong);
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.58rem;
+      text-align: right;
+      transition: width 150ms ease, border-color 150ms ease;
+    }
+
+    .search:focus { width: 145px; border-color: var(--ground); }
+    .search::placeholder { color: var(--faint); }
+
+    .point-list {
+      min-height: 0;
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 0 12px 18px;
+      scrollbar-color: rgba(154, 196, 190, 0.35) transparent;
+      scrollbar-width: thin;
+    }
+
+    .point-row {
+      display: block;
+      width: 100%;
+      padding: 13px 18px 12px;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: background 150ms ease;
+    }
+
+    .point-row:hover, .point-row:focus-visible { background: rgba(148, 227, 196, 0.06); outline: none; }
+    .point-row[aria-current="true"] { border-left: 2px solid var(--ground); background: rgba(148, 227, 196, 0.11); }
+    .run-top { margin-bottom: 7px; }
+    .run-number, .run-error { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; }
+    .run-error { color: var(--accent); }
+
+    .run-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--faint);
+      font-size: 0.54rem;
+      line-height: 1.5;
+    }
+
+    .run-meta span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .empty { padding: 22px 18px; color: var(--muted); font-family: var(--mono); font-size: 0.67rem; line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      body { overflow: auto; }
+      .app-shell { display: block; height: auto; }
+      .visual { height: 66svh; min-height: 430px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .panel { height: auto; min-height: 82svh; }
+      .point-list { max-height: 65svh; }
+      .visual-copy { top: 24px; left: 24px; }
+      .visual-copy h1 { max-width: 350px; font-size: clamp(2.1rem, 10vw, 3.8rem); }
+      .visual-copy p:not(.eyebrow) { display: none; }
+      .visual-status { top: 27px; right: 24px; }
+      .visual-footer { right: 24px; bottom: 20px; left: 24px; }
+      .visual-legend { right: 24px; bottom: 20px; }
+    }
+
+    @media (max-width: 540px) {
+      .visual-status { display: none; }
+      .list-heading { padding-right: 20px; padding-left: 20px; }
+      .selection { margin-right: 12px; margin-left: 12px; }
+      .selection-foot { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="visual" aria-label="3D Earth view">
+      <div id="globe-stage"></div>
+      <div class="visual-copy">
+        <p class="eyebrow">Celestial localisation / field report</p>
+        <h1>Where the fix lands.</h1>
+        <p>Simulated surface positions, from truth to estimated fix.</p>
+        <div class="visual-actions">
+          <button class="control" id="reset-view" type="button">Reset view</button>
+        </div>
+      </div>
+      <div class="visual-status" id="visual-status" data-state="loading">Loading metrics</div>
+      <footer class="visual-footer">
+        <span>Earth frame / WGS84-style coordinates</span>
+      </footer>
+      <div class="visual-legend" aria-label="Marker colours">
+        <span><b style="color: #94e3c4">&#9679;</b> ground truth</span>
+        <span><b style="color: #ff9d6b">&#9679;</b> estimated fix</span>
+      </div>
+    </section>
+
+    <aside class="panel" aria-label="GPS point list">
+      <section class="selection" aria-live="polite">
+        <div class="selection-top">
+          <span class="section-label" style="margin: 0">Selected fix</span>
+          <span class="selection-run">Run <strong id="selected-run">--</strong></span>
+        </div>
+        <div class="error-display"><span class="error-value" id="selected-error">--</span><span class="error-unit">km error</span></div>
+        <div class="coordinates">
+          <div><span class="coordinate-label">Ground truth</span><span class="coordinate-value" id="ground-coordinates">--</span></div>
+          <div><span class="coordinate-label">Estimated fix</span><span class="coordinate-value estimated" id="estimated-coordinates">--</span></div>
+        </div>
+        <div class="selection-foot">
+          <div class="legend-item"><span class="swatch ground"></span>ground truth</div>
+          <div class="legend-item"><span class="swatch estimate"></span>estimated</div>
+          <span class="timestamp" id="selected-time">--</span>
+        </div>
+      </section>
+
+      <div class="list-heading">
+        <p class="section-label">All runs</p>
+        <input class="search" id="run-search" type="search" placeholder="Filter" aria-label="Filter GPS runs">
+      </div>
+      <div class="point-list" id="point-list" role="list"></div>
+    </aside>
+  </main>
+
+  <script type="importmap">
+    {"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+  </script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+    const EARTH_RADIUS = 2.35;
+    const DEFAULT_CAMERA_DISTANCE = 7.2;
+    const FOCUS_MIN_CAMERA_DISTANCE = 4.2;
+    const FOCUS_FOV_PADDING_DEGREES = 3;
+    const FOCUS_DURATION_MS = 650;
+    const BASE_MARKER_RADIUS = 0.075;
+    const CSV_URL = "random_localisation_metrics.csv";
+    const EARTH_TEXTURE_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
+    const EARTH_NORMAL_URL = "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg";
+    const dom = {
+      stage: document.getElementById("globe-stage"),
+      status: document.getElementById("visual-status"),
+      selectedRun: document.getElementById("selected-run"),
+      selectedError: document.getElementById("selected-error"),
+      ground: document.getElementById("ground-coordinates"),
+      estimated: document.getElementById("estimated-coordinates"),
+      time: document.getElementById("selected-time"),
+      search: document.getElementById("run-search"),
+      list: document.getElementById("point-list"),
+      reset: document.getElementById("reset-view")
+    };
+    const state = { rows: [], filtered: [], selectedIndex: -1 };
+    const numericFields = new Set([
+      "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
+      "estimated_longitude", "identified_objects_used", "latitude_error_degrees",
+      "longitude_error_degrees", "latitude_error_meters", "longitude_error_meters",
+      "error_distance_meters", "cumulative_mean_error_meters"
+    ]);
+    let renderer;
+    let camera;
+    let controls;
+    let markerLayer;
+    let initialCameraPosition;
+    let fallback;
+    let focusTransition;
+
+    function parseCsv(text) {
+      const records = [];
+      let record = [];
+      let field = "";
+      let quoted = false;
+      const finishField = () => { record.push(field); field = ""; };
+      const finishRecord = () => {
+        if (record.length || field.length) {
+          finishField();
+          if (record.some((value) => value.trim())) records.push(record);
+        }
+        record = [];
+      };
+      for (let index = 0; index < text.length; index += 1) {
+        const character = text[index];
+        if (character === '"') {
+          if (quoted && text[index + 1] === '"') { field += '"'; index += 1; }
+          else quoted = !quoted;
+        } else if (character === "," && !quoted) finishField();
+        else if (character === "\n" && !quoted) finishRecord();
+        else if (character === "\r" && !quoted) { if (text[index + 1] === "\n") index += 1; finishRecord(); }
+        else field += character;
+      }
+      finishRecord();
+      if (records.length < 2) return [];
+      const headers = records.shift().map((value) => value.trim());
+      return records.map((values, rowIndex) => {
+        const row = { _index: rowIndex };
+        headers.forEach((header, index) => {
+          const value = (values[index] || "").trim();
+          row[header] = numericFields.has(header) ? Number(value) : value;
+        });
+        return row;
+      }).filter((row) => Number.isFinite(row.run_index) && Number.isFinite(row.error_distance_meters));
+    }
+
+    function formatKilometers(meters) {
+      const kilometers = Math.abs(meters) / 1000;
+      if (kilometers < 10) return kilometers.toFixed(3);
+      if (kilometers < 100) return kilometers.toFixed(1);
+      return Math.round(kilometers).toLocaleString("en-US");
+    }
+
+    function formatCoordinate(value, positive, negative) {
+      return `${Math.abs(value).toFixed(3)}&deg; ${value >= 0 ? positive : negative}`;
+    }
+
+    function formatPair(latitude, longitude) {
+      return `${formatCoordinate(latitude, "N", "S")} / ${formatCoordinate(longitude, "E", "W")}`;
+    }
+
+    function formatTime(value) {
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? value : date.toISOString().replace("T", " ").replace(/\.\d{3}Z$/, "Z");
+    }
+
+    function setStatus(message, status = "ready") {
+      dom.status.textContent = message;
+      dom.status.dataset.state = status;
+    }
+
+    function latLonToVector(latitude, longitude, radius = EARTH_RADIUS) {
+      const latitudeRadians = THREE.MathUtils.degToRad(THREE.MathUtils.clamp(latitude, -90, 90));
+      const longitudeRadians = THREE.MathUtils.degToRad(longitude);
+      return new THREE.Vector3(
+        radius * Math.cos(latitudeRadians) * Math.cos(longitudeRadians),
+        radius * Math.sin(latitudeRadians),
+        radius * Math.cos(latitudeRadians) * Math.sin(longitudeRadians)
+      );
+    }
+
+    function createStars() {
+      const positions = [];
+      for (let index = 0; index < 850; index += 1) {
+        const radius = 38 + Math.random() * 32;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        positions.push(radius * Math.sin(phi) * Math.cos(theta), radius * Math.cos(phi), radius * Math.sin(phi) * Math.sin(theta));
+      }
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+      return new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0xcfe5dc, size: 0.075, transparent: true, opacity: 0.58 }));
+    }
+
+    function createMarker(position, color) {
+      const marker = new THREE.Group();
+      const surfacePosition = position.clone().normalize().multiplyScalar(EARTH_RADIUS + 0.07);
+      marker.position.copy(surfacePosition);
+      marker.add(new THREE.Mesh(new THREE.SphereGeometry(BASE_MARKER_RADIUS, 20, 20), new THREE.MeshBasicMaterial({ color })));
+      const ring = new THREE.Mesh(new THREE.RingGeometry(0.13, 0.16, 32), new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide, transparent: true, opacity: 0.85 }));
+      ring.lookAt(surfacePosition.clone().multiplyScalar(2));
+      marker.add(ring);
+
+      return marker;
+    }
+
+    function createArc(start, end) {
+      const arcStart = start.clone().normalize().multiplyScalar(EARTH_RADIUS + 0.1);
+      const arcEnd = end.clone().normalize().multiplyScalar(EARTH_RADIUS + 0.1);
+      const midpoint = arcStart.clone().add(arcEnd);
+      if (midpoint.lengthSq() < 0.0001) midpoint.set(0, 1, 0);
+      midpoint.normalize().multiplyScalar(EARTH_RADIUS + Math.min(0.95, 0.24 + arcStart.angleTo(arcEnd) * 0.36));
+      const curve = new THREE.QuadraticBezierCurve3(arcStart, midpoint, arcEnd);
+      return new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(64)), new THREE.LineBasicMaterial({ color: 0xe4d47b, transparent: true, opacity: 0.72 }));
+    }
+
+    function updateMarkerScale() {
+      if (!markerLayer || !camera || !controls) return;
+      const cameraDistance = camera.position.distanceTo(controls.target);
+      const zoomRatio = cameraDistance / DEFAULT_CAMERA_DISTANCE;
+      const scale = THREE.MathUtils.clamp(Math.pow(zoomRatio, 2.2), 0.18, 1.25);
+      markerLayer.children.forEach((child) => {
+        if (child.userData.marker) child.scale.setScalar(scale);
+      });
+    }
+
+    function focusOnSelection(row) {
+      if (!camera || !controls || !row) return;
+      const groundPosition = latLonToVector(row.ground_truth_latitude, row.ground_truth_longitude);
+      const estimatedPosition = latLonToVector(row.estimated_latitude, row.estimated_longitude);
+      const groundDirection = groundPosition.normalize();
+      const estimatedDirection = estimatedPosition.normalize();
+      const angularSeparation = groundDirection.angleTo(estimatedDirection);
+      const focusDirection = groundDirection.clone().add(estimatedDirection);
+      if (focusDirection.lengthSq() < 0.0001) focusDirection.copy(groundPosition).normalize();
+      else focusDirection.normalize();
+
+      const verticalHalfFov = THREE.MathUtils.degToRad(camera.fov / 2);
+      const horizontalHalfFov = Math.atan(Math.tan(verticalHalfFov) * camera.aspect);
+      const availableHalfFov = Math.max(
+        THREE.MathUtils.degToRad(5),
+        Math.min(verticalHalfFov, horizontalHalfFov) - THREE.MathUtils.degToRad(FOCUS_FOV_PADDING_DEGREES)
+      );
+      const halfSeparation = angularSeparation / 2;
+      const requiredDistance = (EARTH_RADIUS + 0.16) * (
+        Math.cos(halfSeparation)
+        + Math.sin(halfSeparation) / Math.tan(availableHalfFov)
+      );
+
+      const startTarget = controls.target.clone();
+      const startDirection = camera.position.clone().sub(startTarget).normalize();
+      const currentDistance = camera.position.distanceTo(startTarget);
+      focusTransition = {
+        startDirection,
+        rotation: new THREE.Quaternion().setFromUnitVectors(startDirection, focusDirection),
+        startDistance: currentDistance,
+        endDistance: THREE.MathUtils.clamp(requiredDistance, FOCUS_MIN_CAMERA_DISTANCE, controls.maxDistance),
+        startTarget,
+        endTarget: new THREE.Vector3(),
+        startedAt: performance.now()
+      };
+    }
+
+    function updateFocusTransition(now) {
+      if (!focusTransition) return;
+      const progress = THREE.MathUtils.clamp((now - focusTransition.startedAt) / FOCUS_DURATION_MS, 0, 1);
+      const easedProgress = progress * progress * (3 - 2 * progress);
+      const rotation = new THREE.Quaternion().slerpQuaternions(
+        new THREE.Quaternion(),
+        focusTransition.rotation,
+        easedProgress
+      );
+      const direction = focusTransition.startDirection.clone().applyQuaternion(rotation).normalize();
+      const distance = THREE.MathUtils.lerp(focusTransition.startDistance, focusTransition.endDistance, easedProgress);
+      const target = focusTransition.startTarget.clone().lerp(focusTransition.endTarget, easedProgress);
+      camera.position.copy(target).add(direction.multiplyScalar(distance));
+      controls.target.copy(target);
+      if (progress >= 1) focusTransition = null;
+    }
+
+    function drawSelection(row) {
+      if (fallback) fallback.draw(row);
+      if (!markerLayer) return;
+      markerLayer.clear();
+      if (!row) return;
+      const groundPosition = latLonToVector(row.ground_truth_latitude, row.ground_truth_longitude);
+      const estimatedPosition = latLonToVector(row.estimated_latitude, row.estimated_longitude);
+      markerLayer.add(createArc(groundPosition, estimatedPosition));
+      const groundMarker = createMarker(groundPosition, 0x94e3c4);
+      const estimatedMarker = createMarker(estimatedPosition, 0xff9d6b);
+      groundMarker.userData.marker = true;
+      estimatedMarker.userData.marker = true;
+      markerLayer.add(groundMarker, estimatedMarker);
+      updateMarkerScale();
+    }
+
+    function updateSelection(row) {
+      if (!row) return;
+      dom.selectedRun.textContent = row.run_index;
+      dom.selectedError.textContent = formatKilometers(row.error_distance_meters);
+      dom.ground.innerHTML = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
+      dom.estimated.innerHTML = formatPair(row.estimated_latitude, row.estimated_longitude);
+      dom.time.textContent = formatTime(row.timestamp_utc);
+      drawSelection(row);
+    }
+
+    function renderList() {
+      dom.list.replaceChildren();
+      if (!state.filtered.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        empty.textContent = state.rows.length ? "No runs match this filter." : "No valid GPS metrics found.";
+        dom.list.append(empty);
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      state.filtered.forEach((row) => {
+        const button = document.createElement("button");
+        button.className = "point-row";
+        button.type = "button";
+        button.setAttribute("role", "listitem");
+        button.setAttribute("aria-current", String(row._index === state.selectedIndex));
+        button.addEventListener("click", () => {
+          state.selectedIndex = row._index;
+          updateSelection(row);
+          focusOnSelection(row);
+          renderList();
+        });
+        const top = document.createElement("span");
+        top.className = "run-top";
+        const run = document.createElement("span");
+        run.className = "run-number";
+        run.textContent = `RUN ${String(row.run_index).padStart(3, "0")}`;
+        const error = document.createElement("span");
+        error.className = "run-error";
+        error.textContent = `${formatKilometers(row.error_distance_meters)} km`;
+        top.append(run, error);
+        const meta = document.createElement("span");
+        meta.className = "run-meta";
+        const objects = document.createElement("span");
+        objects.textContent = `${row.identified_objects_used} objects`;
+        const coords = document.createElement("span");
+        coords.innerHTML = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
+        meta.append(objects, coords);
+        button.append(top, meta);
+        fragment.append(button);
+      });
+      dom.list.append(fragment);
+    }
+
+    function filterRows() {
+      const query = dom.search.value.trim().toLowerCase();
+      state.filtered = state.rows.filter((row) => !query || [row.run_index, row.timestamp_utc, row.ground_truth_latitude, row.ground_truth_longitude, row.estimated_latitude, row.estimated_longitude].join(" ").toLowerCase().includes(query));
+      renderList();
+    }
+
+    function projectFallback(latitude, longitude, centerLatitude, centerLongitude, centerX, centerY, radius) {
+      const latitudeRadians = THREE.MathUtils.degToRad(latitude);
+      const centerLatitudeRadians = THREE.MathUtils.degToRad(centerLatitude);
+      const longitudeDelta = THREE.MathUtils.degToRad(((longitude - centerLongitude + 540) % 360) - 180);
+      const depth = Math.sin(centerLatitudeRadians) * Math.sin(latitudeRadians) + Math.cos(centerLatitudeRadians) * Math.cos(latitudeRadians) * Math.cos(longitudeDelta);
+      return { x: centerX + radius * Math.cos(latitudeRadians) * Math.sin(longitudeDelta), y: centerY - radius * (Math.cos(centerLatitudeRadians) * Math.sin(latitudeRadians) - Math.sin(centerLatitudeRadians) * Math.cos(latitudeRadians) * Math.cos(longitudeDelta)), visible: depth >= 0 };
+    }
+
+    function initFallback() {
+      const canvas = document.createElement("canvas");
+      dom.stage.append(canvas);
+      const context = canvas.getContext("2d");
+      fallback = {
+        canvas,
+        resize() {
+          const width = dom.stage.clientWidth;
+          const height = dom.stage.clientHeight;
+          const ratio = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = width * ratio;
+          canvas.height = height * ratio;
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          context.setTransform(ratio, 0, 0, ratio, 0, 0);
+          this.draw(this.row);
+        },
+        draw(row) {
+          this.row = row;
+          const width = dom.stage.clientWidth;
+          const height = dom.stage.clientHeight;
+          const centerX = width * 0.52;
+          const centerY = height * 0.56;
+          const radius = Math.min(width * 0.31, height * 0.39);
+          context.clearRect(0, 0, width, height);
+          const gradient = context.createRadialGradient(centerX - radius * 0.35, centerY - radius * 0.42, radius * 0.05, centerX, centerY, radius * 1.12);
+          gradient.addColorStop(0, "#5f9b9b");
+          gradient.addColorStop(0.58, "#24565d");
+          gradient.addColorStop(1, "#0a272f");
+          context.beginPath();
+          context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+          context.fillStyle = gradient;
+          context.fill();
+          context.save();
+          context.beginPath();
+          context.arc(centerX, centerY, radius - 1, 0, Math.PI * 2);
+          context.clip();
+          context.strokeStyle = "rgba(179, 232, 216, 0.2)";
+          context.lineWidth = 1;
+          const drawLine = (points) => {
+            context.beginPath();
+            points.forEach((point, index) => {
+              if (point.visible && index && points[index - 1].visible) context.lineTo(point.x, point.y);
+              else if (point.visible) context.moveTo(point.x, point.y);
+            });
+            context.stroke();
+          };
+          const centerLatitude = row ? (row.ground_truth_latitude + row.estimated_latitude) / 2 : 0;
+          const longitudeDelta = row ? ((row.estimated_longitude - row.ground_truth_longitude + 540) % 360) - 180 : 0;
+          const centerLongitude = row ? row.ground_truth_longitude + longitudeDelta / 2 : 0;
+          for (let latitude = -75; latitude <= 75; latitude += 15) drawLine(Array.from({ length: 73 }, (_, index) => projectFallback(latitude, -180 + index * 5, centerLatitude, centerLongitude, centerX, centerY, radius)));
+          for (let longitude = -150; longitude <= 180; longitude += 30) drawLine(Array.from({ length: 37 }, (_, index) => projectFallback(-90 + index * 5, longitude, centerLatitude, centerLongitude, centerX, centerY, radius)));
+          context.restore();
+          context.strokeStyle = "rgba(148, 227, 196, 0.58)";
+          context.lineWidth = 2;
+          context.beginPath();
+          context.arc(centerX, centerY, radius, 0, Math.PI * 2);
+          context.stroke();
+          if (!row) return;
+          const ground = projectFallback(row.ground_truth_latitude, row.ground_truth_longitude, centerLatitude, centerLongitude, centerX, centerY, radius);
+          const estimated = projectFallback(row.estimated_latitude, row.estimated_longitude, centerLatitude, centerLongitude, centerX, centerY, radius);
+          const fallbackScale = Math.min(1, Math.max(0.18, 1 - row.error_distance_meters / 10000000));
+          context.setLineDash([5, 7]);
+          context.strokeStyle = "rgba(228, 212, 123, 0.78)";
+          context.beginPath();
+          context.moveTo(ground.x, ground.y);
+          context.lineTo(estimated.x, estimated.y);
+          context.stroke();
+          context.setLineDash([]);
+          const drawMarker = (point, color) => {
+            context.globalAlpha = point.visible ? 1 : 0.34;
+            context.beginPath();
+            context.arc(point.x, point.y, 9 * fallbackScale, 0, Math.PI * 2);
+            context.strokeStyle = color;
+            context.lineWidth = 2;
+            context.stroke();
+            context.beginPath();
+            context.arc(point.x, point.y, 3.5 * fallbackScale, 0, Math.PI * 2);
+            context.fillStyle = color;
+            context.fill();
+            context.globalAlpha = 1;
+          };
+          drawMarker(ground, "#94e3c4");
+          drawMarker(estimated, "#ff9d6b");
+        }
+      };
+      new ResizeObserver(() => fallback.resize()).observe(dom.stage);
+      fallback.resize();
+    }
+
+    function initGlobe() {
+      const scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
+      camera.position.set(0, 0.24, DEFAULT_CAMERA_DISTANCE);
+      initialCameraPosition = camera.position.clone();
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      dom.stage.append(renderer.domElement);
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.enablePan = false;
+      controls.minDistance = 3.35;
+      controls.maxDistance = 24;
+      controls.rotateSpeed = 0.42;
+      controls.zoomSpeed = 0.7;
+      controls.addEventListener("change", updateMarkerScale);
+      scene.add(new THREE.AmbientLight(0x9dc7c3, 1.25));
+      const light = new THREE.DirectionalLight(0xfff1d4, 2.6);
+      light.position.set(-4, 3, 5);
+      scene.add(light, createStars());
+      const globe = new THREE.Group();
+      scene.add(globe);
+      const material = new THREE.MeshPhongMaterial({ color: 0x477f84, shininess: 10, specular: 0x1d3235 });
+      const earth = new THREE.Mesh(new THREE.SphereGeometry(EARTH_RADIUS, 96, 96), material);
+      globe.add(earth);
+      globe.add(new THREE.Mesh(new THREE.SphereGeometry(EARTH_RADIUS * 1.035, 64, 64), new THREE.MeshBasicMaterial({ color: 0x8de8dc, side: THREE.BackSide, transparent: true, opacity: 0.12 })));
+      markerLayer = new THREE.Group();
+      scene.add(markerLayer);
+      const loader = new THREE.TextureLoader();
+      loader.load(EARTH_TEXTURE_URL, (texture) => { texture.colorSpace = THREE.SRGBColorSpace; material.map = texture; material.color.set(0xffffff); material.needsUpdate = true; });
+      loader.load(EARTH_NORMAL_URL, (texture) => { material.normalMap = texture; material.normalScale.set(0.45, 0.45); material.needsUpdate = true; });
+      const resize = () => {
+        const width = dom.stage.clientWidth;
+        const height = dom.stage.clientHeight;
+        if (!width || !height) return;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height, false);
+      };
+      new ResizeObserver(resize).observe(dom.stage);
+      resize();
+      const animate = () => {
+        requestAnimationFrame(animate);
+        updateFocusTransition(performance.now());
+        controls.update();
+        renderer.render(scene, camera);
+      };
+      animate();
+    }
+
+    async function loadMetrics() {
+      try {
+        const response = await fetch(CSV_URL, { cache: "no-store" });
+        if (!response.ok) throw new Error(`CSV request failed with ${response.status}`);
+        state.rows = parseCsv(await response.text());
+        state.filtered = state.rows;
+        if (state.rows.length) {
+          state.selectedIndex = state.rows[0]._index;
+          updateSelection(state.rows[0]);
+        }
+        renderList();
+        setStatus(`${state.rows.length} fixes / ${fallback ? "2D preview" : "drag to orbit"}`);
+      } catch (error) {
+        state.rows = [];
+        state.filtered = [];
+        renderList();
+        setStatus("Could not load metrics CSV", "error");
+        console.error(error);
+      }
+    }
+
+    dom.search.addEventListener("input", filterRows);
+    dom.reset.addEventListener("click", () => {
+      if (!camera || !controls) return;
+      focusTransition = null;
+      camera.position.copy(initialCameraPosition);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    });
+
+    try {
+      initGlobe();
+    } catch (error) {
+      initFallback();
+      setStatus("WebGL unavailable / 2D preview");
+      console.error(error);
+    }
+    loadMetrics();
+  </script>
+</body>
+</html>

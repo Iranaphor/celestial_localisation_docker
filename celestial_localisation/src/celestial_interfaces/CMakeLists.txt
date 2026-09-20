@@ -11,6 +11,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/CelestialObservationArray.msg"
   "srv/LoadGps.srv"
   "srv/PublishImageFile.srv"
+  "srv/RunRandomEvaluation.srv"
   DEPENDENCIES builtin_interfaces std_msgs
 )
 

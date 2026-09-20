@@ -8,16 +8,18 @@ packages under `src/`:
 
 - `celestial_interfaces` — custom `CelestialObservation`/`CelestialObservationArray` messages.
 - `sky_mapper` — builds a calibrated equirectangular sky map from the camera feed.
-- `celestial_detector` — detects stars (photutils), sun and moon (OpenCV) in the sky map.
+- `celestial_detector` — detects stars (photutils), sun and moon (OpenCV), then
+  optionally identifies stars with the bundled offline tetra3 database.
 - `celestial_localizer` — matches observations against Astropy ephemeris predictions
   and solves for latitude/longitude/heading with SciPy, publishing pose/fix/TF.
 - `celestial_simulation` — renders Stellarium Web Engine views into an
   equirectangular sky map after a GPS/time request.
 - `celestial_bringup` — launch file that starts the pipeline nodes together.
 
-Star identification (catalogue matching), aircraft/satellite rejection, and
-IMU fusion are stubbed as documented in the relevant source files — they are
-the natural next steps described in the design document.
+Catalogue matching is now implemented for equirectangular maps through virtual
+perspective tiles. Identified catalogue stars can enter the localizer's
+Astropy ephemeris path. Aircraft/satellite rejection and IMU fusion remain
+future work.
 
 ## Run with RealSense
 
@@ -43,6 +45,10 @@ variables before running Compose:
 - `CELESTIAL_CALIBRATION_FILE`
 - `CELESTIAL_DETECT_STARS` / `CELESTIAL_DETECT_SUN` / `CELESTIAL_DETECT_MOON`
 - `CELESTIAL_STAR_THRESHOLD` / `CELESTIAL_MIN_CONFIDENCE`
+- `CELESTIAL_STAR_DATABASE_PATH` (empty uses tetra3's bundled offline database)
+- `CELESTIAL_STAR_FOV_DEGREES` / `CELESTIAL_STAR_FOV_MAX_ERROR_DEGREES`
+- `CELESTIAL_STAR_TILE_SIZE` / `CELESTIAL_STAR_MATCH_RADIUS`
+- `CELESTIAL_STAR_MATCH_THRESHOLD` / `CELESTIAL_STAR_MIN_MATCHES`
 - `CELESTIAL_USE_SUN` / `CELESTIAL_USE_MOON` / `CELESTIAL_USE_STARS`
 - `CELESTIAL_FIXED_ALTITUDE`
 - `CELESTIAL_INITIAL_LATITUDE` / `CELESTIAL_INITIAL_LONGITUDE`
@@ -100,3 +106,22 @@ Stellarium observer time. A successful request renders and publishes one map;
 Object labels are disabled and the `guereins` ground landscape is enabled by
 default. The landscape metadata points to the Stellarium HIPS service, so
 rendering it requires network access from the container.
+
+## Random localisation evaluation
+
+The `random_localisation_evaluator` node is launched with the pipeline but
+does no work until its service is called. It samples positions uniformly over
+the Earth's surface, calls the simulator for each position, waits for
+`pose.json` to contain the matching timestamp, and appends one result per run
+to `debug_output/random_localisation_metrics.csv`:
+
+```bash
+ros2 service call /test/run_random_evaluation \
+  celestial_interfaces/srv/RunRandomEvaluation "{repetitions: 100}"
+```
+
+The CSV includes ground-truth and estimated latitude/longitude, the number of
+identified objects used by the solver, signed latitude/longitude errors in
+degrees and metres, haversine error distance in metres, and the cumulative mean
+error. A second evaluation appends more rows to the same CSV. The service
+response is returned only after all requested runs finish or one run fails.

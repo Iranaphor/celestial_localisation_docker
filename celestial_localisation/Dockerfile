@@ -31,6 +31,7 @@ RUN pip3 install --no-cache-dir \
     scipy \
     opencv-python-headless \
     astropy \
+    "tetra3 @ https://github.com/esa/tetra3/archive/f9fa2eb9a32a5efc529e2d86f0b59f35b1e9028d.tar.gz" \
     skyfield \
     photutils \
     py360convert \

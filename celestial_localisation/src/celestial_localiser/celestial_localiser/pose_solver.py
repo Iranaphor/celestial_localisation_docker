@@ -28,7 +28,14 @@ def _residuals(state, observations, timestamp, ephemeris):
     return errors
 
 
-def solve(observations, timestamp, ephemeris, initial_state, robust_loss='soft_l1'):
+def solve(
+    observations,
+    timestamp,
+    ephemeris,
+    initial_state,
+    robust_loss='soft_l1',
+    max_nfev=30,
+):
     """initial_state = (latitude_deg, longitude_deg, heading_deg)."""
     result = least_squares(
         _residuals,
@@ -36,5 +43,6 @@ def solve(observations, timestamp, ephemeris, initial_state, robust_loss='soft_l
         args=(observations, timestamp, ephemeris),
         loss=robust_loss,
         bounds=([-90.0, -180.0, -360.0], [90.0, 180.0, 360.0]),
+        max_nfev=max_nfev,
     )
     return result

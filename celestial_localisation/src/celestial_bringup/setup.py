@@ -26,6 +26,7 @@ setup(
     entry_points={
         'console_scripts': [
             'test_publisher = celestial_bringup.test_publisher:main',
+            'random_localisation_evaluator = celestial_bringup.random_localisation_evaluator:main',
         ],
     },
 )

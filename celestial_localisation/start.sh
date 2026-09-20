@@ -59,4 +59,6 @@ set +u
 source install/setup.bash
 set -u
 
+export RCUTILS_CONSOLE_OUTPUT_FORMAT="{severity}: {message}"
+
 exec ros2 launch celestial_bringup celestial_localisation.launch.py

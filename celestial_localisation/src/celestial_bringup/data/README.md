@@ -81,8 +81,8 @@ It must be valid UTF-8 JSON with this structure:
 
 `timestamp` must be an ISO 8601 UTC time ending in `Z`. `object_type` must be
 a valid `CelestialObservation` constant, such as `SUN`, `MOON`, or `STAR`.
-The current localizer can use only `SUN` and `MOON` observations, because raw
-stars do not yet have catalogue identities.
+The localizer can use `SUN`, `MOON`, and identified catalogue stars. Raw stars
+whose `object_id` remains `UNKNOWN` are intentionally skipped.
 
 ## Real Image Fixtures
 

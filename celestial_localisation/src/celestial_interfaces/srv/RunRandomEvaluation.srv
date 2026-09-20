@@ -1,0 +1,5 @@
+int32 repetitions
+---
+bool success
+string message
+int32 completed_runs

@@ -12,9 +12,10 @@ from celestial_interfaces.msg import CelestialObservation, CelestialObservationA
 
 from celestial_detector.angular_projection import pixel_to_az_el
 from celestial_detector.star_detector import detect_stars
-from celestial_detector.star_identifier import identify_stars
+from celestial_detector.star_identifier import StarIdentifier, identify_stars
 from celestial_detector.sun_detector import detect_sun
 from celestial_detector.moon_detector import detect_moon
+from celestial_detector.point_source_classification import detections_overlap
 from celestial_detector.transient_detector import classify_point_sources
 
 _MARKER_COLOR_BGR = {
@@ -22,12 +23,20 @@ _MARKER_COLOR_BGR = {
     'MOON': (220, 220, 220),
     'STAR': (0, 255, 0),
 }
+_UNKNOWN_STAR_COLOR_BGR = (0, 0, 255)
 
 _TYPE_NAMES = {
     CelestialObservation.SUN: 'SUN',
     CelestialObservation.MOON: 'MOON',
     CelestialObservation.STAR: 'STAR',
 }
+
+
+def _marker_color(object_type, object_id):
+    type_name = _TYPE_NAMES.get(object_type, 'UNKNOWN')
+    if type_name == 'STAR' and str(object_id).strip().upper() == 'UNKNOWN':
+        return _UNKNOWN_STAR_COLOR_BGR
+    return _MARKER_COLOR_BGR.get(type_name, (255, 255, 255))
 
 
 class CelestialDetectorNode(Node):
@@ -40,6 +49,15 @@ class CelestialDetectorNode(Node):
         self.declare_parameter('detect_sun', True)
         self.declare_parameter('detect_moon', True)
         self.declare_parameter('star_detection_threshold', 5.0)
+        self.declare_parameter('star_min_elevation_degrees', 5.0)
+        self.declare_parameter('star_max_candidates', 80)
+        self.declare_parameter('star_database_path', '')
+        self.declare_parameter('star_fov_degrees', 30.0)
+        self.declare_parameter('star_fov_max_error_degrees', 3.0)
+        self.declare_parameter('star_tile_size', 512)
+        self.declare_parameter('star_match_radius', 0.02)
+        self.declare_parameter('star_match_threshold', 0.001)
+        self.declare_parameter('star_min_matches', 4)
         self.declare_parameter('minimum_confidence', 0.5)
         self.declare_parameter('debug_output_dir', '')
 
@@ -49,7 +67,18 @@ class CelestialDetectorNode(Node):
         self.do_sun = self.get_parameter('detect_sun').value
         self.do_moon = self.get_parameter('detect_moon').value
         self.star_threshold = self.get_parameter('star_detection_threshold').value
+        self.star_min_elevation = self.get_parameter('star_min_elevation_degrees').value
+        self.star_max_candidates = self.get_parameter('star_max_candidates').value
         self.min_confidence = self.get_parameter('minimum_confidence').value
+        self.star_identifier = StarIdentifier(
+            database_path=self.get_parameter('star_database_path').value,
+            fov_degrees=self.get_parameter('star_fov_degrees').value,
+            fov_max_error_degrees=self.get_parameter('star_fov_max_error_degrees').value,
+            tile_size=self.get_parameter('star_tile_size').value,
+            match_radius=self.get_parameter('star_match_radius').value,
+            match_threshold=self.get_parameter('star_match_threshold').value,
+            min_matches=self.get_parameter('star_min_matches').value,
+        )
 
         debug_output_dir = self.get_parameter('debug_output_dir').value
         self.debug_dir = Path(debug_output_dir) if debug_output_dir else None
@@ -68,6 +97,14 @@ class CelestialDetectorNode(Node):
             f"celestial_detector listening on {input_topic}, publishing on {output_topic}"
             + (f", saving debug output to {self.debug_dir}" if self.debug_dir else "")
         )
+        if self.star_identifier.enabled:
+            self.get_logger().info(
+                f"offline star identification enabled using {self.star_identifier.catalogue_name}"
+            )
+        else:
+            self.get_logger().warning(
+                f"offline star identification disabled: {self.star_identifier.error or 'no solver'}"
+            )
 
     def _on_sky_map(self, msg):
         self.get_logger().info(f"received sky map ({msg.width}x{msg.height})")
@@ -82,16 +119,31 @@ class CelestialDetectorNode(Node):
             observations.append(self._build_observation(sun, width, height, CelestialObservation.SUN, 'SUN'))
 
         moon = detect_moon(gray) if self.do_moon else None
+        if (
+            sun
+            and moon
+            and sun['confidence'] >= self.min_confidence
+            and detections_overlap(sun, moon)
+        ):
+            self.get_logger().warning(
+                'moon detection overlaps the accepted sun detection; suppressing duplicate moon observation'
+            )
+            moon = None
         if moon and moon['confidence'] >= self.min_confidence:
             observations.append(self._build_observation(moon, width, height, CelestialObservation.MOON, 'MOON'))
 
         if self.do_stars:
-            stars = detect_stars(gray, self.star_threshold)
+            stars = detect_stars(
+                gray,
+                self.star_threshold,
+                [detection for detection in (sun, moon) if detection],
+                self.star_min_elevation,
+                self.star_max_candidates,
+            )
             stars = classify_point_sources(stars)
-            stars = identify_stars(stars)
+            stars = [star for star in stars if star['confidence'] >= self.min_confidence]
+            stars = identify_stars(stars, (width, height), self.star_identifier)
             for star in stars:
-                if star['confidence'] < self.min_confidence:
-                    continue
                 observations.append(
                     self._build_observation(star, width, height, CelestialObservation.STAR, star['object_id'])
                 )
@@ -140,8 +192,7 @@ class CelestialDetectorNode(Node):
         try:
             annotated = image_bgr.copy()
             for obs in observations:
-                type_name = _TYPE_NAMES.get(obs.object_type, 'UNKNOWN')
-                color = _MARKER_COLOR_BGR.get(type_name, (255, 255, 255))
+                color = _marker_color(obs.object_type, obs.object_id)
                 center = (int(obs.pixel_x), int(obs.pixel_y))
                 cv2.circle(annotated, center, 10, color, 2)
                 if obs.object_id != 'UNKNOWN':

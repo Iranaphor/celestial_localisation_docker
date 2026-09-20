@@ -78,9 +78,10 @@ values. The most commonly changed settings are:
   `CELESTIAL_STELLARIUM_DATA_ROOT` select assets inside the container.
 - `CELESTIAL_BROWSER_EXECUTABLE` optionally selects a custom Chromium executable;
   leave it blank to use the Playwright-managed browser in the image.
+- `CELESTIAL_RANDOM_EVALUATION_SERVICE` selects the random evaluation service.
+- `CELESTIAL_RANDOM_METRICS_FILENAME` selects the CSV filename under the debug
+  output directory.
 - `ROS_DOMAIN_ID` must match for all ROS 2 services.
-
-## ROS interfaces
 
 The default data flow is:
 
@@ -114,6 +115,18 @@ equirectangular image on `/sky_map` with that timestamp. The engine JavaScript,
 WebAssembly, and external sky-data assets are intentionally mounted rather
 than copied into the repository; Stellarium Web Engine is AGPL-3.0 or
 commercially licensed.
+
+The `random_localisation_evaluator` node is also started with the pipeline. It
+waits idle until `/test/run_random_evaluation` is called, then performs the
+requested number of random surface-position simulations and appends the
+ground-truth coordinates, estimated coordinates, identified-object counts,
+and error metrics to
+`debug_output/random_localisation_metrics.csv`:
+
+```bash
+ros2 service call /test/run_random_evaluation \
+  celestial_interfaces/srv/RunRandomEvaluation "{repetitions: 100}"
+```
 
 ## Source layout
 
