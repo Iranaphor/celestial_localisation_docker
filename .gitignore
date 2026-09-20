@@ -1,9 +1,13 @@
 **/*.pyc
 **/__pycache__/
 
-celestial_localisation/debug_output/*
+#celestial_localisation/debug_output/*
 !celestial_localisation/debug_output/README.md
-!celestial_localisation/debug_output/
+!celestial_localisation/debug_output/observations.json
+!celestial_localisation/debug_output/pose.json
+!celestial_localisation/debug_output/simulated_sky_map.png
+!celestial_localisation/debug_output/sky_map.png
+!celestial_localisation/debug_output/star_candidates.png
 
 celestial_localisation/stellarium_assets/*
 !celestial_localisation/stellarium_assets/.gitkeep
