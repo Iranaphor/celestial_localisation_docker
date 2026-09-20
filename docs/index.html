@@ -1,10 +1,18 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#081217">
+  <meta name="viewport" content="width=device-width, initial-scale=0.75">
+  <meta id="theme-color" name="theme-color" content="#071216">
   <title>Celestial localisation | Fix explorer</title>
+  <script>
+    (() => {
+      try {
+        const theme = localStorage.getItem("celestial-theme");
+        if (theme === "auto" || theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,6 +36,137 @@
       --danger: #ff8976;
       --mono: "IBM Plex Mono", monospace;
       --sans: "Space Grotesk", sans-serif;
+      --visual-background: #071216;
+      --visual-grid: rgba(129, 181, 174, 0.035);
+      --visual-glow: rgba(40, 100, 105, 0.42);
+      --visual-overlay: linear-gradient(115deg, rgba(4, 12, 15, 0.55), transparent 30%, transparent 74%, rgba(4, 12, 15, 0.4));
+      --control-background: rgba(10, 27, 31, 0.75);
+      --control-hover-background: rgba(25, 58, 58, 0.86);
+      --view-background: rgba(5, 15, 18, 0.96);
+      --card-background: rgba(16, 39, 43, 0.76);
+      --chart-background: rgba(10, 26, 30, 0.88);
+      --header-background: linear-gradient(rgba(5, 15, 18, 1) 75%, rgba(5, 15, 18, 0));
+      --flow-line: linear-gradient(var(--ground), rgba(148, 227, 196, 0.12));
+      --flow-current-background: rgba(148, 227, 196, 0.13);
+      --flow-current-ring: rgba(148, 227, 196, 0.06);
+      --flow-card-background: rgba(16, 39, 43, 0.74);
+      --flow-card-current-background: rgba(16, 39, 43, 0.94);
+      --flow-wip-index-background: rgba(95, 119, 121, 0.08);
+      --flow-wip-card-background: rgba(16, 27, 30, 0.48);
+      --flow-wip-current-index-background: rgba(95, 119, 121, 0.14);
+      --flow-wip-current-ring: rgba(95, 119, 121, 0.05);
+      --flow-wip-current-card-background: rgba(16, 27, 30, 0.68);
+      --mode-background: rgba(7, 19, 23, 0.94);
+      --selection-background: linear-gradient(120deg, rgba(148, 227, 196, 0.09), transparent 60%), var(--panel-raised);
+      --row-hover-background: rgba(148, 227, 196, 0.06);
+      --row-current-background: rgba(148, 227, 196, 0.11);
+      --scrollbar-thumb: rgba(154, 196, 190, 0.35);
+      --theme-shadow: rgba(0, 0, 0, 0.26);
+      --visual-ink: #e8f1ee;
+      --visual-muted: #b6cbc5;
+      --visual-faint: #a9c0ba;
+      --visual-ground: #94e3c4;
+      --visual-danger: #ffad9c;
+      --globe-filter: none;
+      --visual-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    [data-theme="light"] {
+      color-scheme: light;
+      --background: #f2f7f4;
+      --panel: rgba(250, 253, 251, 0.97);
+      --panel-raised: #e5f0eb;
+      --ink: #18332f;
+      --muted: #58716b;
+      --faint: #728a84;
+      --line: rgba(37, 91, 78, 0.18);
+      --line-strong: rgba(37, 91, 78, 0.34);
+      --ground: #11745b;
+      --estimate: #c45d31;
+      --accent: #9b6a00;
+      --category-close: #198c6f;
+      --category-near: #9b7500;
+      --category-far: #bd6d15;
+      --category-outlier: #c54842;
+      --danger: #b43d32;
+      --visual-background: #dceae5;
+      --visual-grid: rgba(27, 93, 73, 0.1);
+      --visual-glow: rgba(102, 184, 160, 0.35);
+      --visual-overlay: linear-gradient(115deg, rgba(239, 249, 245, 0.5), transparent 30%, transparent 74%, rgba(210, 230, 222, 0.45));
+      --control-background: rgba(245, 252, 248, 0.86);
+      --control-hover-background: rgba(219, 243, 230, 0.96);
+      --view-background: rgba(244, 250, 247, 0.97);
+      --card-background: rgba(231, 242, 237, 0.82);
+      --chart-background: rgba(248, 252, 250, 0.9);
+      --header-background: linear-gradient(rgba(244, 250, 247, 1) 75%, rgba(244, 250, 247, 0));
+      --flow-line: linear-gradient(var(--ground), rgba(17, 116, 91, 0.18));
+      --flow-current-background: rgba(17, 116, 91, 0.13);
+      --flow-current-ring: rgba(17, 116, 91, 0.07);
+      --flow-card-background: rgba(231, 242, 237, 0.82);
+      --flow-card-current-background: rgba(231, 242, 237, 0.96);
+      --flow-wip-index-background: rgba(88, 113, 107, 0.08);
+      --flow-wip-card-background: rgba(218, 231, 225, 0.54);
+      --flow-wip-current-index-background: rgba(88, 113, 107, 0.14);
+      --flow-wip-current-ring: rgba(88, 113, 107, 0.06);
+      --flow-wip-current-card-background: rgba(218, 231, 225, 0.76);
+      --mode-background: rgba(248, 252, 250, 0.95);
+      --selection-background: linear-gradient(120deg, rgba(17, 116, 91, 0.1), transparent 60%), var(--panel-raised);
+      --row-hover-background: rgba(17, 116, 91, 0.07);
+      --row-current-background: rgba(17, 116, 91, 0.12);
+      --scrollbar-thumb: rgba(37, 91, 78, 0.35);
+      --theme-shadow: rgba(31, 65, 56, 0.16);
+      --globe-filter: brightness(1.8) saturate(1.16);
+      --visual-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.78);
+    }
+
+    @media (prefers-color-scheme: light) {
+      [data-theme="auto"] {
+        color-scheme: light;
+        --background: #f2f7f4;
+        --panel: rgba(250, 253, 251, 0.97);
+        --panel-raised: #e5f0eb;
+        --ink: #18332f;
+        --muted: #58716b;
+        --faint: #728a84;
+        --line: rgba(37, 91, 78, 0.18);
+        --line-strong: rgba(37, 91, 78, 0.34);
+        --ground: #11745b;
+        --estimate: #c45d31;
+        --accent: #9b6a00;
+        --category-close: #198c6f;
+        --category-near: #9b7500;
+        --category-far: #bd6d15;
+        --category-outlier: #c54842;
+        --danger: #b43d32;
+        --visual-background: #dceae5;
+        --visual-grid: rgba(27, 93, 73, 0.1);
+        --visual-glow: rgba(102, 184, 160, 0.35);
+        --visual-overlay: linear-gradient(115deg, rgba(239, 249, 245, 0.5), transparent 30%, transparent 74%, rgba(210, 230, 222, 0.45));
+        --control-background: rgba(245, 252, 248, 0.86);
+        --control-hover-background: rgba(219, 243, 230, 0.96);
+        --view-background: rgba(244, 250, 247, 0.97);
+        --card-background: rgba(231, 242, 237, 0.82);
+        --chart-background: rgba(248, 252, 250, 0.9);
+        --header-background: linear-gradient(rgba(244, 250, 247, 1) 75%, rgba(244, 250, 247, 0));
+        --flow-line: linear-gradient(var(--ground), rgba(17, 116, 91, 0.18));
+        --flow-current-background: rgba(17, 116, 91, 0.13);
+        --flow-current-ring: rgba(17, 116, 91, 0.07);
+        --flow-card-background: rgba(231, 242, 237, 0.82);
+        --flow-card-current-background: rgba(231, 242, 237, 0.96);
+        --flow-wip-index-background: rgba(88, 113, 107, 0.08);
+        --flow-wip-card-background: rgba(218, 231, 225, 0.54);
+        --flow-wip-current-index-background: rgba(88, 113, 107, 0.14);
+        --flow-wip-current-ring: rgba(88, 113, 107, 0.06);
+        --flow-wip-current-card-background: rgba(218, 231, 225, 0.76);
+        --mode-background: rgba(248, 252, 250, 0.95);
+        --selection-background: linear-gradient(120deg, rgba(17, 116, 91, 0.1), transparent 60%), var(--panel-raised);
+        --row-hover-background: rgba(17, 116, 91, 0.07);
+        --row-current-background: rgba(17, 116, 91, 0.12);
+        --scrollbar-thumb: rgba(37, 91, 78, 0.35);
+        --theme-shadow: rgba(31, 65, 56, 0.16);
+        --globe-filter: brightness(1.8) saturate(1.16);
+        --visual-text-shadow: 0 2px 16px rgba(0, 0, 0, 0.78);
+      }
     }
 
     * { box-sizing: border-box; }
@@ -55,6 +194,19 @@
       min-height: 100svh;
     }
 
+    .app-shell.is-full-view {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .app-shell.is-full-view > .visual {
+      border-right: 0;
+      border-bottom: 0;
+      height: 100svh;
+      min-height: 100svh;
+    }
+
+    .app-shell.is-full-view > .panel { display: none; }
+
     .visual {
       position: relative;
       min-width: 0;
@@ -62,10 +214,10 @@
       overflow: hidden;
       border-right: 1px solid var(--line);
       background:
-        linear-gradient(rgba(129, 181, 174, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(129, 181, 174, 0.035) 1px, transparent 1px),
-        radial-gradient(circle at 52% 48%, rgba(40, 100, 105, 0.42), transparent 40%),
-        #071216;
+        linear-gradient(var(--visual-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--visual-grid) 1px, transparent 1px),
+        radial-gradient(circle at 52% 48%, var(--visual-glow), transparent 40%),
+        var(--visual-background);
       background-size: 44px 44px, 44px 44px, auto, auto;
     }
 
@@ -75,7 +227,7 @@
       inset: 0;
       pointer-events: none;
       content: "";
-      background: linear-gradient(115deg, rgba(4, 12, 15, 0.55), transparent 30%, transparent 74%, rgba(4, 12, 15, 0.4));
+      background: var(--visual-overlay);
     }
 
     #globe-stage {
@@ -86,6 +238,7 @@
 
     #globe-stage canvas {
       display: block;
+      filter: var(--globe-filter);
       width: 100%;
       height: 100%;
       cursor: grab;
@@ -122,18 +275,26 @@
     .visual-copy h1 {
       max-width: 430px;
       margin: 0;
+      color: var(--visual-ink);
       font-size: clamp(2.2rem, 4.4vw, 4.6rem);
       font-weight: 600;
       letter-spacing: -0.04em;
       line-height: 0.98;
+      text-shadow: var(--visual-text-shadow);
     }
 
     .visual-copy p:not(.eyebrow) {
       max-width: 370px;
       margin: 18px 0 0;
-      color: var(--muted);
+      color: var(--visual-muted);
       font-size: 0.94rem;
       line-height: 1.55;
+      text-shadow: var(--visual-text-shadow);
+    }
+
+    .visual-copy .eyebrow {
+      color: var(--visual-ground);
+      text-shadow: var(--visual-text-shadow);
     }
 
     .visual-actions {
@@ -147,7 +308,7 @@
       padding: 9px 12px;
       border: 1px solid var(--line-strong);
       border-radius: 3px;
-      background: rgba(10, 27, 31, 0.75);
+      background: var(--control-background);
       color: var(--ink);
       cursor: pointer;
       font-family: var(--mono);
@@ -159,22 +320,61 @@
 
     .control:hover, .control:focus-visible {
       border-color: var(--ground);
-      background: rgba(25, 58, 58, 0.86);
+      background: var(--control-hover-background);
       color: var(--ground);
       outline: none;
     }
 
+    .theme-toggle {
+      position: absolute;
+      z-index: 7;
+      top: 16px;
+      right: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 34px;
+      padding: 7px 9px;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      background: var(--control-background);
+      box-shadow: 0 8px 24px var(--theme-shadow);
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+    }
+
+    .theme-toggle:hover, .theme-toggle:focus-visible {
+      border-color: var(--ground);
+      background: var(--control-hover-background);
+      color: var(--ground);
+      outline: none;
+    }
+
+    .theme-toggle-icon {
+      width: 1em;
+      color: var(--ground);
+      font-size: 0.95rem;
+      line-height: 1;
+      text-align: center;
+    }
+
     .visual-status {
       top: 37px;
-      right: 38px;
+      right: 128px;
       max-width: 245px;
-      color: var(--muted);
+      color: var(--visual-muted);
       font-size: 0.6rem;
       line-height: 1.5;
       text-align: right;
+      text-shadow: var(--visual-text-shadow);
     }
 
-    .visual-status[data-state="error"] { color: var(--danger); }
+    .visual-status[data-state="error"] { color: var(--visual-danger); }
 
     .visual-footer {
       right: 38px;
@@ -183,9 +383,10 @@
       display: flex;
       justify-content: space-between;
       gap: 20px;
-      color: var(--faint);
+      color: var(--visual-faint);
       font-size: 0.59rem;
       line-height: 1.5;
+      text-shadow: var(--visual-text-shadow);
     }
 
     .visual-legend {
@@ -193,9 +394,10 @@
       bottom: 30px;
       display: flex;
       gap: 14px;
-      color: var(--muted);
+      color: var(--visual-muted);
       font-size: 0.59rem;
       line-height: 1.5;
+      text-shadow: var(--visual-text-shadow);
     }
 
     .visual-legend span {
@@ -216,8 +418,8 @@
       display: none;
       overflow-y: auto;
       padding: 36px 38px 112px;
-      background: rgba(5, 15, 18, 0.96);
-      scrollbar-color: rgba(154, 196, 190, 0.35) transparent;
+      background: var(--view-background);
+      scrollbar-color: var(--scrollbar-thumb) transparent;
       scrollbar-width: thin;
     }
 
@@ -288,7 +490,7 @@
       padding: 15px 16px 14px;
       border: 1px solid var(--line);
       border-radius: 4px;
-      background: rgba(16, 39, 43, 0.76);
+      background: var(--card-background);
     }
 
     .summary-stat-card .metric-label { margin-bottom: 9px; }
@@ -328,7 +530,7 @@
       padding: 18px;
       border: 1px solid var(--line);
       border-radius: 4px;
-      background: rgba(10, 26, 30, 0.88);
+      background: var(--chart-background);
     }
 
     .summary-chart figcaption {
@@ -455,7 +657,7 @@
       max-width: 820px;
       margin: -36px auto 0;
       padding: 36px 0 22px;
-      background: linear-gradient(rgba(5, 15, 18, 1) 75%, rgba(5, 15, 18, 0));
+      background: var(--header-background);
     }
 
     .description-header h2 {
@@ -511,7 +713,7 @@
       bottom: 82px;
       left: 27px;
       width: 1px;
-      background: linear-gradient(var(--ground), rgba(148, 227, 196, 0.12));
+      background: var(--flow-line);
       content: "";
     }
 
@@ -543,9 +745,9 @@
 
     .flow-step.is-current .flow-index {
       border-color: var(--ground);
-      background: rgba(148, 227, 196, 0.13);
+      background: var(--flow-current-background);
       color: var(--ground);
-      box-shadow: 0 0 0 7px rgba(148, 227, 196, 0.06);
+      box-shadow: 0 0 0 7px var(--flow-current-ring);
     }
 
     .flow-card {
@@ -553,39 +755,39 @@
       padding: 18px 20px 19px;
       border: 1px solid var(--line);
       border-radius: 4px;
-      background: rgba(16, 39, 43, 0.74);
+      background: var(--flow-card-background);
       transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
     }
 
     .flow-step.is-current .flow-card {
       border-color: var(--line-strong);
-      background: rgba(16, 39, 43, 0.94);
+      background: var(--flow-card-current-background);
       transform: translateX(3px);
     }
 
     .flow-step.is-wip .flow-index {
       border-color: rgba(154, 196, 190, 0.2);
-      background: rgba(95, 119, 121, 0.08);
+      background: var(--flow-wip-index-background);
       color: var(--faint);
       box-shadow: none;
     }
 
     .flow-step.is-wip .flow-card {
       border-color: rgba(154, 196, 190, 0.12);
-      background: rgba(16, 27, 30, 0.48);
+      background: var(--flow-wip-card-background);
       opacity: 0.58;
     }
 
     .flow-step.is-wip.is-current .flow-index {
       border-color: rgba(154, 196, 190, 0.34);
-      background: rgba(95, 119, 121, 0.14);
+      background: var(--flow-wip-current-index-background);
       color: var(--muted);
-      box-shadow: 0 0 0 7px rgba(95, 119, 121, 0.05);
+      box-shadow: 0 0 0 7px var(--flow-wip-current-ring);
     }
 
     .flow-step.is-wip.is-current .flow-card {
       border-color: rgba(154, 196, 190, 0.24);
-      background: rgba(16, 27, 30, 0.68);
+      background: var(--flow-wip-current-card-background);
       opacity: 0.72;
       transform: translateX(3px);
     }
@@ -649,8 +851,8 @@
       border-radius: 5px;
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
-      background: rgba(7, 19, 23, 0.94);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.26);
+      background: var(--mode-background);
+      box-shadow: 0 12px 36px var(--theme-shadow);
       transform: translateX(-50%);
     }
 
@@ -696,7 +898,7 @@
       padding: 16px;
       border: 1px solid var(--line-strong);
       border-radius: 4px;
-      background: linear-gradient(120deg, rgba(148, 227, 196, 0.09), transparent 60%), var(--panel-raised);
+      background: var(--selection-background);
     }
 
     .selection-top, .selection-run, .run-top, .list-heading, .selection-foot,
@@ -814,7 +1016,7 @@
       flex: 1 1 auto;
       overflow-y: auto;
       padding: 0 12px 18px;
-      scrollbar-color: rgba(154, 196, 190, 0.35) transparent;
+      scrollbar-color: var(--scrollbar-thumb) transparent;
       scrollbar-width: thin;
     }
 
@@ -830,8 +1032,8 @@
       transition: background 150ms ease;
     }
 
-    .point-row:hover, .point-row:focus-visible { background: rgba(148, 227, 196, 0.06); outline: none; }
-    .point-row[aria-current="true"] { border-left: 2px solid var(--ground); background: rgba(148, 227, 196, 0.11); }
+    .point-row:hover, .point-row:focus-visible { background: var(--row-hover-background); outline: none; }
+    .point-row[aria-current="true"] { border-left: 2px solid var(--ground); background: var(--row-current-background); }
     .run-top { margin-bottom: 7px; }
     .run-number, .run-error { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; }
     .run-error { color: var(--accent); }
@@ -857,7 +1059,7 @@
       .visual-copy { top: 24px; left: 24px; }
       .visual-copy h1 { max-width: 350px; font-size: clamp(2.1rem, 10vw, 3.8rem); }
       .visual-copy p:not(.eyebrow) { display: none; }
-      .visual-status { top: 27px; right: 24px; }
+      .visual-status { top: 27px; right: 112px; }
       .visual-footer { right: 24px; bottom: 20px; left: 24px; }
       .visual-legend { right: 24px; bottom: 20px; }
       .visual-view { padding: 28px 24px 104px; }
@@ -891,8 +1093,12 @@
   </style>
 </head>
 <body>
-  <main class="app-shell">
+  <main class="app-shell" id="app-shell">
     <section class="visual" id="visual-workspace" data-mode="globe" aria-label="Localisation workspace">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme mode: Auto. Switch to Light mode." title="Theme: Auto. Tap for Light mode.">
+        <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">&#9681;</span>
+        <span id="theme-toggle-label">Auto</span>
+      </button>
       <div id="globe-stage"></div>
       <div class="visual-copy">
         <p class="eyebrow">Celestial localisation / field report</p>
@@ -915,8 +1121,8 @@
         <div class="view-heading">
           <div>
             <p class="eyebrow">Evaluation / summary</p>
-            <h2>Signal quality, at a glance.</h2>
-            <p>Read the run set as a whole: how far fixes land from truth, how often they stay close, and how much celestial evidence the solver used.</p>
+            <span><b style="color: var(--visual-ground)">&#9679;</b> ground truth</span>
+            <span><b style="color: var(--estimate)">&#9679;</b> estimated fix</span>
           </div>
           <div class="view-heading-meta" id="summary-run-meta">Current dataset<br>waiting for metrics</div>
         </div>
@@ -1188,6 +1394,11 @@
     const EARTH_NORMAL_URL = "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg";
     const dom = {
       visual: document.getElementById("visual-workspace"),
+      appShell: document.getElementById("app-shell"),
+      themeToggle: document.getElementById("theme-toggle"),
+      themeIcon: document.getElementById("theme-toggle-icon"),
+      themeLabel: document.getElementById("theme-toggle-label"),
+      themeColor: document.getElementById("theme-color"),
       stage: document.getElementById("globe-stage"),
       status: document.getElementById("visual-status"),
       selectedRun: document.getElementById("selected-run"),
@@ -1228,10 +1439,53 @@
     let renderer;
     let camera;
     let controls;
+    let globeAmbientLight;
+    let globeDirectionalLight;
     let markerLayer;
     let initialCameraPosition;
     let fallback;
     let focusTransition;
+    const THEME_MODES = ["auto", "light", "dark"];
+    const THEME_LABELS = { auto: "Auto", light: "Light", dark: "Dark" };
+    const THEME_ICONS = {
+      auto: String.fromCharCode(9681),
+      light: String.fromCharCode(9788),
+      dark: String.fromCharCode(9790)
+    };
+    const systemTheme = window.matchMedia("(prefers-color-scheme: light)");
+    let themeMode = document.documentElement.dataset.theme || "auto";
+
+    function resolvedTheme(mode) {
+      return mode === "auto" ? (systemTheme.matches ? "light" : "dark") : mode;
+    }
+
+    function saveThemeMode(mode) {
+      try {
+        localStorage.setItem("celestial-theme", mode);
+      } catch {}
+    }
+
+    function applyTheme(mode, persist = false) {
+      if (!THEME_MODES.includes(mode)) mode = "auto";
+      themeMode = mode;
+      document.documentElement.dataset.theme = mode;
+      const modeIndex = THEME_MODES.indexOf(mode);
+      const nextMode = THEME_MODES[(modeIndex + 1) % THEME_MODES.length];
+      dom.themeIcon.textContent = THEME_ICONS[mode];
+      dom.themeLabel.textContent = THEME_LABELS[mode];
+      dom.themeToggle.setAttribute("aria-label", `Theme mode: ${THEME_LABELS[mode]}. Switch to ${THEME_LABELS[nextMode]} mode.`);
+      dom.themeToggle.title = `Theme: ${THEME_LABELS[mode]}. Tap for ${THEME_LABELS[nextMode]} mode.`;
+      dom.themeColor.setAttribute("content", resolvedTheme(mode) === "light" ? "#f2f7f4" : "#071216");
+      updateGlobeLighting();
+      if (persist) saveThemeMode(mode);
+    }
+
+    function updateGlobeLighting() {
+      if (!globeAmbientLight || !globeDirectionalLight) return;
+      const isLightTheme = resolvedTheme(themeMode) === "light";
+      globeAmbientLight.intensity = isLightTheme ? 1.65 : 1.25;
+      globeDirectionalLight.intensity = isLightTheme ? 3.35 : 2.6;
+    }
 
     function parseCsv(text) {
       const records = [];
@@ -1461,6 +1715,7 @@
 
     function setVisualMode(mode) {
       dom.visual.dataset.mode = mode;
+      dom.appShell.classList.toggle("is-full-view", mode !== "globe");
       dom.modeTabs.forEach((tab) => {
         const isSelected = tab.dataset.mode === mode;
         tab.setAttribute("aria-selected", String(isSelected));
@@ -1772,10 +2027,11 @@
       controls.rotateSpeed = 0.42;
       controls.zoomSpeed = 0.7;
       controls.addEventListener("change", updateMarkerScale);
-      scene.add(new THREE.AmbientLight(0x9dc7c3, 1.25));
-      const light = new THREE.DirectionalLight(0xfff1d4, 2.6);
-      light.position.set(-4, 3, 5);
-      scene.add(light, createStars());
+      globeAmbientLight = new THREE.AmbientLight(0x9dc7c3, 1.25);
+      globeDirectionalLight = new THREE.DirectionalLight(0xfff1d4, 2.6);
+      globeDirectionalLight.position.set(-4, 3, 5);
+      scene.add(globeAmbientLight, globeDirectionalLight, createStars());
+      updateGlobeLighting();
       const globe = new THREE.Group();
       scene.add(globe);
       const material = new THREE.MeshPhongMaterial({ color: 0x477f84, shininess: 10, specular: 0x1d3235 });
@@ -1842,6 +2098,16 @@
       }
     }
 
+    dom.themeToggle.addEventListener("click", () => {
+      const modeIndex = THEME_MODES.indexOf(themeMode);
+      applyTheme(THEME_MODES[(modeIndex + 1) % THEME_MODES.length], true);
+    });
+    const handleSystemThemeChange = () => {
+      if (themeMode === "auto") applyTheme("auto");
+    };
+    if (typeof systemTheme.addEventListener === "function") systemTheme.addEventListener("change", handleSystemThemeChange);
+    else if (typeof systemTheme.addListener === "function") systemTheme.addListener(handleSystemThemeChange);
+
     dom.search.addEventListener("input", filterRows);
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
@@ -1854,6 +2120,7 @@
       controls.update();
     });
 
+    applyTheme(themeMode);
     try {
       initGlobe();
     } catch (error) {
