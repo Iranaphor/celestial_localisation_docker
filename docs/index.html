@@ -33,6 +33,11 @@
       --category-near: #e4d47b;
       --category-far: #ffb65c;
       --category-outlier: #ff7164;
+      --run-quality-black: #273236;
+      --run-quality-red: #df625e;
+      --run-quality-yellow: #d8b94d;
+      --run-quality-green: #48af86;
+      --run-quality-blue: #5b9fda;
       --danger: #ff8976;
       --mono: "IBM Plex Mono", monospace;
       --sans: "Space Grotesk", sans-serif;
@@ -671,6 +676,9 @@
 
     .summary-scatter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .summary-histogram-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
+    .summary-reasonable-grid,
+    .summary-analysis-grid { margin-top: 12px; }
+    .summary-analysis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .coordinate-chart {
       display: block;
@@ -689,6 +697,22 @@
     .coordinate-point.category-near { fill: var(--category-near); }
     .coordinate-point.category-far { fill: var(--category-far); }
     .coordinate-point.category-outlier { fill: var(--category-outlier); }
+
+    .distribution-chart {
+      display: block;
+      width: 100%;
+      height: 250px;
+      overflow: visible;
+    }
+
+    .distribution-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
+    .distribution-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .distribution-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
+    .distribution-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .distribution-line { fill: none; stroke: var(--ground); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.2; }
+    .distribution-point { fill: var(--ground); stroke: var(--panel-raised); stroke-width: 1.4; }
+    .success-line { fill: none; stroke: var(--domain-celestial); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.2; }
+    .success-point { fill: var(--domain-celestial); stroke: var(--panel-raised); stroke-width: 1.4; }
 
     .histogram {
       display: grid;
@@ -1548,6 +1572,37 @@
 
     .tech-node[data-status="locked"].is-current { opacity: 0.64; }
 
+    .tech-tree-board { --selection-accent: var(--ground); }
+    .tech-tree-board.has-selection .tech-node:not(.is-selected):not(.is-connected) {
+      filter: grayscale(0.65);
+      opacity: 0.18;
+    }
+
+    .tech-tree-board.has-selection .tech-link:not(.is-highlighted) { opacity: 0.1; }
+    .tech-node.is-selected,
+    .tech-node.is-connected {
+      filter: none;
+      opacity: 1;
+    }
+
+    .tech-node.is-selected {
+      border-color: var(--selection-accent);
+      border-top-color: var(--selection-accent);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--selection-accent) 18%, transparent), 0 8px 22px rgba(0, 0, 0, 0.14);
+    }
+
+    .tech-node.is-connected {
+      border-color: color-mix(in srgb, var(--selection-accent) 72%, var(--line-strong));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--selection-accent) 10%, transparent), 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .tech-link.is-highlighted {
+      stroke: var(--selection-accent);
+      stroke-dasharray: none;
+      stroke-width: 2.6;
+      opacity: 1;
+    }
+
     .tech-node-head {
       display: flex;
       align-items: flex-start;
@@ -2007,9 +2062,11 @@
 
     .point-row {
       display: block;
+      position: relative;
       width: 100%;
       padding: 13px 18px 12px;
       border: 0;
+      border-left: 2px solid transparent;
       border-bottom: 1px solid var(--line);
       background: transparent;
       cursor: pointer;
@@ -2018,7 +2075,14 @@
     }
 
     .point-row:hover, .point-row:focus-visible { background: var(--row-hover-background); outline: none; }
-    .point-row[aria-current="true"] { border-left: 2px solid var(--ground); background: var(--row-current-background); }
+    .point-row.quality-black { --run-quality: var(--run-quality-black); }
+    .point-row.quality-red { --run-quality: var(--run-quality-red); }
+    .point-row.quality-yellow { --run-quality: var(--run-quality-yellow); }
+    .point-row.quality-green { --run-quality: var(--run-quality-green); }
+    .point-row.quality-blue { --run-quality: var(--run-quality-blue); }
+    .point-row.quality-unknown { --run-quality: var(--faint); }
+    .point-row { border-left-color: color-mix(in srgb, var(--run-quality, transparent) 78%, transparent); }
+    .point-row[aria-current="true"] { background: var(--row-current-background); }
     .run-top { margin-bottom: 7px; }
     .run-number, .run-error { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; }
     .run-error { color: var(--accent); }
@@ -2324,6 +2388,75 @@
       .tech-tree-tool { width: 30px; height: 30px; }
       .tech-stage-label { font-size: 0.46rem; }
     }
+
+    .visual[data-mode="description"] #description-view {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 74px 0 0;
+    }
+
+    .visual[data-mode="description"] .description-header {
+      width: min(820px, calc(100% - 76px));
+      max-width: none;
+      flex: 0 0 auto;
+    }
+
+    .visual[data-mode="description"] .description-flow {
+      display: flex;
+      width: 100%;
+      max-width: none;
+      min-height: 0;
+      flex: 1 1 auto;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .visual[data-mode="description"] .description-flow > .flow-intro,
+    .visual[data-mode="description"] .description-flow .flow-section-heading,
+    .visual[data-mode="description"] .description-flow .flow-note,
+    .visual[data-mode="description"] .description-flow > .flow-callout,
+    .visual[data-mode="description"] .description-flow .tech-tree-legend {
+      display: none;
+    }
+
+    .visual[data-mode="description"] .description-flow > .flow-section {
+      display: flex;
+      min-height: 0;
+      flex: 1 1 auto;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .visual[data-mode="description"] .description-flow .tech-tree {
+      display: flex;
+      min-height: 0;
+      flex: 1 1 auto;
+      margin: 0;
+    }
+
+    .visual[data-mode="description"] .tech-tree-viewport {
+      height: auto;
+      min-height: 0;
+      flex: 1 1 auto;
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+
+    .visual[data-mode="description"].is-description-canvas-fullscreen #description-view {
+      padding-top: 70px;
+    }
+
+    .visual[data-mode="description"].is-description-canvas-fullscreen .description-header {
+      display: none;
+    }
+
+    @media (max-width: 540px) {
+      .visual[data-mode="description"] #description-view { padding-top: 70px; }
+      .visual[data-mode="description"] .description-header { width: calc(100% - 32px); }
+      .visual[data-mode="description"].is-description-canvas-fullscreen #description-view { padding-top: 67px; }
+    }
   </style>
 </head>
 <body>
@@ -2618,6 +2751,7 @@
                   <button class="tech-tree-tool" id="tech-zoom-out" type="button" aria-label="Zoom out" title="Zoom out">−</button>
                   <button class="tech-tree-tool" id="tech-zoom-reset" type="button" aria-label="Reset diagram view" title="Reset diagram view">↺</button>
                   <button class="tech-tree-tool" id="tech-zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+                  <button class="tech-tree-tool" id="tech-tree-fullscreen" type="button" aria-label="Expand graph panel" aria-pressed="false" title="Expand graph panel">&#x26F6;</button>
                 </div>
                 <span class="tech-tree-zoom" id="tech-tree-zoom" aria-live="polite">--%</span>
               </div>
@@ -2817,7 +2951,8 @@
       techTreeZoom: document.getElementById("tech-tree-zoom"),
       techZoomIn: document.getElementById("tech-zoom-in"),
       techZoomOut: document.getElementById("tech-zoom-out"),
-      techZoomReset: document.getElementById("tech-zoom-reset")
+      techZoomReset: document.getElementById("tech-zoom-reset"),
+      techTreeFullscreen: document.getElementById("tech-tree-fullscreen")
     };
     const state = { rows: [], filtered: [], selectedIndex: -1 };
     const TECH_TREE_LINKS = {
@@ -3048,6 +3183,15 @@
       return "category-outlier";
     }
 
+    function getRunQuality(errorKilometers) {
+      if (!Number.isFinite(errorKilometers)) return "quality-unknown";
+      if (errorKilometers > 100) return "quality-black";
+      if (errorKilometers < 10) return "quality-blue";
+      if (errorKilometers < 25) return "quality-green";
+      if (errorKilometers < 50) return "quality-yellow";
+      return "quality-red";
+    }
+
     function renderCoordinateChart(pointGroup, rows, coordinateName, countElement) {
       const domain = coordinateName === "latitude"
         ? { minimum: -90, maximum: 90 }
@@ -3238,6 +3382,19 @@
       updateTechTreeTransform();
     }
 
+    function setTechTreeFullscreen(isFullscreen) {
+      dom.visual.classList.toggle("is-description-canvas-fullscreen", isFullscreen);
+      const label = isFullscreen ? "Restore graph panel" : "Expand graph panel";
+      dom.techTreeFullscreen?.setAttribute("aria-pressed", String(isFullscreen));
+      dom.techTreeFullscreen?.setAttribute("aria-label", label);
+      dom.techTreeFullscreen?.setAttribute("title", label);
+      techTreeNavigation.hasFit = false;
+      requestAnimationFrame(() => {
+        resetTechTreeView();
+        drawTechTreeLinks();
+      });
+    }
+
     function getTechTreePoint(event) {
       const rect = dom.techTreeViewport.getBoundingClientRect();
       return { x: event.clientX - rect.left, y: event.clientY - rect.top };
@@ -3352,6 +3509,9 @@
       dom.techZoomIn?.addEventListener("click", () => zoomTechTreeAt(1.18));
       dom.techZoomOut?.addEventListener("click", () => zoomTechTreeAt(0.84));
       dom.techZoomReset?.addEventListener("click", resetTechTreeView);
+      dom.techTreeFullscreen?.addEventListener("click", () => {
+        setTechTreeFullscreen(!dom.visual.classList.contains("is-description-canvas-fullscreen"));
+      });
     }
 
     function techTreeSegmentHitsRect(first, second, rect) {
@@ -3853,7 +4013,8 @@
       const fragment = document.createDocumentFragment();
       state.filtered.forEach((row) => {
         const button = document.createElement("button");
-        button.className = "point-row";
+        const errorKilometers = Number(row.error_distance_meters) / 1000;
+        button.className = `point-row ${getRunQuality(errorKilometers)}`;
         button.type = "button";
         button.setAttribute("role", "listitem");
         button.setAttribute("aria-current", String(row._index === state.selectedIndex));
@@ -4090,6 +4251,11 @@
     dom.search.addEventListener("input", filterRows);
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && dom.visual.classList.contains("is-description-canvas-fullscreen")) {
+        setTechTreeFullscreen(false);
+      }
     });
     window.addEventListener("resize", () => {
       if (dom.visual.dataset.mode === "description" && !techTreeNavigation.hasFit) resetTechTreeView();
