@@ -513,8 +513,16 @@
     }
 
     .visual[data-mode="summary"] #summary-view,
-    .visual[data-mode="description"] #description-view {
+    .visual[data-mode="description"] #description-view,
+    .visual[data-mode="research"] #research-view {
       display: block;
+    }
+
+    .visual[data-mode="research"] #research-view {
+      display: flex;
+      height: 100%;
+      min-height: 0;
+      flex-direction: column;
     }
 
     .visual[data-mode="summary"] .visual-copy,
@@ -524,7 +532,11 @@
     .visual[data-mode="description"] .visual-copy,
     .visual[data-mode="description"] .visual-status,
     .visual[data-mode="description"] .visual-footer,
-    .visual[data-mode="description"] .visual-legend {
+    .visual[data-mode="description"] .visual-legend,
+    .visual[data-mode="research"] .visual-copy,
+    .visual[data-mode="research"] .visual-status,
+    .visual[data-mode="research"] .visual-footer,
+    .visual[data-mode="research"] .visual-legend {
       opacity: 0;
       pointer-events: none;
     }
@@ -1890,6 +1902,316 @@
 
     .tech-tree-transition strong { color: var(--domain-condition); font-weight: 500; }
 
+    .research-view {
+      position: relative;
+    }
+
+    .research-view .view-heading {
+      max-width: 1120px;
+      margin-bottom: 24px;
+    }
+
+    .research-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .research-tile {
+      --research-accent: var(--ground);
+      position: relative;
+      display: flex;
+      min-width: 0;
+      min-height: 156px;
+      align-items: flex-start;
+      flex-direction: column;
+      padding: 15px 16px 14px;
+      border: 1px solid var(--line);
+      border-top: 3px solid var(--research-accent);
+      border-radius: 4px;
+      background: var(--card-background);
+      color: var(--ink);
+      cursor: pointer;
+      overflow: hidden;
+      text-align: left;
+      transform: translateY(0);
+      transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+      animation: research-tile-in 420ms both;
+      animation-delay: calc(var(--tile-index) * 35ms);
+    }
+
+    .research-tile::after {
+      position: absolute;
+      right: -16px;
+      bottom: -18px;
+      width: 68px;
+      height: 68px;
+      border: 1px solid color-mix(in srgb, var(--research-accent) 30%, transparent);
+      border-radius: 50%;
+      content: "";
+      opacity: 0.65;
+    }
+
+    .research-tile:hover,
+    .research-tile:focus-visible {
+      border-color: color-mix(in srgb, var(--research-accent) 70%, var(--line-strong));
+      background: color-mix(in srgb, var(--research-accent) 8%, var(--card-background));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--research-accent) 10%, transparent);
+      outline: none;
+      transform: translateY(-3px);
+    }
+
+    .research-tile-head,
+    .research-tile-foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .research-tile-icon {
+      display: grid;
+      width: 31px;
+      height: 31px;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--research-accent) 58%, var(--line-strong));
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--research-accent) 9%, transparent);
+      color: var(--research-accent);
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+
+    .research-tile-id,
+    .research-tile-stars,
+    .research-detail-meta,
+    .research-chapter-number {
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.51rem;
+      letter-spacing: 0.08em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .research-tile-stars { color: var(--research-accent); white-space: nowrap; }
+
+    .research-tile h3 {
+      position: relative;
+      z-index: 1;
+      max-width: 18ch;
+      margin: 18px 0 8px;
+      color: var(--ink);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.13;
+    }
+
+    .research-tile-area {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 0.68rem;
+      line-height: 1.4;
+    }
+
+    .research-tile-foot {
+      margin-top: auto;
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.51rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .research-detail[hidden] { display: none; }
+
+    .research-detail {
+      position: absolute;
+      z-index: 6;
+      inset: 74px 22px 22px;
+      display: flex;
+      min-height: 0;
+      flex-direction: column;
+      border: 1px solid var(--line-strong);
+      border-top: 3px solid var(--research-accent, var(--ground));
+      border-radius: 4px;
+      background: linear-gradient(125deg, color-mix(in srgb, var(--research-accent, var(--ground)) 9%, transparent), transparent 42%), var(--view-background);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+      animation: research-detail-in 220ms ease both;
+    }
+
+    .research-detail-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .research-detail-label {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .research-detail-label .research-tile-icon { flex: 0 0 auto; }
+
+    .research-detail-meta {
+      overflow: hidden;
+      color: var(--research-accent, var(--ground));
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .research-detail-close {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      background: var(--control-background);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+    }
+
+    .research-detail-close:hover,
+    .research-detail-close:focus-visible {
+      border-color: var(--research-accent, var(--ground));
+      background: var(--control-hover-background);
+      color: var(--research-accent, var(--ground));
+      outline: none;
+    }
+
+    .research-detail-content {
+      min-height: 0;
+      overflow-y: auto;
+      padding: 36px clamp(22px, 5vw, 72px) 50px;
+      scrollbar-color: var(--scrollbar-thumb) transparent;
+      scrollbar-width: thin;
+    }
+
+    .research-detail-heading {
+      max-width: 820px;
+      margin: 0 auto 34px;
+    }
+
+    .research-detail-heading .eyebrow { color: var(--research-accent, var(--ground)); }
+
+    .research-detail-heading h2 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 4.2vw, 4.2rem);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+    }
+
+    .research-detail-heading p:not(.eyebrow) {
+      max-width: 700px;
+      margin: 19px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .research-detail-actions {
+      display: flex;
+      margin-top: 22px;
+    }
+
+    .research-connections-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .research-connections-button span {
+      color: var(--research-accent, var(--ground));
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    .research-detail-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(250px, 0.9fr) minmax(0, 0.85fr);
+      gap: 26px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .research-detail-section {
+      min-width: 0;
+      padding-top: 15px;
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .research-detail-section .section-label { color: var(--research-accent, var(--ground)); }
+
+    .research-detail-section > p:not(.section-label) {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.65;
+    }
+
+    .research-chapters {
+      display: grid;
+      gap: 9px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .research-chapter {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 8px;
+      align-items: baseline;
+      padding-bottom: 9px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 0.78rem;
+      line-height: 1.45;
+    }
+
+    .research-chapter-number { color: var(--research-accent, var(--ground)); }
+
+    .research-outcome {
+      padding: 15px 16px;
+      border: 1px solid color-mix(in srgb, var(--research-accent, var(--ground)) 35%, var(--line));
+      border-left: 3px solid var(--research-accent, var(--ground));
+      background: color-mix(in srgb, var(--research-accent, var(--ground)) 6%, transparent);
+    }
+
+    .research-outcome .section-label { margin-bottom: 8px; }
+
+    @keyframes research-tile-in {
+      from { opacity: 0; transform: translateY(9px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes research-detail-in {
+      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .tech-node-realsense { grid-column: 1; grid-row: 1; }
     .tech-node-image-capture { grid-column: 2; grid-row: 1; }
     .tech-node-stellarium { grid-column: 1; grid-row: 2; }
@@ -2172,9 +2494,12 @@
       .visual-footer { right: 24px; bottom: 20px; left: 24px; }
       .visual-legend { right: 24px; bottom: 20px; }
       .visual-view { padding: 74px 24px 104px; }
-      .view-heading, .summary-stat-grid, .summary-charts, .description-header, .description-flow { max-width: none; }
+      .view-heading, .summary-stat-grid, .summary-charts, .description-header, .description-flow, .research-grid { max-width: none; }
       .summary-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .summary-charts { grid-template-columns: 1fr; }
+      .research-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .research-detail-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .research-outcome { grid-column: 1 / -1; }
       .route-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .condition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .future-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -2205,6 +2530,14 @@
       .workspace-bar .mode-tab { min-width: 0; flex: 1 1 0; overflow: hidden; padding-right: 6px; padding-left: 6px; font-size: 0.46rem; letter-spacing: 0.03em; white-space: nowrap; }
       .visual-status { display: none; }
       .visual-view { padding: 70px 16px 96px; }
+      .research-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+      .research-tile { min-height: 142px; padding: 12px 12px 11px; }
+      .research-tile h3 { margin-top: 13px; font-size: 0.88rem; }
+      .research-tile-area { font-size: 0.61rem; }
+      .research-detail { inset: 70px 12px 12px; }
+      .research-detail-content { padding: 28px 18px 36px; }
+      .research-detail-layout { grid-template-columns: 1fr; gap: 22px; }
+      .research-outcome { grid-column: auto; }
       .list-heading { padding-right: 20px; padding-left: 20px; }
       .selection { margin-right: 12px; margin-left: 12px; }
       .selection-foot { align-items: flex-start; flex-direction: column; }
@@ -2537,6 +2870,7 @@
         <button class="mode-tab" id="globe-tab" type="button" role="tab" data-mode="globe" aria-selected="true" aria-controls="globe-stage"><span>01</span>Globe</button>
         <button class="mode-tab" id="summary-tab" type="button" role="tab" data-mode="summary" aria-selected="false" aria-controls="summary-view"><span>02</span>Summary</button>
         <button class="mode-tab" id="description-tab" type="button" role="tab" data-mode="description" aria-selected="false" aria-controls="description-view"><span>03</span>Description</button>
+        <button class="mode-tab" id="research-tab" type="button" role="tab" data-mode="research" aria-selected="false" aria-controls="research-view"><span>04</span>Research</button>
       </nav>
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Theme mode: Auto. Switch to Light mode." title="Theme: Auto. Tap for Light mode.">
         <span class="theme-toggle-icon" id="theme-toggle-icon" aria-hidden="true">&#9681;</span>
@@ -2990,6 +3324,52 @@
         </div>
       </div>
 
+      <div class="visual-view research-view" id="research-view" role="tabpanel" aria-labelledby="research-tab" aria-hidden="true" tabindex="-1">
+        <div class="view-heading">
+          <div>
+            <p class="eyebrow">Research / open questions</p>
+            <h2>From a working fix to a defensible one.</h2>
+            <p>Research opportunities sit beyond the current unlocked path. Each tile turns one project detail into a compact route from motivation, through thesis-sized work, to a result the celestial localisation stack can use.</p>
+          </div>
+          <div class="view-heading-meta" id="research-summary">-- research opportunities<br>derived from project detail</div>
+        </div>
+        <div class="research-grid" id="research-grid" role="list" aria-label="Research opportunities"></div>
+
+        <section class="research-detail" id="research-detail" role="dialog" aria-modal="true" aria-labelledby="research-detail-title" aria-hidden="true" hidden>
+          <div class="research-detail-bar">
+            <div class="research-detail-label">
+              <span class="research-tile-icon" id="research-detail-icon" aria-hidden="true"></span>
+              <span class="research-detail-meta" id="research-detail-meta">Research opportunity</span>
+            </div>
+            <button class="research-detail-close" id="research-detail-close" type="button" aria-label="Close research detail" title="Close research detail">&times;</button>
+          </div>
+          <div class="research-detail-content">
+            <div class="research-detail-heading">
+              <p class="eyebrow" id="research-detail-kicker">Research opportunity</p>
+              <h2 id="research-detail-title"></h2>
+              <p id="research-detail-description"></p>
+              <div class="research-detail-actions">
+                <button class="research-connections-button control" id="research-detail-connections" type="button"><span aria-hidden="true">&#8594;</span>See Connections</button>
+              </div>
+            </div>
+            <div class="research-detail-layout">
+              <section class="research-detail-section">
+                <p class="section-label">Aim + motivation</p>
+                <p id="research-detail-motivation"></p>
+              </section>
+              <section class="research-detail-section">
+                <p class="section-label">Research directions</p>
+                <ol class="research-chapters" id="research-detail-chapters"></ol>
+              </section>
+              <section class="research-detail-section research-outcome">
+                <p class="section-label">Project outcome</p>
+                <p id="research-detail-outcome"></p>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+
     </section>
 
     <aside class="panel" aria-label="GPS point list">
@@ -3090,6 +3470,20 @@
       descriptionStep: document.getElementById("description-step"),
       descriptionTotal: document.getElementById("description-total"),
       descriptionSteps: [...document.querySelectorAll(".flow-step")],
+      researchView: document.getElementById("research-view"),
+      researchGrid: document.getElementById("research-grid"),
+      researchSummary: document.getElementById("research-summary"),
+      researchDetail: document.getElementById("research-detail"),
+      researchDetailIcon: document.getElementById("research-detail-icon"),
+      researchDetailMeta: document.getElementById("research-detail-meta"),
+      researchDetailKicker: document.getElementById("research-detail-kicker"),
+      researchDetailTitle: document.getElementById("research-detail-title"),
+      researchDetailDescription: document.getElementById("research-detail-description"),
+      researchDetailMotivation: document.getElementById("research-detail-motivation"),
+      researchDetailChapters: document.getElementById("research-detail-chapters"),
+      researchDetailOutcome: document.getElementById("research-detail-outcome"),
+      researchDetailClose: document.getElementById("research-detail-close"),
+      researchDetailConnections: document.getElementById("research-detail-connections"),
       techTreeBoards: [document.querySelector('[data-tech-tree="core"]')],
       techTreeViewport: document.getElementById("tech-tree-viewport"),
       techTreeCanvas: document.getElementById("tech-tree-canvas"),
@@ -3218,6 +3612,239 @@
       "node-imu": 2,
       "node-fusion": 3
     };
+    const RESEARCH_PROJECTS = [
+      {
+        nodeId: "node-fisheye",
+        icon: "⊙",
+        domain: "sensor",
+        area: "Spherical image source",
+        title: "Fisheye camera",
+        description: "Establish a direct spherical capture route that can feed the sky map without depending on a stitched panorama.",
+        motivation: "A fisheye route tests whether simpler optics and fewer stitching assumptions can produce reliable celestial evidence. It also gives the project a practical alternative when a panoramic camera is unavailable.",
+        chapters: ["Spherical image formation and projection models"],
+        outcome: "A validated direct-input route that broadens the hardware options for sky localisation."
+      },
+      {
+        nodeId: "node-fisheye-calibration",
+        icon: "⌖",
+        domain: "sensor",
+        area: "Ray geometry",
+        title: "Fisheye calibration",
+        description: "Map fisheye pixels into stable sky rays so detections can be compared with the project ephemeris frame.",
+        motivation: "Projection error becomes pose error. A measured calibration model is the difference between a convenient camera feed and an observation source that can support a defensible fix.",
+        chapters: ["Calibration, ray mapping, and uncertainty"],
+        outcome: "A repeatable pixel-to-ray transform with error bounds suitable for the detector and pose solver."
+      },
+      {
+        nodeId: "node-catalogue",
+        icon: "✦",
+        domain: "celestial",
+        area: "Reference identity",
+        title: "Star catalogue entries",
+        description: "Turn anonymous star detections into named catalogue references that can strengthen matching and reporting.",
+        motivation: "The current solver can use celestial geometry without explaining every star. Catalogue identity would make observations auditable, expose mismatches earlier, and support richer evidence fusion.",
+        chapters: ["Candidate matching under incomplete skies", "Catalogue uncertainty and pose confidence"],
+        outcome: "Named, confidence-scored stellar observations that make the localisation evidence inspectable."
+      },
+      {
+        nodeId: "node-dwarflab",
+        icon: "◉",
+        domain: "sensor",
+        area: "Telescope endpoint",
+        title: "DWARFLAB3 observations",
+        description: "Bring a telescope or external observation source into the same localisation contract as the camera route.",
+        motivation: "A second optical instrument provides a valuable cross-check on the camera pipeline and opens a path toward higher-resolution or deliberately targeted observations.",
+        chapters: ["Telescope observation protocol", "Optical payload integration", "Benchmarking against the camera route"],
+        outcome: "A documented telescope route that can generate comparable observations and independent pose candidates."
+      },
+      {
+        nodeId: "node-dwarflab-calibration",
+        icon: "⌗",
+        domain: "sensor",
+        area: "Telescope geometry",
+        title: "DWARFLAB3 calibration",
+        description: "Establish the telescope optical axis, mount frame, and timestamp transform needed for trustworthy measurements.",
+        motivation: "An external telescope is only useful if its geometry and timing are explicit. Calibration turns a separate instrument into evidence that can be merged rather than merely displayed.",
+        chapters: ["Optical axis and mount-frame estimation", "UTC synchronisation and timestamp error", "Calibration drift across observing sessions"],
+        outcome: "A calibrated telescope frame with known temporal and geometric uncertainty."
+      },
+      {
+        nodeId: "node-dwarflab-pose",
+        icon: "⌁",
+        domain: "sensor",
+        area: "Alternate pose solve",
+        title: "Produce telescope pose",
+        description: "Generate a geographic and attitude candidate from telescope observations without requiring the camera detector path.",
+        motivation: "An independent solve reveals whether the project is finding a real pose or only succeeding under one sensor's failure modes. It also creates a useful fallback for sparse or awkward camera scenes.",
+        chapters: ["Telescope feature extraction", "Pose estimation from targeted observations", "Cross-instrument validation and failure modes"],
+        outcome: "A second pose-producing route that can validate, replace, or complement camera-derived fixes."
+      },
+      {
+        nodeId: "node-pose-merge",
+        icon: "⊕",
+        domain: "fusion",
+        area: "Candidate arbitration",
+        title: "Merge pose candidates",
+        description: "Choose or combine valid pose candidates from the camera and telescope routes using their uncertainty.",
+        motivation: "Multiple routes are only valuable when the system can express which answer deserves trust. Candidate arbitration gives the wider project a principled handoff from sensing to localisation.",
+        chapters: ["Uncertainty-aware pose candidate arbitration"],
+        outcome: "One transparent pose decision with provenance and confidence preserved for downstream evaluation."
+      },
+      {
+        nodeId: "node-temporal-refinement",
+        icon: "↺",
+        domain: "fusion",
+        area: "Time-series estimation",
+        title: "Refine pose over time",
+        description: "Fuse published pose estimates across a sliding window to reduce noise and expose how a fix evolves.",
+        motivation: "A single frame is brittle, while a moving platform naturally supplies a sequence. Temporal reasoning can stabilise intermittent detections without hiding uncertainty or delaying a useful fix.",
+        chapters: ["Temporal filtering and robust windows", "Motion-aware uncertainty propagation", "Latency, recovery, and online evaluation"],
+        outcome: "A stable stream of fixes with measurable latency, recovery behaviour, and uncertainty."
+      },
+      {
+        nodeId: "node-condition-classifier",
+        icon: "◇",
+        domain: "condition",
+        area: "Scene reasoning",
+        title: "Classify sky condition",
+        description: "Decide which observation families are credible from time, visibility, motion, and confidence cues.",
+        motivation: "The same detector should not be trusted in daylight, clear night, and cloud cover in the same way. A condition gate makes the system explicit about when each branch is allowed to contribute.",
+        chapters: ["Condition features and labels", "Confidence-gated observation selection"],
+        outcome: "A scene-aware gate that routes evidence to the branches most likely to produce a sound fix."
+      },
+      {
+        nodeId: "node-daytime",
+        icon: "☼",
+        domain: "celestial",
+        area: "Daylight route",
+        title: "Daytime localisation",
+        description: "Build a daylight route that does not assume stars are visible or useful.",
+        motivation: "A localisation system that only works at night is a narrow demonstrator. Daylight observations are the first test of whether the project can adapt its evidence model to the actual sky.",
+        chapters: ["Daylight observation availability and priors"],
+        outcome: "A defined daytime operating envelope and a clear handoff to solar or atmospheric cues."
+      },
+      {
+        nodeId: "node-nighttime",
+        icon: "☾",
+        domain: "celestial",
+        area: "Nighttime route",
+        title: "Nighttime evidence",
+        description: "Make the night route explicit about stars, Moon, and predictable moving lights.",
+        motivation: "Night scenes contain the richest celestial evidence but also introduce catalogue ambiguity and moving distractors. A dedicated route makes those tradeoffs measurable.",
+        chapters: ["Night-sky evidence availability and priors"],
+        outcome: "A quantified nighttime operating envelope that guides detector and solver behaviour."
+      },
+      {
+        nodeId: "node-overcast",
+        icon: "≋",
+        domain: "atmosphere",
+        area: "Poor visibility",
+        title: "Overcast fallback",
+        description: "Define how the system should degrade when cloud and visibility remove the usual celestial cues.",
+        motivation: "Failure is part of the operating environment. A deliberate fallback route is more useful than silently returning a confident-looking fix when the sky contains insufficient evidence.",
+        chapters: ["Visibility-aware degradation", "Contextual priors for occluded skies"],
+        outcome: "Honest behaviour under poor visibility, including a useful fallback or an explicit no-fix decision."
+      },
+      {
+        nodeId: "node-solar-cues",
+        icon: "☼",
+        domain: "celestial",
+        area: "Solar and lunar cues",
+        title: "Sun + Moon cues",
+        description: "Use solar and lunar detections when a scene supports them, including partial or obscured discs.",
+        motivation: "The Sun and Moon remain valuable anchors when stars disappear. Their predictable motion offers absolute direction, but only if detection confidence and visibility are handled carefully.",
+        chapters: ["Solar and lunar direction models", "Cue detection under partial visibility"],
+        outcome: "Additional absolute cues that extend localisation beyond clear, star-rich night scenes."
+      },
+      {
+        nodeId: "node-aircraft",
+        icon: "✈",
+        domain: "aircraft",
+        area: "Moving-object rejection",
+        title: "Detect and reject aircraft",
+        description: "Separate aircraft motion and lights from stable celestial candidates before they contaminate a pose solve.",
+        motivation: "Moving lights are plausible false stars. Treating them as a research problem protects the solver from a failure mode that becomes more likely as the system operates in real skies.",
+        chapters: ["Motion signatures of aircraft", "Robust rejection with contextual data"],
+        outcome: "A measurable defence against aircraft-induced false detections and pose failures."
+      },
+      {
+        nodeId: "node-star-catalogue",
+        icon: "✦",
+        domain: "celestial",
+        area: "Stellar identity",
+        title: "Catalogue star identities",
+        description: "Validate star patterns and name raw detections on the nighttime branch.",
+        motivation: "Identity makes a pattern explainable. It lets the project compare what the detector saw with what the ephemeris expected, rather than treating every match as an opaque numerical success.",
+        chapters: ["Pattern validation and catalogue search", "Identity confidence in sparse fields"],
+        outcome: "Interpretable stellar matches that improve diagnostics, confidence scoring, and scientific reporting."
+      },
+      {
+        nodeId: "node-satellites",
+        icon: "◇",
+        domain: "satellite",
+        area: "Orbital references",
+        title: "Track satellites",
+        description: "Add predictable orbital references without making them a mandatory part of every pose solve.",
+        motivation: "Satellites are useful both as evidence and as confounders. Treating them as optional priors lets the system benefit from orbital knowledge while remaining robust when data is stale or absent.",
+        chapters: ["Orbital prediction and visibility", "Satellite track association", "Optional-prior fusion and stale data"],
+        outcome: "A satellite-aware branch that adds evidence or rejects moving objects without becoming a single point of failure."
+      },
+      {
+        nodeId: "node-cloud-segmentation",
+        icon: "▦",
+        domain: "atmosphere",
+        area: "Cloud evidence",
+        title: "Segment cloud regions",
+        description: "Turn visible cloud texture into regions that can be tracked and passed to atmospheric reasoning.",
+        motivation: "Clouds are not only an obstruction. Their texture and motion can describe visibility, support short-term motion estimates, and explain why other observations should be down-weighted.",
+        chapters: ["Cloud appearance and region segmentation", "Trackable atmospheric features"],
+        outcome: "Structured cloud evidence that supports visibility classification and later parallax research."
+      },
+      {
+        nodeId: "node-polarization",
+        icon: "◌",
+        domain: "celestial",
+        area: "Daylight heading",
+        title: "Polarized sunlight",
+        description: "Explore absolute heading from sky polarization when the solar disc is obscured.",
+        motivation: "Polarization offers a different physical cue from direct object detection. It could preserve heading information through haze or cloud where conventional solar cues become unreliable.",
+        chapters: ["Polarization sensing and sky models", "Heading inference under haze", "Calibration against celestial reference frames"],
+        outcome: "A daylight heading option that remains useful when direct solar detection is unavailable."
+      },
+      {
+        nodeId: "node-cloud-layers",
+        icon: "≋",
+        domain: "atmosphere",
+        area: "Atmospheric parallax",
+        title: "Cloud layers + parallax",
+        description: "Estimate layer motion, deformation, and relative odometry from structured cloud observations.",
+        motivation: "Clouds occupy depth, not just a flat image plane. Layer-aware motion could provide relative movement when absolute celestial cues are hidden, while also quantifying atmospheric ambiguity.",
+        chapters: ["Layer separation and parallax cues", "Deformation-aware motion models", "Relative odometry under changing weather"],
+        outcome: "An atmospheric motion branch that can support relative navigation and explain cloud-driven uncertainty."
+      },
+      {
+        nodeId: "node-imu",
+        icon: "⌁",
+        domain: "fusion",
+        area: "Motion compensation",
+        title: "Compensate camera rotation",
+        description: "Use IMU evidence before interpreting sky motion as translation or scene change.",
+        motivation: "A rotating camera can make a static sky look like a moving world. Explicit rotational compensation protects temporal and cloud-motion research from a basic but consequential ambiguity.",
+        chapters: ["IMU-camera temporal alignment", "Rotation compensation and residual motion"],
+        outcome: "Cleaner motion evidence and a stronger foundation for temporal refinement and atmospheric odometry."
+      },
+      {
+        nodeId: "node-fusion",
+        icon: "⊗",
+        domain: "fusion",
+        area: "Adaptive evidence",
+        title: "Condition-adaptive fusion",
+        description: "Combine whichever absolute and relative cues are trustworthy for the current sky and motion state.",
+        motivation: "The wider project becomes useful when it can choose evidence rather than assume one sensor or one celestial family always wins. Adaptive fusion is where the research branches become one operating system.",
+        chapters: ["Evidence weighting and uncertainty", "Condition-aware model selection", "End-to-end evaluation across sky states"],
+        outcome: "A localisation stack that reports the best available fix, its evidence, and its uncertainty across changing conditions."
+      }
+    ];
     const techTreeNavigation = {
       scale: 0.8,
       minimumScale: 0.42,
@@ -3229,6 +3856,7 @@
       pinchStart: null
     };
     const techTreeSelection = { nodeId: null };
+    let researchDetailReturnFocus;
     const numericFields = new Set([
       "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
       "estimated_longitude", "identified_objects_used", "latitude_error_degrees",
@@ -3779,6 +4407,118 @@
       });
     }
 
+    function getResearchProjects() {
+      const definitions = new Map(RESEARCH_PROJECTS.map((project) => [project.nodeId, project]));
+      return [...document.querySelectorAll(".tech-node[data-ro]")].map((node) => {
+        const definition = definitions.get(node.id);
+        if (!definition) return null;
+        return {
+          ...definition,
+          title: node.querySelector("h4")?.textContent.trim() || definition.title,
+          rating: Number(node.dataset.ro)
+        };
+      }).filter((project) => project && project.rating > 0);
+    }
+
+    function createResearchStars(rating) {
+      const stars = document.createElement("span");
+      stars.className = "research-tile-stars";
+      stars.textContent = `RO|${String.fromCharCode(9733).repeat(rating)}`;
+      stars.setAttribute("aria-label", `${rating} research opportunity ${rating === 1 ? "star" : "stars"}`);
+      return stars;
+    }
+
+    function renderResearchTiles() {
+      if (!dom.researchGrid) return [];
+      const projects = getResearchProjects();
+      dom.researchGrid.replaceChildren();
+      projects.forEach((project, index) => {
+        const tile = document.createElement("button");
+        tile.className = "research-tile";
+        tile.type = "button";
+        tile.style.setProperty("--research-accent", `var(--domain-${project.domain})`);
+        tile.style.setProperty("--tile-index", index);
+        tile.dataset.researchId = project.nodeId;
+        tile.setAttribute("role", "listitem");
+        tile.setAttribute("aria-label", `${project.title}, ${project.rating} research opportunity ${project.rating === 1 ? "star" : "stars"}`);
+
+        const head = document.createElement("span");
+        head.className = "research-tile-head";
+        const icon = document.createElement("span");
+        icon.className = "research-tile-icon";
+        icon.setAttribute("aria-hidden", "true");
+        icon.textContent = project.icon;
+        head.append(icon, createResearchStars(project.rating));
+
+        const title = document.createElement("h3");
+        title.textContent = project.title;
+        const area = document.createElement("p");
+        area.className = "research-tile-area";
+        area.textContent = project.area;
+        const foot = document.createElement("span");
+        foot.className = "research-tile-foot";
+        foot.textContent = `${String(index + 1).padStart(2, "0")} / open question`;
+        tile.append(head, title, area, foot);
+        tile.addEventListener("click", () => openResearchDetail(project, tile));
+        dom.researchGrid.append(tile);
+      });
+      if (dom.researchSummary) dom.researchSummary.innerHTML = `${projects.length} research opportunities<br>derived from project detail`;
+      return projects;
+    }
+
+    function openResearchDetail(project, sourceTile) {
+      if (!project || !dom.researchDetail) return;
+      researchDetailReturnFocus = sourceTile || document.activeElement;
+      dom.researchDetail.style.setProperty("--research-accent", `var(--domain-${project.domain})`);
+      dom.researchDetailIcon.textContent = project.icon;
+      dom.researchDetailMeta.textContent = `RO|${String.fromCharCode(9733).repeat(project.rating)} / ${project.area}`;
+      dom.researchDetailKicker.textContent = `Research opportunity / ${String(project.rating).padStart(2, "0")} chapter ${project.rating === 1 ? "route" : "routes"}`;
+      dom.researchDetailConnections.dataset.researchId = project.nodeId;
+      dom.researchDetailTitle.textContent = project.title;
+      dom.researchDetailDescription.textContent = project.description;
+      dom.researchDetailMotivation.textContent = project.motivation;
+      dom.researchDetailOutcome.textContent = project.outcome;
+      dom.researchDetailChapters.replaceChildren();
+      project.chapters.slice(0, project.rating).forEach((chapter, index) => {
+        const item = document.createElement("li");
+        item.className = "research-chapter";
+        const number = document.createElement("span");
+        number.className = "research-chapter-number";
+        number.textContent = String(index + 1).padStart(2, "0");
+        const title = document.createElement("span");
+        title.textContent = chapter;
+        item.append(number, title);
+        dom.researchDetailChapters.append(item);
+      });
+      dom.researchDetail.hidden = false;
+      dom.researchDetail.setAttribute("aria-hidden", "false");
+      dom.researchDetailClose?.focus();
+    }
+
+    function closeResearchDetail(restoreFocus = true) {
+      if (!dom.researchDetail || dom.researchDetail.hidden) return;
+      dom.researchDetail.hidden = true;
+      dom.researchDetail.setAttribute("aria-hidden", "true");
+      if (restoreFocus && researchDetailReturnFocus?.focus) researchDetailReturnFocus.focus();
+      researchDetailReturnFocus = null;
+    }
+
+    function showResearchConnections() {
+      const nodeId = dom.researchDetailConnections?.dataset.researchId;
+      const node = nodeId ? document.getElementById(nodeId) : null;
+      if (!node) return;
+      closeResearchDetail(false);
+      selectTechTreeNode(node);
+      setVisualMode("description");
+      requestAnimationFrame(() => {
+        if (!techTreeNavigation.hasFit) resetTechTreeView();
+        focusTechTreeNode(node.id);
+        updateDescriptionProgressFromScroll();
+        drawTechTreeLinks();
+        node.focus({ preventScroll: true });
+      });
+    }
+
     function updateTechTreeImageResolution() {
       const useHighResolution = techTreeNavigation.scale >= 1.05;
       dom.techTreeCanvas?.querySelectorAll("img[data-high-src]").forEach((image) => {
@@ -3841,6 +4581,19 @@
       updateTechTreeTransform();
     }
 
+    function focusTechTreeNode(nodeId) {
+      const board = dom.techTreeBoards[0];
+      const node = board?.querySelector(`#${nodeId}`);
+      if (!node || !dom.techTreeViewport?.clientWidth) return;
+      const scale = techTreeNavigation.scale || 1;
+      const nodeCenterX = node.offsetLeft + node.offsetWidth / 2;
+      const nodeCenterY = node.offsetTop + node.offsetHeight / 2;
+      techTreeNavigation.offsetX = dom.techTreeViewport.clientWidth / 2 - nodeCenterX * scale;
+      techTreeNavigation.offsetY = dom.techTreeViewport.clientHeight / 2 - nodeCenterY * scale;
+      techTreeNavigation.hasFit = true;
+      updateTechTreeTransform();
+    }
+
     function setTechTreeFullscreen(isFullscreen) {
       dom.visual.classList.toggle("is-description-canvas-fullscreen", isFullscreen);
       const label = isFullscreen ? "Restore graph panel" : "Expand graph panel";
@@ -3886,9 +4639,13 @@
       });
     }
 
-    function setTechTreeSelection(node) {
-      techTreeSelection.nodeId = techTreeSelection.nodeId === node?.id ? null : node?.id || null;
+    function selectTechTreeNode(node) {
+      techTreeSelection.nodeId = node?.id || null;
       updateTechTreeSelection();
+    }
+
+    function setTechTreeSelection(node) {
+      selectTechTreeNode(techTreeSelection.nodeId === node?.id ? null : node);
     }
 
     function initTechTreeSelection() {
@@ -4469,7 +5226,10 @@
       });
       dom.summaryView.setAttribute("aria-hidden", String(mode !== "summary"));
       dom.descriptionView.setAttribute("aria-hidden", String(mode !== "description"));
+      dom.researchView.setAttribute("aria-hidden", String(mode !== "research"));
+      if (mode !== "research") closeResearchDetail(false);
       if (mode === "summary") renderSummary();
+      if (mode === "research") renderResearchTiles();
       if (mode === "description") {
         requestAnimationFrame(() => {
           if (!techTreeNavigation.hasFit) resetTechTreeView();
@@ -4886,10 +5646,12 @@
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
     });
+    dom.researchDetailClose.addEventListener("click", () => closeResearchDetail());
+    dom.researchDetailConnections.addEventListener("click", showResearchConnections);
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && dom.visual.classList.contains("is-description-canvas-fullscreen")) {
-        setTechTreeFullscreen(false);
-      }
+      if (event.key !== "Escape") return;
+      if (!dom.researchDetail.hidden) closeResearchDetail();
+      else if (dom.visual.classList.contains("is-description-canvas-fullscreen")) setTechTreeFullscreen(false);
     });
     window.addEventListener("resize", () => {
       if (dom.visual.dataset.mode === "description" && !techTreeNavigation.hasFit) resetTechTreeView();
@@ -4908,6 +5670,7 @@
     applyTechTreeResearchRatings();
     initTechTreeNavigation();
     initTechTreeSelection();
+    renderResearchTiles();
     applyTheme(themeMode);
     try {
       initGlobe();
