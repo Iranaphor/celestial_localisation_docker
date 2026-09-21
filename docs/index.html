@@ -2070,6 +2070,14 @@
       padding: 19px 30px 11px;
     }
 
+    .list-heading-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
     .list-heading .section-label { margin: 0; }
 
     .search {
@@ -2087,6 +2095,20 @@
 
     .search:focus { width: 145px; border-color: var(--ground); }
     .search::placeholder { color: var(--faint); }
+
+    .run-sort {
+      width: 105px;
+      padding: 5px 0;
+      border: 0;
+      border-bottom: 1px solid var(--line-strong);
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.58rem;
+      text-align: right;
+    }
+
+    .run-sort:focus { border-color: var(--ground); }
 
     .point-list {
       min-height: 0;
@@ -2989,7 +3011,13 @@
       </section>
 
       <div class="list-heading">
-        <p class="section-label">All runs</p>
+        <div class="list-heading-top">
+          <p class="section-label">All runs</p>
+          <select class="run-sort" id="run-sort" aria-label="Sort GPS runs" title="Sort GPS runs">
+            <option value="run">Run ID</option>
+            <option value="error">Error</option>
+          </select>
+        </div>
         <input class="search" id="run-search" type="search" placeholder="Filter" aria-label="Filter GPS runs">
       </div>
       <div class="point-list" id="point-list" role="list"></div>
@@ -3014,7 +3042,8 @@
       "../celestial_localisation/debug_output/random_localisation_metrics.csv",
       "random_localisation_metrics.csv"
     ];
-    const EARTH_TEXTURE_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
+    const EARTH_TEXTURE_URL = "https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg";
+    const EARTH_TEXTURE_FALLBACK_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
     const EARTH_NORMAL_URL = "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg";
     const dom = {
       visual: document.getElementById("visual-workspace"),
@@ -3031,6 +3060,7 @@
       estimated: document.getElementById("estimated-coordinates"),
       time: document.getElementById("selected-time"),
       search: document.getElementById("run-search"),
+      sort: document.getElementById("run-sort"),
       list: document.getElementById("point-list"),
       reset: document.getElementById("reset-view"),
       modeTabs: [...document.querySelectorAll(".mode-tab")],
@@ -3069,7 +3099,7 @@
       techZoomReset: document.getElementById("tech-zoom-reset"),
       techTreeFullscreen: document.getElementById("tech-tree-fullscreen")
     };
-    const state = { rows: [], filtered: [], selectedIndex: -1 };
+    const state = { rows: [], filtered: [], selectedIndex: -1, sort: "run" };
     const TECH_TREE_LINKS = {
       pipeline: [
         { from: "node-realsense", to: "node-image-capture", status: "built" },
@@ -4584,6 +4614,13 @@
       drawSelection(row);
     }
 
+    function compareRows(first, second) {
+      const primaryDifference = state.sort === "error"
+        ? Number(first.error_distance_meters) - Number(second.error_distance_meters)
+        : Number(first.run_index) - Number(second.run_index);
+      return primaryDifference || Number(first.run_index) - Number(second.run_index) || first._index - second._index;
+    }
+
     function renderList() {
       dom.list.replaceChildren();
       if (!state.filtered.length) {
@@ -4631,7 +4668,9 @@
 
     function filterRows() {
       const query = dom.search.value.trim().toLowerCase();
-      state.filtered = state.rows.filter((row) => !query || [row.run_index, row.timestamp_utc, row.ground_truth_latitude, row.ground_truth_longitude, row.estimated_latitude, row.estimated_longitude].join(" ").toLowerCase().includes(query));
+      state.filtered = state.rows
+        .filter((row) => !query || [row.run_index, row.timestamp_utc, row.ground_truth_latitude, row.ground_truth_longitude, row.estimated_latitude, row.estimated_longitude].join(" ").toLowerCase().includes(query))
+        .sort(compareRows);
       renderList();
     }
 
@@ -4764,7 +4803,16 @@
       markerLayer = new THREE.Group();
       scene.add(markerLayer);
       const loader = new THREE.TextureLoader();
-      loader.load(EARTH_TEXTURE_URL, (texture) => { texture.colorSpace = THREE.SRGBColorSpace; material.map = texture; material.color.set(0xffffff); material.needsUpdate = true; });
+      const loadTextureWithFallback = (url, fallbackUrl, onLoad) => {
+        loader.load(url, onLoad, undefined, () => loader.load(fallbackUrl, onLoad));
+      };
+      loadTextureWithFallback(EARTH_TEXTURE_URL, EARTH_TEXTURE_FALLBACK_URL, (texture) => {
+        texture.colorSpace = THREE.SRGBColorSpace;
+        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        material.map = texture;
+        material.color.set(0xffffff);
+        material.needsUpdate = true;
+      });
       loader.load(EARTH_NORMAL_URL, (texture) => { material.normalMap = texture; material.normalScale.set(0.45, 0.45); material.needsUpdate = true; });
       const resize = () => {
         const width = dom.stage.clientWidth;
@@ -4803,12 +4851,11 @@
         }
         if (csvText === undefined) throw lastError || new Error("CSV request failed");
         state.rows = parseCsv(csvText);
-        state.filtered = state.rows;
         if (state.rows.length) {
           state.selectedIndex = state.rows[0]._index;
           updateSelection(state.rows[0]);
         }
-        renderList();
+        filterRows();
         renderSummary();
         setStatus(`${state.rows.length} fixes / ${fallback ? "2D preview" : "drag to orbit"}`);
       } catch (error) {
@@ -4832,6 +4879,10 @@
     else if (typeof systemTheme.addListener === "function") systemTheme.addListener(handleSystemThemeChange);
 
     dom.search.addEventListener("input", filterRows);
+    dom.sort.addEventListener("change", () => {
+      state.sort = dom.sort.value;
+      filterRows();
+    });
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
     });
