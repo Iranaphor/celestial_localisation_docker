@@ -688,6 +688,7 @@
 
     .summary-scatter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .summary-histogram-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
+    .summary-observation-error-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
     .summary-reasonable-grid,
     .summary-analysis-grid { margin-top: 12px; }
     .summary-analysis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -756,6 +757,24 @@
     .histogram-bar.category-far { background: var(--category-far); }
     .histogram-bar.category-outlier { background: var(--category-outlier); }
     .histogram-label { color: var(--faint); line-height: 1.25; }
+
+    .observation-error-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      overflow: visible;
+    }
+
+    .observation-error-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
+    .observation-error-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .observation-error-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
+    .observation-error-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .observation-error-point { stroke: var(--panel-raised); stroke-width: 1.5; opacity: 0.86; }
+    .observation-error-point.category-close { fill: var(--category-close); }
+    .observation-error-point.category-near { fill: var(--category-near); }
+    .observation-error-point.category-far { fill: var(--category-far); }
+    .observation-error-point.category-outlier { fill: var(--category-outlier); }
 
     .summary-footnote {
       max-width: 980px;
@@ -3033,6 +3052,15 @@
               <div class="histogram" id="error-histogram" role="img" aria-label="Independent error histogram"></div>
             </figure>
           </div>
+          <div class="summary-charts summary-observation-error-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Observations vs error</span><span class="chart-caption-meta" id="observation-error-total">-- points</span></figcaption>
+              <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 960 960" role="img" aria-labelledby="observation-error-title observation-error-description">
+                <title id="observation-error-title">Number of observations compared with localisation error</title>
+                <desc id="observation-error-description">Each point is one valid evaluation. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Points are colored by error distance.</desc>
+              </svg>
+            </figure>
+          </div>
           <div class="summary-charts summary-analysis-grid">
             <figure class="summary-chart">
               <figcaption><span>Percentile error distribution</span><span class="chart-caption-meta" id="percentile-total">-- runs</span></figcaption>
@@ -3461,6 +3489,8 @@
       reasonableLongitudePointCount: document.getElementById("reasonable-longitude-point-count"),
       errorHistogram: document.getElementById("error-histogram"),
       histogramTotal: document.getElementById("histogram-total"),
+      observationErrorChart: document.getElementById("observation-error-chart"),
+      observationErrorTotal: document.getElementById("observation-error-total"),
       percentileErrorChart: document.getElementById("percentile-error-chart"),
       percentileTotal: document.getElementById("percentile-total"),
       successRateChart: document.getElementById("success-rate-chart"),
@@ -4287,6 +4317,90 @@
       dom.histogramTotal.textContent = `${errorKilometers.length} runs`;
     }
 
+    function renderObservationErrorChart(rows) {
+      const chart = dom.observationErrorChart;
+      if (!chart) return;
+      chart.replaceChildren();
+      const title = createSvgElement("title", { id: "observation-error-title" });
+      title.textContent = "Number of observations compared with localisation error";
+      const description = createSvgElement("desc", { id: "observation-error-description" });
+      description.textContent = "Each point is one valid evaluation. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Points are colored by error distance. Zero-error points are pinned to the lower boundary because logarithmic axes cannot represent zero.";
+      chart.append(title, description);
+
+      const validRows = rows.filter((row) => (
+        Number.isFinite(Number(row.identified_objects_used))
+        && Number(row.identified_objects_used) >= 0
+        && Number.isFinite(Number(row.error_distance_meters))
+        && Number(row.error_distance_meters) >= 0
+      ));
+      dom.observationErrorTotal.textContent = validRows.length ? `${validRows.length} points` : "-- points";
+      if (!validRows.length) {
+        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 480, y: 480, "text-anchor": "middle" });
+        return;
+      }
+
+      const plot = { left: 96, right: 918, top: 54, bottom: 852 };
+      const observationValues = validRows.map((row) => Number(row.identified_objects_used));
+      const maximumObservations = Math.max(Math.ceil(Math.max(...observationValues, 0)), 1);
+      const rawObservationStep = maximumObservations / 5;
+      const observationMagnitude = 10 ** Math.floor(Math.log10(rawObservationStep || 1));
+      const observationRatio = rawObservationStep / observationMagnitude;
+      const observationStep = (observationRatio <= 1 ? 1 : observationRatio <= 2 ? 2 : observationRatio <= 5 ? 5 : 10) * observationMagnitude;
+      const observationTicks = [0];
+      for (let value = observationStep; value < maximumObservations; value += observationStep) observationTicks.push(value);
+      if (observationTicks[observationTicks.length - 1] !== maximumObservations) observationTicks.push(maximumObservations);
+
+      const errorKilometers = validRows.map((row) => Number(row.error_distance_meters) / 1000);
+      const positiveErrors = errorKilometers.filter((value) => value > 0);
+      const minimumPositiveError = Math.min(...positiveErrors, 1);
+      const minimumExponent = Math.floor(Math.log10(minimumPositiveError));
+      let maximumExponent = Math.ceil(Math.log10(Math.max(...errorKilometers, 1)));
+      if (maximumExponent <= minimumExponent) maximumExponent = minimumExponent + 1;
+      const minimumError = 10 ** minimumExponent;
+      const maximumError = 10 ** maximumExponent;
+      const scaleX = (value) => plot.left + (value / maximumObservations) * (plot.right - plot.left);
+      const scaleY = (value) => plot.bottom - ((Math.log10(Math.max(value, minimumError)) - minimumExponent) / (maximumExponent - minimumExponent)) * (plot.bottom - plot.top);
+      const formatObservationTick = (value) => value.toLocaleString("en-US", { maximumFractionDigits: 1 });
+      const formatLogAxisValue = (value) => value.toLocaleString("en-US", { maximumSignificantDigits: 3 });
+
+      chart.append(createSvgElement("rect", {
+        class: "observation-error-plot",
+        x: plot.left,
+        y: plot.top,
+        width: plot.right - plot.left,
+        height: plot.bottom - plot.top,
+        rx: 2
+      }));
+      observationTicks.forEach((value) => {
+        const x = scaleX(value);
+        chart.append(createSvgElement("line", { class: "observation-error-grid", x1: x, y1: plot.top, x2: x, y2: plot.bottom }));
+        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 878, "text-anchor": "middle" });
+      });
+      for (let exponent = minimumExponent; exponent <= maximumExponent; exponent += 1) {
+        const value = 10 ** exponent;
+        const y = scaleY(value);
+        chart.append(createSvgElement("line", { class: "observation-error-grid", x1: plot.left, y1: y, x2: plot.right, y2: y }));
+        appendSvgText(chart, formatLogAxisValue(value), { class: "observation-error-axis", x: plot.left - 12, y: y + 4, "text-anchor": "end" });
+      }
+
+      validRows.forEach((row) => {
+        const observations = Number(row.identified_objects_used);
+        const errorValue = Number(row.error_distance_meters) / 1000;
+        const point = createSvgElement("circle", {
+          class: `observation-error-point ${getErrorCategory(errorValue)}`,
+          cx: scaleX(observations).toFixed(2),
+          cy: scaleY(errorValue).toFixed(2),
+          r: row._index === state.selectedIndex ? 6 : validRows.length > 140 ? 3.5 : 5
+        });
+        const pointTitle = createSvgElement("title");
+        pointTitle.textContent = `Run ${row.run_index}: ${formatObservationTick(observations)} observations, error ${formatSummaryKilometers(errorValue)}`;
+        point.append(pointTitle);
+        chart.append(point);
+      });
+      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 507, y: 930, "text-anchor": "middle" });
+      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(22 453) rotate(-90)", "text-anchor": "middle" });
+    }
+
     function renderSummary() {
       const rows = state.rows;
       const summaryRows = rows.filter((row) => Number(row.identified_objects_used) > 0 && Number.isFinite(Number(row.error_distance_meters)));
@@ -4310,6 +4424,7 @@
         renderCoordinateChart(dom.reasonableLatitudePoints, [], "latitude", dom.reasonableLatitudePointCount, { residual: true });
         renderCoordinateChart(dom.reasonableLongitudePoints, [], "longitude", dom.reasonableLongitudePointCount, { residual: true });
         renderErrorHistogram([]);
+        renderObservationErrorChart([]);
         renderPercentileChart([]);
         renderSuccessRateChart([]);
         return;
@@ -4338,6 +4453,7 @@
       renderCoordinateChart(dom.reasonableLatitudePoints, reasonableRows, "latitude", dom.reasonableLatitudePointCount, { residual: true });
       renderCoordinateChart(dom.reasonableLongitudePoints, reasonableRows, "longitude", dom.reasonableLongitudePointCount, { residual: true });
       renderErrorHistogram(errorKilometers);
+      renderObservationErrorChart(summaryRows);
       renderPercentileChart(errorKilometers);
       renderSuccessRateChart(errorKilometers);
     }
