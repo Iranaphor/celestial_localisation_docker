@@ -688,7 +688,8 @@
 
     .summary-scatter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .summary-histogram-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
-    .summary-observation-error-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
+    .summary-observation-error-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
+    .summary-observation-error-grid .summary-chart { grid-column: 1; }
     .summary-reasonable-grid,
     .summary-analysis-grid { margin-top: 12px; }
     .summary-analysis-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -762,7 +763,7 @@
       display: block;
       width: 100%;
       height: auto;
-      aspect-ratio: 2 / 1;
+      aspect-ratio: 1 / 2;
       overflow: visible;
     }
 
@@ -770,7 +771,7 @@
     .observation-error-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
     .observation-error-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .observation-error-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
-    .observation-error-point { stroke: var(--panel-raised); stroke-width: 1.5; opacity: 0.86; }
+    .observation-error-point { stroke: var(--panel-raised); stroke-width: 0.75; opacity: 0.86; }
     .observation-error-point.category-close { fill: var(--category-close); }
     .observation-error-point.category-near { fill: var(--category-near); }
     .observation-error-point.category-far { fill: var(--category-far); }
@@ -3055,7 +3056,7 @@
           <div class="summary-charts summary-observation-error-grid">
             <figure class="summary-chart">
               <figcaption><span>Observations vs error</span><span class="chart-caption-meta" id="observation-error-total">-- points</span></figcaption>
-              <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 960 480" role="img" aria-labelledby="observation-error-title observation-error-description">
+              <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 480 960" role="img" aria-labelledby="observation-error-title observation-error-description">
                 <title id="observation-error-title">Number of observations compared with localisation error</title>
                 <desc id="observation-error-description">Each point is one valid evaluation. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Points are colored by error distance.</desc>
               </svg>
@@ -4335,11 +4336,11 @@
       ));
       dom.observationErrorTotal.textContent = validRows.length ? `${validRows.length} points` : "-- points";
       if (!validRows.length) {
-        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 480, y: 240, "text-anchor": "middle" });
+        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 240, y: 480, "text-anchor": "middle" });
         return;
       }
 
-      const plot = { left: 96, right: 918, top: 30, bottom: 390 };
+      const plot = { left: 72, right: 458, top: 54, bottom: 890 };
       const observationValues = validRows.map((row) => Number(row.identified_objects_used));
       const maximumObservations = Math.max(Math.ceil(Math.max(...observationValues, 0)), 1);
       const rawObservationStep = maximumObservations / 5;
@@ -4374,7 +4375,7 @@
       observationTicks.forEach((value) => {
         const x = scaleX(value);
         chart.append(createSvgElement("line", { class: "observation-error-grid", x1: x, y1: plot.top, x2: x, y2: plot.bottom }));
-        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 414, "text-anchor": "middle" });
+        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 914, "text-anchor": "middle" });
       });
       for (let exponent = minimumExponent; exponent <= maximumExponent; exponent += 1) {
         const value = 10 ** exponent;
@@ -4390,15 +4391,15 @@
           class: `observation-error-point ${getErrorCategory(errorValue)}`,
           cx: scaleX(observations).toFixed(2),
           cy: scaleY(errorValue).toFixed(2),
-          r: row._index === state.selectedIndex ? 6 : validRows.length > 140 ? 3.5 : 5
+          r: row._index === state.selectedIndex ? 3 : validRows.length > 140 ? 1.75 : 2.5
         });
         const pointTitle = createSvgElement("title");
         pointTitle.textContent = `Run ${row.run_index}: ${formatObservationTick(observations)} observations, error ${formatSummaryKilometers(errorValue)}`;
         point.append(pointTitle);
         chart.append(point);
       });
-      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 507, y: 468, "text-anchor": "middle" });
-      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(22 210) rotate(-90)", "text-anchor": "middle" });
+      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 265, y: 950, "text-anchor": "middle" });
+      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(20 472) rotate(-90)", "text-anchor": "middle" });
     }
 
     function renderSummary() {
