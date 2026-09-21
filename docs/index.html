@@ -762,7 +762,7 @@
       display: block;
       width: 100%;
       height: auto;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 2 / 1;
       overflow: visible;
     }
 
@@ -3055,7 +3055,7 @@
           <div class="summary-charts summary-observation-error-grid">
             <figure class="summary-chart">
               <figcaption><span>Observations vs error</span><span class="chart-caption-meta" id="observation-error-total">-- points</span></figcaption>
-              <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 960 960" role="img" aria-labelledby="observation-error-title observation-error-description">
+              <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 960 480" role="img" aria-labelledby="observation-error-title observation-error-description">
                 <title id="observation-error-title">Number of observations compared with localisation error</title>
                 <desc id="observation-error-description">Each point is one valid evaluation. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Points are colored by error distance.</desc>
               </svg>
@@ -4335,11 +4335,11 @@
       ));
       dom.observationErrorTotal.textContent = validRows.length ? `${validRows.length} points` : "-- points";
       if (!validRows.length) {
-        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 480, y: 480, "text-anchor": "middle" });
+        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 480, y: 240, "text-anchor": "middle" });
         return;
       }
 
-      const plot = { left: 96, right: 918, top: 54, bottom: 852 };
+      const plot = { left: 96, right: 918, top: 30, bottom: 390 };
       const observationValues = validRows.map((row) => Number(row.identified_objects_used));
       const maximumObservations = Math.max(Math.ceil(Math.max(...observationValues, 0)), 1);
       const rawObservationStep = maximumObservations / 5;
@@ -4374,7 +4374,7 @@
       observationTicks.forEach((value) => {
         const x = scaleX(value);
         chart.append(createSvgElement("line", { class: "observation-error-grid", x1: x, y1: plot.top, x2: x, y2: plot.bottom }));
-        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 878, "text-anchor": "middle" });
+        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 414, "text-anchor": "middle" });
       });
       for (let exponent = minimumExponent; exponent <= maximumExponent; exponent += 1) {
         const value = 10 ** exponent;
@@ -4397,8 +4397,8 @@
         point.append(pointTitle);
         chart.append(point);
       });
-      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 507, y: 930, "text-anchor": "middle" });
-      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(22 453) rotate(-90)", "text-anchor": "middle" });
+      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 507, y: 468, "text-anchor": "middle" });
+      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(22 210) rotate(-90)", "text-anchor": "middle" });
     }
 
     function renderSummary() {
