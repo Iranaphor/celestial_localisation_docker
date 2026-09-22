@@ -17,6 +17,7 @@ GMM_MAX_ITERATIONS = 100
 GMM_TOLERANCE = 1e-4
 GMM_REGULARIZATION = 0.02
 CLUSTER_COLORS = ("#94e3c4", "#e4d47b", "#ffb65c", "#76c9d9")
+CLUSTER_NAMES = ("lowerror", "mediumerror", "higherror", "lowsamples")
 SEEDS = (
     (25.0, 10.0, "low error"),
     (30.0, 100.0, "medium error"),
@@ -382,3 +383,12 @@ def classify_sample(model: GmmModel, observations: float, error_km: float) -> in
 
 def classify_live_observations(model: GmmModel, observations: float) -> int:
     return model.classify_observations(observations)
+
+
+def cluster_filename(cluster_id: int) -> str:
+    name = (
+        CLUSTER_NAMES[cluster_id - 1]
+        if 1 <= cluster_id <= len(CLUSTER_NAMES)
+        else f"cluster{cluster_id}"
+    )
+    return f"cluster{cluster_id}_{name}.png"

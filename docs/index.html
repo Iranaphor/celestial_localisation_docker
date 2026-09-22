@@ -550,6 +550,39 @@
       text-transform: uppercase;
     }
 
+    .summary-record-toggle {
+      display: inline-flex;
+      margin-bottom: 10px;
+      padding: 2px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: var(--control-background);
+    }
+
+    .summary-record-toggle button {
+      padding: 6px 9px;
+      border: 0;
+      border-radius: 2px;
+      background: transparent;
+      color: var(--faint);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.56rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .summary-record-toggle button:hover,
+    .summary-record-toggle button:focus-visible {
+      color: var(--ground);
+      outline: none;
+    }
+
+    .summary-record-toggle button[aria-pressed="true"] {
+      background: var(--selection-background);
+      color: var(--ground);
+    }
+
     .summary-stat-grid {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -3041,12 +3074,18 @@
             <span><b style="color: var(--visual-ground)">&#9679;</b> ground truth</span>
             <span><b style="color: var(--estimate)">&#9679;</b> estimated fix</span>
           </div>
-          <div class="view-heading-meta" id="summary-run-meta">Current dataset<br>waiting for metrics</div>
+          <div>
+            <div class="summary-record-toggle" role="group" aria-label="Evaluation record view">
+              <button type="button" data-record-view="summary" aria-pressed="true">Summaries</button>
+              <button type="button" data-record-view="step" aria-pressed="false">Steps</button>
+            </div>
+            <div class="view-heading-meta" id="summary-run-meta">Current dataset<br>waiting for metrics</div>
+          </div>
         </div>
 
         <div class="summary-stat-grid" aria-label="Summary statistics">
           <article class="summary-stat-card">
-            <span class="metric-label">Runs</span>
+            <span class="metric-label" id="summary-record-label">Summaries</span>
             <strong class="summary-stat-value" id="summary-runs">--</strong>
             <small>nonzero-object evaluations</small>
           </article>
@@ -3555,7 +3594,7 @@
       <section class="selection" aria-live="polite">
         <div class="selection-top">
           <span class="section-label" style="margin: 0">Selected fix</span>
-          <span class="selection-run">Run <strong id="selected-run">--</strong></span>
+          <span class="selection-run"><strong id="selected-record-tag">Summary</strong> <strong id="selected-run">--</strong></span>
         </div>
         <div class="error-display"><span class="error-value" id="selected-error">--</span><span class="error-unit">km error</span></div>
         <div class="coordinates">
@@ -3572,7 +3611,7 @@
 
       <div class="list-heading">
         <div class="list-heading-top">
-          <p class="section-label">All runs</p>
+          <p class="section-label" id="record-list-label">Summaries</p>
           <select class="run-sort" id="run-sort" aria-label="Sort GPS runs" title="Sort GPS runs">
             <option value="run">Run ID</option>
             <option value="error">Error</option>
@@ -3611,6 +3650,7 @@
       themeColor: document.getElementById("theme-color"),
       stage: document.getElementById("globe-stage"),
       status: document.getElementById("visual-status"),
+      selectedRecordTag: document.getElementById("selected-record-tag"),
       selectedRun: document.getElementById("selected-run"),
       selectedError: document.getElementById("selected-error"),
       ground: document.getElementById("ground-coordinates"),
@@ -3619,11 +3659,13 @@
       time: document.getElementById("selected-time"),
       search: document.getElementById("run-search"),
       sort: document.getElementById("run-sort"),
+      recordListLabel: document.getElementById("record-list-label"),
       list: document.getElementById("point-list"),
       reset: document.getElementById("reset-view"),
       modeTabs: [...document.querySelectorAll(".mode-tab")],
       summaryView: document.getElementById("summary-view"),
       summaryRuns: document.getElementById("summary-runs"),
+      summaryRecordLabel: document.getElementById("summary-record-label"),
       summaryMeanError: document.getElementById("summary-mean-error"),
       summaryMedianError: document.getElementById("summary-median-error"),
       summaryWithinTen: document.getElementById("summary-within-ten"),
@@ -3680,9 +3722,10 @@
       techZoomIn: document.getElementById("tech-zoom-in"),
       techZoomOut: document.getElementById("tech-zoom-out"),
       techZoomReset: document.getElementById("tech-zoom-reset"),
-      techTreeFullscreen: document.getElementById("tech-tree-fullscreen")
+      techTreeFullscreen: document.getElementById("tech-tree-fullscreen"),
+      recordViewButtons: [...document.querySelectorAll("[data-record-view]")]
     };
-    const state = { rows: [], filtered: [], selectedIndex: -1, sort: "run" };
+    const state = { rows: [], filtered: [], selectedIndex: -1, sort: "run", recordView: "summary" };
     let summaryResizeFrame = 0;
     const POINT_LIST_ROW_HEIGHT = 60;
     const POINT_LIST_OVERSCAN = 8;
@@ -4057,7 +4100,9 @@
       "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
       "estimated_longitude", "identified_objects_used", "latitude_error_degrees",
       "longitude_error_degrees", "latitude_error_meters", "longitude_error_meters",
-      "error_distance_meters", "cumulative_mean_error_meters", "cluster_id"
+      "error_distance_meters", "cumulative_mean_error_meters", "cluster_id",
+      "sample_index", "repetition_index", "request_yaw_degrees", "estimated_heading_degrees",
+      "inlier_count", "outlier_count"
     ]);
     const DEFAULT_GMM_CLUSTER_COLORS = {
       1: "#94e3c4",
@@ -4165,6 +4210,33 @@
         });
         return row;
       }).filter((row) => Number.isFinite(row.run_index) && Number.isFinite(row.error_distance_meters));
+    }
+
+    function getRecordType(row) {
+      return String(row?.record_type || "").trim().toLowerCase() === "step" ? "step" : "summary";
+    }
+
+    function getRecordViewRows(rows = state.rows) {
+      return rows.filter((row) => getRecordType(row) === state.recordView);
+    }
+
+    function getRecordViewLabel() {
+      return state.recordView === "step" ? "steps" : "summaries";
+    }
+
+    function getRecordLabel(row) {
+      const sampleId = row.sample_id || `sample-${String(row.run_index).padStart(6, "0")}`;
+      if (getRecordType(row) === "step") {
+        const repetition = Number.isFinite(Number(row.repetition_index))
+          ? String(row.repetition_index).padStart(2, "0")
+          : "--";
+        return `STEP ${sampleId} / ${repetition}`;
+      }
+      return `SUMMARY ${sampleId}`;
+    }
+
+    function isOutlierRow(row) {
+      return row?.is_outlier === true || String(row?.is_outlier).toLowerCase() === "true";
     }
 
     function parseIdentifiedStarIds(value) {
@@ -5390,7 +5462,8 @@
     }
 
     function renderSummary() {
-      const rows = state.rows;
+      const rows = getRecordViewRows();
+      const recordViewLabel = getRecordViewLabel();
       renderClusterLegend(rows);
       const summaryRows = rows.filter((row) => Number(row.identified_objects_used) > 0 && Number.isFinite(Number(row.error_distance_meters)));
       const errorKilometers = summaryRows.map((row) => Number(row.error_distance_meters) / 1000);
@@ -5401,13 +5474,16 @@
         dom.summaryMedianError.textContent = "--";
         dom.summaryWithinTen.textContent = "--";
         dom.summaryObjects.textContent = "--";
+        dom.summaryRecordLabel.textContent = recordViewLabel[0].toUpperCase() + recordViewLabel.slice(1);
         dom.summaryRunMeta.textContent = "Current dataset / waiting for metrics";
         dom.latitudePointCount.textContent = "-- points";
         dom.longitudePointCount.textContent = "-- points";
         dom.reasonableLatitudePointCount.textContent = "-- points";
         dom.reasonableLongitudePointCount.textContent = "-- points";
         dom.histogramTotal.textContent = "-- runs";
-        dom.summaryFootnote.textContent = rows.length ? "No runs with identified objects are available for summary metrics." : "Metrics will appear when the CSV is available.";
+        dom.summaryFootnote.textContent = rows.length
+          ? `No ${recordViewLabel} with identified objects are available for summary metrics.`
+          : "Metrics will appear when the CSV is available.";
         renderCoordinateChart(dom.latitudePoints, [], "latitude", dom.latitudePointCount);
         renderCoordinateChart(dom.longitudePoints, [], "longitude", dom.longitudePointCount);
         renderCoordinateChart(dom.reasonableLatitudePoints, [], "latitude", dom.reasonableLatitudePointCount, { residual: true });
@@ -5436,8 +5512,9 @@
       dom.summaryMedianError.textContent = formatSummaryKilometers(medianError);
       dom.summaryWithinTen.textContent = `${((withinTen / errorKilometers.length) * 100).toFixed(0)}%`;
       dom.summaryObjects.textContent = meanObjects.toFixed(1);
-      dom.summaryRunMeta.textContent = `${summaryRows.length.toLocaleString("en-US")} valid runs / metrics CSV`;
-      dom.summaryFootnote.textContent = `${withinTen} of ${summaryRows.length} valid fixes are within 10 km. ${rows.length - summaryRows.length} zero-object runs excluded from all summary metrics and graphs.`;
+      dom.summaryRecordLabel.textContent = recordViewLabel[0].toUpperCase() + recordViewLabel.slice(1);
+      dom.summaryRunMeta.textContent = `${summaryRows.length.toLocaleString("en-US")} valid ${recordViewLabel} / metrics CSV`;
+      dom.summaryFootnote.textContent = `${withinTen} of ${summaryRows.length} valid fixes are within 10 km. ${rows.length - summaryRows.length} zero-object ${recordViewLabel} excluded from all summary metrics and graphs.`;
       renderCoordinateChart(dom.latitudePoints, summaryRows, "latitude", dom.latitudePointCount);
       renderCoordinateChart(dom.longitudePoints, summaryRows, "longitude", dom.longitudePointCount);
       renderCoordinateChart(dom.reasonableLatitudePoints, reasonableRows, "latitude", dom.reasonableLatitudePointCount, { residual: true });
@@ -6542,7 +6619,10 @@
 
     function updateSelection(row) {
       if (!row) return;
-      dom.selectedRun.textContent = row.run_index;
+      dom.selectedRecordTag.textContent = getRecordType(row) === "step"
+        ? `Step ${row.repetition_index || "--"}`
+        : "Summary";
+      dom.selectedRun.textContent = row.sample_id || row.run_index;
       dom.selectedError.textContent = formatKilometers(row.error_distance_meters);
       dom.ground.textContent = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
       dom.estimated.textContent = formatPair(row.estimated_latitude, row.estimated_longitude);
@@ -6560,7 +6640,10 @@
       const primaryDifference = state.sort === "error"
         ? Number(first.error_distance_meters) - Number(second.error_distance_meters)
         : Number(first.run_index) - Number(second.run_index);
-      return primaryDifference || Number(first.run_index) - Number(second.run_index) || first._index - second._index;
+      return primaryDifference
+        || Number(first.sample_index || 0) - Number(second.sample_index || 0)
+        || Number(first.repetition_index || 0) - Number(second.repetition_index || 0)
+        || first._index - second._index;
     }
 
     function renderList() {
@@ -6569,7 +6652,9 @@
       if (!state.filtered.length) {
         const empty = document.createElement("div");
         empty.className = "empty";
-        empty.textContent = state.rows.length ? "No runs match this filter." : "No valid GPS metrics found.";
+        empty.textContent = state.rows.length
+          ? `No ${getRecordViewLabel()} match this filter.`
+          : "No valid GPS metrics found.";
         dom.list.append(empty);
         return;
       }
@@ -6600,7 +6685,7 @@
         top.className = "run-top";
         const run = document.createElement("span");
         run.className = "run-number";
-        run.textContent = `RUN ${String(row.run_index).padStart(3, "0")}`;
+        run.textContent = getRecordLabel(row);
         const error = document.createElement("span");
         error.className = "run-error";
         error.textContent = `${formatKilometers(row.error_distance_meters)} km`;
@@ -6614,6 +6699,11 @@
         cluster.className = `run-cluster ${getClusterClass(row)}`.trim();
         cluster.style.setProperty("--cluster-color", getClusterColor(row) || "var(--faint)");
         cluster.textContent = clusterId ? getClusterName(clusterId) : "unclassified";
+        if (getRecordType(row) === "step") {
+          const outlier = document.createElement("span");
+          outlier.textContent = isOutlierRow(row) ? "outlier" : "inlier";
+          meta.append(outlier);
+        }
         const coords = document.createElement("span");
         coords.textContent = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
         meta.append(objects, cluster, coords);
@@ -6637,8 +6727,19 @@
 
     function filterRows() {
       const query = dom.search.value.trim().toLowerCase();
-      state.filtered = state.rows
-        .filter((row) => !query || [row.run_index, row.timestamp_utc, row.ground_truth_latitude, row.ground_truth_longitude, row.estimated_latitude, row.estimated_longitude].join(" ").toLowerCase().includes(query))
+      dom.recordListLabel.textContent = getRecordViewLabel()[0].toUpperCase() + getRecordViewLabel().slice(1);
+      state.filtered = getRecordViewRows()
+        .filter((row) => !query || [
+          row.run_index,
+          row.sample_id,
+          row.repetition_index,
+          row.record_type,
+          row.timestamp_utc,
+          row.ground_truth_latitude,
+          row.ground_truth_longitude,
+          row.estimated_latitude,
+          row.estimated_longitude
+        ].join(" ").toLowerCase().includes(query))
         .sort(compareRows);
       dom.list.scrollTop = 0;
       renderList();
@@ -6835,13 +6936,14 @@
         if (!response.ok) throw new Error(`CSV request failed with ${response.status}: ${CSV_URL}`);
         const csvText = await response.text();
         state.rows = parseCsv(csvText);
-        if (state.rows.length) {
-          state.selectedIndex = state.rows[0]._index;
-          updateSelection(state.rows[0]);
+        const initialRows = getRecordViewRows();
+        if (initialRows.length) {
+          state.selectedIndex = initialRows[0]._index;
+          updateSelection(initialRows[0]);
         }
         filterRows();
         renderSummary();
-        setStatus(`${state.rows.length} fixes / ${fallback ? "2D preview" : "drag to orbit"}`);
+        setStatus(`${getRecordViewRows().length} ${getRecordViewLabel()} / ${fallback ? "2D preview" : "drag to orbit"}`);
       } catch (error) {
         state.rows = [];
         state.filtered = [];
@@ -6866,6 +6968,23 @@
     dom.sort.addEventListener("change", () => {
       state.sort = dom.sort.value;
       filterRows();
+    });
+    dom.recordViewButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        state.recordView = button.dataset.recordView === "step" ? "step" : "summary";
+        dom.recordViewButtons.forEach((candidate) => {
+          candidate.setAttribute("aria-pressed", String(candidate === button));
+        });
+        const visibleRows = getRecordViewRows();
+        if (!visibleRows.some((row) => row._index === state.selectedIndex)) {
+          const nextRow = visibleRows[0];
+          state.selectedIndex = nextRow?._index ?? -1;
+          if (nextRow) updateSelection(nextRow);
+        }
+        filterRows();
+        renderSummary();
+        setStatus(`${visibleRows.length} ${getRecordViewLabel()} / ${fallback ? "2D preview" : "drag to orbit"}`);
+      });
     });
     dom.list.addEventListener("scroll", schedulePointListRender, { passive: true });
     dom.modeTabs.forEach((tab) => {

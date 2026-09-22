@@ -17,7 +17,11 @@ from celestial_detector.sun_detector import detect_sun
 from celestial_detector.moon_detector import detect_moon
 from celestial_detector.point_source_classification import detections_overlap
 from celestial_detector.transient_detector import classify_point_sources
-from celestial_detector.gmm_classifier import classify_live_observations, load_gmm_boundaries
+from celestial_detector.gmm_classifier import (
+    classify_live_observations,
+    cluster_filename,
+    load_gmm_boundaries,
+)
 
 _MARKER_COLOR_BGR = {
     'SUN': (0, 215, 255),
@@ -256,9 +260,14 @@ class CelestialDetectorNode(Node):
             if not cv2.imwrite(str(image_path), annotated):
                 raise OSError(f"failed to write {image_path}")
             if provisional_cluster_id is not None:
-                cluster_image_path = self.debug_dir / f"cluster{provisional_cluster_id}.png"
+                cluster_image_path = self.debug_dir / cluster_filename(provisional_cluster_id)
                 if not cv2.imwrite(str(cluster_image_path), annotated):
                     raise OSError(f"failed to write {cluster_image_path}")
+                legacy_cluster_path = self.debug_dir / f"cluster{provisional_cluster_id}.png"
+                try:
+                    legacy_cluster_path.unlink()
+                except FileNotFoundError:
+                    pass
 
             observations_payload = [
                 {

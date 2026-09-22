@@ -113,7 +113,8 @@ The `random_localisation_evaluator` node is launched with the pipeline but
 does no work until its service is called. It samples positions uniformly over
 the Earth's surface, perturbs each sample for the requested repetitions, calls
 the simulator for each repetition, averages the inlier poses, and appends one
-result per sample to `debug_output/random_localisation_metrics.csv`:
+tagged result for every repetition plus one tagged summary per sample to
+`debug_output/random_localisation_metrics.csv`:
 
 ```bash
 ros2 service call /test/run_random_evaluation \
@@ -130,8 +131,12 @@ The CSV includes ground-truth and estimated latitude/longitude, the number of
 identified objects used by the solver, the JSON-encoded list of identified
 catalogue star IDs for each sample, signed latitude/longitude errors in degrees
 and metres, haversine error distance in metres, and the cumulative mean error.
-A second evaluation appends more rows to the same CSV. The service response is
-returned only after all requested samples and repetitions finish or one request
-fails. The summary page uses the star list to compare each star's mean error
-when present with its mean error when absent; positive benefit scores indicate
-lower error when that star is present.
+A second evaluation appends more rows to the same CSV. Each group shares a
+`sample_id`; `record_type` is `step` for an individual repetition and `summary`
+for the inlier average, while `repetition_index` and `is_outlier` tag the
+individual steps. The Summary view has a small `Summaries` / `Steps` toggle for
+switching between those records. The service response is returned only after
+all requested samples and repetitions finish or one request fails. The summary
+page uses the star list to compare each star's mean error when present with its
+mean error when absent; positive benefit scores indicate lower error when that
+star is present.

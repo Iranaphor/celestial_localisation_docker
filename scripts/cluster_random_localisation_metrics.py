@@ -45,7 +45,7 @@ SEED_REFERENCE_COLORS = ("#e4d47b", "#ffb65c", "#ff7164", "#76c9d9")
 
 
 def load_points(csv_path: Path) -> list[dict[str, float | int]]:
-    """Load valid runs and convert error distance from metres to kilometres."""
+    """Load valid sample summaries and convert error distance to kilometres."""
     points: list[dict[str, float | int]] = []
     with csv_path.open(newline="", encoding="utf-8") as csv_file:
         reader = csv.DictReader(csv_file)
@@ -55,6 +55,9 @@ def load_points(csv_path: Path) -> list[dict[str, float | int]]:
             raise ValueError(f"CSV is missing required column(s): {missing}")
 
         for row_number, row in enumerate(reader, start=2):
+            record_type = (row.get("record_type") or "").strip().lower()
+            if record_type and record_type != "summary":
+                continue
             try:
                 observations = float(row["identified_objects_used"])
                 error_km = float(row["error_distance_meters"]) / 1000.0

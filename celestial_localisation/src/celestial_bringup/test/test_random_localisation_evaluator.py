@@ -83,6 +83,7 @@ def test_average_pose_estimates_excludes_spatial_outlier():
 
     assert averaged['inlier_count'] == 3
     assert averaged['outlier_count'] == 1
+    assert averaged['inlier_indices'] == [0, 1, 2]
     assert abs(averaged['latitude'] - 35.0) < 1e-5
     assert abs(averaged['longitude'] + 120.0) < 1e-5
     assert averaged['identified_objects_used'] == 4

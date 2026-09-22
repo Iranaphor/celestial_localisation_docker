@@ -121,8 +121,7 @@ commercially licensed.
 The `random_localisation_evaluator` node is also started with the pipeline. It
 waits idle until `/test/run_random_evaluation` is called, then performs the
 requested sample and repetition simulations, averages the inlier estimates,
-and appends the ground-truth coordinates, estimated coordinates,
-identified-object counts, identified catalogue star lists, and error metrics to
+and appends every repetition plus one sample summary to
 `debug_output/random_localisation_metrics.csv`:
 
 ```bash
@@ -130,6 +129,11 @@ ros2 service call /test/run_random_evaluation \
   celestial_interfaces/srv/RunRandomEvaluation \
   "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"
 ```
+
+Rows are tagged with `record_type` (`step` or `summary`) and share a
+`sample_id`; `repetition_index` identifies each step and `is_outlier` records
+which steps were excluded from the summary average. The explorer's Summary
+view can switch between sample summaries and individual steps.
 
 ## Source layout
 
@@ -169,8 +173,10 @@ python3 scripts/compare_localisation_clustering.py
 
 This writes `gmm_boundaries.json` to the configured debug output, backfills
 `cluster_id` in the metrics CSV, and updates the GMM PNG under `docs`. During
-evaluation, the detector and evaluator use that model to
-write the live observation classification and the definitive `clusterN.png`
-sample image. The HTML summary uses the persisted cluster ids and colors.
+evaluation, the detector and evaluator use that model to write the live
+observation classification and definitive named sample images such as
+`cluster1_lowerror.png`. Definitive images include the error and ground-truth
+and estimated latitude/longitude in the lower-left corner. The HTML summary
+uses the persisted cluster ids and colors.
 
 See [Future directions](docs/future-directions.md) for planned developments.

@@ -4,13 +4,13 @@ import json
 import math
 import os
 import random
-import shutil
 import tempfile
 import threading
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+import cv2
 from builtin_interfaces.msg import Time as RosTime
 import rclpy
 from rclpy.callback_groups import ReentrantCallbackGroup
@@ -18,21 +18,35 @@ from rclpy.executors import MultiThreadedExecutor
 from rclpy.node import Node
 
 from celestial_interfaces.srv import LoadGps, RunRandomEvaluation
-from celestial_detector.gmm_classifier import classify_sample, load_gmm_boundaries
+from celestial_detector.gmm_classifier import (
+    classify_sample,
+    cluster_filename,
+    load_gmm_boundaries,
+)
 
 
 EARTH_RADIUS_METERS = 6_371_000.0
 NANOSECONDS_PER_SECOND = 1_000_000_000
 CSV_FIELDS = (
     'run_index',
+    'record_type',
+    'sample_id',
+    'sample_index',
+    'repetition_index',
+    'is_outlier',
     'timestamp_utc',
+    'request_timestamp_utc',
+    'request_yaw_degrees',
     'ground_truth_latitude',
     'ground_truth_longitude',
     'estimated_latitude',
     'estimated_longitude',
+    'estimated_heading_degrees',
     'identified_objects_used',
     'identified_star_ids',
     'cluster_id',
+    'inlier_count',
+    'outlier_count',
     'latitude_error_degrees',
     'longitude_error_degrees',
     'latitude_error_meters',
@@ -184,6 +198,7 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
         'identified_star_ids': identified_star_ids,
         'inlier_count': len(inlier_indices),
         'outlier_count': len(estimates) - len(inlier_indices),
+        'inlier_indices': inlier_indices,
         'sky_map_ready': estimates[representative_index]['sky_map_ready'],
     }
 
@@ -308,6 +323,9 @@ class RandomLocalisationEvaluator(Node):
         try:
             with self.metrics_path.open(newline='', encoding='utf-8') as stream:
                 for row in csv.DictReader(stream):
+                    record_type = (row.get('record_type') or '').strip().lower()
+                    if record_type and record_type != 'summary':
+                        continue
                     total_error_meters += float(row['error_distance_meters'])
                     run_count += 1
         except (OSError, KeyError, TypeError, ValueError) as error:
@@ -361,6 +379,8 @@ class RandomLocalisationEvaluator(Node):
             batch_total_error_meters = 0.0
             for sample_index in range(1, samples + 1):
                 ground_truth_latitude, ground_truth_longitude = random_surface_location(self._random_source)
+                run_index = self._metrics_run_count + 1
+                sample_id = f'sample-{run_index:06d}'
                 sample_timestamp = self._next_timestamp()
                 estimates = []
                 for repetition_index in range(1, reps + 1):
@@ -441,6 +461,10 @@ class RandomLocalisationEvaluator(Node):
                         'identified_objects_used': identified_objects_used,
                         'identified_star_ids': identified_star_ids,
                         'sky_map_ready': sky_map_ready,
+                        'ground_truth_latitude': varied_latitude,
+                        'ground_truth_longitude': varied_longitude,
+                        'timestamp': timestamp,
+                        'yaw': yaw,
                     })
 
                 averaged_estimate = average_pose_estimates(
@@ -448,6 +472,35 @@ class RandomLocalisationEvaluator(Node):
                     ground_truth_latitude,
                     ground_truth_longitude,
                 )
+                inlier_indices = set(averaged_estimate['inlier_indices'])
+                for repetition_index, estimate in enumerate(estimates, start=1):
+                    repetition_metrics = calculate_error_metrics(
+                        estimate['ground_truth_latitude'],
+                        estimate['ground_truth_longitude'],
+                        estimate['latitude'],
+                        estimate['longitude'],
+                    )
+                    self._append_metrics(
+                        run_index,
+                        estimate['ground_truth_latitude'],
+                        estimate['ground_truth_longitude'],
+                        estimate['latitude'],
+                        estimate['longitude'],
+                        estimate['identified_objects_used'],
+                        estimate['identified_star_ids'],
+                        repetition_metrics,
+                        '',
+                        record_type='step',
+                        sample_id=sample_id,
+                        sample_index=sample_index,
+                        repetition_index=repetition_index,
+                        is_outlier=repetition_index - 1 not in inlier_indices,
+                        request_timestamp_utc=self._timestamp_to_utc(estimate['timestamp']),
+                        request_yaw_degrees=estimate['yaw'],
+                        estimated_heading_degrees=estimate['heading'],
+                        inlier_count=averaged_estimate['inlier_count'],
+                        outlier_count=averaged_estimate['outlier_count'],
+                    )
                 metrics = calculate_error_metrics(
                     ground_truth_latitude,
                     ground_truth_longitude,
@@ -455,7 +508,6 @@ class RandomLocalisationEvaluator(Node):
                     averaged_estimate['longitude'],
                 )
                 batch_total_error_meters += metrics['error_distance_meters']
-                run_index = self._metrics_run_count + 1
                 self._total_error_meters += metrics['error_distance_meters']
                 cluster_id = self._append_metrics(
                     run_index,
@@ -467,8 +519,23 @@ class RandomLocalisationEvaluator(Node):
                     averaged_estimate['identified_star_ids'],
                     metrics,
                     self._total_error_meters / run_index,
+                    record_type='summary',
+                    sample_id=sample_id,
+                    sample_index=sample_index,
+                    is_outlier='',
+                    estimated_heading_degrees=averaged_estimate['heading'],
+                    inlier_count=averaged_estimate['inlier_count'],
+                    outlier_count=averaged_estimate['outlier_count'],
                 )
-                self._save_cluster_image(cluster_id, averaged_estimate['sky_map_ready'])
+                self._save_cluster_image(
+                    cluster_id,
+                    averaged_estimate['sky_map_ready'],
+                    ground_truth_latitude,
+                    ground_truth_longitude,
+                    averaged_estimate['latitude'],
+                    averaged_estimate['longitude'],
+                    metrics['error_distance_meters'],
+                )
                 self._metrics_run_count = run_index
                 response.completed_runs = sample_index
                 self.get_logger().info(
@@ -525,6 +592,11 @@ class RandomLocalisationEvaluator(Node):
         self._used_timestamp_ns.add(timestamp_ns)
         self._last_timestamp_ns = max(self._last_timestamp_ns, timestamp_ns)
         return _timestamp_from_nanoseconds(timestamp_ns)
+
+    @staticmethod
+    def _timestamp_to_utc(timestamp):
+        timestamp_seconds = timestamp.sec + timestamp.nanosec / NANOSECONDS_PER_SECOND
+        return datetime.fromtimestamp(timestamp_seconds, timezone.utc).isoformat().replace('+00:00', 'Z')
 
     def _wait_for_pose(self, expected_timestamp, timeout_seconds):
         deadline = time.monotonic() + timeout_seconds
@@ -646,6 +718,17 @@ class RandomLocalisationEvaluator(Node):
         identified_star_ids,
         metrics,
         cumulative_mean_error_meters,
+        *,
+        record_type='summary',
+        sample_id='',
+        sample_index='',
+        repetition_index='',
+        is_outlier='',
+        request_timestamp_utc='',
+        request_yaw_degrees='',
+        estimated_heading_degrees='',
+        inlier_count='',
+        outlier_count='',
     ):
         self._ensure_metrics_schema()
         file_exists = self.metrics_path.exists() and self.metrics_path.stat().st_size > 0
@@ -659,14 +742,24 @@ class RandomLocalisationEvaluator(Node):
             )
         row = {
             'run_index': run_index,
+            'record_type': record_type,
+            'sample_id': sample_id,
+            'sample_index': sample_index,
+            'repetition_index': repetition_index,
+            'is_outlier': is_outlier,
             'timestamp_utc': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+            'request_timestamp_utc': request_timestamp_utc,
+            'request_yaw_degrees': request_yaw_degrees,
             'ground_truth_latitude': ground_truth_latitude,
             'ground_truth_longitude': ground_truth_longitude,
             'estimated_latitude': estimated_latitude,
             'estimated_longitude': estimated_longitude,
+            'estimated_heading_degrees': estimated_heading_degrees,
             'identified_objects_used': identified_objects_used,
             'identified_star_ids': json.dumps(identified_star_ids, separators=(',', ':')),
             'cluster_id': cluster_id if cluster_id is not None else '',
+            'inlier_count': inlier_count,
+            'outlier_count': outlier_count,
             'latitude_error_degrees': metrics['latitude_error_degrees'],
             'longitude_error_degrees': metrics['longitude_error_degrees'],
             'latitude_error_meters': metrics['latitude_error_meters'],
@@ -683,7 +776,16 @@ class RandomLocalisationEvaluator(Node):
             os.fsync(stream.fileno())
         return cluster_id
 
-    def _save_cluster_image(self, cluster_id, sky_map_ready):
+    def _save_cluster_image(
+        self,
+        cluster_id,
+        sky_map_ready,
+        ground_truth_latitude,
+        ground_truth_longitude,
+        estimated_latitude,
+        estimated_longitude,
+        error_distance_meters,
+    ):
         if cluster_id is None or not sky_map_ready or self.sky_map_path is None:
             return
         if not self.sky_map_path.exists():
@@ -692,22 +794,68 @@ class RandomLocalisationEvaluator(Node):
             )
             return
 
-        cluster_path = self.debug_dir / f'cluster{cluster_id}.png'
+        image = cv2.imread(str(self.sky_map_path), cv2.IMREAD_COLOR)
+        if image is None:
+            self.get_logger().warning(
+                f'cannot annotate cluster {cluster_id} image; '
+                f'{self.sky_map_path} could not be read'
+            )
+            return
+
+        self._annotate_cluster_image(
+            image,
+            ground_truth_latitude,
+            ground_truth_longitude,
+            estimated_latitude,
+            estimated_longitude,
+            error_distance_meters,
+        )
+        cluster_path = self.debug_dir / cluster_filename(cluster_id)
         temporary_fd, temporary_name = tempfile.mkstemp(
-            prefix=f'.cluster{cluster_id}.',
+            prefix=f'.{cluster_path.stem}.',
             suffix='.png',
             dir=self.debug_dir,
         )
         os.close(temporary_fd)
         try:
-            shutil.copy2(self.sky_map_path, temporary_name)
+            if not cv2.imwrite(temporary_name, image):
+                raise OSError(f'failed to write {temporary_name}')
             os.replace(temporary_name, cluster_path)
+            legacy_cluster_path = self.debug_dir / f'cluster{cluster_id}.png'
+            try:
+                legacy_cluster_path.unlink()
+            except FileNotFoundError:
+                pass
         finally:
             try:
                 os.unlink(temporary_name)
             except FileNotFoundError:
                 pass
         self.get_logger().info(f'saved classified sample to {cluster_path}')
+
+    @staticmethod
+    def _annotate_cluster_image(
+        image,
+        ground_truth_latitude,
+        ground_truth_longitude,
+        estimated_latitude,
+        estimated_longitude,
+        error_distance_meters,
+    ):
+        lines = (
+            f'ERROR: {error_distance_meters:,.2f} m',
+            f'GROUND TRUTH LATLON: {ground_truth_latitude:.6f}, {ground_truth_longitude:.6f}',
+            f'EST LATLON: {estimated_latitude:.6f}, {estimated_longitude:.6f}',
+        )
+        height = image.shape[0]
+        baseline = height - 24
+        line_height = 32
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        for line in reversed(lines):
+            position = (24, baseline)
+            cv2.putText(image, line, position, font, 0.8, (0, 0, 0), 5, cv2.LINE_AA)
+            cv2.putText(image, line, position, font, 0.8, (0, 0, 255), 2, cv2.LINE_AA)
+            baseline -= line_height
 
     def _ensure_metrics_schema(self):
         if not self.metrics_path.exists() or self.metrics_path.stat().st_size == 0:

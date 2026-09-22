@@ -1,6 +1,11 @@
 import json
 
-from celestial_detector.gmm_classifier import fit_gmm, load_gmm_boundaries, save_gmm_boundaries
+from celestial_detector.gmm_classifier import (
+    cluster_filename,
+    fit_gmm,
+    load_gmm_boundaries,
+    save_gmm_boundaries,
+)
 
 
 def _samples():
@@ -43,3 +48,8 @@ def test_live_observation_classification_returns_a_seeded_cluster():
     cluster_id = model.classify_observations(25.0)
 
     assert cluster_id in {1, 2, 3, 4}
+
+
+def test_cluster_filename_includes_the_cluster_name():
+    assert cluster_filename(1) == 'cluster1_lowerror.png'
+    assert cluster_filename(4) == 'cluster4_lowsamples.png'
