@@ -269,6 +269,26 @@
 
     .app-shell.is-full-view > .panel { display: none; }
 
+    body.is-summary-view { overflow: auto; }
+
+    .app-shell.is-summary-view {
+      height: auto;
+      min-height: 100svh;
+    }
+
+    .app-shell.is-summary-view > .visual {
+      height: auto;
+      min-height: 100svh;
+      overflow: visible;
+    }
+
+    .app-shell.is-summary-view > .visual #summary-view {
+      position: relative;
+      inset: auto;
+      min-height: 100svh;
+      overflow: visible;
+    }
+
     .visual {
       position: relative;
       min-width: 0;
@@ -3148,16 +3168,6 @@
             </figure>
           </div>
 
-          <div class="summary-charts summary-star-benefit-grid">
-            <figure class="summary-chart">
-              <figcaption><span>Star identifier benefit by group</span><span class="chart-caption-meta" id="star-benefit-total">-- signals</span></figcaption>
-              <svg class="star-benefit-chart" id="star-benefit-chart" viewBox="0 0 860 620" role="img" aria-labelledby="star-benefit-title star-benefit-description">
-                <title id="star-benefit-title">Star identifier benefit by GMM group</title>
-                <desc id="star-benefit-description">Each point compares mean localisation error when a catalogue star is identified with mean error on runs where it is absent within the same persisted Gaussian-mixture group. Positive scores indicate lower error when the star is present. Point colour identifies the group.</desc>
-              </svg>
-            </figure>
-          </div>
-
           <div class="summary-charts summary-scatter-grid summary-latitude-grid">
             <figure class="summary-chart">
               <figcaption><span>Latitude / GT vs estimated</span><span class="chart-caption-meta" id="latitude-point-count">-- points</span></figcaption>
@@ -3267,7 +3277,17 @@
               </div>
             </figure>
           </div>
+          <div class="summary-charts summary-star-benefit-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Star identifier benefit by group</span><span class="chart-caption-meta" id="star-benefit-total">-- signals</span></figcaption>
+              <svg class="star-benefit-chart" id="star-benefit-chart" viewBox="0 0 860 620" role="img" aria-labelledby="star-benefit-title star-benefit-description">
+                <title id="star-benefit-title">Star identifier benefit by GMM group</title>
+                <desc id="star-benefit-description">Each point compares mean localisation error when a catalogue star is identified with mean error on runs where it is absent within the same persisted Gaussian-mixture group. Positive scores indicate lower error when the star is present. Point colour identifies the group.</desc>
+              </svg>
+            </figure>
+          </div>
         <p class="summary-footnote" id="summary-footnote">Metrics will appear when the CSV is available.</p>
+        <p class="summary-footnote">Each coloured point compares the average error of runs in one GMM group that contain a star identifier with the average error of runs in that group that do not. Positive values mean the star is associated with lower error; negative values mean higher error. These are group-level comparisons, not per-run scores.</p>
       </div>
 
       <div class="visual-view description-view" id="description-view" role="tabpanel" aria-labelledby="description-tab" aria-hidden="true" tabindex="-1">
@@ -5366,7 +5386,7 @@
           ) / totalPresent
         };
       }).filter((metric) => metric && Number.isFinite(metric.benefitScore)).sort((first, second) => (
-        Math.abs(second.benefitScore) - Math.abs(first.benefitScore)
+        second.benefitScore - first.benefitScore
         || second.presentCount - first.presentCount
         || first.starId.localeCompare(second.starId)
       ));
@@ -5375,6 +5395,10 @@
     function renderStarBenefitChart(rows) {
       const chart = dom.starBenefitChart;
       if (!chart) return;
+      const chartWidth = 860;
+      const defaultChartHeight = 620;
+      chart.setAttribute("viewBox", `0 0 ${chartWidth} ${defaultChartHeight}`);
+      chart.style.aspectRatio = `${chartWidth} / ${defaultChartHeight}`;
       chart.replaceChildren();
       const title = createSvgElement("title", { id: "star-benefit-title" });
       title.textContent = "Star identifier benefit by GMM group";
@@ -5400,6 +5424,9 @@
         top: 44,
         bottom: Math.max(250, 44 + displayedMetrics.length * (displayedMetrics.length > 18 ? 19 : 22) + 18)
       };
+      const chartHeight = Math.max(defaultChartHeight, plot.bottom + 64);
+      chart.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
+      chart.style.aspectRatio = `${chartWidth} / ${chartHeight}`;
       const maximumAbsoluteScore = Math.max(
         ...displayedMetrics.flatMap((metric) => metric.groupMetrics.map((groupMetric) => Math.abs(groupMetric.benefitScore))),
         0.1
@@ -5426,6 +5453,7 @@
           x2: x,
           y2: plot.bottom
         }));
+        appendSvgText(chart, formatScore(value), { class: "star-benefit-axis", x, y: plot.top - 16, "text-anchor": "middle" });
         appendSvgText(chart, formatScore(value), { class: "star-benefit-axis", x, y: plot.bottom + 18, "text-anchor": "middle" });
       });
 
@@ -5433,8 +5461,8 @@
       displayedMetrics.forEach((metric, index) => {
         const baseY = plot.top + 8 + index * rowHeight + rowHeight / 2;
         appendSvgText(chart, metric.starId, { class: "star-benefit-axis", x: plot.left - 12, y: baseY + 4, "text-anchor": "end" });
-        metric.groupMetrics.forEach((groupMetric, groupIndex) => {
-          const y = baseY + (groupIndex - (metric.groupMetrics.length - 1) / 2) * Math.min(6, rowHeight / 3);
+        metric.groupMetrics.forEach((groupMetric) => {
+          const y = baseY;
           const zeroX = scaleX(0);
           const pointX = scaleX(groupMetric.benefitScore);
           const clusterColor = groupMetric.clusterId ? GMM_CLUSTER_COLORS[groupMetric.clusterId] : null;
@@ -5450,6 +5478,12 @@
         });
       });
       chart.append(pointFragment);
+      appendSvgText(chart, "benefit score / positive means lower error when present", {
+        class: "star-benefit-axis-title",
+        x: (plot.left + plot.right) / 2,
+        y: plot.top - 32,
+        "text-anchor": "middle"
+      });
       appendSvgText(chart, "benefit score / positive means lower error when present", {
         class: "star-benefit-axis-title",
         x: (plot.left + plot.right) / 2,
@@ -6474,6 +6508,8 @@
       if (mode !== "description") techTreeRoutingToken += 1;
       dom.visual.dataset.mode = mode;
       dom.appShell.classList.toggle("is-full-view", mode !== "globe");
+      dom.appShell.classList.toggle("is-summary-view", mode === "summary");
+      document.body.classList.toggle("is-summary-view", mode === "summary");
       dom.modeTabs.forEach((tab) => {
         const isSelected = tab.dataset.mode === mode;
         tab.setAttribute("aria-selected", String(isSelected));

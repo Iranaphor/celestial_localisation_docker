@@ -39,8 +39,11 @@ jobs:
           mkdir -p _site/celestial_localisation/debug_output
           cp celestial_localisation/debug_output/random_localisation_metrics.csv \
             _site/celestial_localisation/debug_output/random_localisation_metrics.csv
+          cp celestial_localisation/debug_output/gmm_boundaries.json \
+            _site/celestial_localisation/debug_output/gmm_boundaries.json
           test -f _site/index.html
           test -f _site/celestial_localisation/debug_output/random_localisation_metrics.csv
+          test -f _site/celestial_localisation/debug_output/gmm_boundaries.json
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
