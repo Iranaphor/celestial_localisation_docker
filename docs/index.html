@@ -2579,6 +2579,8 @@
       display: block;
       position: relative;
       width: 100%;
+      height: 60px;
+      box-sizing: border-box;
       padding: 13px 18px 12px;
       border: 0;
       border-left: 2px solid transparent;
@@ -2590,6 +2592,7 @@
     }
 
     .point-row:hover, .point-row:focus-visible { background: var(--row-hover-background); outline: none; }
+    .point-list-spacer { width: 1px; pointer-events: none; }
     .point-row.quality-black { --run-quality: var(--run-quality-black); }
     .point-row.quality-red { --run-quality: var(--run-quality-red); }
     .point-row.quality-yellow { --run-quality: var(--run-quality-yellow); }
@@ -3681,6 +3684,9 @@
     };
     const state = { rows: [], filtered: [], selectedIndex: -1, sort: "run" };
     let summaryResizeFrame = 0;
+    const POINT_LIST_ROW_HEIGHT = 60;
+    const POINT_LIST_OVERSCAN = 8;
+    let pointListRenderFrame = 0;
     const TECH_TREE_LINKS = {
       pipeline: [
         { from: "node-realsense", to: "node-image-capture", status: "built" },
@@ -4043,6 +4049,9 @@
       pinchStart: null
     };
     const techTreeSelection = { nodeId: null };
+    let descriptionProgressFrame = 0;
+    let techTreeRoutingToken = 0;
+    let techTreeRouteCache = null;
     let researchDetailReturnFocus;
     const numericFields = new Set([
       "run_index", "ground_truth_latitude", "ground_truth_longitude", "estimated_latitude",
@@ -4184,7 +4193,7 @@
     }
 
     function formatCoordinate(value, positive, negative) {
-      return `${Math.abs(value).toFixed(3)}&deg; ${value >= 0 ? positive : negative}`;
+      return `${Math.abs(value).toFixed(3)}${String.fromCharCode(176)} ${value >= 0 ? positive : negative}`;
     }
 
     function formatPair(latitude, longitude) {
@@ -5485,6 +5494,7 @@
     function applyTechTreeLayout() {
       const board = dom.techTreeBoards[0];
       if (!board) return;
+      techTreeRouteCache = null;
       board.style.width = `${TECH_TREE_CANVAS.width}px`;
       board.style.height = `${TECH_TREE_CANVAS.height}px`;
       Object.entries(TECH_TREE_LAYOUT).forEach(([nodeId, [left, top]]) => {
@@ -5612,7 +5622,6 @@
         if (!techTreeNavigation.hasFit) resetTechTreeView();
         focusTechTreeNode(node.id);
         updateDescriptionProgressFromScroll();
-        drawTechTreeLinks();
         node.focus({ preventScroll: true });
       });
     }
@@ -5636,10 +5645,7 @@
       dom.techTreeCanvas.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale})`;
       if (dom.techTreeZoom) dom.techTreeZoom.textContent = `${Math.round(scale * 100)}%`;
       if (dom.visual.dataset.mode === "description") {
-        requestAnimationFrame(() => {
-          drawTechTreeLinks();
-          updateDescriptionProgressFromScroll();
-        });
+        scheduleDescriptionProgressUpdate();
       }
     }
 
@@ -5701,7 +5707,6 @@
       techTreeNavigation.hasFit = false;
       requestAnimationFrame(() => {
         resetTechTreeView();
-        drawTechTreeLinks();
       });
     }
 
@@ -5927,7 +5932,39 @@
         && horizontal.y1 < Math.max(vertical.y1, vertical.y2);
     }
 
-    function routeTechTreePath(start, goal, obstacles, occupied, boardWidth, boardHeight) {
+    function createTechTreeSegmentIndex(cellSize = 160) {
+      const cells = new Map();
+      const getCellKeys = (segment) => {
+        const minimumX = Math.min(segment.x1, segment.x2);
+        const maximumX = Math.max(segment.x1, segment.x2);
+        const minimumY = Math.min(segment.y1, segment.y2);
+        const maximumY = Math.max(segment.y1, segment.y2);
+        const minimumCellX = Math.floor(minimumX / cellSize);
+        const maximumCellX = Math.floor(maximumX / cellSize);
+        const minimumCellY = Math.floor(minimumY / cellSize);
+        const maximumCellY = Math.floor(maximumY / cellSize);
+        const keys = [];
+        for (let cellX = minimumCellX; cellX <= maximumCellX; cellX += 1) {
+          for (let cellY = minimumCellY; cellY <= maximumCellY; cellY += 1) keys.push(`${cellX}:${cellY}`);
+        }
+        return keys;
+      };
+      return {
+        add(segment) {
+          getCellKeys(segment).forEach((key) => {
+            if (!cells.has(key)) cells.set(key, new Set());
+            cells.get(key).add(segment);
+          });
+        },
+        query(segment) {
+          const matches = new Set();
+          getCellKeys(segment).forEach((key) => cells.get(key)?.forEach((candidate) => matches.add(candidate)));
+          return [...matches];
+        }
+      };
+    }
+
+    function routeTechTreePath(start, goal, obstacles, occupied, boardWidth, boardHeight, occupiedIndex = null) {
       const coordinateValues = (values, limit) => [...new Set(values
         .map((value) => Math.max(TECH_TREE_ROUTE_INSET_X, Math.min(limit - 8, Number(value.toFixed(2))))))].sort((first, second) => first - second);
       const xValues = [TECH_TREE_ROUTE_INSET_X, boardWidth - 8, start.x, goal.x];
@@ -5982,10 +6019,11 @@
           if (obstacles.some((obstacle) => techTreeSegmentHitsRect(currentPoint, nextPoint, obstacle))) return;
           const nextKey = keyFor(nextX, nextY);
           const direction = Math.abs(segment.x1 - segment.x2) < 0.1 ? "vertical" : "horizontal";
-          if (direction === "vertical" && occupied.some((existing) => techTreeSegmentsOverlap(segment, existing))) return;
+          const nearbyOccupied = occupiedIndex ? occupiedIndex.query(segment) : occupied;
+          if (direction === "vertical" && nearbyOccupied.some((existing) => techTreeSegmentsOverlap(segment, existing))) return;
           const turnCost = directions.has(currentKey) && directions.get(currentKey) !== direction ? 24 : 0;
-          const overlapCost = occupied.filter((existing) => techTreeSegmentsOverlap(segment, existing)).length * 900;
-          const crossingCost = occupied.filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140;
+          const overlapCost = nearbyOccupied.filter((existing) => techTreeSegmentsOverlap(segment, existing)).length * 900;
+          const crossingCost = nearbyOccupied.filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140;
           const nextScore = (gScore.get(currentKey) || 0) + Math.abs(segment.x1 - segment.x2) + Math.abs(segment.y1 - segment.y2) + turnCost + overlapCost + crossingCost;
           if (nextScore >= (gScore.get(nextKey) ?? Infinity)) return;
           previous.set(nextKey, currentKey);
@@ -6030,7 +6068,7 @@
       return [...new Set(offsets)];
     }
 
-    function buildStaggeredTechTreePath(start, goal, obstacles, occupied, boardWidth, horizontalOffset = 0) {
+    function buildStaggeredTechTreePath(start, goal, obstacles, occupied, boardWidth, horizontalOffset = 0, occupiedIndex = null) {
       const candidateValues = [start.x, goal.x];
       for (let offset = 18; offset <= 126; offset += 18) {
         candidateValues.push(start.x - offset, start.x + offset, goal.x - offset, goal.x + offset);
@@ -6058,10 +6096,10 @@
             obstacle
           )))) return null;
           const verticalCandidates = [sourceDrop, lane, targetEntry];
-          if (verticalCandidates.some((segment) => occupied.some((existing) => techTreeSegmentsOverlap(segment, existing)))) return null;
+          if (verticalCandidates.some((segment) => (occupiedIndex ? occupiedIndex.query(segment) : occupied).some((existing) => techTreeSegmentsOverlap(segment, existing)))) return null;
           const horizontalCandidates = [entry, transfer];
-          if (horizontalCandidates.some((segment) => occupied.some((existing) => techTreeSegmentsOverlap(segment, existing)))) return null;
-          const crossingCost = candidateSegments.reduce((cost, segment) => cost + occupied.filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140, 0);
+          if (horizontalCandidates.some((segment) => (occupiedIndex ? occupiedIndex.query(segment) : occupied).some((existing) => techTreeSegmentsOverlap(segment, existing)))) return null;
+          const crossingCost = candidateSegments.reduce((cost, segment) => cost + (occupiedIndex ? occupiedIndex.query(segment) : occupied).filter((existing) => techTreeSegmentsCross(segment, existing)).length * 140, 0);
           return {
             laneX,
             score: Math.abs(start.x - laneX) + Math.abs(goal.x - laneX) + Math.abs(candidateOffset - horizontalOffset) * 4 + crossingCost,
@@ -6155,8 +6193,14 @@
         const boardWidth = board.offsetWidth || TECH_TREE_CANVAS.width;
         const boardHeight = board.offsetHeight || TECH_TREE_CANVAS.height;
         const scale = techTreeNavigation.scale || 1;
-        svg.setAttribute("viewBox", `0 0 ${boardWidth} ${boardHeight}`);
-        svg.replaceChildren();
+        const links = TECH_TREE_LINKS[board.dataset.techTree] || [];
+        const routingToken = ++techTreeRoutingToken;
+        const cachedPaths = techTreeRouteCache
+          && techTreeRouteCache.boardWidth === boardWidth
+          && techTreeRouteCache.boardHeight === boardHeight
+          && techTreeRouteCache.paths.length === links.length
+          ? techTreeRouteCache.paths
+          : null;
         const definitions = document.createElementNS(svgNamespace, "defs");
         const markerIds = {};
         Object.entries(linkColors).forEach(([status, color]) => {
@@ -6190,7 +6234,6 @@
         selectionArrow.setAttribute("fill", themeStyles.getPropertyValue("--ground").trim() || "currentColor");
         selectionMarker.append(selectionArrow);
         definitions.append(selectionMarker);
-        svg.append(definitions);
         const toLocalRect = (element) => {
           const rect = element.getBoundingClientRect();
           return {
@@ -6204,8 +6247,8 @@
             centerY: (rect.top + rect.height / 2 - boardRect.top) / scale
           };
         };
-        const links = TECH_TREE_LINKS[board.dataset.techTree] || [];
         const occupiedSegments = [];
+        const occupiedIndex = createTechTreeSegmentIndex();
         const outgoing = new Map();
         const incoming = new Map();
         links.forEach((link) => {
@@ -6215,12 +6258,11 @@
           incoming.get(link.to).push(link);
         });
         const nodeRects = [...board.querySelectorAll(".tech-node")].map((node) => ({ id: node.id, rect: toLocalRect(node) }));
-        links.forEach((link) => {
-          const source = board.querySelector(`#${link.from}`);
-          const target = board.querySelector(`#${link.to}`);
-          if (!source || !target) return;
-          const sourceRect = toLocalRect(source);
-          const targetRect = toLocalRect(target);
+        const nodeRectMap = new Map(nodeRects.map(({ id, rect }) => [id, rect]));
+        const routeLink = (link) => {
+          const sourceRect = nodeRectMap.get(link.from);
+          const targetRect = nodeRectMap.get(link.to);
+          if (!sourceRect || !targetRect) return null;
           const sourceLinks = outgoing.get(link.from) || [link];
           const targetLinks = incoming.get(link.to) || [link];
           const sourceIndex = sourceLinks.indexOf(link);
@@ -6247,11 +6289,11 @@
             ? getTechTreeHorizontalLaneOffset(sourceRect, targetRect, sourceIndex, targetIndex)
             : 0;
           const staggeredRoute = !sameRow && targetIsBelow
-            ? buildStaggeredTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, horizontalOffset)
+            ? buildStaggeredTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, horizontalOffset, occupiedIndex)
             : null;
           const routedPoints = staggeredRoute?.points || (sameRow
             ? [routedStart, goal]
-            : routeTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, boardHeight));
+            : routeTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, boardHeight, occupiedIndex));
           const approachY = Math.max(routedStart.y + 1, goal.y - TECH_TREE_TARGET_APPROACH - horizontalOffset);
           const sourceLaneY = Math.min(approachY - 1, routedStart.y + horizontalOffset);
           const points = simplifyTechTreePath(routedPoints
@@ -6259,7 +6301,9 @@
             : [start, routedStart, { x: routedStart.x, y: sourceLaneY }, { x: goal.x, y: sourceLaneY }, { x: goal.x, y: approachY }, goal]);
           for (let index = 1; index < points.length; index += 1) {
             if (Math.abs(points[index - 1].x - points[index].x) + Math.abs(points[index - 1].y - points[index].y) > 0.1) {
-              occupiedSegments.push({ x1: points[index - 1].x, y1: points[index - 1].y, x2: points[index].x, y2: points[index].y });
+              const segment = { x1: points[index - 1].x, y1: points[index - 1].y, x2: points[index].x, y2: points[index].y };
+              occupiedSegments.push(segment);
+              occupiedIndex.add(segment);
             }
           }
           const path = document.createElementNS(svgNamespace, "path");
@@ -6271,10 +6315,34 @@
           path.setAttribute("data-default-marker", defaultMarker);
           path.setAttribute("data-selected-marker", `url(#${selectionMarkerId})`);
           path.setAttribute("marker-end", defaultMarker);
-          svg.append(path);
-        });
+          return path;
+        };
+        svg.setAttribute("viewBox", `0 0 ${boardWidth} ${boardHeight}`);
+        svg.replaceChildren();
+        svg.append(definitions);
+        if (cachedPaths) {
+          cachedPaths.forEach((path) => svg.append(path.cloneNode(true)));
+          updateTechTreeSelection();
+          return;
+        }
+        let linkIndex = 0;
+        const appendNextRoute = () => {
+          if (routingToken !== techTreeRoutingToken) return;
+          const path = links[linkIndex] ? routeLink(links[linkIndex]) : null;
+          if (path) svg.append(path);
+          linkIndex += 1;
+          if (linkIndex < links.length) requestAnimationFrame(appendNextRoute);
+          else {
+            techTreeRouteCache = {
+              boardWidth,
+              boardHeight,
+              paths: [...svg.querySelectorAll(".tech-link")].map((routePath) => routePath.cloneNode(true))
+            };
+            updateTechTreeSelection();
+          }
+        };
+        if (links.length) requestAnimationFrame(appendNextRoute);
       });
-      updateTechTreeSelection();
     }
 
     function updateDescriptionProgress(stepNumber) {
@@ -6302,20 +6370,29 @@
       updateDescriptionProgress(currentStep.dataset.step);
     }
 
+    function scheduleDescriptionProgressUpdate() {
+      if (descriptionProgressFrame) return;
+      descriptionProgressFrame = requestAnimationFrame(() => {
+        descriptionProgressFrame = 0;
+        updateDescriptionProgressFromScroll();
+      });
+    }
+
     function initDescriptionProgress() {
       dom.descriptionTotal.textContent = String(dom.descriptionSteps.length).padStart(2, "0");
-      dom.descriptionView.addEventListener("scroll", updateDescriptionProgressFromScroll, { passive: true });
+      dom.descriptionView.addEventListener("scroll", scheduleDescriptionProgressUpdate, { passive: true });
       if (!("IntersectionObserver" in window)) return;
       const observer = new IntersectionObserver((entries) => {
         const visibleEntries = entries.filter((entry) => entry.isIntersecting);
         if (!visibleEntries.length) return;
-        updateDescriptionProgressFromScroll();
+        scheduleDescriptionProgressUpdate();
       }, { root: dom.descriptionView, rootMargin: "-16% 0px -58% 0px", threshold: [0.2, 0.5, 0.8] });
       dom.descriptionSteps.forEach((step) => observer.observe(step));
     }
 
     function setVisualMode(mode, options = {}) {
       if (mode === "globe" && options.initializeGlobe !== false) ensureGlobeInitialized();
+      if (mode !== "description") techTreeRoutingToken += 1;
       dom.visual.dataset.mode = mode;
       dom.appShell.classList.toggle("is-full-view", mode !== "globe");
       dom.modeTabs.forEach((tab) => {
@@ -6467,8 +6544,8 @@
       if (!row) return;
       dom.selectedRun.textContent = row.run_index;
       dom.selectedError.textContent = formatKilometers(row.error_distance_meters);
-      dom.ground.innerHTML = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
-      dom.estimated.innerHTML = formatPair(row.estimated_latitude, row.estimated_longitude);
+      dom.ground.textContent = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
+      dom.estimated.textContent = formatPair(row.estimated_latitude, row.estimated_longitude);
       if (dom.selectedCluster) {
         const clusterId = getClusterId(row);
         dom.selectedCluster.className = `legend-item ${getClusterClass(row)}`.trim();
@@ -6487,6 +6564,7 @@
     }
 
     function renderList() {
+      const scrollTop = dom.list.scrollTop;
       dom.list.replaceChildren();
       if (!state.filtered.length) {
         const empty = document.createElement("div");
@@ -6495,14 +6573,23 @@
         dom.list.append(empty);
         return;
       }
+      const viewportHeight = dom.list.clientHeight || POINT_LIST_ROW_HEIGHT * 10;
+      const firstVisibleIndex = Math.max(0, Math.floor(scrollTop / POINT_LIST_ROW_HEIGHT) - POINT_LIST_OVERSCAN);
+      const visibleRowCount = Math.ceil(viewportHeight / POINT_LIST_ROW_HEIGHT) + POINT_LIST_OVERSCAN * 2;
+      const lastVisibleIndex = Math.min(state.filtered.length, firstVisibleIndex + visibleRowCount);
+      const topSpacer = document.createElement("div");
+      topSpacer.className = "point-list-spacer";
+      topSpacer.style.height = `${firstVisibleIndex * POINT_LIST_ROW_HEIGHT}px`;
       const fragment = document.createDocumentFragment();
-      state.filtered.forEach((row) => {
+      state.filtered.slice(firstVisibleIndex, lastVisibleIndex).forEach((row, visibleIndex) => {
         const button = document.createElement("button");
         const errorKilometers = Number(row.error_distance_meters) / 1000;
         button.className = `point-row ${getRunQuality(errorKilometers)}`;
         button.type = "button";
         button.setAttribute("role", "listitem");
         button.setAttribute("aria-current", String(row._index === state.selectedIndex));
+        button.setAttribute("aria-posinset", String(firstVisibleIndex + visibleIndex + 1));
+        button.setAttribute("aria-setsize", String(state.filtered.length));
         button.addEventListener("click", () => {
           state.selectedIndex = row._index;
           updateSelection(row);
@@ -6528,12 +6615,24 @@
         cluster.style.setProperty("--cluster-color", getClusterColor(row) || "var(--faint)");
         cluster.textContent = clusterId ? getClusterName(clusterId) : "unclassified";
         const coords = document.createElement("span");
-        coords.innerHTML = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
+        coords.textContent = formatPair(row.ground_truth_latitude, row.ground_truth_longitude);
         meta.append(objects, cluster, coords);
         button.append(top, meta);
         fragment.append(button);
       });
-      dom.list.append(fragment);
+      const bottomSpacer = document.createElement("div");
+      bottomSpacer.className = "point-list-spacer";
+      bottomSpacer.style.height = `${(state.filtered.length - lastVisibleIndex) * POINT_LIST_ROW_HEIGHT}px`;
+      dom.list.append(topSpacer, fragment, bottomSpacer);
+      dom.list.scrollTop = Math.min(scrollTop, Math.max(0, dom.list.scrollHeight - dom.list.clientHeight));
+    }
+
+    function schedulePointListRender() {
+      if (pointListRenderFrame) return;
+      pointListRenderFrame = requestAnimationFrame(() => {
+        pointListRenderFrame = 0;
+        renderList();
+      });
     }
 
     function filterRows() {
@@ -6541,6 +6640,7 @@
       state.filtered = state.rows
         .filter((row) => !query || [row.run_index, row.timestamp_utc, row.ground_truth_latitude, row.ground_truth_longitude, row.estimated_latitude, row.estimated_longitude].join(" ").toLowerCase().includes(query))
         .sort(compareRows);
+      dom.list.scrollTop = 0;
       renderList();
     }
 
@@ -6767,6 +6867,7 @@
       state.sort = dom.sort.value;
       filterRows();
     });
+    dom.list.addEventListener("scroll", schedulePointListRender, { passive: true });
     dom.modeTabs.forEach((tab) => {
       tab.addEventListener("click", () => setVisualMode(tab.dataset.mode));
     });
@@ -6785,7 +6886,7 @@
           renderSummary();
         });
       }
-      drawTechTreeLinks();
+      if (dom.visual.dataset.mode === "description") scheduleDescriptionProgressUpdate();
     });
     dom.reset.addEventListener("click", () => {
       if (!camera || !controls) return;
