@@ -3636,7 +3636,9 @@
     const FOCUS_FOV_PADDING_DEGREES = 3;
     const FOCUS_DURATION_MS = 650;
     const BASE_MARKER_RADIUS = 0.075;
-    const DEBUG_OUTPUT_URL = "../celestial_localisation/debug_output";
+    const DEBUG_OUTPUT_URL = window.location.pathname.includes("/docs/")
+      ? "../celestial_localisation/debug_output"
+      : "celestial_localisation/debug_output";
     const CSV_URL = `${DEBUG_OUTPUT_URL}/random_localisation_metrics.csv`;
     const EARTH_TEXTURE_URL = "https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg";
     const EARTH_TEXTURE_FALLBACK_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
