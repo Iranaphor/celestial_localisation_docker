@@ -9,7 +9,12 @@
     (() => {
       try {
         const theme = localStorage.getItem("celestial-theme");
-        if (theme === "auto" || theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+        if (theme === "auto" || theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.dataset.resolvedTheme = theme === "auto"
+            ? (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")
+            : theme;
+        }
       } catch {}
     })();
   </script>
@@ -68,7 +73,98 @@
       --mode-background: rgba(7, 19, 23, 0.94);
       --selection-background: linear-gradient(120deg, rgba(148, 227, 196, 0.09), transparent 60%), var(--panel-raised);
       --row-hover-background: rgba(148, 227, 196, 0.06);
-      }
+      --theme-shadow: rgba(0, 0, 0, 0.34);
+      --visual-ink: #f1fbf7;
+      --visual-muted: rgba(232, 241, 238, 0.76);
+      --visual-ground: #b6f2d5;
+      --visual-faint: rgba(232, 241, 238, 0.54);
+      --visual-danger: #ffab98;
+      --visual-text-shadow: 0 2px 18px rgba(0, 0, 0, 0.64);
+      --scrollbar-thumb: rgba(154, 196, 190, 0.35);
+      --globe-filter: none;
+      --domain-sensor: #76c9d9;
+      --domain-celestial: #94e3c4;
+      --domain-condition: #e4d47b;
+      --domain-satellite: #b4a0e8;
+      --domain-aircraft: #ff9d6b;
+      --domain-atmosphere: #70d0c0;
+      --domain-fusion: #ff7164;
+      --plot-fill: rgba(148, 227, 196, 0.025);
+      --plot-stroke: rgba(154, 196, 190, 0.17);
+      --grid-stroke: rgba(154, 196, 190, 0.13);
+      --reference-stroke: rgba(228, 212, 123, 0.52);
+      --map-shade: rgba(4, 17, 20, 0.28);
+      --map-frame: rgba(154, 196, 190, 0.42);
+      --map-grid: rgba(226, 241, 231, 0.28);
+    }
+
+    :root[data-resolved-theme="light"] {
+      --background: #f3f8f5;
+      --panel: rgba(255, 255, 255, 0.96);
+      --panel-raised: #e5efeb;
+      --ink: #173432;
+      --muted: #4d6864;
+      --faint: #6d8581;
+      --line: rgba(23, 52, 50, 0.16);
+      --line-strong: rgba(23, 52, 50, 0.32);
+      --ground: #1f806a;
+      --estimate: #c85d33;
+      --accent: #8d7415;
+      --category-close: #1f806a;
+      --category-near: #a17c0d;
+      --category-far: #c26722;
+      --category-outlier: #c13d38;
+      --cluster-1: #1f806a;
+      --cluster-2: #a17c0d;
+      --cluster-3: #c26722;
+      --cluster-4: #287d91;
+      --danger: #b74438;
+      --visual-background: #e4efeb;
+      --visual-grid: rgba(23, 52, 50, 0.045);
+      --visual-glow: rgba(72, 145, 132, 0.22);
+      --visual-overlay: linear-gradient(115deg, rgba(228, 239, 235, 0.4), transparent 30%, transparent 74%, rgba(228, 239, 235, 0.2));
+      --control-background: rgba(255, 255, 255, 0.82);
+      --control-hover-background: rgba(225, 240, 235, 0.96);
+      --view-background: rgba(246, 250, 248, 0.97);
+      --card-background: rgba(255, 255, 255, 0.84);
+      --chart-background: rgba(255, 255, 255, 0.92);
+      --header-background: linear-gradient(rgba(246, 250, 248, 1) 75%, rgba(246, 250, 248, 0));
+      --flow-line: linear-gradient(var(--ground), rgba(31, 128, 106, 0.18));
+      --flow-current-background: rgba(31, 128, 106, 0.12);
+      --flow-current-ring: rgba(31, 128, 106, 0.08);
+      --flow-card-background: rgba(255, 255, 255, 0.88);
+      --flow-card-current-background: rgba(255, 255, 255, 0.98);
+      --flow-wip-index-background: rgba(109, 133, 129, 0.08);
+      --flow-wip-card-background: rgba(235, 243, 240, 0.72);
+      --flow-wip-current-index-background: rgba(109, 133, 129, 0.14);
+      --flow-wip-current-ring: rgba(109, 133, 129, 0.05);
+      --flow-wip-current-card-background: rgba(235, 243, 240, 0.86);
+      --mode-background: rgba(255, 255, 255, 0.9);
+      --selection-background: linear-gradient(120deg, rgba(31, 128, 106, 0.08), transparent 60%), var(--panel-raised);
+      --row-hover-background: rgba(31, 128, 106, 0.07);
+      --theme-shadow: rgba(23, 52, 50, 0.12);
+      --visual-ink: #173432;
+      --visual-muted: rgba(23, 52, 50, 0.74);
+      --visual-ground: #1f806a;
+      --visual-faint: rgba(23, 52, 50, 0.58);
+      --visual-danger: #b74438;
+      --visual-text-shadow: 0 2px 14px rgba(255, 255, 255, 0.82);
+      --scrollbar-thumb: rgba(23, 52, 50, 0.28);
+      --globe-filter: saturate(0.92) brightness(1.08);
+      --domain-sensor: #287d91;
+      --domain-celestial: #1f806a;
+      --domain-condition: #8d7415;
+      --domain-satellite: #735eae;
+      --domain-aircraft: #b6532c;
+      --domain-atmosphere: #267d70;
+      --domain-fusion: #b33d39;
+      --plot-fill: rgba(31, 128, 106, 0.045);
+      --plot-stroke: rgba(23, 52, 50, 0.22);
+      --grid-stroke: rgba(23, 52, 50, 0.14);
+      --reference-stroke: rgba(141, 116, 21, 0.56);
+      --map-shade: rgba(255, 255, 255, 0.1);
+      --map-frame: rgba(23, 52, 50, 0.42);
+      --map-grid: rgba(23, 52, 50, 0.26);
     }
 
     * { box-sizing: border-box; }
@@ -603,9 +699,27 @@
       overflow: visible;
     }
 
-    .coordinate-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
-    .coordinate-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
-    .coordinate-reference { stroke: rgba(228, 212, 123, 0.52); stroke-dasharray: 5 6; stroke-width: 1.5; }
+    .coordinate-chart-shell {
+      position: relative;
+      width: 100%;
+      height: 220px;
+    }
+
+    .coordinate-chart-shell .coordinate-chart,
+    .coordinate-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .coordinate-canvas {
+      pointer-events: none;
+    }
+
+    .coordinate-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .coordinate-grid { stroke: var(--grid-stroke); stroke-width: 1; }
+    .coordinate-reference { stroke: var(--reference-stroke); stroke-dasharray: 5 6; stroke-width: 1.5; }
     .coordinate-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .coordinate-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
     .coordinate-point { stroke: var(--panel-raised); stroke-width: 1.5; opacity: 0.86; }
@@ -626,8 +740,8 @@
       overflow: visible;
     }
 
-    .distribution-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
-    .distribution-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .distribution-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .distribution-grid { stroke: var(--grid-stroke); stroke-width: 1; }
     .distribution-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .distribution-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
     .distribution-line { fill: none; stroke: var(--ground); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.2; }
@@ -674,8 +788,32 @@
       overflow: visible;
     }
 
-    .observation-error-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
-    .observation-error-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .observation-error-shell,
+    .geographic-map-shell {
+      position: relative;
+      width: 100%;
+    }
+
+    .observation-error-shell { aspect-ratio: 2 / 2; }
+    .geographic-map-shell { aspect-ratio: 4 / 3; }
+
+    .observation-error-shell .observation-error-chart,
+    .observation-error-canvas,
+    .geographic-map-shell .geographic-map-chart,
+    .geographic-map-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .observation-error-canvas,
+    .geographic-map-canvas {
+      pointer-events: none;
+    }
+
+    .observation-error-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .observation-error-grid { stroke: var(--grid-stroke); stroke-width: 1; }
     .observation-error-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .observation-error-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
     .observation-error-point { stroke: var(--panel-raised); stroke-width: 0.75; opacity: 0.86; }
@@ -710,8 +848,8 @@
       aspect-ratio: 860 / 620;
       overflow: visible;
     }
-    .star-benefit-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
-    .star-benefit-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .star-benefit-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .star-benefit-grid { stroke: var(--grid-stroke); stroke-width: 1; }
     .star-benefit-zero { stroke: rgba(228, 212, 123, 0.7); stroke-dasharray: 4 5; stroke-width: 1.4; }
     .star-benefit-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .star-benefit-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
@@ -728,8 +866,8 @@
       overflow: visible;
     }
 
-    .cluster-metric-plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
-    .cluster-metric-grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .cluster-metric-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .cluster-metric-grid { stroke: var(--grid-stroke); stroke-width: 1; }
     .cluster-metric-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .cluster-metric-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
     .cluster-metric-bar { opacity: 0.88; pointer-events: none; }
@@ -743,9 +881,9 @@
     }
 
     .geographic-map-texture { opacity: 0.72; filter: saturate(0.8) brightness(0.72); }
-    .geographic-map-shade { fill: rgba(4, 17, 20, 0.28); }
-    .geographic-map-frame { fill: none; stroke: rgba(154, 196, 190, 0.42); stroke-width: 1.2; }
-    .geographic-map-grid { stroke: rgba(226, 241, 231, 0.28); stroke-width: 1; stroke-dasharray: 3 5; }
+    .geographic-map-shade { fill: var(--map-shade); }
+    .geographic-map-frame { fill: none; stroke: var(--map-frame); stroke-width: 1.2; }
+    .geographic-map-grid { stroke: var(--map-grid); stroke-width: 1; stroke-dasharray: 3 5; }
     .geographic-map-axis { fill: var(--ink); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .geographic-map-axis-title { fill: var(--ink); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
     .geographic-map-point { stroke: var(--panel-raised); stroke-width: 0.75; opacity: 0.9; vector-effect: non-scaling-stroke; }
@@ -2941,10 +3079,13 @@
           <div class="summary-charts summary-observation-error-grid">
             <figure class="summary-chart">
               <figcaption><span>Observations vs error</span><span class="chart-caption-meta" id="observation-error-total">-- points</span></figcaption>
-              <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 640 640" role="img" aria-labelledby="observation-error-title observation-error-description">
+              <div class="observation-error-shell">
+                <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 640 640" role="img" aria-labelledby="observation-error-title observation-error-description">
                 <title id="observation-error-title">Number of observations compared with localisation error</title>
                 <desc id="observation-error-description">Each point is one valid evaluation. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Points are colored by their persisted Gaussian-mixture cluster. Dashed curves show pairwise Gaussian-mixture decision boundaries.</desc>
-              </svg>
+                </svg>
+                <canvas class="observation-error-canvas" width="640" height="640" aria-hidden="true"></canvas>
+              </div>
             </figure>
           </div>
 
@@ -2978,7 +3119,8 @@
           <div class="summary-charts summary-scatter-grid summary-latitude-grid">
             <figure class="summary-chart">
               <figcaption><span>Latitude / GT vs estimated</span><span class="chart-caption-meta" id="latitude-point-count">-- points</span></figcaption>
-              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="latitude-chart-title latitude-chart-description">
+              <div class="coordinate-chart-shell">
+                <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="latitude-chart-title latitude-chart-description">
                 <title id="latitude-chart-title">Ground-truth latitude compared with estimated latitude</title>
                 <desc id="latitude-chart-description">Each point is one independent evaluation. Points are colored by persisted Gaussian-mixture cluster. The dashed diagonal marks a perfect estimate.</desc>
                 <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
@@ -2994,11 +3136,14 @@
                 <text class="coordinate-axis" x="606" y="267" text-anchor="end">90</text>
                 <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth latitude</text>
                 <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated latitude</text>
-              </svg>
+                </svg>
+                <canvas class="coordinate-canvas" width="640" height="300" aria-hidden="true"></canvas>
+              </div>
             </figure>
             <figure class="summary-chart">
               <figcaption><span>Latitude / reasonable residuals</span><span class="chart-caption-meta" id="reasonable-latitude-point-count">-- points</span></figcaption>
-              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-latitude-chart-title reasonable-latitude-chart-description">
+              <div class="coordinate-chart-shell">
+                <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-latitude-chart-title reasonable-latitude-chart-description">
                 <title id="reasonable-latitude-chart-title">Latitude residuals for runs at or below 100 kilometres error</title>
                 <desc id="reasonable-latitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground-truth latitude on the horizontal axis and estimated minus ground-truth latitude on the vertical axis.</desc>
                 <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
@@ -3014,14 +3159,17 @@
                 <text class="coordinate-axis" x="606" y="267" text-anchor="end">90</text>
                 <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth latitude</text>
                 <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated - ground truth latitude</text>
-              </svg>
+                </svg>
+                <canvas class="coordinate-canvas" width="640" height="300" aria-hidden="true"></canvas>
+              </div>
             </figure>
           </div>
 
           <div class="summary-charts summary-scatter-grid summary-longitude-grid">
             <figure class="summary-chart">
               <figcaption><span>Longitude / GT vs estimated</span><span class="chart-caption-meta" id="longitude-point-count">-- points</span></figcaption>
-              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="longitude-chart-title longitude-chart-description">
+              <div class="coordinate-chart-shell">
+                <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="longitude-chart-title longitude-chart-description">
                 <title id="longitude-chart-title">Ground-truth longitude compared with estimated longitude</title>
                 <desc id="longitude-chart-description">Each point is one independent evaluation. Points are colored by persisted Gaussian-mixture cluster. The dashed diagonal marks a perfect estimate.</desc>
                 <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
@@ -3037,11 +3185,14 @@
                 <text class="coordinate-axis" x="606" y="267" text-anchor="end">180</text>
                 <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth longitude</text>
                 <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated longitude</text>
-              </svg>
+                </svg>
+                <canvas class="coordinate-canvas" width="640" height="300" aria-hidden="true"></canvas>
+              </div>
             </figure>
             <figure class="summary-chart">
               <figcaption><span>Longitude / reasonable residuals</span><span class="chart-caption-meta" id="reasonable-longitude-point-count">-- points</span></figcaption>
-              <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-longitude-chart-title reasonable-longitude-chart-description">
+              <div class="coordinate-chart-shell">
+                <svg class="coordinate-chart" viewBox="0 0 640 300" role="img" aria-labelledby="reasonable-longitude-chart-title reasonable-longitude-chart-description">
                 <title id="reasonable-longitude-chart-title">Longitude residuals for runs at or below 100 kilometres error</title>
                 <desc id="reasonable-longitude-chart-description">Nonzero-object runs at or below 100 kilometres error, with ground-truth longitude on the horizontal axis and estimated minus ground-truth longitude on the vertical axis.</desc>
                 <rect class="coordinate-plot" x="56" y="18" width="550" height="230" rx="2"></rect>
@@ -3057,16 +3208,21 @@
                 <text class="coordinate-axis" x="606" y="267" text-anchor="end">180</text>
                 <text class="coordinate-axis-title" x="331" y="291" text-anchor="middle">ground truth longitude</text>
                 <text class="coordinate-axis-title" transform="translate(13 133) rotate(-90)" text-anchor="middle">estimated - ground truth longitude</text>
-              </svg>
+                </svg>
+                <canvas class="coordinate-canvas" width="640" height="300" aria-hidden="true"></canvas>
+              </div>
             </figure>
           </div>
           <div class="summary-charts summary-geographic-map-grid">
             <figure class="summary-chart">
               <figcaption><span>Sample locations by GMM cluster</span><span class="chart-caption-meta" id="geographic-map-total">-- points</span></figcaption>
-              <svg class="geographic-map-chart" id="geographic-map-chart" viewBox="0 0 640 480" role="img" aria-labelledby="geographic-map-title geographic-map-description">
+              <div class="geographic-map-shell">
+                <svg class="geographic-map-chart" id="geographic-map-chart" viewBox="0 0 640 480" role="img" aria-labelledby="geographic-map-title geographic-map-description">
                 <title id="geographic-map-title">Sample locations by GMM cluster</title>
                 <desc id="geographic-map-description">Ground-truth latitude is plotted horizontally and ground-truth longitude vertically over an Earth texture. Each sampled point is colored by its persisted Gaussian-mixture cluster.</desc>
-              </svg>
+                </svg>
+                <canvas class="geographic-map-canvas" width="640" height="480" aria-hidden="true"></canvas>
+              </div>
             </figure>
           </div>
         <p class="summary-footnote" id="summary-footnote">Metrics will appear when the CSV is available.</p>
@@ -3438,11 +3594,8 @@
     const FOCUS_FOV_PADDING_DEGREES = 3;
     const FOCUS_DURATION_MS = 650;
     const BASE_MARKER_RADIUS = 0.075;
-    const CSV_URLS = [
-      "celestial_localisation/debug_output/random_localisation_metrics.csv",
-      "../celestial_localisation/debug_output/random_localisation_metrics.csv",
-      "random_localisation_metrics.csv"
-    ];
+    const DEBUG_OUTPUT_URL = "../celestial_localisation/debug_output";
+    const CSV_URL = `${DEBUG_OUTPUT_URL}/random_localisation_metrics.csv`;
     const EARTH_TEXTURE_URL = "https://raw.githubusercontent.com/turban/webgl-earth/master/images/2_no_clouds_4k.jpg";
     const EARTH_TEXTURE_FALLBACK_URL = "https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg";
     const EARTH_NORMAL_URL = "https://threejs.org/examples/textures/planets/earth_normal_2048.jpg";
@@ -3527,6 +3680,7 @@
       techTreeFullscreen: document.getElementById("tech-tree-fullscreen")
     };
     const state = { rows: [], filtered: [], selectedIndex: -1, sort: "run" };
+    let summaryResizeFrame = 0;
     const TECH_TREE_LINKS = {
       pipeline: [
         { from: "node-realsense", to: "node-image-capture", status: "built" },
@@ -3911,17 +4065,15 @@
     let GMM_CLUSTER_COLORS = { ...DEFAULT_GMM_CLUSTER_COLORS };
     let GMM_CLUSTER_NAMES = { ...DEFAULT_GMM_CLUSTER_NAMES };
     let GMM_PAIRWISE_BOUNDARIES = [];
-    const GMM_BOUNDARY_URLS = [
-      "celestial_localisation/debug_output/gmm_boundaries.json",
-      "../celestial_localisation/debug_output/gmm_boundaries.json",
-      "gmm_boundaries.json"
-    ];
+    const GMM_BOUNDARY_URL = `${DEBUG_OUTPUT_URL}/gmm_boundaries.json`;
     let renderer;
     let camera;
     let controls;
     let globeAmbientLight;
     let globeDirectionalLight;
     let markerLayer;
+    let globeInitialized = false;
+    let globeInitializationScheduled = false;
     let initialCameraPosition;
     let fallback;
     let focusTransition;
@@ -3949,6 +4101,7 @@
       if (!THEME_MODES.includes(mode)) mode = "auto";
       themeMode = mode;
       document.documentElement.dataset.theme = mode;
+      document.documentElement.dataset.resolvedTheme = resolvedTheme(mode);
       const modeIndex = THEME_MODES.indexOf(mode);
       const nextMode = THEME_MODES[(modeIndex + 1) % THEME_MODES.length];
       dom.themeIcon.textContent = THEME_ICONS[mode];
@@ -3957,6 +4110,7 @@
       dom.themeToggle.title = `Theme: ${THEME_LABELS[mode]}. Tap for ${THEME_LABELS[nextMode]} mode.`;
       dom.themeColor.setAttribute("content", resolvedTheme(mode) === "light" ? "#f2f7f4" : "#071216");
       updateGlobeLighting();
+      if (state.rows.length && dom.visual.dataset.mode === "summary") requestAnimationFrame(() => renderSummary());
       if (dom.visual.dataset.mode === "description") requestAnimationFrame(drawTechTreeLinks);
       if (persist) saveThemeMode(mode);
     }
@@ -4098,29 +4252,26 @@
     async function loadGmmClusterColors() {
       GMM_PAIRWISE_BOUNDARIES = [];
       GMM_CLUSTER_NAMES = { ...DEFAULT_GMM_CLUSTER_NAMES };
-      for (const boundaryUrl of GMM_BOUNDARY_URLS) {
-        try {
-          const response = await fetch(boundaryUrl, { cache: "no-store" });
-          if (!response.ok) continue;
-          const payload = await response.json();
-          const colors = { ...DEFAULT_GMM_CLUSTER_COLORS };
-          (payload.components || []).forEach((component) => {
-            const clusterId = Number(component.cluster_id);
-            if (Number.isInteger(clusterId) && component.color) colors[clusterId] = component.color;
-            if (Number.isInteger(clusterId) && component.name) GMM_CLUSTER_NAMES[clusterId] = String(component.name);
-          });
-          GMM_CLUSTER_COLORS = colors;
-          const coefficientNames = ["x2", "xy", "y2", "x", "y", "constant"];
-          GMM_PAIRWISE_BOUNDARIES = (payload.pairwise_boundaries || []).filter((boundary) => (
-            Array.isArray(boundary.between)
-            && boundary.between.length === 2
-            && boundary.between.every((clusterId) => Number.isInteger(Number(clusterId)))
-            && boundary.coefficients
-            && coefficientNames.every((name) => Number.isFinite(Number(boundary.coefficients[name])))
-          ));
-          return;
-        } catch {}
-      }
+      try {
+        const response = await fetch(GMM_BOUNDARY_URL, { cache: "no-store" });
+        if (!response.ok) return;
+        const payload = await response.json();
+        const colors = { ...DEFAULT_GMM_CLUSTER_COLORS };
+        (payload.components || []).forEach((component) => {
+          const clusterId = Number(component.cluster_id);
+          if (Number.isInteger(clusterId) && component.color) colors[clusterId] = component.color;
+          if (Number.isInteger(clusterId) && component.name) GMM_CLUSTER_NAMES[clusterId] = String(component.name);
+        });
+        GMM_CLUSTER_COLORS = colors;
+        const coefficientNames = ["x2", "xy", "y2", "x", "y", "constant"];
+        GMM_PAIRWISE_BOUNDARIES = (payload.pairwise_boundaries || []).filter((boundary) => (
+          Array.isArray(boundary.between)
+          && boundary.between.length === 2
+          && boundary.between.every((clusterId) => Number.isInteger(Number(clusterId)))
+          && boundary.coefficients
+          && coefficientNames.every((name) => Number.isFinite(Number(boundary.coefficients[name])))
+        ));
+      } catch {}
     }
 
     function renderClusterLegend(rows) {
@@ -4162,11 +4313,27 @@
       return rows;
     }
 
+    function prepareSummaryCanvas(canvas, viewBoxWidth, viewBoxHeight) {
+      if (!canvas || !canvas.clientWidth || !canvas.clientHeight) return null;
+      const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      const pixelWidth = Math.max(1, Math.round(canvas.clientWidth * devicePixelRatio));
+      const pixelHeight = Math.max(1, Math.round(canvas.clientHeight * devicePixelRatio));
+      if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+        canvas.width = pixelWidth;
+        canvas.height = pixelHeight;
+      }
+      const context = canvas.getContext("2d");
+      context.setTransform(pixelWidth / viewBoxWidth, 0, 0, pixelHeight / viewBoxHeight, 0, 0);
+      context.clearRect(0, 0, viewBoxWidth, viewBoxHeight);
+      return context;
+    }
+
     function renderCoordinateChart(pointGroup, rows, coordinateName, countElement, options = {}) {
       const domain = coordinateName === "latitude"
         ? { minimum: -90, maximum: 90 }
         : { minimum: -180, maximum: 180 };
       const svg = pointGroup.closest("svg");
+      const canvas = svg?.parentElement?.querySelector(".coordinate-canvas");
       const residualMode = Boolean(options.residual);
       const validRows = rows.filter((row) => (
         Number.isFinite(Number(row[`ground_truth_${coordinateName}`]))
@@ -4277,21 +4444,46 @@
       }
       pointGroup.replaceChildren();
       const renderRows = getSummaryRenderRows(validRows);
-      const pointFragment = document.createDocumentFragment();
-      renderRows.forEach((row) => {
-        const groundValue = Number(row[`ground_truth_${coordinateName}`]);
-        const estimatedValue = Number(row[`estimated_${coordinateName}`]);
-        const residualValue = coordinateDelta(estimatedValue, groundValue);
-        const errorKilometers = Number(row.error_distance_meters) / 1000;
-        const point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        point.setAttribute("class", `coordinate-point ${getErrorCategory(errorKilometers)} ${getClusterClass(row)}`.trim());
-        if (getClusterColor(row)) point.style.fill = getClusterColor(row);
-        point.setAttribute("cx", scaleX(groundValue).toFixed(2));
-        point.setAttribute("cy", scaleY(residualMode ? residualValue : estimatedValue).toFixed(2));
-        point.setAttribute("r", row._index === state.selectedIndex ? "5.5" : "4");
-        pointFragment.append(point);
-      });
-      pointGroup.append(pointFragment);
+      const context = prepareSummaryCanvas(canvas, 640, 300);
+      if (context) {
+        const rootStyle = getComputedStyle(document.documentElement);
+        const categoryColors = {
+          "category-close": rootStyle.getPropertyValue("--category-close").trim(),
+          "category-near": rootStyle.getPropertyValue("--category-near").trim(),
+          "category-far": rootStyle.getPropertyValue("--category-far").trim(),
+          "category-outlier": rootStyle.getPropertyValue("--category-outlier").trim()
+        };
+        const panelColor = rootStyle.getPropertyValue("--panel-raised").trim();
+        context.globalAlpha = 0.86;
+        const selectedPoints = [];
+        renderRows.forEach((row) => {
+          const groundValue = Number(row[`ground_truth_${coordinateName}`]);
+          const estimatedValue = Number(row[`estimated_${coordinateName}`]);
+          const residualValue = coordinateDelta(estimatedValue, groundValue);
+          const errorKilometers = Number(row.error_distance_meters) / 1000;
+          const pointX = scaleX(groundValue);
+          const pointY = scaleY(residualMode ? residualValue : estimatedValue);
+          const pointRadius = row._index === state.selectedIndex ? 5.5 : 4;
+          context.beginPath();
+          context.arc(pointX, pointY, pointRadius, 0, Math.PI * 2);
+          context.fillStyle = getClusterColor(row) || categoryColors[getErrorCategory(errorKilometers)];
+          context.fill();
+          context.strokeStyle = panelColor;
+          context.lineWidth = 1.5;
+          context.stroke();
+          if (row._index === state.selectedIndex) selectedPoints.push({ pointX, pointY, pointRadius, fillStyle: context.fillStyle });
+        });
+        context.globalAlpha = 1;
+        selectedPoints.forEach(({ pointX, pointY, pointRadius, fillStyle }) => {
+          context.beginPath();
+          context.arc(pointX, pointY, pointRadius, 0, Math.PI * 2);
+          context.fillStyle = fillStyle;
+          context.fill();
+          context.strokeStyle = panelColor;
+          context.lineWidth = 1.5;
+          context.stroke();
+        });
+      }
       countElement.textContent = `${validRows.length} points`;
     }
 
@@ -4440,10 +4632,27 @@
       chart.append(title, description);
 
       const plot = { left: 78, right: 618, top: 28, bottom: 270 };
+      const useLogScale = options.logScale === true;
       const values = metrics.map((metric) => Number(metric[options.valueKey]) || 0);
       const maximum = Math.max(...values, 1);
-      const tickValues = Array.from({ length: 5 }, (_, index) => (maximum * index) / 4);
-      const scaleY = (value) => plot.bottom - (value / maximum) * (plot.bottom - plot.top);
+      const positiveValues = values.filter((value) => value > 0);
+      let minimumExponent = 0;
+      let maximumExponent = 0;
+      if (useLogScale) {
+        minimumExponent = Math.floor(Math.log10(Math.min(...positiveValues, 1)));
+        maximumExponent = Math.ceil(Math.log10(Math.max(...positiveValues, 1)));
+        if (maximumExponent <= minimumExponent) {
+          minimumExponent -= 1;
+          maximumExponent += 1;
+        }
+      }
+      const minimumLogValue = 10 ** minimumExponent;
+      const tickValues = useLogScale
+        ? Array.from({ length: maximumExponent - minimumExponent + 1 }, (_, index) => 10 ** (minimumExponent + index))
+        : Array.from({ length: 5 }, (_, index) => (maximum * index) / 4);
+      const scaleY = (value) => useLogScale
+        ? plot.bottom - ((Math.log10(Math.max(value, minimumLogValue)) - minimumExponent) / (maximumExponent - minimumExponent)) * (plot.bottom - plot.top)
+        : plot.bottom - (value / maximum) * (plot.bottom - plot.top);
       const formatValue = options.valueKey === "count"
         ? (value) => Math.round(value).toLocaleString("en-US")
         : (value) => formatSummaryKilometers(value).replace(" km", "");
@@ -4591,10 +4800,27 @@
       chart.append(title, description);
 
       const plot = { left: 78, right: 618, top: 28, bottom: 270 };
+      const useLogScale = options.logScale === true;
       const values = metrics.map((metric) => Number(metric[options.valueKey]) || 0);
       const maximum = Math.max(...values, 1);
-      const tickValues = Array.from({ length: 5 }, (_, index) => (maximum * index) / 4);
-      const scaleY = (value) => plot.bottom - (value / maximum) * (plot.bottom - plot.top);
+      const positiveValues = values.filter((value) => value > 0);
+      let minimumExponent = 0;
+      let maximumExponent = 0;
+      if (useLogScale) {
+        minimumExponent = Math.floor(Math.log10(Math.min(...positiveValues, 1)));
+        maximumExponent = Math.ceil(Math.log10(Math.max(...positiveValues, 1)));
+        if (maximumExponent <= minimumExponent) {
+          minimumExponent -= 1;
+          maximumExponent += 1;
+        }
+      }
+      const minimumLogValue = 10 ** minimumExponent;
+      const tickValues = useLogScale
+        ? Array.from({ length: maximumExponent - minimumExponent + 1 }, (_, index) => 10 ** (minimumExponent + index))
+        : Array.from({ length: 5 }, (_, index) => (maximum * index) / 4);
+      const scaleY = (value) => useLogScale
+        ? plot.bottom - ((Math.log10(Math.max(value, minimumLogValue)) - minimumExponent) / (maximumExponent - minimumExponent)) * (plot.bottom - plot.top)
+        : plot.bottom - (value / maximum) * (plot.bottom - plot.top);
       const formatValue = options.valueKey === "count"
         ? (value) => Math.round(value).toLocaleString("en-US")
         : (value) => formatSummaryKilometers(value).replace(" km", "");
@@ -4686,15 +4912,18 @@
         titleId: "cluster-mean-error-title",
         descriptionId: "cluster-mean-error-description",
         title: "Mean localisation error by GMM cluster",
-        description: "Mean localisation error in kilometres for each named Gaussian-mixture cluster.",
+        description: "Mean localisation error in kilometres for each named Gaussian-mixture cluster on a logarithmic y-axis. Zero means are pinned to the lower boundary.",
         axisTitle: "cluster name",
-        yAxisTitle: "mean error km"
+        yAxisTitle: "mean error km / log scale",
+        logScale: true
       });
     }
 
     function renderGeographicMap(rows) {
       const chart = dom.geographicMapChart;
       if (!chart) return;
+      const canvas = chart.parentElement?.querySelector(".geographic-map-canvas");
+      const context = prepareSummaryCanvas(canvas, 640, 480);
       chart.replaceChildren();
       const title = createSvgElement("title", { id: "geographic-map-title" });
       title.textContent = "Sample locations by GMM cluster";
@@ -4760,20 +4989,38 @@
         rx: 2
       }));
 
-      const pointFragment = document.createDocumentFragment();
-      renderRows.forEach((row) => {
-        const latitude = Number(row.ground_truth_latitude);
-        const longitude = Number(row.ground_truth_longitude);
-        const point = createSvgElement("circle", {
-          class: `geographic-map-point ${getClusterClass(row)}`.trim(),
-          cx: scaleX(longitude).toFixed(2),
-          cy: scaleY(latitude).toFixed(2),
-          r: row._index === state.selectedIndex ? 3.375 : validRows.length > 140 ? 1.8 : 2.625
+      if (context) {
+        const rootStyle = getComputedStyle(document.documentElement);
+        const panelColor = rootStyle.getPropertyValue("--panel-raised").trim();
+        const fallbackColor = rootStyle.getPropertyValue("--faint").trim();
+        context.globalAlpha = 0.9;
+        const selectedPoints = [];
+        renderRows.forEach((row) => {
+          const latitude = Number(row.ground_truth_latitude);
+          const longitude = Number(row.ground_truth_longitude);
+          const pointX = scaleX(longitude);
+          const pointY = scaleY(latitude);
+          const pointRadius = row._index === state.selectedIndex ? 3.375 : validRows.length > 140 ? 1.8 : 2.625;
+          context.beginPath();
+          context.arc(pointX, pointY, pointRadius, 0, Math.PI * 2);
+          context.fillStyle = getClusterColor(row) || fallbackColor;
+          context.fill();
+          context.strokeStyle = panelColor;
+          context.lineWidth = 0.75;
+          context.stroke();
+          if (row._index === state.selectedIndex) selectedPoints.push({ pointX, pointY, pointRadius, fillStyle: context.fillStyle });
         });
-        point.style.fill = getClusterColor(row) || "var(--faint)";
-        pointFragment.append(point);
-      });
-      chart.append(pointFragment);
+        context.globalAlpha = 1;
+        selectedPoints.forEach(({ pointX, pointY, pointRadius, fillStyle }) => {
+          context.beginPath();
+          context.arc(pointX, pointY, pointRadius, 0, Math.PI * 2);
+          context.fillStyle = fillStyle;
+          context.fill();
+          context.strokeStyle = panelColor;
+          context.lineWidth = 0.75;
+          context.stroke();
+        });
+      }
 
       if (!validRows.length) {
         appendSvgText(chart, "No valid sample locations", {
@@ -4882,6 +5129,8 @@
     function renderObservationErrorChart(rows) {
       const chart = dom.observationErrorChart;
       if (!chart) return;
+      const canvas = chart.parentElement?.querySelector(".observation-error-canvas");
+      const context = prepareSummaryCanvas(canvas, 640, 640);
       chart.replaceChildren();
       const title = createSvgElement("title", { id: "observation-error-title" });
       title.textContent = "Number of observations compared with localisation error";
@@ -4958,21 +5207,38 @@
       );
 
       const renderRows = getSummaryRenderRows(validRows);
-      const pointFragment = document.createDocumentFragment();
-      renderRows.forEach((row) => {
-        const observations = Number(row.identified_objects_used);
-        const errorValue = Number(row.error_distance_meters) / 1000;
-        const pointRadius = row._index === state.selectedIndex ? 3 : validRows.length > 140 ? 1.75 : 2.5;
-        const point = createSvgElement("circle", {
-          class: `observation-error-point ${getClusterClass(row)}`.trim(),
-          cx: scaleX(observations + getObservationJitter(row)).toFixed(2),
-          cy: scaleY(errorValue).toFixed(2),
-          r: pointRadius
+      if (context) {
+        const rootStyle = getComputedStyle(document.documentElement);
+        const panelColor = rootStyle.getPropertyValue("--panel-raised").trim();
+        const fallbackColor = rootStyle.getPropertyValue("--faint").trim();
+        context.globalAlpha = 0.86;
+        const selectedPoints = [];
+        renderRows.forEach((row) => {
+          const observations = Number(row.identified_objects_used);
+          const errorValue = Number(row.error_distance_meters) / 1000;
+          const pointX = scaleX(observations + getObservationJitter(row));
+          const pointY = scaleY(errorValue);
+          const pointRadius = row._index === state.selectedIndex ? 3 : validRows.length > 140 ? 1.75 : 2.5;
+          context.beginPath();
+          context.arc(pointX, pointY, pointRadius, 0, Math.PI * 2);
+          context.fillStyle = getClusterColor(row) || fallbackColor;
+          context.fill();
+          context.strokeStyle = panelColor;
+          context.lineWidth = 0.75;
+          context.stroke();
+          if (row._index === state.selectedIndex) selectedPoints.push({ pointX, pointY, pointRadius, fillStyle: context.fillStyle });
         });
-        if (getClusterColor(row)) point.style.fill = getClusterColor(row);
-        pointFragment.append(point);
-      });
-      chart.append(pointFragment);
+        context.globalAlpha = 1;
+        selectedPoints.forEach(({ pointX, pointY, pointRadius, fillStyle }) => {
+          context.beginPath();
+          context.arc(pointX, pointY, pointRadius, 0, Math.PI * 2);
+          context.fillStyle = fillStyle;
+          context.fill();
+          context.strokeStyle = panelColor;
+          context.lineWidth = 0.75;
+          context.stroke();
+        });
+      }
       appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 345, y: 630, "text-anchor": "middle" });
       appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(20 312) rotate(-90)", "text-anchor": "middle" });
     }
@@ -5036,7 +5302,7 @@
       const metrics = getStarBenefitMetrics(rows);
       const groupSignalCount = metrics.reduce((total, metric) => total + metric.groupMetrics.length, 0);
       dom.starBenefitTotal.textContent = metrics.length
-        ? `${Math.min(metrics.length, 24)} stars / ${groupSignalCount} group signals`
+        ? `${metrics.length} stars / ${groupSignalCount} group signals`
         : "-- signals";
       if (!metrics.length) {
         appendSvgText(chart, "Need repeated star observations in a group", { class: "star-benefit-axis-title", x: 430, y: 300, "text-anchor": "middle" });
@@ -5044,7 +5310,7 @@
         return;
       }
 
-      const displayedMetrics = metrics.slice(0, 24);
+      const displayedMetrics = metrics;
       const plot = {
         left: 220,
         right: 810,
@@ -6048,7 +6314,8 @@
       dom.descriptionSteps.forEach((step) => observer.observe(step));
     }
 
-    function setVisualMode(mode) {
+    function setVisualMode(mode, options = {}) {
+      if (mode === "globe" && options.initializeGlobe !== false) ensureGlobeInitialized();
       dom.visual.dataset.mode = mode;
       dom.appShell.classList.toggle("is-full-view", mode !== "globe");
       dom.modeTabs.forEach((tab) => {
@@ -6436,24 +6703,37 @@
       animate();
     }
 
+    function ensureGlobeInitialized() {
+      if (globeInitialized) return;
+      globeInitialized = true;
+      try {
+        initGlobe();
+      } catch (error) {
+        initFallback();
+        setStatus("WebGL unavailable / 2D preview");
+        console.error(error);
+      }
+    }
+
+    function scheduleGlobeInitialization() {
+      if (globeInitializationScheduled || globeInitialized) return;
+      globeInitializationScheduled = true;
+      const initializeWhenIdle = () => {
+        if (dom.visual.dataset.mode === "globe") ensureGlobeInitialized();
+      };
+      window.setTimeout(() => {
+        if (dom.visual.dataset.mode !== "globe") return;
+        if (typeof window.requestIdleCallback === "function") window.requestIdleCallback(initializeWhenIdle, { timeout: 2000 });
+        else window.setTimeout(initializeWhenIdle, 0);
+      }, 1500);
+    }
+
     async function loadMetrics() {
       try {
         await loadGmmClusterColors();
-        let csvText;
-        let lastError;
-        for (const csvUrl of CSV_URLS) {
-          try {
-            const response = await fetch(csvUrl, { cache: "no-store" });
-            if (response.ok) {
-              csvText = await response.text();
-              break;
-            }
-            lastError = new Error(`CSV request failed with ${response.status}: ${csvUrl}`);
-          } catch (error) {
-            lastError = error;
-          }
-        }
-        if (csvText === undefined) throw lastError || new Error("CSV request failed");
+        const response = await fetch(CSV_URL, { cache: "no-store" });
+        if (!response.ok) throw new Error(`CSV request failed with ${response.status}: ${CSV_URL}`);
+        const csvText = await response.text();
         state.rows = parseCsv(csvText);
         if (state.rows.length) {
           state.selectedIndex = state.rows[0]._index;
@@ -6499,6 +6779,12 @@
     });
     window.addEventListener("resize", () => {
       if (dom.visual.dataset.mode === "description" && !techTreeNavigation.hasFit) resetTechTreeView();
+      if (dom.visual.dataset.mode === "summary" && !summaryResizeFrame) {
+        summaryResizeFrame = requestAnimationFrame(() => {
+          summaryResizeFrame = 0;
+          renderSummary();
+        });
+      }
       drawTechTreeLinks();
     });
     dom.reset.addEventListener("click", () => {
@@ -6516,15 +6802,9 @@
     initTechTreeSelection();
     renderResearchTiles();
     applyTheme(themeMode);
-    try {
-      initGlobe();
-    } catch (error) {
-      initFallback();
-      setStatus("WebGL unavailable / 2D preview");
-      console.error(error);
-    }
     initDescriptionProgress();
-    setVisualMode("globe");
+    setVisualMode("globe", { initializeGlobe: false });
+    scheduleGlobeInitialization();
     loadMetrics();
   </script>
 </body>
