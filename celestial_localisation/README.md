@@ -97,7 +97,7 @@ called. It exposes:
 
 ```bash
 ros2 service call /test/load_gps celestial_interfaces/srv/LoadGps \
-  "{latitude: 51.5, longitude: -0.1, altitude: 30.0, timestamp: {sec: $(date -u +%s), nanosec: 0}}"
+  "{latitude: 51.5, longitude: -0.1, altitude: 30.0, yaw: 0.0, timestamp: {sec: $(date -u +%s), nanosec: 0}}"
 ```
 
 The timestamp is UTC and becomes the image header timestamp as well as the
@@ -111,17 +111,27 @@ rendering it requires network access from the container.
 
 The `random_localisation_evaluator` node is launched with the pipeline but
 does no work until its service is called. It samples positions uniformly over
-the Earth's surface, calls the simulator for each position, waits for
-`pose.json` to contain the matching timestamp, and appends one result per run
-to `debug_output/random_localisation_metrics.csv`:
+the Earth's surface, perturbs each sample for the requested repetitions, calls
+the simulator for each repetition, averages the inlier poses, and appends one
+result per sample to `debug_output/random_localisation_metrics.csv`:
 
 ```bash
 ros2 service call /test/run_random_evaluation \
-  celestial_interfaces/srv/RunRandomEvaluation "{repetitions: 100}"
+  celestial_interfaces/srv/RunRandomEvaluation \
+  "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"
 ```
 
+`var_time` is the maximum timestamp variation in seconds, `var_xy` is the
+maximum radial position variation in metres, and `var_yaw` is the maximum
+absolute yaw variation in degrees. Repetitions whose estimated position is a
+spatial outlier are excluded before the sample average is calculated.
+
 The CSV includes ground-truth and estimated latitude/longitude, the number of
-identified objects used by the solver, signed latitude/longitude errors in
-degrees and metres, haversine error distance in metres, and the cumulative mean
-error. A second evaluation appends more rows to the same CSV. The service
-response is returned only after all requested runs finish or one run fails.
+identified objects used by the solver, the JSON-encoded list of identified
+catalogue star IDs for each sample, signed latitude/longitude errors in degrees
+and metres, haversine error distance in metres, and the cumulative mean error.
+A second evaluation appends more rows to the same CSV. The service response is
+returned only after all requested samples and repetitions finish or one request
+fails. The summary page uses the star list to compare each star's mean error
+when present with its mean error when absent; positive benefit scores indicate
+lower error when that star is present.

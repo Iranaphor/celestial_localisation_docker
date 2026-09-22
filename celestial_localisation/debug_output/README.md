@@ -14,8 +14,26 @@ docker exec celestial_localisation_docker-celestial_localisation_service-1 bash 
 To run repeated random-position accuracy measurements, call:
 
 ```sh
-docker exec celestial_localisation_docker-celestial_localisation_service-1 bash -lc 'source /opt/ros/$ROS_DISTRO/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 service call /test/run_random_evaluation celestial_interfaces/srv/RunRandomEvaluation "{repetitions: 100}"'
+docker exec celestial_localisation_docker-celestial_localisation_service-1 bash -lc 'source /opt/ros/$ROS_DISTRO/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 service call /test/run_random_evaluation celestial_interfaces/srv/RunRandomEvaluation "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"'
 ```
 
-The measurements are appended to `random_localisation_metrics.csv` in this
-directory.
+One averaged measurement per sample is appended to
+`random_localisation_metrics.csv` in this directory.
+
+New evaluation rows include `identified_star_ids`, a JSON list of catalogue
+star IDs used by the averaged pose. Existing rows from before that field was
+added remain valid but have no star-list data; the evaluator migrates the CSV
+header when the next sample is written.
+
+Generate or refresh the seeded Gaussian-mixture model from those measurements
+with:
+
+```sh
+python3 scripts/compare_localisation_clustering.py
+```
+
+This writes `gmm_boundaries.json` and adds `cluster_id` to existing CSV rows.
+The detector writes the current `sky_map.png` and a live `clusterN.png`
+classification; completed random evaluations replace that group image with the
+definitive error-aware GMM assignment. `sky_map_classification.json` records
+the live observation-side classification and timestamp.

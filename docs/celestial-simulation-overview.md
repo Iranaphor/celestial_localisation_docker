@@ -90,6 +90,7 @@ The service is defined in
 float64 latitude
 float64 longitude
 float64 altitude
+float64 yaw
 builtin_interfaces/Time timestamp
 ---
 bool success
@@ -100,7 +101,7 @@ The request flow is:
 
 1. Validate the coordinates, altitude, and timestamp.
 2. Convert the ROS timestamp to UTC milliseconds.
-3. Configure the Stellarium observer location and time.
+3. Configure the Stellarium observer location, time, and camera yaw.
 4. Render four horizon faces plus the zenith and nadir faces.
 5. Composite the six faces into the configured equirectangular dimensions.
 6. Publish one `bgr8` `sensor_msgs/Image` on `/sky_map`.
@@ -112,7 +113,7 @@ process a camera-generated sky map.
 Example request:
 
 ```bash
-ros2 service call /test/load_gps celestial_interfaces/srv/LoadGps "{latitude: 51.5, longitude: -0.1, altitude: 30.0, timestamp: {sec: $(date -u +%s), nanosec: 0}}"
+ros2 service call /test/load_gps celestial_interfaces/srv/LoadGps "{latitude: 51.5, longitude: -0.1, altitude: 30.0, yaw: 0.0, timestamp: {sec: $(date -u +%s), nanosec: 0}}"
 ```
 
 ## Stellarium Assets

@@ -81,6 +81,8 @@ values. The most commonly changed settings are:
 - `CELESTIAL_RANDOM_EVALUATION_SERVICE` selects the random evaluation service.
 - `CELESTIAL_RANDOM_METRICS_FILENAME` selects the CSV filename under the debug
   output directory.
+- `CELESTIAL_GMM_BOUNDARIES_FILENAME` selects the persisted GMM model under the
+  debug output directory.
 - `ROS_DOMAIN_ID` must match for all ROS 2 services.
 
 The default data flow is:
@@ -118,14 +120,15 @@ commercially licensed.
 
 The `random_localisation_evaluator` node is also started with the pipeline. It
 waits idle until `/test/run_random_evaluation` is called, then performs the
-requested number of random surface-position simulations and appends the
-ground-truth coordinates, estimated coordinates, identified-object counts,
-and error metrics to
+requested sample and repetition simulations, averages the inlier estimates,
+and appends the ground-truth coordinates, estimated coordinates,
+identified-object counts, identified catalogue star lists, and error metrics to
 `debug_output/random_localisation_metrics.csv`:
 
 ```bash
 ros2 service call /test/run_random_evaluation \
-  celestial_interfaces/srv/RunRandomEvaluation "{repetitions: 100}"
+  celestial_interfaces/srv/RunRandomEvaluation \
+  "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"
 ```
 
 ## Source layout
@@ -156,5 +159,18 @@ Python or ROS package files, restart or rebuild the service so its startup
 script runs `colcon build --symlink-install` again.
 
 ## Development notes
+
+The seeded Gaussian-mixture grouping model is generated from the accumulated
+random-localisation metrics with:
+
+```bash
+python3 scripts/compare_localisation_clustering.py
+```
+
+This writes `gmm_boundaries.json` to the configured debug output, backfills
+`cluster_id` in the metrics CSV, and updates the GMM PNG under `docs`. During
+evaluation, the detector and evaluator use that model to
+write the live observation classification and the definitive `clusterN.png`
+sample image. The HTML summary uses the persisted cluster ids and colors.
 
 See [Future directions](docs/future-directions.md) for planned developments.

@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "model": "gaussian_mixture",
+  "decision_rule": "assign the maximum weighted Gaussian log-likelihood",
+  "feature_space": {
+    "x": "identified_objects_used / 10",
+    "y": "log10(error_distance_meters / 1000)",
+    "observation_scale": 10.0
+  },
+  "seed_locations": [
+    {
+      "name": "low error",
+      "observations": 25.0,
+      "error_km": 10.0
+    },
+    {
+      "name": "medium error",
+      "observations": 30.0,
+      "error_km": 100.0
+    },
+    {
+      "name": "high error",
+      "observations": 15.0,
+      "error_km": 10000.0
+    },
+    {
+      "name": "zero observations",
+      "observations": 0.0,
+      "error_km": 10000.0
+    }
+  ],
+  "components": [
+    {
+      "cluster_id": 1,
+      "color": "#94e3c4",
+      "weight": 0.4015574003551656,
+      "mean": {
+        "observations": 25.809944626943512,
+        "log10_error_km": 0.956587318959902,
+        "error_km": 9.048723524834953
+      },
+      "covariance": {
+        "observations_scaled_xx": 0.7381163477406598,
+        "observations_scaled_log_error_xy": -0.07745968049625343,
+        "log_error_yy": 0.07435433567341031
+      }
+    },
+    {
+      "cluster_id": 2,
+      "color": "#e4d47b",
+      "weight": 0.27763512993858613,
+      "mean": {
+        "observations": 30.38773197667272,
+        "log10_error_km": 2.056430200642759,
+        "error_km": 113.87547476894136
+      },
+      "covariance": {
+        "observations_scaled_xx": 0.5279500829779367,
+        "observations_scaled_log_error_xy": -0.1644645777484619,
+        "log_error_yy": 0.6175746645836727
+      }
+    },
+    {
+      "cluster_id": 3,
+      "color": "#ffb65c",
+      "weight": 0.27271478900572776,
+      "mean": {
+        "observations": 25.310925077086694,
+        "log10_error_km": 3.760179505027243,
+        "error_km": 5756.778305547246
+      },
+      "covariance": {
+        "observations_scaled_xx": 0.9375410641440723,
+        "observations_scaled_log_error_xy": -0.012540591977104325,
+        "log_error_yy": 0.10919203409720378
+      }
+    },
+    {
+      "cluster_id": 4,
+      "color": "#76c9d9",
+      "weight": 0.04809268070051859,
+      "mean": {
+        "observations": 0.5481162982743016,
+        "log10_error_km": 3.893292656159162,
+        "error_km": 7821.5469426990785
+      },
+      "covariance": {
+        "observations_scaled_xx": 0.023547261456777293,
+        "observations_scaled_log_error_xy": -2.1143984470058548e-05,
+        "log_error_yy": 0.09295469788574197
+      }
+    }
+  ],
+  "pairwise_boundaries": [
+    {
+      "between": [
+        1,
+        2
+      ],
+      "equation": "score_1 - score_2 = 0",
+      "coefficients": {
+        "x2": 0.2721866335488705,
+        "xy": -1.034572268578024,
+        "y2": -6.667098428457529,
+        "x": -1.9658598118372392,
+        "y": 13.231734432634319,
+        "constant": 2.0943535222847736
+      }
+    },
+    {
+      "between": [
+        1,
+        3
+      ],
+      "equation": "score_1 - score_3 = 0",
+      "coefficients": {
+        "x2": -0.22641640784379435,
+        "xy": -1.4619323540017177,
+        "y2": -2.9638241578495412,
+        "x": 2.276564249680519,
+        "y": -16.265623669888,
+        "constant": 54.30100388350115
+      }
+    },
+    {
+      "between": [
+        1,
+        4
+      ],
+      "equation": "score_1 - score_4 = 0",
+      "coefficients": {
+        "x2": 20.473349127900295,
+        "xy": -1.5749610706386943,
+        "y2": -2.170992721552773,
+        "x": 3.076425250426606,
+        "y": -23.350015865883073,
+        "constant": 66.28053281995571
+      }
+    },
+    {
+      "between": [
+        2,
+        3
+      ],
+      "equation": "score_2 - score_3 = 0",
+      "coefficients": {
+        "x2": -0.49860304139266487,
+        "xy": -0.4273600854236938,
+        "y2": 3.703274270607988,
+        "x": 4.242424061517758,
+        "y": -29.49735810252232,
+        "constant": 52.206650361216376
+      }
+    },
+    {
+      "between": [
+        2,
+        4
+      ],
+      "equation": "score_2 - score_4 = 0",
+      "coefficients": {
+        "x2": 20.201162494351426,
+        "xy": -0.5403888020606702,
+        "y2": 4.496105706904756,
+        "x": 5.042285062263845,
+        "y": -36.58175029851739,
+        "constant": 64.18617929767093
+      }
+    },
+    {
+      "between": [
+        3,
+        4
+      ],
+      "equation": "score_3 - score_4 = 0",
+      "coefficients": {
+        "x2": 20.69976553574409,
+        "xy": -0.11302871663697645,
+        "y2": 0.7928314362967681,
+        "x": 0.7998610007460871,
+        "y": -7.084392195995072,
+        "constant": 11.979528936454557
+      }
+    }
+  ]
+}
