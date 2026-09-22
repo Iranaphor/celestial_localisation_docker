@@ -17,6 +17,7 @@ from celestial_detector.sun_detector import detect_sun
 from celestial_detector.moon_detector import detect_moon
 from celestial_detector.point_source_classification import detections_overlap
 from celestial_detector.transient_detector import classify_point_sources
+from celestial_detector.gmm_classifier import classify_live_observations, load_gmm_boundaries
 
 _MARKER_COLOR_BGR = {
     'SUN': (0, 215, 255),
@@ -60,6 +61,7 @@ class CelestialDetectorNode(Node):
         self.declare_parameter('star_min_matches', 4)
         self.declare_parameter('minimum_confidence', 0.5)
         self.declare_parameter('debug_output_dir', '')
+        self.declare_parameter('gmm_boundaries_filename', 'gmm_boundaries.json')
 
         input_topic = self.get_parameter('input_topic').value
         output_topic = self.get_parameter('output_topic').value
@@ -88,6 +90,33 @@ class CelestialDetectorNode(Node):
             except OSError as error:
                 self.get_logger().error(f"cannot create debug output directory {self.debug_dir}: {error}")
                 self.debug_dir = None
+
+        self.gmm_boundaries_path = None
+        self.gmm_model = None
+        if self.debug_dir:
+            configured_boundaries = Path(
+                self.get_parameter('gmm_boundaries_filename').value
+            )
+            self.gmm_boundaries_path = (
+                configured_boundaries
+                if configured_boundaries.is_absolute()
+                else self.debug_dir / configured_boundaries
+            )
+            if self.gmm_boundaries_path.exists():
+                try:
+                    self.gmm_model = load_gmm_boundaries(self.gmm_boundaries_path)
+                    self.get_logger().info(
+                        f"loaded GMM boundaries from {self.gmm_boundaries_path}"
+                    )
+                except (OSError, TypeError, ValueError, json.JSONDecodeError) as error:
+                    self.get_logger().warning(
+                        f"could not load GMM boundaries from {self.gmm_boundaries_path}: {error}"
+                    )
+            else:
+                self.get_logger().warning(
+                    f"GMM boundaries not found at {self.gmm_boundaries_path}; "
+                    "live samples will remain unclassified"
+                )
 
         self.bridge = CvBridge()
         self.sub = self.create_subscription(Image, input_topic, self._on_sky_map, 10)
@@ -169,7 +198,7 @@ class CelestialDetectorNode(Node):
             f"star={star_count}) to celestial_localizer"
         )
 
-        self._save_debug_output(image, observations)
+        self._save_debug_output(image, observations, msg.header)
 
     def _build_observation(self, detection, width, height, object_type, object_id):
         azimuth, elevation = pixel_to_az_el(detection['pixel_x'], detection['pixel_y'], width, height)
@@ -185,11 +214,27 @@ class CelestialDetectorNode(Node):
         obs.brightness = detection['brightness']
         return obs
 
-    def _save_debug_output(self, image_bgr, observations):
+    def _load_gmm_model_if_available(self):
+        if self.gmm_model is not None or self.gmm_boundaries_path is None:
+            return
+        if not self.gmm_boundaries_path.exists():
+            return
+        try:
+            self.gmm_model = load_gmm_boundaries(self.gmm_boundaries_path)
+            self.get_logger().info(
+                f"loaded GMM boundaries from {self.gmm_boundaries_path}"
+            )
+        except (OSError, TypeError, ValueError, json.JSONDecodeError) as error:
+            self.get_logger().warning(
+                f"could not load GMM boundaries from {self.gmm_boundaries_path}: {error}"
+            )
+
+    def _save_debug_output(self, image_bgr, observations, header):
         if self.debug_dir is None:
             return
 
         try:
+            self._load_gmm_model_if_available()
             annotated = image_bgr.copy()
             for obs in observations:
                 color = _marker_color(obs.object_type, obs.object_id)
@@ -201,9 +246,19 @@ class CelestialDetectorNode(Node):
                         (center[0] + 12, center[1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA,
                     )
 
+            provisional_cluster_id = None
+            if self.gmm_model is not None:
+                provisional_cluster_id = classify_live_observations(
+                    self.gmm_model,
+                    len(observations),
+                )
             image_path = self.debug_dir / "sky_map.png"
             if not cv2.imwrite(str(image_path), annotated):
                 raise OSError(f"failed to write {image_path}")
+            if provisional_cluster_id is not None:
+                cluster_image_path = self.debug_dir / f"cluster{provisional_cluster_id}.png"
+                if not cv2.imwrite(str(cluster_image_path), annotated):
+                    raise OSError(f"failed to write {cluster_image_path}")
 
             observations_payload = [
                 {
@@ -221,6 +276,23 @@ class CelestialDetectorNode(Node):
             observations_path = self.debug_dir / "observations.json"
             with observations_path.open('w', encoding='utf-8') as stream:
                 json.dump(observations_payload, stream, indent=2)
+
+            classification_payload = {
+                'observation_timestamp': {
+                    'sec': int(header.stamp.sec),
+                    'nanosec': int(header.stamp.nanosec),
+                },
+                'identified_objects_used': len(observations),
+                'provisional_cluster_id': provisional_cluster_id,
+                'classification': (
+                    'observation-marginal'
+                    if provisional_cluster_id is not None
+                    else 'unclassified'
+                ),
+            }
+            classification_path = self.debug_dir / "sky_map_classification.json"
+            with classification_path.open('w', encoding='utf-8') as stream:
+                json.dump(classification_payload, stream, indent=2)
         except OSError as error:
             self.get_logger().error(f"disabling debug output after write failure: {error}")
             self.debug_dir = None

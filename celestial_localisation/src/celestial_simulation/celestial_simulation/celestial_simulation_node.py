@@ -102,6 +102,7 @@ class CelestialSimulationNode(Node):
                 latitude=request.latitude,
                 longitude=request.longitude,
                 altitude=request.altitude,
+                yaw_degrees=request.yaw,
                 timestamp_ms=timestamp_ms,
             )
         except (RendererError, RuntimeError, OSError, ValueError) as error:
@@ -131,7 +132,7 @@ class CelestialSimulationNode(Node):
         response.message = (
             f'published {message.width}x{message.height} sky map for '
             f'latitude={request.latitude:.6f}, longitude={request.longitude:.6f}, '
-            f'altitude={request.altitude:.2f} m'
+            f'altitude={request.altitude:.2f} m, yaw={request.yaw:.2f} deg'
         )
         return response
 
@@ -158,6 +159,8 @@ class CelestialSimulationNode(Node):
             return 'longitude must be finite and between -180 and 180 degrees'
         if not math.isfinite(request.altitude):
             return 'altitude must be finite'
+        if not math.isfinite(request.yaw):
+            return 'yaw must be finite'
         if request.timestamp.nanosec < 0 or request.timestamp.nanosec >= 1_000_000_000:
             return 'timestamp nanosec must be between 0 and 999999999'
         return ''

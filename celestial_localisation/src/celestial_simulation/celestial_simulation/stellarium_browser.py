@@ -97,7 +97,15 @@ class StellariumBrowserBridge:
         self._page = None
         self._server = None
 
-    def render_faces(self, latitude, longitude, altitude, timestamp_ms, field_of_view_degrees):
+    def render_faces(
+        self,
+        latitude,
+        longitude,
+        altitude,
+        timestamp_ms,
+        field_of_view_degrees,
+        yaw_degrees=0.0,
+    ):
         self._ensure_started()
         self._page.evaluate(
             'args => window.__configureObserver(args)',
@@ -122,7 +130,10 @@ class StellariumBrowserBridge:
             try:
                 self._page.evaluate(
                     'args => window.__renderFace(args.azimuth, args.elevation)',
-                    {'azimuth': azimuth, 'elevation': elevation},
+                    {
+                        'azimuth': azimuth + float(yaw_degrees),
+                        'elevation': elevation,
+                    },
                 )
                 self._page.wait_for_timeout(100)
                 png = self._page.locator('#stel-canvas').screenshot(type='png')

@@ -1,4 +1,8 @@
-int32 repetitions
+int32 samples
+int32 reps
+float64 var_time
+float64 var_xy
+float64 var_yaw
 ---
 bool success
 string message

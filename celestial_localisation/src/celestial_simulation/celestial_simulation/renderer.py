@@ -36,13 +36,14 @@ class StellariumRenderer:
             landscape_key=landscape_key,
         )
 
-    def render(self, latitude, longitude, altitude, timestamp_ms):
+    def render(self, latitude, longitude, altitude, timestamp_ms, yaw_degrees=0.0):
         faces = self._bridge.render_faces(
             latitude=latitude,
             longitude=longitude,
             altitude=altitude,
             timestamp_ms=timestamp_ms,
             field_of_view_degrees=self.face_field_of_view,
+            yaw_degrees=yaw_degrees,
         )
         image = compose_equirectangular(
             faces,

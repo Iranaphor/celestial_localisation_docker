@@ -94,6 +94,10 @@ def generate_launch_description():
             'star_min_matches': int(_env('CELESTIAL_STAR_MIN_MATCHES', '4')),
             'minimum_confidence': float(_env('CELESTIAL_MIN_CONFIDENCE', '0.5')),
             'debug_output_dir': debug_output_dir,
+            'gmm_boundaries_filename': _env(
+                'CELESTIAL_GMM_BOUNDARIES_FILENAME',
+                'gmm_boundaries.json',
+            ),
         }],
     )
 
@@ -154,6 +158,10 @@ def generate_launch_description():
             'metrics_filename': _env(
                 'CELESTIAL_RANDOM_METRICS_FILENAME',
                 'random_localisation_metrics.csv',
+            ),
+            'gmm_boundaries_filename': _env(
+                'CELESTIAL_GMM_BOUNDARIES_FILENAME',
+                'gmm_boundaries.json',
             ),
             'fixed_altitude': float(_env('CELESTIAL_FIXED_ALTITUDE', '0.0')),
             'result_timeout_seconds': float(
