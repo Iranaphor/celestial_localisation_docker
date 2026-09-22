@@ -1,150 +1,150 @@
 {
   "used_observations": [
     {
-      "object_id": "HIP_30438",
-      "azimuth": 162.52466830148325,
-      "elevation": 46.775188478890755,
+      "object_id": "HIP_69673",
+      "azimuth": 111.2988853383554,
+      "elevation": 52.27718009330422,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_30438",
-      "azimuth": 161.65204035528583,
-      "elevation": 46.81404337201801,
+      "object_id": "HIP_69673",
+      "azimuth": 110.53217548982131,
+      "elevation": 52.2960654948635,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_33579",
-      "azimuth": 125.81993361239321,
-      "elevation": 58.47977650042739,
+      "object_id": "HIP_37826",
+      "azimuth": 276.5509642606991,
+      "elevation": 39.599380756120205,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_41037",
-      "azimuth": 153.18371511157588,
-      "elevation": 30.590284600739217,
+      "object_id": "HIP_36850",
+      "azimuth": 282.3574208551704,
+      "elevation": 39.37655237824891,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_35904",
-      "azimuth": 122.52989597316976,
-      "elevation": 53.19499984565858,
+      "object_id": "HIP_67927",
+      "azimuth": 117.56412218172012,
+      "elevation": 55.475545274673316,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_42913",
-      "azimuth": 146.6443158021732,
-      "elevation": 29.963690397148483,
+      "object_id": "HIP_72105",
+      "azimuth": 94.18195554848039,
+      "elevation": 51.218551117585534,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_33856",
-      "azimuth": 123.40201376605538,
-      "elevation": 58.2983195767664,
+      "object_id": "HIP_32246",
+      "azimuth": 282.0072704339225,
+      "elevation": 26.339630219214058,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_30122",
-      "azimuth": 136.87445079937245,
-      "elevation": 64.97049359489503,
+      "object_id": "HIP_80816",
+      "azimuth": 83.92329961543467,
+      "elevation": 27.997519009045163,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_33977",
-      "azimuth": 115.7417280250936,
-      "elevation": 59.38289381745688,
+      "object_id": "HIP_81693",
+      "azimuth": 72.57991875638797,
+      "elevation": 31.206621246010343,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_38170",
-      "azimuth": 113.48024776657824,
-      "elevation": 48.86799554573346,
+      "object_id": "HIP_76267",
+      "azimuth": 86.7492596238925,
+      "elevation": 41.5412518458843,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_39953",
-      "azimuth": 141.22120721040753,
-      "elevation": 37.93182590053022,
+      "object_id": "HIP_71075",
+      "azimuth": 78.01266364646418,
+      "elevation": 58.088047347456936,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_35264",
-      "azimuth": 135.05988686428034,
-      "elevation": 51.250359116210284,
+      "object_id": "HIP_35550",
+      "azimuth": 273.82584777149464,
+      "elevation": 31.61130682541217,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_39757",
-      "azimuth": 111.79263429680543,
-      "elevation": 44.837946944315036,
+      "object_id": "HIP_73555",
+      "azimuth": 71.91038964003127,
+      "elevation": 52.94379461462442,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_44816",
-      "azimuth": 133.10378558724287,
-      "elevation": 29.421643182255103,
+      "object_id": "HIP_35350",
+      "azimuth": 268.9682346880478,
+      "elevation": 28.06018439987627,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_39429",
-      "azimuth": 133.12587699881965,
-      "elevation": 41.84296452600543,
+      "object_id": "HIP_33018",
+      "azimuth": 289.64677119674406,
+      "elevation": 32.50623530258263,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_31685",
-      "azimuth": 150.57875025391877,
-      "elevation": 53.222363898356654,
+      "object_id": "HIP_37740",
+      "azimuth": 272.61768419307754,
+      "elevation": 37.59724558788081,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_32759",
-      "azimuth": 133.26322935278387,
-      "elevation": 58.45208846068573,
+      "object_id": "HIP_71053",
+      "azimuth": 91.62075346429688,
+      "elevation": 55.316911442165924,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_37229",
-      "azimuth": 117.19575737327273,
-      "elevation": 50.802710285366246,
+      "object_id": "HIP_77233",
+      "azimuth": 96.73603329683542,
+      "elevation": 33.06684344707012,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_32768",
-      "azimuth": 155.49563545058476,
-      "elevation": 46.21393220693219,
+      "object_id": "HIP_74666",
+      "azimuth": 81.07350391768489,
+      "elevation": 48.10437011252657,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_37677",
-      "azimuth": 119.91527829874269,
-      "elevation": 49.18634002107347,
+      "object_id": "HIP_34088",
+      "azimuth": 274.86447102422426,
+      "elevation": 27.6967423639855,
       "confidence": 1.0
     }
   ],
   "initial_guess": {
-    "latitude": 89.99999999999999,
-    "longitude": -48.43852513192599,
-    "heading": -106.27585581596435
+    "latitude": 38.93744091159903,
+    "longitude": -131.57877458564553,
+    "heading": 0.0787645758599023
   },
   "refined_estimate": {
-    "latitude": 89.99999999908444,
-    "longitude": 0.9050978785578386,
-    "heading": -160.87680576138268
+    "latitude": 38.995223850720194,
+    "longitude": -131.5275415681734,
+    "heading": 0.08732583214969145
   },
   "observation_timestamp": {
-    "sec": 1790098236,
-    "nanosec": 741271224
+    "sec": 1790108834,
+    "nanosec": 792626987
   },
   "solver": {
-    "status": 2,
-    "nfev": 20,
-    "optimality": 0.00048640031793374986,
-    "message": "`ftol` termination condition is satisfied."
+    "status": 0,
+    "nfev": 30,
+    "optimality": 2.919953891275643e-05,
+    "message": "The maximum number of function evaluations is exceeded."
   },
-  "cost": 14.048148619437576,
+  "cost": 5.8393209362295195e-05,
   "covariance_diagonal": [
-    1.7024074309718789,
-    1.7024074309718789,
-    6.809629723887515
+    1.000002919660468,
+    1.000002919660468,
+    4.000011678641872
   ]
 }
