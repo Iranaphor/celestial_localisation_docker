@@ -735,6 +735,11 @@
     .summary-histogram-grid { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
     .summary-observation-error-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
     .summary-observation-error-grid .summary-chart { grid-column: 1 / -1; }
+    .summary-variance-observation-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 12px;
+    }
+    .summary-variance-observation-grid > .summary-chart { grid-column: 1 / -1; }
     .summary-cluster-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
     .summary-geographic-map-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -837,7 +842,7 @@
       display: block;
       width: 100%;
       height: auto;
-      aspect-ratio: 2 / 2;
+      aspect-ratio: 4 / 3;
       overflow: visible;
     }
 
@@ -847,7 +852,7 @@
       width: 100%;
     }
 
-    .observation-error-shell { aspect-ratio: 2 / 2; }
+    .observation-error-shell { aspect-ratio: 4 / 3; }
     .geographic-map-shell { aspect-ratio: 4 / 3; }
 
     .observation-error-shell .observation-error-chart,
@@ -891,6 +896,24 @@
       transition: none;
     }
     .observation-error-boundary:hover { stroke-width: 1.35; opacity: 0.68; }
+
+    .sample-variance-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 2 / 1;
+      overflow: visible;
+    }
+
+    .sample-variance-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .sample-variance-grid { stroke: var(--grid-stroke); stroke-width: 1; }
+    .sample-variance-axis { fill: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: 0.03em; }
+    .sample-variance-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .sample-variance-whisker,
+    .sample-variance-cap,
+    .sample-variance-median { fill: none; stroke: var(--cluster-color, var(--faint)); stroke-linecap: round; stroke-width: 0.9; }
+    .sample-variance-box { fill: var(--cluster-color, var(--faint)); fill-opacity: 0.16; stroke: var(--cluster-color, var(--faint)); stroke-width: 0.9; }
+    .sample-variance-point { fill: var(--cluster-color, var(--faint)); opacity: 0.62; pointer-events: none; }
 
     .summary-star-benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
     .summary-star-benefit-grid .summary-chart { grid-column: 1 / -1; }
@@ -3138,11 +3161,18 @@
             </figure>
           </div>
           <div class="summary-cluster-key" id="cluster-legend" aria-label="GMM cluster legend"></div>
-          <div class="summary-charts summary-observation-error-grid">
+          <div class="summary-charts summary-variance-observation-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Step error variance by sample</span><span class="chart-caption-meta" id="sample-variance-total">-- samples</span></figcaption>
+              <svg class="sample-variance-chart" id="sample-variance-chart" viewBox="0 0 1280 640" role="img" aria-labelledby="sample-variance-title sample-variance-description">
+                <title id="sample-variance-title">Step error variance by sample</title>
+                <desc id="sample-variance-description">Each lightweight box plot shows the error for every step in one sample. Samples are sorted from highest to lowest within-sample variance, and each box is colored by the Gaussian-mixture group assigned to that sample's average.</desc>
+              </svg>
+            </figure>
             <figure class="summary-chart">
               <figcaption><span>Observations vs error</span><span class="chart-caption-meta" id="observation-error-total">-- points</span></figcaption>
               <div class="observation-error-shell">
-                <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 640 640" role="img" aria-labelledby="observation-error-title observation-error-description">
+                <svg class="observation-error-chart" id="observation-error-chart" viewBox="0 0 960 720" role="img" aria-labelledby="observation-error-title observation-error-description">
                 <title id="observation-error-title">Number of observations compared with localisation error</title>
                 <desc id="observation-error-description">Each point is one valid evaluation. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Points are colored by their persisted Gaussian-mixture cluster. Dashed curves show pairwise Gaussian-mixture decision boundaries.</desc>
                 </svg>
@@ -3703,6 +3733,8 @@
       reasonableLongitudePointCount: document.getElementById("reasonable-longitude-point-count"),
       errorHistogram: document.getElementById("error-histogram"),
       histogramTotal: document.getElementById("histogram-total"),
+      sampleVarianceChart: document.getElementById("sample-variance-chart"),
+      sampleVarianceTotal: document.getElementById("sample-variance-total"),
       observationErrorChart: document.getElementById("observation-error-chart"),
       observationErrorTotal: document.getElementById("observation-error-total"),
       starBenefitChart: document.getElementById("star-benefit-chart"),
@@ -5229,11 +5261,216 @@
       chart.append(boundaryGroup);
     }
 
+    function getSampleVarianceMetrics(rows) {
+      const samples = new Map();
+      rows.forEach((row) => {
+        const sampleId = String(row.sample_id || "").trim();
+        if (!sampleId) return;
+        const sample = samples.get(sampleId) || { sampleId, runIndex: null, steps: [], summary: null };
+        const rowRunIndex = Number(row.run_index);
+        if (getRecordType(row) === "step") {
+          const errorKilometers = Number(row.error_distance_meters) / 1000;
+          if (Number.isFinite(errorKilometers) && errorKilometers >= 0) sample.steps.push({ errorKilometers, row });
+          if (sample.runIndex === null && Number.isFinite(rowRunIndex)) sample.runIndex = rowRunIndex;
+        } else {
+          sample.summary = row;
+          if (Number.isFinite(rowRunIndex)) sample.runIndex = rowRunIndex;
+        }
+        samples.set(sampleId, sample);
+      });
+
+      return [...samples.values()].map((sample) => {
+        const errors = sample.steps.map((step) => step.errorKilometers);
+        if (!errors.length) return null;
+        const mean = errors.reduce((total, value) => total + value, 0) / errors.length;
+        const variance = errors.reduce((total, value) => total + ((value - mean) ** 2), 0) / errors.length;
+        const sortedErrors = [...errors].sort((first, second) => first - second);
+        const quantile = (fraction) => {
+          const position = (sortedErrors.length - 1) * fraction;
+          const lowerIndex = Math.floor(position);
+          const upperIndex = Math.ceil(position);
+          const remainder = position - lowerIndex;
+          return sortedErrors[lowerIndex] + (sortedErrors[upperIndex] - sortedErrors[lowerIndex]) * remainder;
+        };
+        const clusterId = getClusterId(sample.summary);
+        return {
+          ...sample,
+          errors,
+          variance,
+          minimum: sortedErrors[0],
+          firstQuartile: quantile(0.25),
+          median: quantile(0.5),
+          thirdQuartile: quantile(0.75),
+          maximum: sortedErrors[sortedErrors.length - 1],
+          clusterId
+        };
+      }).filter(Boolean).sort((first, second) => (
+        second.variance - first.variance
+        || (second.runIndex ?? Number.NEGATIVE_INFINITY) - (first.runIndex ?? Number.NEGATIVE_INFINITY)
+        || first.sampleId.localeCompare(second.sampleId)
+      ));
+    }
+
+    function renderSampleVarianceChart(rows) {
+      const chart = dom.sampleVarianceChart;
+      if (!chart) return;
+      const chartWidth = 1280;
+      const chartHeight = 640;
+      const xScale = chartWidth / 640;
+      chart.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
+      chart.style.aspectRatio = `${chartWidth} / ${chartHeight}`;
+      chart.replaceChildren();
+      const title = createSvgElement("title", { id: "sample-variance-title" });
+      title.textContent = "Step error variance by sample";
+      const description = createSvgElement("desc", { id: "sample-variance-description" });
+      description.textContent = "Each box plot shows every step error for one sample. Samples are sorted from highest to lowest within-sample variance, and box color identifies the Gaussian-mixture group assigned to the sample average.";
+      chart.append(title, description);
+
+      const metrics = getSampleVarianceMetrics(rows);
+      const stepCount = metrics.reduce((total, metric) => total + metric.steps.length, 0);
+      if (dom.sampleVarianceTotal) {
+        dom.sampleVarianceTotal.textContent = metrics.length
+          ? `${metrics.length} samples / ${stepCount} steps`
+          : "-- samples";
+      }
+      if (!metrics.length) {
+        appendSvgText(chart, "No repeated sample steps", { class: "sample-variance-axis-title", x: chartWidth / 2, y: 310, "text-anchor": "middle" });
+        return;
+      }
+
+      const plot = { left: 58 * xScale, right: 618 * xScale, top: 38, bottom: 562 };
+      const allErrors = metrics.flatMap((metric) => metric.errors);
+      const positiveErrors = allErrors.filter((value) => value > 0);
+      const minimumPositiveError = positiveErrors.length ? Math.min(...positiveErrors) : 1;
+      const minimumExponent = Math.floor(Math.log10(Math.min(minimumPositiveError, 1)));
+      let maximumExponent = Math.ceil(Math.log10(Math.max(...allErrors, 1)));
+      if (maximumExponent <= minimumExponent) maximumExponent = minimumExponent + 1;
+      const minimumError = 10 ** minimumExponent;
+      const scaleY = (value) => plot.bottom - (
+        (Math.log10(Math.max(value, minimumError)) - minimumExponent)
+        / (maximumExponent - minimumExponent)
+      ) * (plot.bottom - plot.top);
+      const formatError = (value) => formatSummaryKilometers(value).replace(" km", "");
+      const formatVariance = (value) => value.toLocaleString("en-US", { maximumFractionDigits: 2 });
+      const scaleX = (index) => metrics.length === 1
+        ? (plot.left + plot.right) / 2
+        : plot.left + (index / (metrics.length - 1)) * (plot.right - plot.left);
+      const slotWidth = (plot.right - plot.left) / Math.max(metrics.length, 1);
+      const boxWidth = Math.max(3 * xScale, Math.min(12 * xScale, slotWidth * 0.62));
+
+      chart.append(createSvgElement("rect", {
+        class: "sample-variance-plot",
+        x: plot.left,
+        y: plot.top,
+        width: plot.right - plot.left,
+        height: plot.bottom - plot.top,
+        rx: 2
+      }));
+      for (let exponent = minimumExponent; exponent <= maximumExponent; exponent += 1) {
+        const value = 10 ** exponent;
+        const y = scaleY(value);
+        chart.append(createSvgElement("line", {
+          class: "sample-variance-grid",
+          x1: plot.left,
+          y1: y,
+          x2: plot.right,
+          y2: y
+        }));
+        appendSvgText(chart, formatError(value), {
+          class: "sample-variance-axis",
+          x: plot.left - 9,
+          y: y + 4,
+          "text-anchor": "end"
+        });
+      }
+
+      const labelInterval = Math.max(1, Math.ceil(metrics.length / 10));
+      metrics.forEach((metric, index) => {
+        const centerX = scaleX(index);
+        if (index % labelInterval === 0 || index === metrics.length - 1) {
+          chart.append(createSvgElement("line", {
+            class: "sample-variance-grid",
+            x1: centerX,
+            y1: plot.top,
+            x2: centerX,
+            y2: plot.bottom
+          }));
+          appendSvgText(chart, Number.isFinite(metric.runIndex) ? String(metric.runIndex) : metric.sampleId, {
+            class: "sample-variance-axis",
+            x: centerX,
+            y: 585,
+            "text-anchor": "middle"
+          });
+        }
+
+        const color = metric.clusterId ? GMM_CLUSTER_COLORS[metric.clusterId] : "var(--faint)";
+        const groupLabel = metric.clusterId ? getClusterName(metric.clusterId) : "unclassified";
+        const group = createSvgElement("g", { class: "sample-variance-sample" });
+        const groupTitle = createSvgElement("title");
+        groupTitle.textContent = `${metric.sampleId} / run ${metric.runIndex ?? "--"} / ${groupLabel} average / variance ${formatVariance(metric.variance)} km2 / ${metric.steps.length} steps`;
+        group.append(groupTitle);
+
+        const minimumY = scaleY(metric.minimum);
+        const firstQuartileY = scaleY(metric.firstQuartile);
+        const medianY = scaleY(metric.median);
+        const thirdQuartileY = scaleY(metric.thirdQuartile);
+        const maximumY = scaleY(metric.maximum);
+        const capHalfWidth = boxWidth * 0.34;
+        const whisker = createSvgElement("line", { class: "sample-variance-whisker", x1: centerX, y1: minimumY, x2: centerX, y2: maximumY });
+        const lowerCap = createSvgElement("line", { class: "sample-variance-cap", x1: centerX - capHalfWidth, y1: minimumY, x2: centerX + capHalfWidth, y2: minimumY });
+        const upperCap = createSvgElement("line", { class: "sample-variance-cap", x1: centerX - capHalfWidth, y1: maximumY, x2: centerX + capHalfWidth, y2: maximumY });
+        const box = createSvgElement("rect", {
+          class: "sample-variance-box",
+          x: centerX - boxWidth / 2,
+          y: thirdQuartileY,
+          width: boxWidth,
+          height: Math.max(1, firstQuartileY - thirdQuartileY),
+          rx: 1
+        });
+        const median = createSvgElement("line", { class: "sample-variance-median", x1: centerX - boxWidth / 2, y1: medianY, x2: centerX + boxWidth / 2, y2: medianY });
+        [whisker, lowerCap, upperCap, box, median].forEach((element) => element.style.setProperty("--cluster-color", color));
+        group.append(whisker, lowerCap, upperCap, box, median);
+
+        metric.steps.forEach((step) => {
+          const point = createSvgElement("circle", {
+            class: "sample-variance-point",
+            cx: centerX + getObservationJitter(step.row) * boxWidth * 0.7,
+            cy: scaleY(step.errorKilometers),
+            r: 1.8
+          });
+          point.style.setProperty("--cluster-color", color);
+          const pointTitle = createSvgElement("title");
+          pointTitle.textContent = `${metric.sampleId} / step ${step.row.repetition_index || "--"}: ${formatSummaryKilometers(step.errorKilometers)}`;
+          point.append(pointTitle);
+          group.append(point);
+        });
+        chart.append(group);
+      });
+
+      appendSvgText(chart, "run / sorted by within-sample variance", {
+        class: "sample-variance-axis-title",
+        x: (plot.left + plot.right) / 2,
+        y: 625,
+        "text-anchor": "middle"
+      });
+      appendSvgText(chart, "error km / log scale", {
+        class: "sample-variance-axis-title",
+        transform: `translate(${17 * xScale} 300) rotate(-90)`,
+        "text-anchor": "middle"
+      });
+    }
+
     function renderObservationErrorChart(rows) {
       const chart = dom.observationErrorChart;
       if (!chart) return;
+      const chartWidth = 960;
+      const chartHeight = 720;
+      const xScale = chartWidth / 640;
+      const yScale = chartHeight / 640;
       const canvas = chart.parentElement?.querySelector(".observation-error-canvas");
-      const context = prepareSummaryCanvas(canvas, 640, 640);
+      const context = prepareSummaryCanvas(canvas, chartWidth, chartHeight);
+      chart.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
+      chart.style.aspectRatio = `${chartWidth} / ${chartHeight}`;
       chart.replaceChildren();
       const title = createSvgElement("title", { id: "observation-error-title" });
       title.textContent = "Number of observations compared with localisation error";
@@ -5249,11 +5486,11 @@
       ));
       dom.observationErrorTotal.textContent = validRows.length ? `${validRows.length} points` : "-- points";
       if (!validRows.length) {
-        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 240, y: 480, "text-anchor": "middle" });
+        appendSvgText(chart, "No valid runs", { class: "observation-error-axis-title", x: 240 * xScale, y: 480 * yScale, "text-anchor": "middle" });
         return;
       }
 
-      const plot = { left: 72, right: 618, top: 54, bottom: 570 };
+      const plot = { left: 72 * xScale, right: 618 * xScale, top: 54 * yScale, bottom: 570 * yScale };
       const observationValues = validRows.map((row) => Number(row.identified_objects_used));
       const maximumObservations = Math.max(Math.ceil(Math.max(...observationValues, 0)), 1);
       const rawObservationStep = maximumObservations / 5;
@@ -5290,13 +5527,13 @@
       observationTicks.forEach((value) => {
         const x = scaleX(value);
         chart.append(createSvgElement("line", { class: "observation-error-grid", x1: x, y1: plot.top, x2: x, y2: plot.bottom }));
-        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 594, "text-anchor": "middle" });
+        appendSvgText(chart, formatObservationTick(value), { class: "observation-error-axis", x, y: 594 * yScale, "text-anchor": "middle" });
       });
       for (let exponent = minimumExponent; exponent <= maximumExponent; exponent += 1) {
         const value = 10 ** exponent;
         const y = scaleY(value);
         chart.append(createSvgElement("line", { class: "observation-error-grid", x1: plot.left, y1: y, x2: plot.right, y2: y }));
-        appendSvgText(chart, formatLogAxisValue(value), { class: "observation-error-axis", x: plot.left - 12, y: y + 4, "text-anchor": "end" });
+        appendSvgText(chart, formatLogAxisValue(value), { class: "observation-error-axis", x: plot.left - 12 * xScale, y: y + 4 * yScale, "text-anchor": "end" });
       }
 
       renderGmmBoundaries(
@@ -5342,8 +5579,8 @@
           context.stroke();
         });
       }
-      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 345, y: 630, "text-anchor": "middle" });
-      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: "translate(20 312) rotate(-90)", "text-anchor": "middle" });
+      appendSvgText(chart, "observations used", { class: "observation-error-axis-title", x: 345 * xScale, y: 630 * yScale, "text-anchor": "middle" });
+      appendSvgText(chart, "error km / log scale", { class: "observation-error-axis-title", transform: `translate(${20 * xScale} ${312 * yScale}) rotate(-90)`, "text-anchor": "middle" });
     }
 
     function getStarBenefitMetrics(rows) {
@@ -5525,6 +5762,7 @@
         renderCoordinateChart(dom.reasonableLatitudePoints, [], "latitude", dom.reasonableLatitudePointCount, { residual: true });
         renderCoordinateChart(dom.reasonableLongitudePoints, [], "longitude", dom.reasonableLongitudePointCount, { residual: true });
         renderErrorHistogram([]);
+        renderSampleVarianceChart(state.rows);
         renderObservationErrorChart([]);
         renderStarBenefitChart([]);
         renderClusterMetricCharts([]);
@@ -5556,6 +5794,7 @@
       renderCoordinateChart(dom.reasonableLatitudePoints, reasonableRows, "latitude", dom.reasonableLatitudePointCount, { residual: true });
       renderCoordinateChart(dom.reasonableLongitudePoints, reasonableRows, "longitude", dom.reasonableLongitudePointCount, { residual: true });
       renderErrorHistogram(errorKilometers);
+      renderSampleVarianceChart(state.rows);
       renderObservationErrorChart(summaryRows);
       renderStarBenefitChart(summaryRows);
       renderClusterMetricCharts(summaryRows);
