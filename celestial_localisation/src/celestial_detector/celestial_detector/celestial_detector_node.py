@@ -66,6 +66,15 @@ class CelestialDetectorNode(Node):
         self.declare_parameter('minimum_confidence', 0.5)
         self.declare_parameter('debug_output_dir', '')
         self.declare_parameter('gmm_boundaries_filename', 'gmm_boundaries.json')
+        self.declare_parameter(
+            'star_benefit_metrics_filename',
+            'simulated_location_filter_samples*.csv',
+        )
+        self.declare_parameter('star_benefit_min_score', -0.1)
+        self.declare_parameter('star_benefit_min_present_count', 3)
+        self.declare_parameter('star_benefit_min_absent_count', 2)
+        self.declare_parameter('star_benefit_use_high_error_group', True)
+        self.declare_parameter('star_benefit_use_medium_error_group', False)
 
         input_topic = self.get_parameter('input_topic').value
         output_topic = self.get_parameter('output_topic').value
@@ -76,6 +85,15 @@ class CelestialDetectorNode(Node):
         self.star_min_elevation = self.get_parameter('star_min_elevation_degrees').value
         self.star_max_candidates = self.get_parameter('star_max_candidates').value
         self.min_confidence = self.get_parameter('minimum_confidence').value
+        debug_output_dir = self.get_parameter('debug_output_dir').value
+        configured_metrics_path = Path(
+            self.get_parameter('star_benefit_metrics_filename').value
+        )
+        self.star_benefit_metrics_path = (
+            configured_metrics_path
+            if configured_metrics_path.is_absolute() or not debug_output_dir
+            else Path(debug_output_dir) / configured_metrics_path
+        )
         self.star_identifier = StarIdentifier(
             database_path=self.get_parameter('star_database_path').value,
             fov_degrees=self.get_parameter('star_fov_degrees').value,
@@ -84,9 +102,22 @@ class CelestialDetectorNode(Node):
             match_radius=self.get_parameter('star_match_radius').value,
             match_threshold=self.get_parameter('star_match_threshold').value,
             min_matches=self.get_parameter('star_min_matches').value,
+            star_benefit_metrics_path=self.star_benefit_metrics_path,
+            star_benefit_min_score=self.get_parameter('star_benefit_min_score').value,
+            star_benefit_min_present_count=self.get_parameter(
+                'star_benefit_min_present_count'
+            ).value,
+            star_benefit_min_absent_count=self.get_parameter(
+                'star_benefit_min_absent_count'
+            ).value,
+            star_benefit_use_high_error_group=self.get_parameter(
+                'star_benefit_use_high_error_group'
+            ).value,
+            star_benefit_use_medium_error_group=self.get_parameter(
+                'star_benefit_use_medium_error_group'
+            ).value,
         )
 
-        debug_output_dir = self.get_parameter('debug_output_dir').value
         self.debug_dir = Path(debug_output_dir) if debug_output_dir else None
         if self.debug_dir:
             try:
@@ -137,6 +168,25 @@ class CelestialDetectorNode(Node):
         else:
             self.get_logger().warning(
                 f"offline star identification disabled: {self.star_identifier.error or 'no solver'}"
+            )
+        if self.star_identifier.star_benefit_error:
+            self.get_logger().warning(self.star_identifier.star_benefit_error)
+        elif self.star_identifier.excluded_star_ids:
+            excluded_star_ids = ', '.join(sorted(self.star_identifier.excluded_star_ids))
+            source_paths = ', '.join(
+                str(path) for path in self.star_identifier.star_benefit_source_paths
+            )
+            self.get_logger().info(
+                f"star benefit filter excluded {len(self.star_identifier.excluded_star_ids)} "
+                f"catalogue stars using {len(self.star_identifier.star_benefit_source_paths)} "
+                f"files ({source_paths}): {excluded_star_ids}"
+            )
+        else:
+            source_paths = ', '.join(
+                str(path) for path in self.star_identifier.star_benefit_source_paths
+            ) or str(self.star_benefit_metrics_path)
+            self.get_logger().info(
+                f"star benefit filter found no exclusions in {source_paths}"
             )
 
     def _on_sky_map(self, msg):

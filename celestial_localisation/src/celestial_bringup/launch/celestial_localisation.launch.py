@@ -24,6 +24,14 @@ def generate_launch_description():
     sky_map_topic = _env('CELESTIAL_SKY_MAP_TOPIC', '/sky_map')
     observations_topic = _env('CELESTIAL_OBSERVATIONS_TOPIC', '/celestial_observations')
     debug_output_dir = _env('CELESTIAL_DEBUG_OUTPUT_DIR', '')
+    metrics_filename = _env(
+        'CELESTIAL_RANDOM_METRICS_FILENAME',
+        'random_localisation_metrics.csv',
+    )
+    star_benefit_metrics_filename = _env(
+        'CELESTIAL_STAR_BENEFIT_METRICS_FILENAME',
+        'simulated_location_filter_samples*.csv',
+    )
 
     sky_mapper_node = Node(
         package='sky_mapper',
@@ -98,6 +106,24 @@ def generate_launch_description():
                 'CELESTIAL_GMM_BOUNDARIES_FILENAME',
                 'gmm_boundaries.json',
             ),
+            'star_benefit_metrics_filename': star_benefit_metrics_filename,
+            'star_benefit_min_score': float(
+                _env('CELESTIAL_STAR_BENEFIT_MIN_SCORE', '-0.1')
+            ),
+            'star_benefit_min_present_count': int(
+                _env('CELESTIAL_STAR_BENEFIT_MIN_PRESENT_COUNT', '3')
+            ),
+            'star_benefit_min_absent_count': int(
+                _env('CELESTIAL_STAR_BENEFIT_MIN_ABSENT_COUNT', '2')
+            ),
+            'star_benefit_use_high_error_group': _env(
+                'CELESTIAL_STAR_BENEFIT_USE_HIGH_ERROR_GROUP',
+                'true',
+            ).lower() == 'true',
+            'star_benefit_use_medium_error_group': _env(
+                'CELESTIAL_STAR_BENEFIT_USE_MEDIUM_ERROR_GROUP',
+                'false',
+            ).lower() == 'true',
         }],
     )
 
@@ -155,10 +181,7 @@ def generate_launch_description():
             ),
             'debug_output_dir': debug_output_dir,
             'pose_filename': _env('CELESTIAL_POSE_DEBUG_FILENAME', 'pose.json'),
-            'metrics_filename': _env(
-                'CELESTIAL_RANDOM_METRICS_FILENAME',
-                'random_localisation_metrics.csv',
-            ),
+            'metrics_filename': metrics_filename,
             'gmm_boundaries_filename': _env(
                 'CELESTIAL_GMM_BOUNDARIES_FILENAME',
                 'gmm_boundaries.json',

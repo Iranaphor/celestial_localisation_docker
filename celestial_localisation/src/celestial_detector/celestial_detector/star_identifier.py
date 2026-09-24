@@ -9,6 +9,8 @@ import math
 
 import numpy as np
 
+from celestial_detector.star_benefit_filter import StarBenefitFilter
+
 
 _UNKNOWN_ID = 'UNKNOWN'
 _DEFAULT_CATALOGUE = 'hip_main'
@@ -28,6 +30,12 @@ class StarIdentifier:
         min_matches=4,
         pattern_checking_stars=8,
         solver=None,
+        star_benefit_metrics_path='',
+        star_benefit_min_score=-0.1,
+        star_benefit_min_present_count=3,
+        star_benefit_min_absent_count=2,
+        star_benefit_use_high_error_group=True,
+        star_benefit_use_medium_error_group=False,
     ):
         self.fov_degrees = float(fov_degrees)
         self.fov_max_error_degrees = float(fov_max_error_degrees)
@@ -38,6 +46,20 @@ class StarIdentifier:
         self.pattern_checking_stars = int(pattern_checking_stars)
         self._solver = solver
         self.error = ''
+        self.star_benefit_filter = StarBenefitFilter.empty()
+        self.star_benefit_error = ''
+        if star_benefit_metrics_path:
+            try:
+                self.star_benefit_filter = StarBenefitFilter.from_csv(
+                    star_benefit_metrics_path,
+                    min_benefit_score=star_benefit_min_score,
+                    min_present_count=int(star_benefit_min_present_count),
+                    min_absent_count=int(star_benefit_min_absent_count),
+                    use_high_error_group=bool(star_benefit_use_high_error_group),
+                    use_medium_error_group=bool(star_benefit_use_medium_error_group),
+                )
+            except (OSError, TypeError, ValueError) as error:
+                self.star_benefit_error = f'could not load star benefit metrics: {error}'
 
         if self._solver is not None:
             return
@@ -66,6 +88,14 @@ class StarIdentifier:
         if callable(properties):
             properties = properties()
         return properties.get('star_catalog', _DEFAULT_CATALOGUE)
+
+    @property
+    def excluded_star_ids(self):
+        return self.star_benefit_filter.excluded_star_ids
+
+    @property
+    def star_benefit_source_paths(self):
+        return self.star_benefit_filter.source_paths
 
     def identify(self, star_detections, panorama_size):
         """Annotate detections with catalogue IDs where a solution is valid."""
@@ -161,6 +191,9 @@ class StarIdentifier:
 
         for source_index, (_, metadata) in best_matches.items():
             star_detections[source_index].update(metadata)
+            if self.star_benefit_filter.excludes(metadata['object_id']):
+                star_detections[source_index]['object_id'] = _UNKNOWN_ID
+                star_detections[source_index]['excluded_by_star_benefit'] = True
         return star_detections
 
     def _solve(self, centroids):

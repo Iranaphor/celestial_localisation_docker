@@ -89,3 +89,46 @@ def test_average_pose_estimates_excludes_spatial_outlier():
     assert averaged['identified_objects_used'] == 4
     assert averaged['identified_star_ids'] == ['HIP_100', 'HIP_200', 'HIP_300']
     assert averaged['sky_map_ready'] is True
+
+
+def test_average_pose_estimates_uses_median_for_sample_coordinates():
+    estimates = [
+        {
+            'latitude': 35.0,
+            'longitude': -120.0,
+            'heading': 10.0,
+            'identified_objects_used': 4,
+            'identified_star_ids': [],
+            'sky_map_ready': True,
+        },
+        {
+            'latitude': 35.000001,
+            'longitude': -120.0,
+            'heading': 10.0,
+            'identified_objects_used': 4,
+            'identified_star_ids': [],
+            'sky_map_ready': True,
+        },
+        {
+            'latitude': 35.000002,
+            'longitude': -120.0,
+            'heading': 10.0,
+            'identified_objects_used': 4,
+            'identified_star_ids': [],
+            'sky_map_ready': True,
+        },
+        {
+            'latitude': 35.000002,
+            'longitude': -120.0,
+            'heading': 10.0,
+            'identified_objects_used': 4,
+            'identified_star_ids': [],
+            'sky_map_ready': True,
+        },
+    ]
+
+    averaged = average_pose_estimates(estimates, 35.0, -120.0)
+
+    assert averaged['inlier_indices'] == [1, 2, 3]
+    assert abs(averaged['latitude'] - 35.000002) < 1e-9
+    assert abs(averaged['longitude'] + 120.0) < 1e-9

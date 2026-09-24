@@ -4,6 +4,7 @@ import json
 import math
 import os
 import random
+from statistics import median
 import tempfile
 import threading
 import time
@@ -138,10 +139,10 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
         north_offset = math.radians(estimate['latitude'] - ground_truth_latitude) * EARTH_RADIUS_METERS
         offsets.append((east_offset, north_offset))
 
-    median_east = sorted(offset[0] for offset in offsets)[len(offsets) // 2]
-    median_north = sorted(offset[1] for offset in offsets)[len(offsets) // 2]
+    center_east = median(offset[0] for offset in offsets)
+    center_north = median(offset[1] for offset in offsets)
     distances = [
-        math.hypot(east - median_east, north - median_north)
+        math.hypot(east - center_east, north - center_north)
         for east, north in offsets
     ]
     median_distance = sorted(distances)[len(distances) // 2]
@@ -157,20 +158,20 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
     if not inlier_indices:
         inlier_indices = [min(range(len(distances)), key=distances.__getitem__)]
 
-    mean_east = sum(offsets[index][0] for index in inlier_indices) / len(inlier_indices)
-    mean_north = sum(offsets[index][1] for index in inlier_indices) / len(inlier_indices)
-    mean_latitude = max(
+    sample_east = median(offsets[index][0] for index in inlier_indices)
+    sample_north = median(offsets[index][1] for index in inlier_indices)
+    sample_latitude = max(
         -90.0,
-        min(90.0, ground_truth_latitude + math.degrees(mean_north / EARTH_RADIUS_METERS)),
+        min(90.0, ground_truth_latitude + math.degrees(sample_north / EARTH_RADIUS_METERS)),
     )
     if abs(reference_cosine) < 1e-12:
-        mean_longitude = ground_truth_longitude
+        sample_longitude = ground_truth_longitude
     else:
-        mean_longitude = (
+        sample_longitude = (
             ground_truth_longitude
-            + math.degrees(mean_east / (EARTH_RADIUS_METERS * reference_cosine))
+            + math.degrees(sample_east / (EARTH_RADIUS_METERS * reference_cosine))
         )
-        mean_longitude = (mean_longitude + 180.0) % 360.0 - 180.0
+        sample_longitude = (sample_longitude + 180.0) % 360.0 - 180.0
 
     heading_sine = sum(
         math.sin(math.radians(estimates[index]['heading'])) for index in inlier_indices
@@ -189,10 +190,16 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
         for star_id in estimates[index].get('identified_star_ids', [])
         if star_id
     })
-    representative_index = min(inlier_indices, key=distances.__getitem__)
+    representative_index = min(
+        inlier_indices,
+        key=lambda index: math.hypot(
+            offsets[index][0] - sample_east,
+            offsets[index][1] - sample_north,
+        ),
+    )
     return {
-        'latitude': mean_latitude,
-        'longitude': mean_longitude,
+        'latitude': sample_latitude,
+        'longitude': sample_longitude,
         'heading': mean_heading,
         'identified_objects_used': mean_identified_objects,
         'identified_star_ids': identified_star_ids,

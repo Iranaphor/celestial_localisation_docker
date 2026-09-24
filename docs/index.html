@@ -670,6 +670,45 @@
       font-weight: 500;
     }
 
+    .summary-analysis-group {
+      max-width: 980px;
+      margin: 14px auto 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    .summary-analysis-group > summary {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 15px 2px 12px;
+      color: var(--ink);
+      cursor: pointer;
+      font-family: var(--mono);
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      list-style: none;
+      text-transform: uppercase;
+    }
+
+    .summary-analysis-group > summary::-webkit-details-marker { display: none; }
+    .summary-analysis-group > summary::before {
+      color: var(--accent);
+      content: "+";
+      font-size: 1rem;
+      line-height: 1;
+      width: 0.8rem;
+    }
+    .summary-analysis-group[open] > summary::before { content: "-"; }
+    .summary-analysis-group > summary:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 4px;
+    }
+    .summary-analysis-group > .summary-charts,
+    .summary-analysis-group > .summary-cluster-key { max-width: none; }
+
     .chart-caption-meta {
       color: var(--faint);
       font-family: var(--mono);
@@ -914,6 +953,23 @@
     .sample-variance-median { fill: none; stroke: var(--cluster-color, var(--faint)); stroke-linecap: round; stroke-width: 0.9; }
     .sample-variance-box { fill: var(--cluster-color, var(--faint)); fill-opacity: 0.16; stroke: var(--cluster-color, var(--faint)); stroke-width: 0.9; }
     .sample-variance-point { fill: var(--cluster-color, var(--faint)); opacity: 0.62; pointer-events: none; }
+    .sample-variance-point-outlier { fill: var(--category-outlier); stroke: var(--panel-raised); stroke-width: 0.8; opacity: 0.96; }
+    .sample-standard-deviation-chart {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1280 / 460;
+      overflow: visible;
+    }
+    .sample-standard-deviation-plot { fill: var(--plot-fill); stroke: var(--plot-stroke); stroke-width: 1; }
+    .sample-standard-deviation-grid { stroke: var(--grid-stroke); stroke-width: 1; }
+    .sample-standard-deviation-axis { fill: var(--faint); font-family: var(--mono); font-size: 9px; letter-spacing: 0.03em; }
+    .sample-standard-deviation-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 9px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .sample-standard-deviation-inlier-line { fill: none; stroke: var(--cluster-color, var(--accent)); stroke-linecap: round; stroke-linejoin: round; stroke-width: 2.2; }
+    .sample-standard-deviation-full-line { fill: none; stroke: var(--faint); stroke-dasharray: 5 4; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+    .sample-standard-deviation-legend-line { stroke-linecap: round; stroke-width: 2.2; }
+    .sample-standard-deviation-legend-line-dotted { stroke: var(--faint); stroke-dasharray: 5 4; stroke-width: 1.6; }
+    .sample-standard-deviation-legend-label { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
 
     .summary-star-benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; }
     .summary-star-benefit-grid .summary-chart { grid-column: 1 / -1; }
@@ -947,7 +1003,6 @@
     .cluster-metric-axis { fill: var(--faint); font-family: var(--mono); font-size: 10px; letter-spacing: 0.04em; }
     .cluster-metric-axis-title { fill: var(--muted); font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
     .cluster-metric-bar { opacity: 0.88; pointer-events: none; }
-
     .geographic-map-chart {
       display: block;
       width: 100%;
@@ -3128,47 +3183,61 @@
 
         <div class="summary-stat-grid" aria-label="Summary statistics">
           <article class="summary-stat-card">
-            <span class="metric-label" id="summary-record-label">Summaries</span>
+            <span class="metric-label" id="summary-record-label">Total samples</span>
             <strong class="summary-stat-value" id="summary-runs">--</strong>
-            <small>nonzero-object evaluations</small>
+            <small>valid nonzero-object records</small>
           </article>
           <article class="summary-stat-card">
-            <span class="metric-label">Mean error</span>
+            <span class="metric-label" id="summary-mean-error-label">Mean error of samples</span>
             <strong class="summary-stat-value" id="summary-mean-error">--</strong>
             <small>average distance to truth</small>
           </article>
           <article class="summary-stat-card">
-            <span class="metric-label">Median error</span>
+            <span class="metric-label" id="summary-median-error-label">Median error of samples</span>
             <strong class="summary-stat-value" id="summary-median-error">--</strong>
             <small>middle run by distance</small>
           </article>
           <article class="summary-stat-card">
-            <span class="metric-label">Within 10 km</span>
-            <strong class="summary-stat-value" id="summary-within-ten">--</strong>
-            <small>share of close fixes</small>
-          </article>
-          <article class="summary-stat-card">
-            <span class="metric-label">Mean objects</span>
+            <span class="metric-label" id="summary-objects-label">Mean objects of samples</span>
             <strong class="summary-stat-value" id="summary-objects">--</strong>
             <small>identified objects used</small>
           </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Outlier rate</span>
+            <strong class="summary-stat-value" id="summary-outlier-rate">--</strong>
+            <small>steps excluded from sample medians</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Samples in low error group</span>
+            <strong class="summary-stat-value" id="summary-low-error-count">--</strong>
+            <small>GMM-assigned sample summaries</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Mean inlier error of low error group</span>
+            <strong class="summary-stat-value" id="summary-low-error-mean">--</strong>
+            <small>final sample summaries; distance to ground truth</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Mean inlier std dev of low error group</span>
+            <strong class="summary-stat-value" id="summary-low-error-standard-deviation">--</strong>
+            <small>km across sample steps; flagged outliers excluded</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Samples &lt; 10 km</span>
+            <strong class="summary-stat-value" id="summary-samples-within-ten">--</strong>
+            <small>share of valid sample summaries</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Samples with at least 1 step &lt; 10 km</span>
+            <strong class="summary-stat-value" id="summary-samples-with-step-within-ten">--</strong>
+            <small>share of valid sample summaries</small>
+          </article>
         </div>
 
-          <div class="summary-charts summary-histogram-grid">
-            <figure class="summary-chart">
-              <figcaption><span>Error histogram</span><span class="chart-caption-meta" id="histogram-total">-- runs</span></figcaption>
-              <div class="histogram" id="error-histogram" role="img" aria-label="Independent error histogram"></div>
-            </figure>
-          </div>
-          <div class="summary-cluster-key" id="cluster-legend" aria-label="GMM cluster legend"></div>
-          <div class="summary-charts summary-variance-observation-grid">
-            <figure class="summary-chart">
-              <figcaption><span>Step error variance by sample</span><span class="chart-caption-meta" id="sample-variance-total">-- samples</span></figcaption>
-              <svg class="sample-variance-chart" id="sample-variance-chart" viewBox="0 0 1280 640" role="img" aria-labelledby="sample-variance-title sample-variance-description">
-                <title id="sample-variance-title">Step error variance by sample</title>
-                <desc id="sample-variance-description">Each lightweight box plot shows the error for every step in one sample. Samples are sorted from highest to lowest within-sample variance, and each box is colored by the Gaussian-mixture group assigned to that sample's average.</desc>
-              </svg>
-            </figure>
+        <details class="summary-analysis-group">
+          <summary>Cluster analysis</summary>
+
+          <div class="summary-charts summary-observation-error-grid">
             <figure class="summary-chart">
               <figcaption><span>Observations vs error</span><span class="chart-caption-meta" id="observation-error-total">-- points</span></figcaption>
               <div class="observation-error-shell">
@@ -3178,6 +3247,31 @@
                 </svg>
                 <canvas class="observation-error-canvas" width="640" height="640" aria-hidden="true"></canvas>
               </div>
+            </figure>
+          </div>
+
+          <div class="summary-cluster-key" id="cluster-legend" aria-label="GMM cluster legend"></div>
+          <div class="summary-charts summary-variance-observation-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Step error spread by sample / inlier std dev order</span><span class="chart-caption-meta" id="sample-variance-by-variance-total">-- samples</span></figcaption>
+              <svg class="sample-variance-chart" id="sample-variance-by-variance-chart" viewBox="0 0 1280 640" role="img" aria-labelledby="sample-variance-by-variance-title sample-variance-by-variance-description">
+                <title id="sample-variance-by-variance-title">Step error spread by sample sorted by inlier standard deviation</title>
+                <desc id="sample-variance-by-variance-description">Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. All samples are sorted from highest to lowest within-sample inlier standard deviation without grouping by GMM cluster.</desc>
+              </svg>
+            </figure>
+            <figure class="summary-chart">
+              <figcaption><span>Step error spread by sample / group order</span><span class="chart-caption-meta" id="sample-variance-total">-- samples</span></figcaption>
+              <svg class="sample-variance-chart" id="sample-variance-chart" viewBox="0 0 1280 640" role="img" aria-labelledby="sample-variance-title sample-variance-description">
+                <title id="sample-variance-title">Step error spread by sample in group order</title>
+                <desc id="sample-variance-description">Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. Samples are ordered LowSamples, HighError, MediumError, then LowError, with each group sorted from highest to lowest within-sample inlier standard deviation.</desc>
+              </svg>
+            </figure>
+            <figure class="summary-chart">
+              <figcaption><span>Inlier vs full std dev by sample / group order</span><span class="chart-caption-meta" id="sample-standard-deviation-total">-- samples</span></figcaption>
+              <svg class="sample-standard-deviation-chart" id="sample-standard-deviation-chart" viewBox="0 0 1280 460" role="img" aria-labelledby="sample-standard-deviation-title sample-standard-deviation-description">
+                <title id="sample-standard-deviation-title">Inlier and full standard deviation by sample in group order</title>
+                <desc id="sample-standard-deviation-description">The solid line shows inlier-only standard deviation for each sample in group order, changing color between GMM groups. The dotted line shows standard deviation using all steps, including flagged outliers.</desc>
+              </svg>
             </figure>
           </div>
 
@@ -3197,6 +3291,18 @@
               </svg>
             </figure>
           </div>
+
+          <div class="summary-charts summary-histogram-grid">
+            <figure class="summary-chart">
+              <figcaption><span>Error histogram</span><span class="chart-caption-meta" id="histogram-total">-- runs</span></figcaption>
+              <div class="histogram" id="error-histogram" role="img" aria-label="Independent error histogram"></div>
+            </figure>
+          </div>
+
+        </details>
+
+        <details class="summary-analysis-group">
+          <summary>Location analysis</summary>
 
           <div class="summary-charts summary-scatter-grid summary-latitude-grid">
             <figure class="summary-chart">
@@ -3307,6 +3413,12 @@
               </div>
             </figure>
           </div>
+
+        </details>
+
+        <details class="summary-analysis-group">
+          <summary>Observation analysis</summary>
+
           <div class="summary-charts summary-star-benefit-grid">
             <figure class="summary-chart">
               <figcaption><span>Star identifier benefit by group</span><span class="chart-caption-meta" id="star-benefit-total">-- signals</span></figcaption>
@@ -3316,6 +3428,8 @@
               </svg>
             </figure>
           </div>
+
+        </details>
         <p class="summary-footnote" id="summary-footnote">Metrics will appear when the CSV is available.</p>
         <p class="summary-footnote">Each coloured point compares the average error of runs in one GMM group that contain a star identifier with the average error of runs in that group that do not. Positive values mean the star is associated with lower error; negative values mean higher error. These are group-level comparisons, not per-run scores.</p>
       </div>
@@ -3718,10 +3832,18 @@
       summaryView: document.getElementById("summary-view"),
       summaryRuns: document.getElementById("summary-runs"),
       summaryRecordLabel: document.getElementById("summary-record-label"),
+      summaryMeanErrorLabel: document.getElementById("summary-mean-error-label"),
       summaryMeanError: document.getElementById("summary-mean-error"),
+      summaryMedianErrorLabel: document.getElementById("summary-median-error-label"),
       summaryMedianError: document.getElementById("summary-median-error"),
-      summaryWithinTen: document.getElementById("summary-within-ten"),
+      summaryObjectsLabel: document.getElementById("summary-objects-label"),
       summaryObjects: document.getElementById("summary-objects"),
+      summaryOutlierRate: document.getElementById("summary-outlier-rate"),
+      summaryLowErrorCount: document.getElementById("summary-low-error-count"),
+      summaryLowErrorMean: document.getElementById("summary-low-error-mean"),
+      summaryLowErrorStandardDeviation: document.getElementById("summary-low-error-standard-deviation"),
+      summarySamplesWithinTen: document.getElementById("summary-samples-within-ten"),
+      summarySamplesWithStepWithinTen: document.getElementById("summary-samples-with-step-within-ten"),
       summaryRunMeta: document.getElementById("summary-run-meta"),
       latitudePoints: document.getElementById("latitude-points"),
       longitudePoints: document.getElementById("longitude-points"),
@@ -3735,6 +3857,10 @@
       histogramTotal: document.getElementById("histogram-total"),
       sampleVarianceChart: document.getElementById("sample-variance-chart"),
       sampleVarianceTotal: document.getElementById("sample-variance-total"),
+      sampleVarianceByVarianceChart: document.getElementById("sample-variance-by-variance-chart"),
+      sampleVarianceByVarianceTotal: document.getElementById("sample-variance-by-variance-total"),
+      sampleStandardDeviationChart: document.getElementById("sample-standard-deviation-chart"),
+      sampleStandardDeviationTotal: document.getElementById("sample-standard-deviation-total"),
       observationErrorChart: document.getElementById("observation-error-chart"),
       observationErrorTotal: document.getElementById("observation-error-total"),
       starBenefitChart: document.getElementById("star-benefit-chart"),
@@ -4170,6 +4296,12 @@
       3: "HighError",
       4: "LowSamples"
     };
+    const SAMPLE_VARIANCE_CLUSTER_ORDER = {
+      4: 0,
+      3: 1,
+      2: 2,
+      1: 3
+    };
     let GMM_CLUSTER_COLORS = { ...DEFAULT_GMM_CLUSTER_COLORS };
     let GMM_CLUSTER_NAMES = { ...DEFAULT_GMM_CLUSTER_NAMES };
     let GMM_PAIRWISE_BOUNDARIES = [];
@@ -4278,6 +4410,26 @@
       return state.recordView === "step" ? "steps" : "summaries";
     }
 
+    function getOutlierRate(rows) {
+      if (state.recordView === "step") {
+        const classifiedRows = rows.filter((row) => String(row?.is_outlier ?? "").trim() !== "");
+        if (!classifiedRows.length) return null;
+        return classifiedRows.filter(isOutlierRow).length / classifiedRows.length;
+      }
+
+      const countedRows = rows.map((row) => ({
+        inliers: Number(row.inlier_count),
+        outliers: Number(row.outlier_count)
+      })).filter(({ inliers, outliers }) => (
+        Number.isFinite(inliers)
+        && Number.isFinite(outliers)
+        && inliers + outliers > 0
+      ));
+      const totalSteps = countedRows.reduce((total, counts) => total + counts.inliers + counts.outliers, 0);
+      const outlierSteps = countedRows.reduce((total, counts) => total + counts.outliers, 0);
+      return totalSteps ? outlierSteps / totalSteps : null;
+    }
+
     function getRecordLabel(row) {
       const sampleId = row.sample_id || `sample-${String(row.run_index).padStart(6, "0")}`;
       if (getRecordType(row) === "step") {
@@ -4343,6 +4495,10 @@
       return `${Math.round(kilometers).toLocaleString("en-US")} km`;
     }
 
+    function formatSummaryPercent(ratio) {
+      return Number.isFinite(ratio) ? `${(ratio * 100).toFixed(0)}%` : "--";
+    }
+
     function getErrorCategory(errorKilometers) {
       if (errorKilometers < 10) return "category-close";
       if (errorKilometers < 100) return "category-near";
@@ -4366,6 +4522,13 @@
 
     function getClusterName(clusterId) {
       return GMM_CLUSTER_NAMES[clusterId] || `Cluster${clusterId}`;
+    }
+
+    function getClusterIdByName(name) {
+      const normalizedName = String(name).toLowerCase().replace(/[^a-z0-9]/g, "");
+      return Object.keys(GMM_CLUSTER_NAMES).map(Number).find((clusterId) => (
+        getClusterName(clusterId).toLowerCase().replace(/[^a-z0-9]/g, "") === normalizedName
+      )) ?? null;
     }
 
     function getObservationJitter(row) {
@@ -5054,6 +5217,43 @@
       });
     }
 
+    function renderSampleSummaryStats(sampleRows) {
+      const lowErrorClusterId = getClusterIdByName("LowError");
+      const validSampleIds = new Set(sampleRows.map((row) => String(row.sample_id || "").trim()).filter(Boolean));
+      const sampleVarianceMetrics = getSampleVarianceMetrics(state.rows).filter((metric) => (
+        validSampleIds.has(metric.sampleId)
+      ));
+      const lowErrorRows = sampleRows.filter((row) => getClusterId(row) === lowErrorClusterId);
+      const lowErrorValues = lowErrorRows
+        .map((row) => Number(row.error_distance_meters) / 1000)
+        .filter((value) => Number.isFinite(value));
+      const lowErrorStandardDeviationValues = sampleVarianceMetrics
+        .filter((metric) => metric.clusterId === lowErrorClusterId)
+        .map((metric) => metric.inlierStandardDeviation)
+        .filter((value) => Number.isFinite(value));
+      const sampleCount = sampleRows.length;
+      const withinTenCount = sampleRows.filter((row) => Number(row.error_distance_meters) < 10_000).length;
+      const samplesWithCloseStepCount = sampleVarianceMetrics.filter((metric) => (
+        metric.errors.some((error) => error < 10)
+      )).length;
+
+      dom.summaryLowErrorCount.textContent = lowErrorClusterId === null
+        ? "--"
+        : sampleRows.filter((row) => getClusterId(row) === lowErrorClusterId).length.toLocaleString("en-US");
+      dom.summaryLowErrorMean.textContent = lowErrorValues.length
+        ? formatSummaryKilometers(lowErrorValues.reduce((total, value) => total + value, 0) / lowErrorValues.length)
+        : "--";
+      dom.summaryLowErrorStandardDeviation.textContent = lowErrorStandardDeviationValues.length
+        ? formatSummaryKilometers(lowErrorStandardDeviationValues.reduce((total, value) => total + value, 0) / lowErrorStandardDeviationValues.length)
+        : "--";
+      dom.summarySamplesWithinTen.textContent = sampleCount
+        ? formatSummaryPercent(withinTenCount / sampleCount)
+        : "--";
+      dom.summarySamplesWithStepWithinTen.textContent = sampleCount
+        ? formatSummaryPercent(samplesWithCloseStepCount / sampleCount)
+        : "--";
+    }
+
     function renderGeographicMap(rows) {
       const chart = dom.geographicMapChart;
       if (!chart) return;
@@ -5261,7 +5461,8 @@
       chart.append(boundaryGroup);
     }
 
-    function getSampleVarianceMetrics(rows) {
+    function getSampleVarianceMetrics(rows, options = {}) {
+      const groupFirst = options.groupFirst !== false;
       const samples = new Map();
       rows.forEach((row) => {
         const sampleId = String(row.sample_id || "").trim();
@@ -5279,57 +5480,87 @@
         samples.set(sampleId, sample);
       });
 
-      return [...samples.values()].map((sample) => {
+      const metrics = [...samples.values()].map((sample) => {
         const errors = sample.steps.map((step) => step.errorKilometers);
         if (!errors.length) return null;
         const mean = errors.reduce((total, value) => total + value, 0) / errors.length;
         const variance = errors.reduce((total, value) => total + ((value - mean) ** 2), 0) / errors.length;
-        const sortedErrors = [...errors].sort((first, second) => first - second);
+        const standardDeviation = Math.sqrt(variance);
+        const outlierCount = sample.steps.filter((step) => isOutlierRow(step.row)).length;
+        const inlierErrors = sample.steps
+          .filter((step) => !isOutlierRow(step.row))
+          .map((step) => step.errorKilometers);
+        const inlierMean = inlierErrors.length
+          ? inlierErrors.reduce((total, value) => total + value, 0) / inlierErrors.length
+          : null;
+        const inlierVariance = inlierMean === null
+          ? null
+          : inlierErrors.reduce((total, value) => total + ((value - inlierMean) ** 2), 0) / inlierErrors.length;
+        const inlierStandardDeviation = inlierVariance === null ? null : Math.sqrt(inlierVariance);
+        const sortedInlierErrors = [...inlierErrors].sort((first, second) => first - second);
         const quantile = (fraction) => {
-          const position = (sortedErrors.length - 1) * fraction;
+          if (!sortedInlierErrors.length) return null;
+          const position = (sortedInlierErrors.length - 1) * fraction;
           const lowerIndex = Math.floor(position);
           const upperIndex = Math.ceil(position);
           const remainder = position - lowerIndex;
-          return sortedErrors[lowerIndex] + (sortedErrors[upperIndex] - sortedErrors[lowerIndex]) * remainder;
+          return sortedInlierErrors[lowerIndex] + (sortedInlierErrors[upperIndex] - sortedInlierErrors[lowerIndex]) * remainder;
         };
         const clusterId = getClusterId(sample.summary);
         return {
           ...sample,
           errors,
           variance,
-          minimum: sortedErrors[0],
+          standardDeviation,
+          inlierErrors,
+          inlierVariance,
+          inlierStandardDeviation,
+          outlierCount,
+          minimum: sortedInlierErrors.length ? sortedInlierErrors[0] : null,
           firstQuartile: quantile(0.25),
           median: quantile(0.5),
           thirdQuartile: quantile(0.75),
-          maximum: sortedErrors[sortedErrors.length - 1],
+          maximum: sortedInlierErrors.length ? sortedInlierErrors[sortedInlierErrors.length - 1] : null,
           clusterId
         };
-      }).filter(Boolean).sort((first, second) => (
-        second.variance - first.variance
+      }).filter(Boolean);
+      return metrics.sort((first, second) => (
+        (groupFirst
+          ? (SAMPLE_VARIANCE_CLUSTER_ORDER[first.clusterId] ?? Number.MAX_SAFE_INTEGER)
+            - (SAMPLE_VARIANCE_CLUSTER_ORDER[second.clusterId] ?? Number.MAX_SAFE_INTEGER)
+          : 0)
+        || (second.inlierStandardDeviation ?? Number.NEGATIVE_INFINITY)
+          - (first.inlierStandardDeviation ?? Number.NEGATIVE_INFINITY)
         || (second.runIndex ?? Number.NEGATIVE_INFINITY) - (first.runIndex ?? Number.NEGATIVE_INFINITY)
         || first.sampleId.localeCompare(second.sampleId)
       ));
     }
 
-    function renderSampleVarianceChart(rows) {
-      const chart = dom.sampleVarianceChart;
+    function renderSampleVarianceChart(rows, options = {}) {
+      const chart = options.chart || dom.sampleVarianceChart;
       if (!chart) return;
+      const total = options.total || dom.sampleVarianceTotal;
+      const groupFirst = options.groupFirst !== false;
+      const titleId = options.titleId || "sample-variance-title";
+      const descriptionId = options.descriptionId || "sample-variance-description";
       const chartWidth = 1280;
       const chartHeight = 640;
       const xScale = chartWidth / 640;
       chart.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
       chart.style.aspectRatio = `${chartWidth} / ${chartHeight}`;
       chart.replaceChildren();
-      const title = createSvgElement("title", { id: "sample-variance-title" });
-      title.textContent = "Step error variance by sample";
-      const description = createSvgElement("desc", { id: "sample-variance-description" });
-      description.textContent = "Each box plot shows every step error for one sample. Samples are sorted from highest to lowest within-sample variance, and box color identifies the Gaussian-mixture group assigned to the sample average.";
+      const title = createSvgElement("title", { id: titleId });
+      title.textContent = options.title || "Step error spread by sample";
+      const description = createSvgElement("desc", { id: descriptionId });
+      description.textContent = groupFirst
+        ? "Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. Samples are ordered LowSamples, HighError, MediumError, then LowError, with each group sorted from highest to lowest within-sample inlier standard deviation."
+        : "Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. All samples are sorted from highest to lowest within-sample inlier standard deviation without grouping by GMM cluster.";
       chart.append(title, description);
 
-      const metrics = getSampleVarianceMetrics(rows);
+      const metrics = getSampleVarianceMetrics(rows, { groupFirst });
       const stepCount = metrics.reduce((total, metric) => total + metric.steps.length, 0);
-      if (dom.sampleVarianceTotal) {
-        dom.sampleVarianceTotal.textContent = metrics.length
+      if (total) {
+        total.textContent = metrics.length
           ? `${metrics.length} samples / ${stepCount} steps`
           : "-- samples";
       }
@@ -5351,7 +5582,6 @@
         / (maximumExponent - minimumExponent)
       ) * (plot.bottom - plot.top);
       const formatError = (value) => formatSummaryKilometers(value).replace(" km", "");
-      const formatVariance = (value) => value.toLocaleString("en-US", { maximumFractionDigits: 2 });
       const scaleX = (index) => metrics.length === 1
         ? (plot.left + plot.right) / 2
         : plot.left + (index / (metrics.length - 1)) * (plot.right - plot.left);
@@ -5407,47 +5637,52 @@
         const groupLabel = metric.clusterId ? getClusterName(metric.clusterId) : "unclassified";
         const group = createSvgElement("g", { class: "sample-variance-sample" });
         const groupTitle = createSvgElement("title");
-        groupTitle.textContent = `${metric.sampleId} / run ${metric.runIndex ?? "--"} / ${groupLabel} average / variance ${formatVariance(metric.variance)} km2 / ${metric.steps.length} steps`;
+        groupTitle.textContent = `${metric.sampleId} / run ${metric.runIndex ?? "--"} / ${groupLabel} / inlier-only box / all-step std dev ${formatError(metric.standardDeviation)} km / inlier std dev ${formatError(metric.inlierStandardDeviation)} km / ${metric.steps.length} steps / ${metric.outlierCount} flagged outliers shown as points`;
         group.append(groupTitle);
 
-        const minimumY = scaleY(metric.minimum);
-        const firstQuartileY = scaleY(metric.firstQuartile);
-        const medianY = scaleY(metric.median);
-        const thirdQuartileY = scaleY(metric.thirdQuartile);
-        const maximumY = scaleY(metric.maximum);
-        const capHalfWidth = boxWidth * 0.34;
-        const whisker = createSvgElement("line", { class: "sample-variance-whisker", x1: centerX, y1: minimumY, x2: centerX, y2: maximumY });
-        const lowerCap = createSvgElement("line", { class: "sample-variance-cap", x1: centerX - capHalfWidth, y1: minimumY, x2: centerX + capHalfWidth, y2: minimumY });
-        const upperCap = createSvgElement("line", { class: "sample-variance-cap", x1: centerX - capHalfWidth, y1: maximumY, x2: centerX + capHalfWidth, y2: maximumY });
-        const box = createSvgElement("rect", {
-          class: "sample-variance-box",
-          x: centerX - boxWidth / 2,
-          y: thirdQuartileY,
-          width: boxWidth,
-          height: Math.max(1, firstQuartileY - thirdQuartileY),
-          rx: 1
-        });
-        const median = createSvgElement("line", { class: "sample-variance-median", x1: centerX - boxWidth / 2, y1: medianY, x2: centerX + boxWidth / 2, y2: medianY });
-        [whisker, lowerCap, upperCap, box, median].forEach((element) => element.style.setProperty("--cluster-color", color));
-        group.append(whisker, lowerCap, upperCap, box, median);
+        if (metric.inlierErrors.length) {
+          const minimumY = scaleY(metric.minimum);
+          const firstQuartileY = scaleY(metric.firstQuartile);
+          const medianY = scaleY(metric.median);
+          const thirdQuartileY = scaleY(metric.thirdQuartile);
+          const maximumY = scaleY(metric.maximum);
+          const capHalfWidth = boxWidth * 0.34;
+          const whisker = createSvgElement("line", { class: "sample-variance-whisker", x1: centerX, y1: minimumY, x2: centerX, y2: maximumY });
+          const lowerCap = createSvgElement("line", { class: "sample-variance-cap", x1: centerX - capHalfWidth, y1: minimumY, x2: centerX + capHalfWidth, y2: minimumY });
+          const upperCap = createSvgElement("line", { class: "sample-variance-cap", x1: centerX - capHalfWidth, y1: maximumY, x2: centerX + capHalfWidth, y2: maximumY });
+          const box = createSvgElement("rect", {
+            class: "sample-variance-box",
+            x: centerX - boxWidth / 2,
+            y: thirdQuartileY,
+            width: boxWidth,
+            height: Math.max(1, firstQuartileY - thirdQuartileY),
+            rx: 1
+          });
+          const median = createSvgElement("line", { class: "sample-variance-median", x1: centerX - boxWidth / 2, y1: medianY, x2: centerX + boxWidth / 2, y2: medianY });
+          [whisker, lowerCap, upperCap, box, median].forEach((element) => element.style.setProperty("--cluster-color", color));
+          group.append(whisker, lowerCap, upperCap, box, median);
+        }
 
         metric.steps.forEach((step) => {
+          const outlier = isOutlierRow(step.row);
           const point = createSvgElement("circle", {
-            class: "sample-variance-point",
+            class: `sample-variance-point${outlier ? " sample-variance-point-outlier" : ""}`,
             cx: centerX + getObservationJitter(step.row) * boxWidth * 0.7,
             cy: scaleY(step.errorKilometers),
-            r: 1.8
+            r: outlier ? 2.4 : 1.8
           });
           point.style.setProperty("--cluster-color", color);
           const pointTitle = createSvgElement("title");
-          pointTitle.textContent = `${metric.sampleId} / step ${step.row.repetition_index || "--"}: ${formatSummaryKilometers(step.errorKilometers)}`;
+          pointTitle.textContent = `${metric.sampleId} / step ${step.row.repetition_index || "--"} / ${outlier ? "flagged outlier" : "inlier"}: ${formatSummaryKilometers(step.errorKilometers)}`;
           point.append(pointTitle);
           group.append(point);
         });
         chart.append(group);
       });
 
-      appendSvgText(chart, "run / sorted by within-sample variance", {
+      appendSvgText(chart, groupFirst
+        ? "run / sorted by group, then within-sample inlier std dev"
+        : "run / sorted by within-sample inlier std dev", {
         class: "sample-variance-axis-title",
         x: (plot.left + plot.right) / 2,
         y: 625,
@@ -5456,6 +5691,209 @@
       appendSvgText(chart, "error km / log scale", {
         class: "sample-variance-axis-title",
         transform: `translate(${17 * xScale} 300) rotate(-90)`,
+        "text-anchor": "middle"
+      });
+    }
+
+    function renderSampleStandardDeviationChart(rows) {
+      const chart = dom.sampleStandardDeviationChart;
+      if (!chart) return;
+      const chartWidth = 1280;
+      const chartHeight = 460;
+      const xScale = chartWidth / 640;
+      chart.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
+      chart.style.aspectRatio = `${chartWidth} / ${chartHeight}`;
+      chart.replaceChildren();
+      const title = createSvgElement("title", { id: "sample-standard-deviation-title" });
+      title.textContent = "Inlier and full standard deviation by sample in group order";
+      const description = createSvgElement("desc", { id: "sample-standard-deviation-description" });
+      description.textContent = "The solid line shows inlier-only standard deviation for each sample in group order, changing color between GMM groups. The dotted line shows standard deviation using all steps, including flagged outliers.";
+      chart.append(title, description);
+
+      const metrics = getSampleVarianceMetrics(rows, { groupFirst: true });
+      const stepCount = metrics.reduce((total, metric) => total + metric.steps.length, 0);
+      if (dom.sampleStandardDeviationTotal) {
+        dom.sampleStandardDeviationTotal.textContent = metrics.length
+          ? `${metrics.length} samples / ${stepCount} steps`
+          : "-- samples";
+      }
+      if (!metrics.length) {
+        appendSvgText(chart, "No repeated sample steps", {
+          class: "sample-standard-deviation-axis-title",
+          x: chartWidth / 2,
+          y: 250,
+          "text-anchor": "middle"
+        });
+        return;
+      }
+
+      const plot = { left: 58 * xScale, right: 618 * xScale, top: 64, bottom: 380 };
+      const values = metrics.flatMap((metric) => [metric.standardDeviation, metric.inlierStandardDeviation])
+        .filter((value) => Number.isFinite(value) && value > 0);
+      const minimumPositiveValue = values.length ? Math.min(...values) : 1;
+      const minimumExponent = Math.floor(Math.log10(Math.min(minimumPositiveValue, 1)));
+      let maximumExponent = Math.ceil(Math.log10(Math.max(...values, 1)));
+      if (maximumExponent <= minimumExponent) maximumExponent = minimumExponent + 1;
+      const minimumValue = 10 ** minimumExponent;
+      const scaleX = (index) => metrics.length === 1
+        ? (plot.left + plot.right) / 2
+        : plot.left + (index / (metrics.length - 1)) * (plot.right - plot.left);
+      const scaleY = (value) => plot.bottom - (
+        (Math.log10(Math.max(value, minimumValue)) - minimumExponent)
+        / (maximumExponent - minimumExponent)
+      ) * (plot.bottom - plot.top);
+      const formatValue = (value) => formatSummaryKilometers(value).replace(" km", "");
+
+      chart.append(createSvgElement("rect", {
+        class: "sample-standard-deviation-plot",
+        x: plot.left,
+        y: plot.top,
+        width: plot.right - plot.left,
+        height: plot.bottom - plot.top,
+        rx: 2
+      }));
+      for (let exponent = minimumExponent; exponent <= maximumExponent; exponent += 1) {
+        const value = 10 ** exponent;
+        const y = scaleY(value);
+        chart.append(createSvgElement("line", {
+          class: "sample-standard-deviation-grid",
+          x1: plot.left,
+          y1: y,
+          x2: plot.right,
+          y2: y
+        }));
+        appendSvgText(chart, formatValue(value), {
+          class: "sample-standard-deviation-axis",
+          x: plot.left - 9,
+          y: y + 4,
+          "text-anchor": "end"
+        });
+      }
+
+      const groupRanges = [];
+      metrics.forEach((metric, index) => {
+        const previousMetric = metrics[index - 1];
+        if (!previousMetric || previousMetric.clusterId !== metric.clusterId) {
+          if (previousMetric) {
+            chart.append(createSvgElement("line", {
+              class: "sample-standard-deviation-grid",
+              x1: (scaleX(index - 1) + scaleX(index)) / 2,
+              y1: plot.top,
+              x2: (scaleX(index - 1) + scaleX(index)) / 2,
+              y2: plot.bottom
+            }));
+          }
+          groupRanges.push({ clusterId: metric.clusterId, start: index, end: index });
+        } else {
+          groupRanges[groupRanges.length - 1].end = index;
+        }
+      });
+      groupRanges.forEach((range) => {
+        const groupName = range.clusterId ? getClusterName(range.clusterId) : "unclassified";
+        appendSvgText(chart, groupName, {
+          class: "sample-standard-deviation-axis",
+          x: (scaleX(range.start) + scaleX(range.end)) / 2,
+          y: 55,
+          "text-anchor": "middle"
+        });
+      });
+
+      const labelInterval = Math.max(1, Math.ceil(metrics.length / 10));
+      metrics.forEach((metric, index) => {
+        if (index % labelInterval !== 0 && index !== metrics.length - 1) return;
+        const x = scaleX(index);
+        chart.append(createSvgElement("line", {
+          class: "sample-standard-deviation-grid",
+          x1: x,
+          y1: plot.top,
+          x2: x,
+          y2: plot.bottom
+        }));
+        appendSvgText(chart, Number.isFinite(metric.runIndex) ? String(metric.runIndex) : metric.sampleId, {
+          class: "sample-standard-deviation-axis",
+          x,
+          y: 403,
+          "text-anchor": "middle"
+        });
+      });
+
+      const fullPoints = metrics.map((metric, index) => ({
+        x: scaleX(index),
+        y: scaleY(metric.standardDeviation)
+      }));
+      const fullLine = createSvgElement("path", {
+        class: "sample-standard-deviation-full-line",
+        d: fullPoints.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ")
+      });
+      const fullTitle = createSvgElement("title");
+      fullTitle.textContent = "Full standard deviation using all steps, including flagged outliers";
+      fullLine.append(fullTitle);
+      chart.append(fullLine);
+
+      const inlierSegments = [];
+      let currentSegment = null;
+      metrics.forEach((metric, index) => {
+        const value = metric.inlierStandardDeviation;
+        if (!Number.isFinite(value)) {
+          if (currentSegment) inlierSegments.push(currentSegment);
+          currentSegment = null;
+          return;
+        }
+        if (!currentSegment || currentSegment.clusterId !== metric.clusterId) {
+          if (currentSegment) inlierSegments.push(currentSegment);
+          currentSegment = { clusterId: metric.clusterId, points: [] };
+        }
+        currentSegment.points.push({ x: scaleX(index), y: scaleY(value) });
+      });
+      if (currentSegment) inlierSegments.push(currentSegment);
+      inlierSegments.forEach((segment) => {
+        const line = createSvgElement("path", {
+          class: "sample-standard-deviation-inlier-line",
+          d: segment.points.map((point, index) => `${index ? "L" : "M"} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(" ")
+        });
+        line.style.setProperty("--cluster-color", GMM_CLUSTER_COLORS[segment.clusterId] || "var(--faint)");
+        const lineTitle = createSvgElement("title");
+        lineTitle.textContent = `${segment.clusterId ? getClusterName(segment.clusterId) : "unclassified"}: inlier-only standard deviation`;
+        line.append(lineTitle);
+        chart.append(line);
+      });
+
+      const legendY = 26;
+      const inlierLegend = createSvgElement("line", {
+        class: "sample-standard-deviation-legend-line",
+        x1: plot.left,
+        y1: legendY,
+        x2: plot.left + 22,
+        y2: legendY
+      });
+      inlierLegend.style.stroke = "var(--accent)";
+      chart.append(inlierLegend);
+      appendSvgText(chart, "inlier std dev / group colour", {
+        class: "sample-standard-deviation-legend-label",
+        x: plot.left + 30,
+        y: legendY + 4
+      });
+      chart.append(createSvgElement("line", {
+        class: "sample-standard-deviation-legend-line-dotted",
+        x1: plot.left + 310,
+        y1: legendY,
+        x2: plot.left + 332,
+        y2: legendY
+      }));
+      appendSvgText(chart, "full std dev / all steps", {
+        class: "sample-standard-deviation-legend-label",
+        x: plot.left + 340,
+        y: legendY + 4
+      });
+      appendSvgText(chart, "run / sorted by group, then within-sample inlier std dev", {
+        class: "sample-standard-deviation-axis-title",
+        x: (plot.left + plot.right) / 2,
+        y: 445,
+        "text-anchor": "middle"
+      });
+      appendSvgText(chart, "std dev km / log scale", {
+        class: "sample-standard-deviation-axis-title",
+        transform: `translate(${17 * xScale} 230) rotate(-90)`,
         "text-anchor": "middle"
       });
     }
@@ -5737,17 +6175,27 @@
     function renderSummary() {
       const rows = getRecordViewRows();
       const recordViewLabel = getRecordViewLabel();
+      const recordViewNoun = state.recordView === "step" ? "steps" : "samples";
       renderClusterLegend(rows);
       const summaryRows = rows.filter((row) => Number(row.identified_objects_used) > 0 && Number.isFinite(Number(row.error_distance_meters)));
+      const sampleSummaryRows = state.rows.filter((row) => (
+        getRecordType(row) === "summary"
+        && Number(row.identified_objects_used) > 0
+        && Number.isFinite(Number(row.error_distance_meters))
+      ));
+      dom.summaryRecordLabel.textContent = `Total ${recordViewNoun}`;
+      dom.summaryMeanErrorLabel.textContent = `Mean error of ${recordViewNoun}`;
+      dom.summaryMedianErrorLabel.textContent = `Median error of ${recordViewNoun}`;
+      dom.summaryObjectsLabel.textContent = `Mean objects of ${recordViewNoun}`;
+      renderSampleSummaryStats(sampleSummaryRows);
       const errorKilometers = summaryRows.map((row) => Number(row.error_distance_meters) / 1000);
       const reasonableRows = summaryRows.filter((row) => Number(row.error_distance_meters) / 1000 <= 100);
       if (!errorKilometers.length) {
         dom.summaryRuns.textContent = "--";
         dom.summaryMeanError.textContent = "--";
         dom.summaryMedianError.textContent = "--";
-        dom.summaryWithinTen.textContent = "--";
         dom.summaryObjects.textContent = "--";
-        dom.summaryRecordLabel.textContent = recordViewLabel[0].toUpperCase() + recordViewLabel.slice(1);
+        dom.summaryOutlierRate.textContent = "--";
         dom.summaryRunMeta.textContent = "Current dataset / waiting for metrics";
         dom.latitudePointCount.textContent = "-- points";
         dom.longitudePointCount.textContent = "-- points";
@@ -5763,6 +6211,15 @@
         renderCoordinateChart(dom.reasonableLongitudePoints, [], "longitude", dom.reasonableLongitudePointCount, { residual: true });
         renderErrorHistogram([]);
         renderSampleVarianceChart(state.rows);
+        renderSampleVarianceChart(state.rows, {
+          chart: dom.sampleVarianceByVarianceChart,
+          total: dom.sampleVarianceByVarianceTotal,
+          groupFirst: false,
+          titleId: "sample-variance-by-variance-title",
+          descriptionId: "sample-variance-by-variance-description",
+          title: "Step error spread by sample sorted by inlier standard deviation"
+        });
+        renderSampleStandardDeviationChart(state.rows);
         renderObservationErrorChart([]);
         renderStarBenefitChart([]);
         renderClusterMetricCharts([]);
@@ -5781,12 +6238,12 @@
       const meanObjects = objectValues.length
         ? objectValues.reduce((total, value) => total + value, 0) / objectValues.length
         : 0;
+      const outlierRate = getOutlierRate(summaryRows);
       dom.summaryRuns.textContent = summaryRows.length.toLocaleString("en-US");
       dom.summaryMeanError.textContent = formatSummaryKilometers(meanError);
       dom.summaryMedianError.textContent = formatSummaryKilometers(medianError);
-      dom.summaryWithinTen.textContent = `${((withinTen / errorKilometers.length) * 100).toFixed(0)}%`;
       dom.summaryObjects.textContent = meanObjects.toFixed(1);
-      dom.summaryRecordLabel.textContent = recordViewLabel[0].toUpperCase() + recordViewLabel.slice(1);
+      dom.summaryOutlierRate.textContent = formatSummaryPercent(outlierRate);
       dom.summaryRunMeta.textContent = `${summaryRows.length.toLocaleString("en-US")} valid ${recordViewLabel} / metrics CSV`;
       dom.summaryFootnote.textContent = `${withinTen} of ${summaryRows.length} valid fixes are within 10 km. ${rows.length - summaryRows.length} zero-object ${recordViewLabel} excluded from all summary metrics and graphs.`;
       renderCoordinateChart(dom.latitudePoints, summaryRows, "latitude", dom.latitudePointCount);
@@ -5795,6 +6252,15 @@
       renderCoordinateChart(dom.reasonableLongitudePoints, reasonableRows, "longitude", dom.reasonableLongitudePointCount, { residual: true });
       renderErrorHistogram(errorKilometers);
       renderSampleVarianceChart(state.rows);
+      renderSampleVarianceChart(state.rows, {
+        chart: dom.sampleVarianceByVarianceChart,
+        total: dom.sampleVarianceByVarianceTotal,
+        groupFirst: false,
+        titleId: "sample-variance-by-variance-title",
+        descriptionId: "sample-variance-by-variance-description",
+        title: "Step error spread by sample sorted by inlier standard deviation"
+      });
+      renderSampleStandardDeviationChart(state.rows);
       renderObservationErrorChart(summaryRows);
       renderStarBenefitChart(summaryRows);
       renderClusterMetricCharts(summaryRows);

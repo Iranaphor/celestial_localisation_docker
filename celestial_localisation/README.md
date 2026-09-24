@@ -49,6 +49,10 @@ variables before running Compose:
 - `CELESTIAL_STAR_FOV_DEGREES` / `CELESTIAL_STAR_FOV_MAX_ERROR_DEGREES`
 - `CELESTIAL_STAR_TILE_SIZE` / `CELESTIAL_STAR_MATCH_RADIUS`
 - `CELESTIAL_STAR_MATCH_THRESHOLD` / `CELESTIAL_STAR_MIN_MATCHES`
+- `CELESTIAL_STAR_BENEFIT_METRICS_FILENAME` selects the historical metrics CSV or filename pattern used to filter stars; the default is `simulated_location_filter_samples*.csv`.
+- `CELESTIAL_STAR_BENEFIT_MIN_SCORE` / `CELESTIAL_STAR_BENEFIT_MIN_PRESENT_COUNT` / `CELESTIAL_STAR_BENEFIT_MIN_ABSENT_COUNT` tune harmful-star filtering.
+- `CELESTIAL_STAR_BENEFIT_USE_HIGH_ERROR_GROUP` enables analysis of GMM group 3.
+- `CELESTIAL_STAR_BENEFIT_USE_MEDIUM_ERROR_GROUP` enables analysis of GMM group 2.
 - `CELESTIAL_USE_SUN` / `CELESTIAL_USE_MOON` / `CELESTIAL_USE_STARS`
 - `CELESTIAL_FIXED_ALTITUDE`
 - `CELESTIAL_INITIAL_LATITUDE` / `CELESTIAL_INITIAL_LONGITUDE`
@@ -56,6 +60,16 @@ variables before running Compose:
 - `CELESTIAL_SIMULATION_SHOW_LABELS` hides or shows Stellarium object names.
 - `CELESTIAL_SIMULATION_ENABLE_LANDSCAPE` enables the ground landscape.
 - `CELESTIAL_SIMULATION_LANDSCAPE_KEY` selects the landscape data source.
+
+At detector startup, the star-benefit filter expands the configured metrics
+pattern and combines all matching CSV files. It uses `step` rows to compare
+mean error with each catalogue star present versus absent within the enabled
+GMM groups. By default, only the high-error group (group 3) is enabled; the
+medium-error group (group 2) can be enabled independently. With the default
+threshold, stars scoring at or below `-0.1` are published as `UNKNOWN` and
+therefore do not contribute to localisation. Missing or invalid metrics leave
+identification unchanged. Restart the pipeline after replacing the snapshot so
+new data is not mixed into an active filter.
 
 ## Editing packages
 
