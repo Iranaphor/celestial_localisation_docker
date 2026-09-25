@@ -111,9 +111,9 @@
       --estimate: #c85d33;
       --accent: #8d7415;
       --category-close: #1f806a;
-      --category-near: #a17c0d;
+      --category-near: #e3b52f;
       --category-far: #c26722;
-      --category-outlier: #c13d38;
+      --category-outlier: #ed554c;
       --cluster-1: #1f806a;
       --cluster-2: #a17c0d;
       --cluster-3: #c26722;
@@ -3795,11 +3795,18 @@
     import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
     const EARTH_RADIUS = 2.35;
+    const MARKER_SURFACE_OFFSET = 0.001;
     const DEFAULT_CAMERA_DISTANCE = 7.2;
-    const FOCUS_MIN_CAMERA_DISTANCE = 4.2;
+    const FOCUS_MIN_CAMERA_DISTANCE = 2.46;
     const FOCUS_FOV_PADDING_DEGREES = 3;
     const FOCUS_DURATION_MS = 650;
     const BASE_MARKER_RADIUS = 0.075;
+    const SUMMARY_MARKER_OPACITY = 0.75;
+    const SUMMARY_MARKER_MIN_SCALE = 0.03;
+    const STEP_MARKER_RADIUS = 0.0105;
+    const STEP_MARKER_MIN_SCALE = 0.045;
+    const STEP_MARKER_DEFAULT_SCALE = 1;
+    const STEP_MARKER_MAX_SCALE = 1.25;
     const DEBUG_OUTPUT_URL = window.location.pathname.includes("/docs/")
       ? "../celestial_localisation/debug_output"
       : "celestial_localisation/debug_output";
@@ -4443,6 +4450,18 @@
 
     function isOutlierRow(row) {
       return row?.is_outlier === true || String(row?.is_outlier).toLowerCase() === "true";
+    }
+
+    function getStepRowsForRow(row) {
+      if (!row) return [];
+      const sampleId = String(row.sample_id || "");
+      return state.rows.filter((candidate) => (
+        getRecordType(candidate) === "step"
+        && (sampleId
+          ? String(candidate.sample_id || "") === sampleId
+          : Number(candidate.run_index) === Number(row.run_index)
+            && Number(candidate.sample_index) === Number(row.sample_index))
+      ));
     }
 
     function parseIdentifiedStarIds(value) {
@@ -7260,19 +7279,33 @@
 
     function createMarker(position, color) {
       const marker = new THREE.Group();
-      const surfacePosition = position.clone().normalize().multiplyScalar(EARTH_RADIUS + 0.07);
+      const surfacePosition = position.clone().normalize().multiplyScalar(EARTH_RADIUS + MARKER_SURFACE_OFFSET);
       marker.position.copy(surfacePosition);
-      marker.add(new THREE.Mesh(new THREE.SphereGeometry(BASE_MARKER_RADIUS, 20, 20), new THREE.MeshBasicMaterial({ color })));
-      const ring = new THREE.Mesh(new THREE.RingGeometry(0.13, 0.16, 32), new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide, transparent: true, opacity: 0.85 }));
+      marker.userData.marker = true;
+      marker.userData.markerType = "summary";
+      marker.add(new THREE.Mesh(new THREE.SphereGeometry(BASE_MARKER_RADIUS, 20, 20), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: SUMMARY_MARKER_OPACITY })));
+      const ring = new THREE.Mesh(new THREE.RingGeometry(0.13, 0.16, 32), new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide, transparent: true, opacity: SUMMARY_MARKER_OPACITY }));
       ring.lookAt(surfacePosition.clone().multiplyScalar(2));
       marker.add(ring);
 
       return marker;
     }
 
+    function createStepMarker(position, color) {
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(STEP_MARKER_RADIUS, 10, 10),
+        new THREE.MeshBasicMaterial({ color })
+      );
+      marker.position.copy(position.clone().normalize().multiplyScalar(EARTH_RADIUS + MARKER_SURFACE_OFFSET));
+      marker.userData.marker = true;
+      marker.userData.markerType = "step";
+      marker.renderOrder = 2;
+      return marker;
+    }
+
     function createArc(start, end) {
-      const arcStart = start.clone().normalize().multiplyScalar(EARTH_RADIUS + 0.1);
-      const arcEnd = end.clone().normalize().multiplyScalar(EARTH_RADIUS + 0.1);
+      const arcStart = start.clone().normalize().multiplyScalar(EARTH_RADIUS + MARKER_SURFACE_OFFSET);
+      const arcEnd = end.clone().normalize().multiplyScalar(EARTH_RADIUS + MARKER_SURFACE_OFFSET);
       const midpoint = arcStart.clone().add(arcEnd);
       if (midpoint.lengthSq() < 0.0001) midpoint.set(0, 1, 0);
       midpoint.normalize().multiplyScalar(EARTH_RADIUS + Math.min(0.95, 0.24 + arcStart.angleTo(arcEnd) * 0.36));
@@ -7283,10 +7316,33 @@
     function updateMarkerScale() {
       if (!markerLayer || !camera || !controls) return;
       const cameraDistance = camera.position.distanceTo(controls.target);
-      const zoomRatio = cameraDistance / DEFAULT_CAMERA_DISTANCE;
-      const scale = THREE.MathUtils.clamp(Math.pow(zoomRatio, 2.2), 0.18, 1.25);
+      const surfaceClearance = Math.max(cameraDistance - EARTH_RADIUS, 0.001);
+      const defaultSurfaceClearance = DEFAULT_CAMERA_DISTANCE - EARTH_RADIUS;
+      const zoomRatio = surfaceClearance / defaultSurfaceClearance;
+      const baseScale = Math.pow(zoomRatio, 1.35);
+      const stepScale = cameraDistance <= DEFAULT_CAMERA_DISTANCE
+        ? THREE.MathUtils.lerp(
+          STEP_MARKER_MIN_SCALE,
+          STEP_MARKER_DEFAULT_SCALE,
+          THREE.MathUtils.clamp(
+            (cameraDistance - FOCUS_MIN_CAMERA_DISTANCE) / (DEFAULT_CAMERA_DISTANCE - FOCUS_MIN_CAMERA_DISTANCE),
+            0,
+            1
+          )
+        )
+        : THREE.MathUtils.lerp(
+          STEP_MARKER_DEFAULT_SCALE,
+          STEP_MARKER_MAX_SCALE,
+          THREE.MathUtils.clamp(
+            (cameraDistance - DEFAULT_CAMERA_DISTANCE) / (controls.maxDistance - DEFAULT_CAMERA_DISTANCE),
+            0,
+            1
+          )
+        );
       markerLayer.children.forEach((child) => {
-        if (child.userData.marker) child.scale.setScalar(scale);
+        if (!child.userData.marker) return;
+        if (child.userData.markerType === "step") child.scale.setScalar(stepScale);
+        else child.scale.setScalar(THREE.MathUtils.clamp(baseScale, SUMMARY_MARKER_MIN_SCALE, 1.25));
       });
     }
 
@@ -7341,6 +7397,7 @@
       const target = focusTransition.startTarget.clone().lerp(focusTransition.endTarget, easedProgress);
       camera.position.copy(target).add(direction.multiplyScalar(distance));
       controls.target.copy(target);
+      updateMarkerScale();
       if (progress >= 1) focusTransition = null;
     }
 
@@ -7352,11 +7409,21 @@
       const groundPosition = latLonToVector(row.ground_truth_latitude, row.ground_truth_longitude);
       const estimatedPosition = latLonToVector(row.estimated_latitude, row.estimated_longitude);
       markerLayer.add(createArc(groundPosition, estimatedPosition));
+      const rootStyle = getComputedStyle(document.documentElement);
+      const stepOutlierColor = rootStyle.getPropertyValue("--category-outlier").trim() || "#ff7164";
+      const stepInlierColor = rootStyle.getPropertyValue("--category-near").trim() || "#e4d47b";
       const groundMarker = createMarker(groundPosition, 0x94e3c4);
       const estimatedMarker = createMarker(estimatedPosition, 0xff9d6b);
       groundMarker.userData.marker = true;
       estimatedMarker.userData.marker = true;
       markerLayer.add(groundMarker, estimatedMarker);
+      getStepRowsForRow(row).forEach((step) => {
+        const stepColor = isOutlierRow(step) ? stepOutlierColor : stepInlierColor;
+        markerLayer.add(
+          createStepMarker(latLonToVector(step.ground_truth_latitude, step.ground_truth_longitude), stepColor),
+          createStepMarker(latLonToVector(step.estimated_latitude, step.estimated_longitude), stepColor)
+        );
+      });
       updateMarkerScale();
     }
 
@@ -7566,7 +7633,7 @@
           context.stroke();
           context.setLineDash([]);
           const drawMarker = (point, color) => {
-            context.globalAlpha = point.visible ? 1 : 0.34;
+            context.globalAlpha = point.visible ? SUMMARY_MARKER_OPACITY : SUMMARY_MARKER_OPACITY * 0.45;
             context.beginPath();
             context.arc(point.x, point.y, 9 * fallbackScale, 0, Math.PI * 2);
             context.strokeStyle = color;
@@ -7578,8 +7645,30 @@
             context.fill();
             context.globalAlpha = 1;
           };
+          const drawStepMarker = (point, color) => {
+            context.globalAlpha = 1;
+            context.beginPath();
+            context.arc(point.x, point.y, 0.8625 * fallbackScale, 0, Math.PI * 2);
+            context.fillStyle = color;
+            context.fill();
+            context.globalAlpha = 1;
+          };
           drawMarker(ground, "#94e3c4");
           drawMarker(estimated, "#ff9d6b");
+          const rootStyle = getComputedStyle(document.documentElement);
+          const stepOutlierColor = rootStyle.getPropertyValue("--category-outlier").trim() || "#ff7164";
+          const stepInlierColor = rootStyle.getPropertyValue("--category-near").trim() || "#e4d47b";
+          getStepRowsForRow(row).forEach((step) => {
+            const stepColor = isOutlierRow(step) ? stepOutlierColor : stepInlierColor;
+            drawStepMarker(
+              projectFallback(step.ground_truth_latitude, step.ground_truth_longitude, centerLatitude, centerLongitude, centerX, centerY, radius),
+              stepColor
+            );
+            drawStepMarker(
+              projectFallback(step.estimated_latitude, step.estimated_longitude, centerLatitude, centerLongitude, centerX, centerY, radius),
+              stepColor
+            );
+          });
         }
       };
       new ResizeObserver(() => fallback.resize()).observe(dom.stage);
@@ -7588,7 +7677,7 @@
 
     function initGlobe() {
       const scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
+      camera = new THREE.PerspectiveCamera(32, 1, 0.01, 200);
       camera.position.set(0, 0.24, DEFAULT_CAMERA_DISTANCE);
       initialCameraPosition = camera.position.clone();
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -7598,7 +7687,7 @@
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.enablePan = false;
-      controls.minDistance = 3.35;
+      controls.minDistance = 2.46;
       controls.maxDistance = 24;
       controls.rotateSpeed = 0.42;
       controls.zoomSpeed = 0.7;
