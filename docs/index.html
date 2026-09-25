@@ -7306,9 +7306,11 @@
     function createArc(start, end) {
       const arcStart = start.clone().normalize().multiplyScalar(EARTH_RADIUS + MARKER_SURFACE_OFFSET);
       const arcEnd = end.clone().normalize().multiplyScalar(EARTH_RADIUS + MARKER_SURFACE_OFFSET);
+      const angularSeparation = arcStart.angleTo(arcEnd);
       const midpoint = arcStart.clone().add(arcEnd);
       if (midpoint.lengthSq() < 0.0001) midpoint.set(0, 1, 0);
-      midpoint.normalize().multiplyScalar(EARTH_RADIUS + Math.min(0.95, 0.24 + arcStart.angleTo(arcEnd) * 0.36));
+      const arcLift = Math.min(0.95, 0.02 + angularSeparation * angularSeparation * 0.36);
+      midpoint.normalize().multiplyScalar(EARTH_RADIUS + arcLift);
       const curve = new THREE.QuadraticBezierCurve3(arcStart, midpoint, arcEnd);
       return new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(64)), new THREE.LineBasicMaterial({ color: 0xe4d47b, transparent: true, opacity: 0.72 }));
     }
