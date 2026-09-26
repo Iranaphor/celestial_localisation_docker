@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='utf-8'?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Random localisation run 410</name>
+    <description>Orange markers show estimated fixes. The larger translucent summary markers show the summary estimate and ground truth.</description>
+    <Style id="estimated-step">
+      <IconStyle>
+        <color>ff0066ff</color>
+        <scale>0.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/orange-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="estimated-summary">
+      <IconStyle>
+        <color>990066ff</color>
+        <scale>1.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/orange-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="ground-truth-summary">
+      <IconStyle>
+        <color>99ff6600</color>
+        <scale>1.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="estimated-path">
+      <LineStyle>
+        <color>cc0066ff</color>
+        <width>4</width>
+      </LineStyle>
+    </Style>
+    <Folder>
+      <name>Estimated fixes</name>
+      <Placemark>
+        <name>Run 410 step 1 (outlier)</name>
+        <description>Estimated fix for repetition 1: -90.00000000, -180.00000000</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>-180.000000000000,-90.000000000000,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 410 step 2</name>
+        <description>Estimated fix for repetition 2: -89.99999999, -179.99999998</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>-179.999999982000,-89.999999991000,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 410 step 3</name>
+        <description>Estimated fix for repetition 3: -89.99999999, -179.99999998</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>-179.999999982000,-89.999999991000,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 410 step 4</name>
+        <description>Estimated fix for repetition 4: -89.99999999, -179.99999998</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>-179.999999982000,-89.999999991000,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 410 step 5</name>
+        <description>Estimated fix for repetition 5: -89.99999999, -179.99999998</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>-179.999999982000,-89.999999991000,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 410 summary estimated fix</name>
+        <description>Summary estimated fix: -89.99999999, -179.99999998</description>
+        <styleUrl>#estimated-summary</styleUrl>
+        <Point>
+          <coordinates>-179.999999982000,-89.999999991000,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ground truth</name>
+      <Placemark>
+        <name>Run 410 summary ground truth</name>
+        <description>Summary ground truth: -23.41439883, 14.52827607</description>
+        <styleUrl>#ground-truth-summary</styleUrl>
+        <Point>
+          <coordinates>14.528276067077,-23.414398833262,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Estimated path</name>
+      <Placemark>
+        <name>Run 410 estimated step path</name>
+        <styleUrl>#estimated-path</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>-180.000000000000,-90.000000000000,0
+-179.999999982000,-89.999999991000,0
+-179.999999982000,-89.999999991000,0
+-179.999999982000,-89.999999991000,0
+-179.999999982000,-89.999999991000,0</coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

@@ -22,6 +22,19 @@ Every repetition and one summary measurement per sample are appended to
 and are tagged with `record_type=step` or `record_type=summary`; step rows also
 carry their `repetition_index` and `is_outlier` status.
 
+Render one run as KML from the repository root. The default input is this
+directory's `random_localisation_metrics.csv`, and the output is written beside
+it as `random_localisation_run_<run_index>.kml`:
+
+```sh
+python3 scripts/render_random_localisation_kml.py 410
+```
+
+The KML contains an orange estimated-fix marker for every step, a larger
+translucent orange summary estimate, a matching translucent blue summary
+ground-truth marker, and a polyline joining the step estimates in repetition
+order. Use `--csv-path` and `--output` to override the input or output paths.
+
 New evaluation rows include `identified_star_ids`, a JSON list of catalogue
 star IDs used by the averaged pose. Existing rows from before that field was
 added remain valid but have no star-list data; the evaluator migrates the CSV
