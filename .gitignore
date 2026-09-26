@@ -19,3 +19,4 @@ celestial_localisation/stellarium_assets/*
 tmp/
 
 .env
+papers/*.pdf
