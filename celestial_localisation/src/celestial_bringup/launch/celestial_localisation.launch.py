@@ -101,6 +101,10 @@ def generate_launch_description():
             'star_match_threshold': float(_env('CELESTIAL_STAR_MATCH_THRESHOLD', '0.001')),
             'star_min_matches': int(_env('CELESTIAL_STAR_MIN_MATCHES', '4')),
             'minimum_confidence': float(_env('CELESTIAL_MIN_CONFIDENCE', '0.5')),
+            'star_benefit_filter_enabled': _env(
+                'CELESTIAL_STAR_BENEFIT_FILTER_ENABLED',
+                'true',
+            ).lower() == 'true',
             'debug_output_dir': debug_output_dir,
             'gmm_boundaries_filename': _env(
                 'CELESTIAL_GMM_BOUNDARIES_FILENAME',
@@ -144,6 +148,9 @@ def generate_launch_description():
             'initial_latitude': float(_env('CELESTIAL_INITIAL_LATITUDE', '51.5')),
             'initial_longitude': float(_env('CELESTIAL_INITIAL_LONGITUDE', '-0.1')),
             'solver_max_nfev': int(_env('CELESTIAL_SOLVER_MAX_NFEV', '30')),
+            'solver_max_starts': int(_env('CELESTIAL_SOLVER_MAX_STARTS', '25')),
+            'global_search': _env('CELESTIAL_SOLVER_GLOBAL_SEARCH', 'false') == 'true',
+            'stateful_tracking': _env('CELESTIAL_LOCALIZER_STATEFUL_TRACKING', 'true') == 'true',
             'publish_tf': _env('CELESTIAL_PUBLISH_TF', 'true') == 'true',
             'map_frame': _env('CELESTIAL_MAP_FRAME', 'map'),
             'base_frame': _env('CELESTIAL_BASE_FRAME', 'base_link'),
@@ -192,6 +199,12 @@ def generate_launch_description():
             ),
             'poll_interval_seconds': float(
                 _env('CELESTIAL_RANDOM_EVALUATION_POLL_INTERVAL', '0.25')
+            ),
+            'max_samples': int(
+                _env('CELESTIAL_RANDOM_EVALUATION_MAX_SAMPLES', '20')
+            ),
+            'max_reps': int(
+                _env('CELESTIAL_RANDOM_EVALUATION_MAX_REPS', '10')
             ),
         }],
     )

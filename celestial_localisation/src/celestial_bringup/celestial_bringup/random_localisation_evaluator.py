@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import csv
+import importlib.metadata
 import json
 import math
 import os
@@ -36,18 +37,48 @@ CSV_FIELDS = (
     'repetition_index',
     'is_outlier',
     'timestamp_utc',
+    'sample_timestamp_utc',
     'request_timestamp_utc',
     'request_yaw_degrees',
+    'random_seed',
+    'evaluation_config_json',
+    'code_revision',
+    'dependency_versions_json',
+    'sample_ground_truth_latitude',
+    'sample_ground_truth_longitude',
     'ground_truth_latitude',
     'ground_truth_longitude',
     'estimated_latitude',
     'estimated_longitude',
     'estimated_heading_degrees',
     'identified_objects_used',
+    'used_object_types_json',
     'identified_star_ids',
     'cluster_id',
     'inlier_count',
     'outlier_count',
+    'attempted_count',
+    'valid_count',
+    'failure_count',
+    'valid_estimate',
+    'failure_reason',
+    'solver_status',
+    'solver_success',
+    'solver_message',
+    'solver_cost',
+    'solver_optimality',
+    'solver_nfev',
+    'solver_total_nfev',
+    'solver_rms_residual',
+    'solver_max_residual',
+    'solver_boundary_solution',
+    'solver_initial_latitude',
+    'solver_initial_longitude',
+    'solver_initial_heading_degrees',
+    'solver_selected_start_latitude',
+    'solver_selected_start_longitude',
+    'solver_selected_start_heading_degrees',
+    'solver_starts_tried',
     'latitude_error_degrees',
     'longitude_error_degrees',
     'latitude_error_meters',
@@ -123,20 +154,36 @@ def calculate_error_metrics(ground_truth_latitude, ground_truth_longitude, estim
     }
 
 
-def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longitude):
+def _circular_median_longitude(longitudes):
+    candidates = [((longitude + 180.0) % 360.0) - 180.0 for longitude in longitudes]
+    return min(
+        candidates,
+        key=lambda candidate: sum(
+            abs(_wrapped_longitude_delta(longitude, candidate))
+            for longitude in candidates
+        ),
+    )
+
+
+def average_pose_estimates(estimates, ground_truth_latitude=None, ground_truth_longitude=None):
+    """Aggregate estimates in estimate space; ground truth is scoring-only."""
     if not estimates:
         raise ValueError('at least one pose estimate is required')
 
-    reference_latitude_radians = math.radians(ground_truth_latitude)
+    reference_latitude = median(estimate['latitude'] for estimate in estimates)
+    reference_longitude = _circular_median_longitude(
+        estimate['longitude'] for estimate in estimates
+    )
+    reference_latitude_radians = math.radians(reference_latitude)
     reference_cosine = math.cos(reference_latitude_radians)
     offsets = []
     for estimate in estimates:
         east_offset = (
-            math.radians(_wrapped_longitude_delta(estimate['longitude'], ground_truth_longitude))
+            math.radians(_wrapped_longitude_delta(estimate['longitude'], reference_longitude))
             * EARTH_RADIUS_METERS
             * reference_cosine
         )
-        north_offset = math.radians(estimate['latitude'] - ground_truth_latitude) * EARTH_RADIUS_METERS
+        north_offset = math.radians(estimate['latitude'] - reference_latitude) * EARTH_RADIUS_METERS
         offsets.append((east_offset, north_offset))
 
     center_east = median(offset[0] for offset in offsets)
@@ -162,13 +209,13 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
     sample_north = median(offsets[index][1] for index in inlier_indices)
     sample_latitude = max(
         -90.0,
-        min(90.0, ground_truth_latitude + math.degrees(sample_north / EARTH_RADIUS_METERS)),
+        min(90.0, reference_latitude + math.degrees(sample_north / EARTH_RADIUS_METERS)),
     )
     if abs(reference_cosine) < 1e-12:
-        sample_longitude = ground_truth_longitude
+        sample_longitude = reference_longitude
     else:
         sample_longitude = (
-            ground_truth_longitude
+            reference_longitude
             + math.degrees(sample_east / (EARTH_RADIUS_METERS * reference_cosine))
         )
         sample_longitude = (sample_longitude + 180.0) % 360.0 - 180.0
@@ -190,6 +237,10 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
         for star_id in estimates[index].get('identified_star_ids', [])
         if star_id
     })
+    used_object_types = {}
+    for index in inlier_indices:
+        for object_type, count in estimates[index].get('used_object_types', {}).items():
+            used_object_types[object_type] = used_object_types.get(object_type, 0) + int(count)
     representative_index = min(
         inlier_indices,
         key=lambda index: math.hypot(
@@ -203,6 +254,7 @@ def average_pose_estimates(estimates, ground_truth_latitude, ground_truth_longit
         'heading': mean_heading,
         'identified_objects_used': mean_identified_objects,
         'identified_star_ids': identified_star_ids,
+        'used_object_types': used_object_types,
         'inlier_count': len(inlier_indices),
         'outlier_count': len(estimates) - len(inlier_indices),
         'inlier_indices': inlier_indices,
@@ -248,6 +300,8 @@ class RandomLocalisationEvaluator(Node):
         self.declare_parameter('fixed_altitude', 0.0)
         self.declare_parameter('result_timeout_seconds', 180.0)
         self.declare_parameter('poll_interval_seconds', 0.25)
+        self.declare_parameter('max_samples', 20)
+        self.declare_parameter('max_reps', 10)
 
         self.debug_dir = self._resolve_debug_dir()
         self.pose_path = self.debug_dir / self.get_parameter('pose_filename').value if self.debug_dir else None
@@ -279,8 +333,18 @@ class RandomLocalisationEvaluator(Node):
             )
         self.result_timeout_seconds = float(self.get_parameter('result_timeout_seconds').value)
         self.poll_interval_seconds = float(self.get_parameter('poll_interval_seconds').value)
+        self.max_samples = int(self.get_parameter('max_samples').value)
+        self.max_reps = int(self.get_parameter('max_reps').value)
+        if self.max_samples <= 0 or self.max_reps <= 0:
+            raise ValueError('random evaluation limits must be greater than zero')
         self.fixed_altitude = float(self.get_parameter('fixed_altitude').value)
-        self._metrics_run_count, self._total_error_meters = self._load_metrics_state()
+        self.code_revision = os.environ.get('CELESTIAL_CODE_REVISION', '')
+        self.dependency_versions = self._load_dependency_versions()
+        (
+            self._metrics_run_count,
+            self._total_error_meters,
+            self._summary_count,
+        ) = self._load_metrics_state()
 
         self._random_source = random.SystemRandom()
         self._evaluation_lock = threading.Lock()
@@ -321,26 +385,50 @@ class RandomLocalisationEvaluator(Node):
             return None
         return debug_dir
 
+    @staticmethod
+    def _load_dependency_versions():
+        package_names = (
+            'numpy',
+            'scipy',
+            'astropy',
+            'tetra3',
+            'photutils',
+            'opencv-python-headless',
+            'playwright',
+        )
+        versions = {}
+        for package_name in package_names:
+            try:
+                versions[package_name] = importlib.metadata.version(package_name)
+            except importlib.metadata.PackageNotFoundError:
+                continue
+        return versions
+
     def _load_metrics_state(self):
         if self.metrics_path is None or not self.metrics_path.exists():
-            return 0, 0.0
+            return 0, 0.0, 0
 
-        run_count = 0
+        highest_run_index = 0
         total_error_meters = 0.0
+        summary_count = 0
         try:
             with self.metrics_path.open(newline='', encoding='utf-8') as stream:
                 for row in csv.DictReader(stream):
                     record_type = (row.get('record_type') or '').strip().lower()
+                    try:
+                        highest_run_index = max(highest_run_index, int(row['run_index']))
+                    except (KeyError, TypeError, ValueError):
+                        continue
                     if record_type and record_type != 'summary':
                         continue
                     total_error_meters += float(row['error_distance_meters'])
-                    run_count += 1
+                    summary_count += 1
         except (OSError, KeyError, TypeError, ValueError) as error:
             self.get_logger().warning(
                 f'could not restore cumulative metrics from {self.metrics_path}: {error}'
             )
-            return 0, 0.0
-        return run_count, total_error_meters
+            return 0, 0.0, 0
+        return highest_run_index, total_error_meters, summary_count
 
     def _run_evaluation(self, request, response):
         response.completed_runs = 0
@@ -358,6 +446,14 @@ class RandomLocalisationEvaluator(Node):
         if reps <= 0:
             response.success = False
             response.message = 'reps must be greater than zero'
+            return response
+        if samples > self.max_samples:
+            response.success = False
+            response.message = f'samples must not exceed {self.max_samples}'
+            return response
+        if reps > self.max_reps:
+            response.success = False
+            response.message = f'reps must not exceed {self.max_reps}'
             return response
         for name, value in variance_values.items():
             if not math.isfinite(value) or value < 0.0:
@@ -383,9 +479,29 @@ class RandomLocalisationEvaluator(Node):
                 response.message = 'LoadGps service did not become available before the timeout'
                 return response
 
+            requested_seed = int(getattr(request, 'random_seed', 0))
+            random_seed = requested_seed or random.SystemRandom().randrange(1, 2**63)
+            random_source = random.Random(random_seed)
+            evaluation_config = {
+                'samples': samples,
+                'reps': reps,
+                'var_time': variance_values['var_time'],
+                'var_xy': variance_values['var_xy'],
+                'var_yaw': variance_values['var_yaw'],
+                'fixed_altitude': self.fixed_altitude,
+                'random_seed': random_seed,
+            }
+            evaluation_config_json = json.dumps(evaluation_config, sort_keys=True, separators=(',', ':'))
+            dependency_versions_json = json.dumps(
+                self.dependency_versions,
+                sort_keys=True,
+                separators=(',', ':'),
+            )
             batch_total_error_meters = 0.0
+            completed_summaries = 0
+            total_failures = 0
             for sample_index in range(1, samples + 1):
-                ground_truth_latitude, ground_truth_longitude = random_surface_location(self._random_source)
+                ground_truth_latitude, ground_truth_longitude = random_surface_location(random_source)
                 run_index = self._metrics_run_count + 1
                 sample_id = f'sample-{run_index:06d}'
                 sample_timestamp = self._next_timestamp()
@@ -395,13 +511,14 @@ class RandomLocalisationEvaluator(Node):
                         ground_truth_latitude,
                         ground_truth_longitude,
                         variance_values['var_xy'],
-                        self._random_source,
+                        random_source,
                     )
                     timestamp = self._timestamp_with_variation(
                         sample_timestamp,
                         variance_values['var_time'],
+                        random_source,
                     )
-                    yaw = self._random_source.uniform(
+                    yaw = random_source.uniform(
                         -variance_values['var_yaw'],
                         variance_values['var_yaw'],
                     )
@@ -418,61 +535,156 @@ class RandomLocalisationEvaluator(Node):
                             self.result_timeout_seconds,
                         )
                     except Exception as error:
-                        response.success = False
-                        response.message = (
-                            f'LoadGps call failed on sample {sample_index}, '
-                            f'repetition {repetition_index}: {error}'
+                        total_failures += 1
+                        self._append_failure(
+                            run_index,
+                            ground_truth_latitude,
+                            ground_truth_longitude,
+                            varied_latitude,
+                            varied_longitude,
+                            sample_timestamp,
+                            timestamp,
+                            yaw,
+                            f'load_gps_exception: {error}',
+                            sample_id=sample_id,
+                            sample_index=sample_index,
+                            repetition_index=repetition_index,
+                            attempted_count=reps,
+                            valid_count=len(estimates),
+                            random_seed=random_seed,
+                            evaluation_config_json=evaluation_config_json,
+                            code_revision=self.code_revision,
+                            dependency_versions_json=dependency_versions_json,
                         )
-                        return response
+                        continue
 
                     if load_response is None:
-                        response.success = False
-                        response.message = (
-                            f'LoadGps call timed out on sample {sample_index}, '
-                            f'repetition {repetition_index}'
+                        total_failures += 1
+                        self._append_failure(
+                            run_index,
+                            ground_truth_latitude,
+                            ground_truth_longitude,
+                            varied_latitude,
+                            varied_longitude,
+                            sample_timestamp,
+                            timestamp,
+                            yaw,
+                            'load_gps_timeout',
+                            sample_id=sample_id,
+                            sample_index=sample_index,
+                            repetition_index=repetition_index,
+                            attempted_count=reps,
+                            valid_count=len(estimates),
+                            identified_objects_used=estimated.get('identified_objects_used', ''),
+                            used_object_types=estimated.get('used_object_types', {}),
+                            random_seed=random_seed,
+                            evaluation_config_json=evaluation_config_json,
+                            code_revision=self.code_revision,
+                            dependency_versions_json=dependency_versions_json,
                         )
-                        return response
+                        continue
                     if not load_response.success:
-                        response.success = False
-                        response.message = (
-                            f'LoadGps rejected sample {sample_index}, '
-                            f'repetition {repetition_index}: {load_response.message}'
+                        total_failures += 1
+                        self._append_failure(
+                            run_index,
+                            ground_truth_latitude,
+                            ground_truth_longitude,
+                            varied_latitude,
+                            varied_longitude,
+                            sample_timestamp,
+                            timestamp,
+                            yaw,
+                            f'load_gps_rejected: {load_response.message}',
+                            sample_id=sample_id,
+                            sample_index=sample_index,
+                            repetition_index=repetition_index,
+                            attempted_count=reps,
+                            valid_count=len(estimates),
+                            random_seed=random_seed,
+                            evaluation_config_json=evaluation_config_json,
+                            code_revision=self.code_revision,
+                            dependency_versions_json=dependency_versions_json,
                         )
-                        return response
+                        continue
 
                     estimated = self._wait_for_pose(timestamp, self.result_timeout_seconds)
                     if estimated is None:
-                        response.success = False
-                        response.message = (
-                            f'pose.json did not complete for sample {sample_index}, '
-                            f'repetition {repetition_index}'
+                        total_failures += 1
+                        self._append_failure(
+                            run_index,
+                            ground_truth_latitude,
+                            ground_truth_longitude,
+                            varied_latitude,
+                            varied_longitude,
+                            sample_timestamp,
+                            timestamp,
+                            yaw,
+                            'pose_timeout',
+                            sample_id=sample_id,
+                            sample_index=sample_index,
+                            repetition_index=repetition_index,
+                            attempted_count=reps,
+                            valid_count=len(estimates),
+                            random_seed=random_seed,
+                            evaluation_config_json=evaluation_config_json,
+                            code_revision=self.code_revision,
+                            dependency_versions_json=dependency_versions_json,
                         )
-                        return response
+                        continue
+
+                    if not estimated['valid']:
+                        total_failures += 1
+                        self._append_failure(
+                            run_index,
+                            ground_truth_latitude,
+                            ground_truth_longitude,
+                            varied_latitude,
+                            varied_longitude,
+                            sample_timestamp,
+                            timestamp,
+                            yaw,
+                            estimated['failure_reason'],
+                            diagnostics=estimated['diagnostics'],
+                            sample_id=sample_id,
+                            sample_index=sample_index,
+                            repetition_index=repetition_index,
+                            attempted_count=reps,
+                            valid_count=len(estimates),
+                            random_seed=random_seed,
+                            evaluation_config_json=evaluation_config_json,
+                            code_revision=self.code_revision,
+                            dependency_versions_json=dependency_versions_json,
+                        )
+                        continue
 
                     sky_map_ready = self._wait_for_sky_map(
                         timestamp,
                         min(self.result_timeout_seconds, max(5.0, self.poll_interval_seconds * 20.0)),
                     )
 
-                    (
-                        estimated_latitude,
-                        estimated_longitude,
-                        heading,
-                        identified_objects_used,
-                        identified_star_ids,
-                    ) = estimated
                     estimates.append({
-                        'latitude': estimated_latitude,
-                        'longitude': estimated_longitude,
-                        'heading': heading,
-                        'identified_objects_used': identified_objects_used,
-                        'identified_star_ids': identified_star_ids,
+                        'latitude': estimated['latitude'],
+                        'longitude': estimated['longitude'],
+                        'heading': estimated['heading'],
+                        'identified_objects_used': estimated['identified_objects_used'],
+                        'identified_star_ids': estimated['identified_star_ids'],
+                        'used_object_types': estimated['used_object_types'],
+                        'diagnostics': estimated['diagnostics'],
                         'sky_map_ready': sky_map_ready,
                         'ground_truth_latitude': varied_latitude,
                         'ground_truth_longitude': varied_longitude,
                         'timestamp': timestamp,
                         'yaw': yaw,
+                        'repetition_index': repetition_index,
                     })
+
+                self._metrics_run_count = run_index
+                response.completed_runs = sample_index
+                if not estimates:
+                    self.get_logger().warning(
+                        f'random evaluation sample {sample_index}/{samples} had no valid estimates'
+                    )
+                    continue
 
                 averaged_estimate = average_pose_estimates(
                     estimates,
@@ -480,7 +692,8 @@ class RandomLocalisationEvaluator(Node):
                     ground_truth_longitude,
                 )
                 inlier_indices = set(averaged_estimate['inlier_indices'])
-                for repetition_index, estimate in enumerate(estimates, start=1):
+                failure_count = reps - len(estimates)
+                for estimate_index, estimate in enumerate(estimates):
                     repetition_metrics = calculate_error_metrics(
                         estimate['ground_truth_latitude'],
                         estimate['ground_truth_longitude'],
@@ -500,13 +713,25 @@ class RandomLocalisationEvaluator(Node):
                         record_type='step',
                         sample_id=sample_id,
                         sample_index=sample_index,
-                        repetition_index=repetition_index,
-                        is_outlier=repetition_index - 1 not in inlier_indices,
+                        repetition_index=estimate['repetition_index'],
+                        is_outlier=estimate_index not in inlier_indices,
+                        sample_timestamp_utc=self._timestamp_to_utc(sample_timestamp),
+                        sample_ground_truth_latitude=ground_truth_latitude,
+                        sample_ground_truth_longitude=ground_truth_longitude,
                         request_timestamp_utc=self._timestamp_to_utc(estimate['timestamp']),
                         request_yaw_degrees=estimate['yaw'],
                         estimated_heading_degrees=estimate['heading'],
+                        used_object_types=estimate['used_object_types'],
+                        diagnostics=estimate['diagnostics'],
                         inlier_count=averaged_estimate['inlier_count'],
                         outlier_count=averaged_estimate['outlier_count'],
+                        attempted_count=reps,
+                        valid_count=len(estimates),
+                        failure_count=failure_count,
+                        random_seed=random_seed,
+                        evaluation_config_json=evaluation_config_json,
+                        code_revision=self.code_revision,
+                        dependency_versions_json=dependency_versions_json,
                     )
                 metrics = calculate_error_metrics(
                     ground_truth_latitude,
@@ -516,6 +741,8 @@ class RandomLocalisationEvaluator(Node):
                 )
                 batch_total_error_meters += metrics['error_distance_meters']
                 self._total_error_meters += metrics['error_distance_meters']
+                self._summary_count += 1
+                completed_summaries += 1
                 cluster_id = self._append_metrics(
                     run_index,
                     ground_truth_latitude,
@@ -525,14 +752,26 @@ class RandomLocalisationEvaluator(Node):
                     averaged_estimate['identified_objects_used'],
                     averaged_estimate['identified_star_ids'],
                     metrics,
-                    self._total_error_meters / run_index,
+                    self._total_error_meters / self._summary_count,
                     record_type='summary',
                     sample_id=sample_id,
                     sample_index=sample_index,
                     is_outlier='',
+                    sample_timestamp_utc=self._timestamp_to_utc(sample_timestamp),
+                    sample_ground_truth_latitude=ground_truth_latitude,
+                    sample_ground_truth_longitude=ground_truth_longitude,
                     estimated_heading_degrees=averaged_estimate['heading'],
+                    used_object_types=averaged_estimate['used_object_types'],
                     inlier_count=averaged_estimate['inlier_count'],
                     outlier_count=averaged_estimate['outlier_count'],
+                    attempted_count=reps,
+                    valid_count=len(estimates),
+                    failure_count=failure_count,
+                    valid_estimate='aggregated',
+                    random_seed=random_seed,
+                    evaluation_config_json=evaluation_config_json,
+                    code_revision=self.code_revision,
+                    dependency_versions_json=dependency_versions_json,
                 )
                 self._save_cluster_image(
                     cluster_id,
@@ -543,8 +782,6 @@ class RandomLocalisationEvaluator(Node):
                     averaged_estimate['longitude'],
                     metrics['error_distance_meters'],
                 )
-                self._metrics_run_count = run_index
-                response.completed_runs = sample_index
                 self.get_logger().info(
                     f'random evaluation sample {sample_index}/{samples} '
                     f'({averaged_estimate["inlier_count"]}/{reps} repetitions kept): '
@@ -554,15 +791,27 @@ class RandomLocalisationEvaluator(Node):
                     f'identified_objects={averaged_estimate["identified_objects_used"]}, '
                     f'cluster={cluster_id if cluster_id is not None else "unclassified"}, '
                     f'error={metrics["error_distance_meters"]:.2f} m, '
-                    f'batch_mean={batch_total_error_meters / sample_index:.2f} m, '
-                    f'cumulative_mean={self._total_error_meters / run_index:.2f} m'
+                    f'batch_mean={batch_total_error_meters / completed_summaries:.2f} m, '
+                    f'cumulative_mean={self._total_error_meters / self._summary_count:.2f} m'
                 )
 
             response.success = True
+            batch_mean = (
+                batch_total_error_meters / completed_summaries
+                if completed_summaries
+                else float('nan')
+            )
+            cumulative_mean = (
+                self._total_error_meters / self._summary_count
+                if self._summary_count
+                else float('nan')
+            )
             response.message = (
                 f'completed {samples} random localisation samples with {reps} repetitions each; '
-                f'batch mean error={batch_total_error_meters / samples:.2f} m; '
-                f'cumulative mean error={self._total_error_meters / self._metrics_run_count:.2f} m; '
+                f'valid summaries={completed_summaries}; failures={total_failures}; '
+                f'batch mean error={batch_mean:.2f} m; '
+                f'cumulative mean error={cumulative_mean:.2f} m; '
+                f'random_seed={random_seed}; '
                 f'metrics saved to {self.metrics_path}'
             )
             return response
@@ -585,12 +834,12 @@ class RandomLocalisationEvaluator(Node):
         self._used_timestamp_ns.add(timestamp_ns)
         return _timestamp_from_nanoseconds(timestamp_ns)
 
-    def _timestamp_with_variation(self, base_timestamp, maximum_seconds):
+    def _timestamp_with_variation(self, base_timestamp, maximum_seconds, random_source):
         base_timestamp_ns = (
             base_timestamp.sec * NANOSECONDS_PER_SECOND + base_timestamp.nanosec
         )
         variation_ns = round(
-            self._random_source.uniform(-maximum_seconds, maximum_seconds)
+            random_source.uniform(-maximum_seconds, maximum_seconds)
             * NANOSECONDS_PER_SECOND
         )
         timestamp_ns = max(1, base_timestamp_ns + variation_ns)
@@ -632,6 +881,73 @@ class RandomLocalisationEvaluator(Node):
         if observed_sec != int(expected_timestamp.sec) or observed_nanosec != int(expected_timestamp.nanosec):
             return None
 
+        solver_payload = payload.get('solver')
+        if not isinstance(solver_payload, dict):
+            solver_payload = {}
+
+        def numeric(name, default=''):
+            value = solver_payload.get(name, default)
+            if value == '':
+                return ''
+            try:
+                value = float(value)
+            except (TypeError, ValueError):
+                return default
+            return value if math.isfinite(value) else default
+
+        def integer(name, default=''):
+            value = solver_payload.get(name, default)
+            if value == '':
+                return ''
+            try:
+                return int(value)
+            except (TypeError, ValueError):
+                return default
+
+        initial_guess = payload.get('initial_guess')
+        if not isinstance(initial_guess, dict):
+            initial_guess = {}
+        selected_start = solver_payload.get('selected_start')
+        if not isinstance(selected_start, dict):
+            selected_start = {}
+        diagnostics = {
+            'status': integer('status'),
+            'success': solver_payload.get('success', ''),
+            'message': str(solver_payload.get('message', '')),
+            'cost': numeric('cost'),
+            'optimality': numeric('optimality'),
+            'nfev': integer('nfev'),
+            'total_nfev': integer('total_nfev'),
+            'rms_residual': numeric('rms_residual'),
+            'max_residual': numeric('max_residual'),
+            'boundary_solution': solver_payload.get('boundary_solution', ''),
+            'initial_latitude': initial_guess.get('latitude', ''),
+            'initial_longitude': initial_guess.get('longitude', ''),
+            'initial_heading': initial_guess.get('heading', ''),
+            'selected_start_latitude': selected_start.get('latitude', ''),
+            'selected_start_longitude': selected_start.get('longitude', ''),
+            'selected_start_heading': selected_start.get('heading', ''),
+            'starts_tried': integer('starts_tried'),
+        }
+        valid = payload.get('valid', True) is not False
+        if not valid:
+            used_observations = payload.get('used_observations')
+            if not isinstance(used_observations, list):
+                used_observations = []
+            used_object_types = payload.get('used_object_types')
+            if not isinstance(used_object_types, dict):
+                used_object_types = {}
+            return {
+                'valid': False,
+                'failure_reason': str(
+                    solver_payload.get('failure_reason') or 'invalid_pose'
+                ),
+                'identified_objects_used': len(used_observations),
+                'identified_star_ids': _extract_identified_star_ids(used_observations),
+                'used_object_types': used_object_types,
+                'diagnostics': diagnostics,
+            }
+
         refined_estimate = payload.get('refined_estimate')
         if not isinstance(refined_estimate, dict):
             return None
@@ -653,7 +969,28 @@ class RandomLocalisationEvaluator(Node):
         if not isinstance(used_observations, list):
             return None
         identified_star_ids = _extract_identified_star_ids(used_observations)
-        return latitude, longitude, heading, len(used_observations), identified_star_ids
+        used_object_types = payload.get('used_object_types')
+        if not isinstance(used_object_types, dict):
+            used_object_types = {}
+            for observation in used_observations:
+                if not isinstance(observation, dict):
+                    continue
+                object_type = observation.get('object_type')
+                if not isinstance(object_type, str):
+                    object_id = str(observation.get('object_id', '')).lower()
+                    object_type = 'sun' if object_id == 'sun' else 'moon' if object_id == 'moon' else 'star'
+                used_object_types[object_type] = used_object_types.get(object_type, 0) + 1
+        return {
+            'valid': True,
+            'failure_reason': '',
+            'latitude': latitude,
+            'longitude': longitude,
+            'heading': heading,
+            'identified_objects_used': len(used_observations),
+            'identified_star_ids': identified_star_ids,
+            'used_object_types': used_object_types,
+            'diagnostics': diagnostics,
+        }
 
     def _wait_for_sky_map(self, expected_timestamp, timeout_seconds):
         if self.sky_map_classification_path is None:
@@ -714,6 +1051,100 @@ class RandomLocalisationEvaluator(Node):
             return None
         return future.result()
 
+    @staticmethod
+    def _solver_diagnostic_fields(diagnostics):
+        diagnostics = diagnostics or {}
+        return {
+            'solver_status': diagnostics.get('status', ''),
+            'solver_success': diagnostics.get('success', ''),
+            'solver_message': diagnostics.get('message', ''),
+            'solver_cost': diagnostics.get('cost', ''),
+            'solver_optimality': diagnostics.get('optimality', ''),
+            'solver_nfev': diagnostics.get('nfev', ''),
+            'solver_total_nfev': diagnostics.get('total_nfev', ''),
+            'solver_rms_residual': diagnostics.get('rms_residual', ''),
+            'solver_max_residual': diagnostics.get('max_residual', ''),
+            'solver_boundary_solution': diagnostics.get('boundary_solution', ''),
+            'solver_initial_latitude': diagnostics.get('initial_latitude', ''),
+            'solver_initial_longitude': diagnostics.get('initial_longitude', ''),
+            'solver_initial_heading_degrees': diagnostics.get('initial_heading', ''),
+            'solver_selected_start_latitude': diagnostics.get('selected_start_latitude', ''),
+            'solver_selected_start_longitude': diagnostics.get('selected_start_longitude', ''),
+            'solver_selected_start_heading_degrees': diagnostics.get('selected_start_heading', ''),
+            'solver_starts_tried': diagnostics.get('starts_tried', ''),
+        }
+
+    def _write_metrics_row(self, row):
+        self._ensure_metrics_schema()
+        file_exists = self.metrics_path.exists() and self.metrics_path.stat().st_size > 0
+        with self.metrics_path.open('a', newline='', encoding='utf-8') as stream:
+            writer = csv.DictWriter(stream, fieldnames=CSV_FIELDS)
+            if not file_exists:
+                writer.writeheader()
+            writer.writerow(row)
+            stream.flush()
+            os.fsync(stream.fileno())
+
+    def _append_failure(
+        self,
+        run_index,
+        sample_ground_truth_latitude,
+        sample_ground_truth_longitude,
+        ground_truth_latitude,
+        ground_truth_longitude,
+        sample_timestamp,
+        request_timestamp,
+        request_yaw,
+        failure_reason,
+        *,
+        diagnostics=None,
+        sample_id='',
+        sample_index='',
+        repetition_index='',
+        attempted_count='',
+        valid_count='',
+        identified_objects_used='',
+        used_object_types=None,
+        random_seed='',
+        evaluation_config_json='',
+        code_revision='',
+        dependency_versions_json='',
+    ):
+        row = {field: '' for field in CSV_FIELDS}
+        row.update({
+            'run_index': run_index,
+            'record_type': 'failure',
+            'sample_id': sample_id,
+            'sample_index': sample_index,
+            'repetition_index': repetition_index,
+            'timestamp_utc': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+            'sample_timestamp_utc': self._timestamp_to_utc(sample_timestamp),
+            'request_timestamp_utc': self._timestamp_to_utc(request_timestamp),
+            'request_yaw_degrees': request_yaw,
+            'random_seed': random_seed,
+            'evaluation_config_json': evaluation_config_json,
+            'code_revision': code_revision,
+            'dependency_versions_json': dependency_versions_json,
+            'sample_ground_truth_latitude': sample_ground_truth_latitude,
+            'sample_ground_truth_longitude': sample_ground_truth_longitude,
+            'ground_truth_latitude': ground_truth_latitude,
+            'ground_truth_longitude': ground_truth_longitude,
+            'identified_objects_used': identified_objects_used,
+            'used_object_types_json': json.dumps(
+                used_object_types or {},
+                separators=(',', ':'),
+                sort_keys=True,
+            ),
+            'identified_star_ids': '[]',
+            'attempted_count': attempted_count,
+            'valid_count': valid_count,
+            'failure_count': '',
+            'valid_estimate': False,
+            'failure_reason': failure_reason,
+        })
+        row.update(self._solver_diagnostic_fields(diagnostics))
+        self._write_metrics_row(row)
+
     def _append_metrics(
         self,
         run_index,
@@ -731,14 +1162,26 @@ class RandomLocalisationEvaluator(Node):
         sample_index='',
         repetition_index='',
         is_outlier='',
+        sample_timestamp_utc='',
+        sample_ground_truth_latitude='',
+        sample_ground_truth_longitude='',
         request_timestamp_utc='',
         request_yaw_degrees='',
         estimated_heading_degrees='',
+        used_object_types=None,
+        diagnostics=None,
         inlier_count='',
         outlier_count='',
+        attempted_count='',
+        valid_count='',
+        failure_count='',
+        valid_estimate=True,
+        failure_reason='',
+        random_seed='',
+        evaluation_config_json='',
+        code_revision='',
+        dependency_versions_json='',
     ):
-        self._ensure_metrics_schema()
-        file_exists = self.metrics_path.exists() and self.metrics_path.stat().st_size > 0
         self._load_gmm_model_if_available()
         cluster_id = None
         if self.gmm_model is not None:
@@ -747,7 +1190,8 @@ class RandomLocalisationEvaluator(Node):
                 identified_objects_used,
                 metrics['error_distance_meters'] / 1000.0,
             )
-        row = {
+        row = {field: '' for field in CSV_FIELDS}
+        row.update({
             'run_index': run_index,
             'record_type': record_type,
             'sample_id': sample_id,
@@ -755,32 +1199,44 @@ class RandomLocalisationEvaluator(Node):
             'repetition_index': repetition_index,
             'is_outlier': is_outlier,
             'timestamp_utc': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
+            'sample_timestamp_utc': sample_timestamp_utc,
+            'sample_ground_truth_latitude': sample_ground_truth_latitude,
+            'sample_ground_truth_longitude': sample_ground_truth_longitude,
             'request_timestamp_utc': request_timestamp_utc,
             'request_yaw_degrees': request_yaw_degrees,
+            'random_seed': random_seed,
+            'evaluation_config_json': evaluation_config_json,
+            'code_revision': code_revision,
+            'dependency_versions_json': dependency_versions_json,
             'ground_truth_latitude': ground_truth_latitude,
             'ground_truth_longitude': ground_truth_longitude,
             'estimated_latitude': estimated_latitude,
             'estimated_longitude': estimated_longitude,
             'estimated_heading_degrees': estimated_heading_degrees,
             'identified_objects_used': identified_objects_used,
+            'used_object_types_json': json.dumps(
+                used_object_types or {},
+                separators=(',', ':'),
+                sort_keys=True,
+            ),
             'identified_star_ids': json.dumps(identified_star_ids, separators=(',', ':')),
             'cluster_id': cluster_id if cluster_id is not None else '',
             'inlier_count': inlier_count,
             'outlier_count': outlier_count,
+            'attempted_count': attempted_count,
+            'valid_count': valid_count,
+            'failure_count': failure_count,
+            'valid_estimate': valid_estimate,
+            'failure_reason': failure_reason,
             'latitude_error_degrees': metrics['latitude_error_degrees'],
             'longitude_error_degrees': metrics['longitude_error_degrees'],
             'latitude_error_meters': metrics['latitude_error_meters'],
             'longitude_error_meters': metrics['longitude_error_meters'],
             'error_distance_meters': metrics['error_distance_meters'],
             'cumulative_mean_error_meters': cumulative_mean_error_meters,
-        }
-        with self.metrics_path.open('a', newline='', encoding='utf-8') as stream:
-            writer = csv.DictWriter(stream, fieldnames=CSV_FIELDS)
-            if not file_exists:
-                writer.writeheader()
-            writer.writerow(row)
-            stream.flush()
-            os.fsync(stream.fileno())
+        })
+        row.update(self._solver_diagnostic_fields(diagnostics))
+        self._write_metrics_row(row)
         return cluster_id
 
     def _save_cluster_image(

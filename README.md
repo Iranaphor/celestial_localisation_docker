@@ -127,13 +127,18 @@ and appends every repetition plus one sample summary to
 ```bash
 ros2 service call /test/run_random_evaluation \
   celestial_interfaces/srv/RunRandomEvaluation \
-  "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"
+  "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0, random_seed: 20260928}"
 ```
 
 Rows are tagged with `record_type` (`step` or `summary`) and share a
 `sample_id`; `repetition_index` identifies each step and `is_outlier` records
 which steps were excluded from the summary average. The explorer's Summary
 view can switch between sample summaries and individual steps.
+Failures are retained as `record_type=failure` rows. The repeat aggregation
+uses only the estimates to identify spatial outliers; ground truth is used for
+the final error calculation. Use
+`python3 scripts/summarize_localisation_metrics.py` for explicit denominators,
+percentiles and threshold fractions.
 
 ## Source layout
 

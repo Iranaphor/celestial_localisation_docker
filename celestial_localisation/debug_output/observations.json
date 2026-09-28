@@ -2,641 +2,641 @@
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 115.58149952122824,
-    "elevation": 33.51762057985274,
+    "azimuth": 206.52414948812842,
+    "elevation": 61.244069502447914,
     "confidence": 1.0,
-    "pixel_x": 657.5303083874318,
-    "pixel_y": 321.3219807012822,
-    "brightness": 4467.0
+    "pixel_x": 1174.8929393102417,
+    "pixel_y": 163.58929349718522,
+    "brightness": 4212.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_27989",
+    "azimuth": 95.52063267689334,
+    "elevation": 25.548190387497186,
+    "confidence": 1.0,
+    "pixel_x": 543.4062658952155,
+    "pixel_y": 366.65918357334937,
+    "brightness": 3935.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 115.86810572324907,
-    "elevation": 32.636694391330764,
+    "azimuth": 95.26351657703114,
+    "elevation": 25.508432016095256,
     "confidence": 1.0,
-    "pixel_x": 659.1607792255948,
-    "pixel_y": 326.3334719070961,
-    "brightness": 4418.0
+    "pixel_x": 541.9435609715549,
+    "pixel_y": 366.8853645306581,
+    "brightness": 3912.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 116.8363249607373,
-    "elevation": 33.40315591871472,
+    "azimuth": 95.2227851138532,
+    "elevation": 25.572348886302223,
     "confidence": 1.0,
-    "pixel_x": 664.66887088775,
-    "pixel_y": 321.97315744020074,
-    "brightness": 3411.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_88635",
-    "azimuth": 202.48079115065258,
-    "elevation": 32.67858267587475,
-    "confidence": 1.0,
-    "pixel_x": 1151.8907229903791,
-    "pixel_y": 326.0951741105792,
-    "brightness": 2960.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_90185",
-    "azimuth": 196.56190705777718,
-    "elevation": 30.40307029809592,
-    "confidence": 1.0,
-    "pixel_x": 1118.2188490397991,
-    "pixel_y": 339.0403111930543,
-    "brightness": 2948.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_89931",
-    "azimuth": 199.18156340622704,
-    "elevation": 34.49872328157726,
-    "confidence": 1.0,
-    "pixel_x": 1133.1217829332027,
-    "pixel_y": 315.74059644258267,
-    "brightness": 2338.0
+    "pixel_x": 541.7118442032538,
+    "pixel_y": 366.5217485579251,
+    "brightness": 3897.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 332.5002964330964,
-    "elevation": 55.84400022324937,
+    "azimuth": 206.27342919782654,
+    "elevation": 61.171568157832624,
     "confidence": 1.0,
-    "pixel_x": 1891.5572419305042,
-    "pixel_y": 194.30968761884805,
-    "brightness": 2231.0
+    "pixel_x": 1173.4666194365243,
+    "pixel_y": 164.00174559099665,
+    "brightness": 3791.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 186.28761190315365,
-    "elevation": 70.09155184800547,
+    "azimuth": 115.98911180006144,
+    "elevation": 25.866313536125887,
     "confidence": 1.0,
-    "pixel_x": 1059.7695254934963,
-    "pixel_y": 113.25694948690223,
-    "brightness": 2228.0
+    "pixel_x": 659.8491693514607,
+    "pixel_y": 364.8494163278172,
+    "brightness": 3688.0
   },
   {
     "object_type": "STAR",
-    "object_id": "HIP_87261",
-    "azimuth": 202.64123305070135,
-    "elevation": 25.301929499626638,
+    "object_id": "HIP_17702",
+    "azimuth": 90.31840661687013,
+    "elevation": 60.15093641914196,
     "confidence": 1.0,
-    "pixel_x": 1152.8034591328787,
-    "pixel_y": 368.060134402124,
-    "brightness": 2119.0
+    "pixel_x": 513.8113798648612,
+    "pixel_y": 169.80800614888128,
+    "brightness": 3493.0
   },
   {
     "object_type": "STAR",
-    "object_id": "HIP_90496",
-    "azimuth": 199.20776905485718,
-    "elevation": 39.13311033273715,
+    "object_id": "HIP_24608",
+    "azimuth": 51.909663852019236,
+    "elevation": 43.4956056223526,
     "confidence": 1.0,
-    "pixel_x": 1133.2708639565208,
-    "pixel_y": 289.37608344042866,
-    "brightness": 2034.0
+    "pixel_x": 295.3083099137094,
+    "pixel_y": 264.5583324595052,
+    "brightness": 3482.0
   },
   {
     "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 66.23880653074512,
-    "elevation": 66.90796544931308,
+    "object_id": "HIP_21421",
+    "azimuth": 95.78540230219335,
+    "elevation": 46.8336687212678,
     "confidence": 1.0,
-    "pixel_x": 376.8252104860167,
-    "pixel_y": 131.3680187772411,
-    "brightness": 1928.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_89642",
-    "azimuth": 197.06264864930478,
-    "elevation": 27.719166071140904,
-    "confidence": 1.0,
-    "pixel_x": 1121.067512316045,
-    "pixel_y": 354.3087441286206,
-    "brightness": 1817.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_92855",
-    "azimuth": 191.25622330550553,
-    "elevation": 39.992656401901876,
-    "confidence": 1.0,
-    "pixel_x": 1088.0354036935425,
-    "pixel_y": 284.4862213580693,
-    "brightness": 1716.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_86742",
-    "azimuth": 239.50826244483002,
-    "elevation": 57.52868933952607,
-    "confidence": 1.0,
-    "pixel_x": 1362.5358930194775,
-    "pixel_y": 184.7256784240295,
-    "brightness": 1655.0
+    "pixel_x": 544.9125108746999,
+    "pixel_y": 245.56846238567653,
+    "brightness": 3123.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 342.8571461622442,
-    "elevation": 27.32961548206484,
+    "azimuth": 116.65002467545503,
+    "elevation": 25.713230152354114,
     "confidence": 1.0,
-    "pixel_x": 1950.4762092785447,
-    "pixel_y": 356.5248541464756,
-    "brightness": 1625.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_89341",
-    "azimuth": 205.35582469437875,
-    "elevation": 41.88950412309721,
-    "confidence": 1.0,
-    "pixel_x": 1168.2464693724658,
-    "pixel_y": 273.695265433047,
-    "brightness": 1600.0
+    "pixel_x": 663.6090292648108,
+    "pixel_y": 365.72029068882995,
+    "brightness": 3119.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 290.10109342051584,
-    "elevation": 25.37482661159551,
+    "azimuth": 95.93544379142895,
+    "elevation": 46.84284954175982,
     "confidence": 1.0,
-    "pixel_x": 1650.35288701449,
-    "pixel_y": 367.64543083181223,
-    "brightness": 1573.0
+    "pixel_x": 545.7660802356847,
+    "pixel_y": 245.5162337179886,
+    "brightness": 2926.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_102098",
+    "azimuth": 308.20708577077056,
+    "elevation": 31.09502790213309,
+    "confidence": 1.0,
+    "pixel_x": 1753.3558657181616,
+    "pixel_y": 335.1038412678651,
+    "brightness": 2767.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 16.9022912278437,
-    "elevation": 46.667628096124005,
+    "azimuth": 344.84997033227324,
+    "elevation": 60.18764038809823,
     "confidence": 1.0,
-    "pixel_x": 96.15525676284418,
-    "pixel_y": 246.5130490531612,
-    "brightness": 1532.0
+    "pixel_x": 1961.8131645569322,
+    "pixel_y": 169.59920134770786,
+    "brightness": 2649.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_25336",
+    "azimuth": 100.49349220104773,
+    "elevation": 31.598249500167796,
+    "confidence": 1.0,
+    "pixel_x": 571.6963111881827,
+    "pixel_y": 332.24106951015654,
+    "brightness": 2488.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 33.43401833431782,
-    "elevation": 30.521536525009267,
+    "azimuth": 106.22620774423594,
+    "elevation": 25.34606523900868,
     "confidence": 1.0,
-    "pixel_x": 190.20241541300805,
-    "pixel_y": 338.3663699910584,
+    "pixel_x": 604.3090929449867,
+    "pixel_y": 367.8090510847506,
+    "brightness": 2470.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 0.19476397877029938,
+    "elevation": 29.17737132617875,
+    "confidence": 1.0,
+    "pixel_x": 1.1079906347821475,
+    "pixel_y": 346.01317645551643,
+    "brightness": 2301.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_25428",
+    "azimuth": 74.9183534425702,
+    "elevation": 39.806723296169245,
+    "confidence": 1.0,
+    "pixel_x": 426.20218847328823,
+    "pixel_y": 285.5439741373483,
+    "brightness": 2134.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 278.7684443324037,
+    "elevation": 56.88449499742508,
+    "confidence": 1.0,
+    "pixel_x": 1585.882705535452,
+    "pixel_y": 188.39042845909287,
+    "brightness": 2104.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_100453",
+    "azimuth": 303.55427070858144,
+    "elevation": 26.50391885201966,
+    "confidence": 1.0,
+    "pixel_x": 1726.886517808819,
+    "pixel_y": 361.2221505307326,
+    "brightness": 2060.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_102488",
+    "azimuth": 295.25428672834954,
+    "elevation": 29.337113692124248,
+    "confidence": 1.0,
+    "pixel_x": 1679.6688311657217,
+    "pixel_y": 345.10441988480426,
+    "brightness": 1979.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 106.05674375058152,
+    "elevation": 26.665954199389283,
+    "confidence": 1.0,
+    "pixel_x": 603.3450311144193,
+    "pixel_y": 360.3003494434743,
+    "brightness": 1809.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_17358",
+    "azimuth": 42.94510928441875,
+    "elevation": 58.55967441772326,
+    "confidence": 1.0,
+    "pixel_x": 244.30995504024887,
+    "pixel_y": 178.86051886806322,
+    "brightness": 1780.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_18246",
+    "azimuth": 74.5197247156221,
+    "elevation": 59.846989050406734,
+    "confidence": 1.0,
+    "pixel_x": 423.9344339377613,
+    "pixel_y": 171.53712895768615,
+    "brightness": 1760.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 90.36942271409849,
+    "elevation": 60.71369108606558,
+    "confidence": 1.0,
+    "pixel_x": 514.101604773538,
+    "pixel_y": 166.60655737704917,
+    "brightness": 1725.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 263.1806864863551,
+    "elevation": 33.1746212995482,
+    "confidence": 1.0,
+    "pixel_x": 1497.2056831223756,
+    "pixel_y": 323.27326549590356,
+    "brightness": 1713.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_28360",
+    "azimuth": 53.01273105800927,
+    "elevation": 36.093803110239335,
+    "confidence": 1.0,
+    "pixel_x": 301.58353668556384,
+    "pixel_y": 306.66636452841624,
+    "brightness": 1601.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 1.4842152601662493,
+    "elevation": 69.72259456759144,
+    "confidence": 1.0,
+    "pixel_x": 8.443535702279107,
+    "pixel_y": 115.3559064599242,
+    "brightness": 1581.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 347.9681373196761,
+    "elevation": 59.47950156758016,
+    "confidence": 1.0,
+    "pixel_x": 1979.5520700852683,
+    "pixel_y": 173.62772441554398,
+    "brightness": 1555.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 257.2356872751413,
+    "elevation": 52.97457292122773,
+    "confidence": 1.0,
+    "pixel_x": 1463.385243165248,
+    "pixel_y": 210.63354071479336,
+    "brightness": 1543.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "UNKNOWN",
+    "azimuth": 196.524679092839,
+    "elevation": 42.18740333246395,
+    "confidence": 1.0,
+    "pixel_x": 1118.0070632837062,
+    "pixel_y": 272.0005499308717,
+    "brightness": 1536.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_30343",
+    "azimuth": 77.01208453381132,
+    "elevation": 25.796309981352323,
+    "confidence": 1.0,
+    "pixel_x": 438.11319201457104,
+    "pixel_y": 365.2476587727512,
     "brightness": 1488.0
   },
   {
     "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 36.55290083976641,
-    "elevation": 26.476467086139564,
+    "object_id": "HIP_20894",
+    "azimuth": 97.7337004706027,
+    "elevation": 48.21061384303752,
     "confidence": 1.0,
-    "pixel_x": 207.94539144400446,
-    "pixel_y": 361.37832057662825,
-    "brightness": 1454.0
+    "pixel_x": 555.9961626772065,
+    "pixel_y": 237.735174581831,
+    "brightness": 1387.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_105199",
+    "azimuth": 328.82257551071945,
+    "elevation": 36.888774375412716,
+    "confidence": 1.0,
+    "pixel_x": 1870.6350962387594,
+    "pixel_y": 302.14386133098543,
+    "brightness": 1360.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_112158",
+    "azimuth": 283.58399912237803,
+    "elevation": 52.689753002979955,
+    "confidence": 1.0,
+    "pixel_x": 1613.277861673973,
+    "pixel_y": 212.25384958304738,
+    "brightness": 1357.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_23416",
+    "azimuth": 54.93488581149643,
+    "elevation": 46.24808435854647,
+    "confidence": 1.0,
+    "pixel_x": 312.5184615054019,
+    "pixel_y": 248.89978676026897,
+    "brightness": 1281.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_26451",
+    "azimuth": 82.87917716524696,
+    "elevation": 35.07235604432457,
+    "confidence": 1.0,
+    "pixel_x": 471.4904300956271,
+    "pixel_y": 312.4772633922869,
+    "brightness": 1239.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_29655",
+    "azimuth": 77.81684864166593,
+    "elevation": 27.514211390769873,
+    "confidence": 1.0,
+    "pixel_x": 442.6914056059217,
+    "pixel_y": 355.47470853250917,
+    "brightness": 1229.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 194.52765634601957,
-    "elevation": 61.37977319898112,
+    "azimuth": 249.51173979041275,
+    "elevation": 32.55888242682978,
     "confidence": 1.0,
-    "pixel_x": 1106.646222768467,
-    "pixel_y": 162.8172902457963,
-    "brightness": 1402.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_93506",
-    "azimuth": 188.39826653093107,
-    "elevation": 36.712860928045004,
-    "confidence": 1.0,
-    "pixel_x": 1071.7768051537412,
-    "pixel_y": 303.14461338712175,
-    "brightness": 1394.0
+    "pixel_x": 1419.4445641410148,
+    "pixel_y": 326.77613552736835,
+    "brightness": 1145.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 15.60591758399384,
-    "elevation": 64.9211834287342,
+    "azimuth": 95.49424817824068,
+    "elevation": 31.106537109432722,
     "confidence": 1.0,
-    "pixel_x": 88.78033114449829,
-    "pixel_y": 142.67060093875656,
-    "brightness": 1368.0
+    "pixel_x": 543.2561674139914,
+    "pixel_y": 335.0383666663383,
+    "brightness": 1132.0
   },
   {
     "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 328.7169953457181,
-    "elevation": 52.31842349410256,
+    "object_id": "HIP_23767",
+    "azimuth": 58.71647661913282,
+    "elevation": 45.428254888248325,
     "confidence": 1.0,
-    "pixel_x": 1870.0344624111963,
-    "pixel_y": 214.36630190021654,
-    "brightness": 1358.0
+    "pixel_x": 334.0315114332889,
+    "pixel_y": 253.56370552463176,
+    "brightness": 1112.0
   },
   {
     "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 68.05799091297429,
-    "elevation": 29.09383050431861,
+    "object_id": "HIP_23015",
+    "azimuth": 70.47096842064995,
+    "elevation": 46.77569968942349,
     "confidence": 1.0,
-    "pixel_x": 387.17434830492044,
-    "pixel_y": 346.4884309087652,
-    "brightness": 1335.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 88.77462832817216,
-    "elevation": 40.09928482697193,
-    "confidence": 1.0,
-    "pixel_x": 505.02899671137936,
-    "pixel_y": 283.87962409544855,
-    "brightness": 1253.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 211.30048667924376,
-    "elevation": 29.100039344027252,
-    "confidence": 1.0,
-    "pixel_x": 1202.0649908863645,
-    "pixel_y": 346.4531095095339,
-    "brightness": 1217.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_92041",
-    "azimuth": 193.76833853241297,
-    "elevation": 38.8067388440729,
-    "confidence": 1.0,
-    "pixel_x": 1102.326548095505,
-    "pixel_y": 291.2327745759408,
-    "brightness": 1209.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_94141",
-    "azimuth": 187.99834742297475,
-    "elevation": 45.67191395480536,
-    "confidence": 1.0,
-    "pixel_x": 1069.5017097840341,
-    "pixel_y": 252.1775561682184,
-    "brightness": 1185.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 262.62328478300424,
-    "elevation": 32.4930532982024,
-    "confidence": 1.0,
-    "pixel_x": 1494.0346867655353,
-    "pixel_y": 327.1506301257819,
-    "brightness": 1182.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 280.31135599787297,
-    "elevation": 58.23147642653548,
-    "confidence": 1.0,
-    "pixel_x": 1594.6601585656772,
-    "pixel_y": 180.72760077348704,
-    "brightness": 1166.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 286.9981609930483,
-    "elevation": 36.10421419402241,
-    "confidence": 1.0,
-    "pixel_x": 1632.700649204897,
-    "pixel_y": 306.6071370295614,
-    "brightness": 1142.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_93085",
-    "azimuth": 191.97436178320046,
-    "elevation": 45.092771416124535,
-    "confidence": 1.0,
-    "pixel_x": 1092.1208136999849,
-    "pixel_y": 255.47223372160263,
-    "brightness": 1110.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 69.42091704720573,
-    "elevation": 47.570600615203276,
-    "confidence": 1.0,
-    "pixel_x": 394.92788364632594,
-    "pixel_y": 241.37613872239916,
-    "brightness": 1104.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 161.94698722524794,
-    "elevation": 52.9608023273439,
-    "confidence": 1.0,
-    "pixel_x": 921.2984162147438,
-    "pixel_y": 210.71188009333247,
-    "brightness": 1099.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 277.07252289138364,
-    "elevation": 47.536684393278485,
-    "confidence": 1.0,
-    "pixel_x": 1576.2347968932047,
-    "pixel_y": 241.5690843404602,
+    "pixel_x": 400.9015092374753,
+    "pixel_y": 245.89824176683524,
     "brightness": 1091.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 292.143241575305,
-    "elevation": 50.86664183264588,
+    "azimuth": 114.34924508764352,
+    "elevation": 29.003030460431056,
     "confidence": 1.0,
-    "pixel_x": 1661.9704409617352,
-    "pixel_y": 222.6253264631701,
-    "brightness": 1087.0
+    "pixel_x": 650.5201498319276,
+    "pixel_y": 347.0049822695478,
+    "brightness": 1081.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_23453",
+    "azimuth": 58.88564605614958,
+    "elevation": 46.19251904820271,
+    "confidence": 1.0,
+    "pixel_x": 334.9938975638732,
+    "pixel_y": 249.21589163689123,
+    "brightness": 1063.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_111169",
+    "azimuth": 315.4762979088621,
+    "elevation": 49.157595773647216,
+    "confidence": 1.0,
+    "pixel_x": 1794.7096058815264,
+    "pixel_y": 232.34789959880695,
+    "brightness": 1045.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_28380",
+    "azimuth": 62.389727950817125,
+    "elevation": 34.846471811176286,
+    "confidence": 1.0,
+    "pixel_x": 354.9282301202041,
+    "pixel_y": 313.76229369641936,
+    "brightness": 1038.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 161.82546931769133,
-    "elevation": 50.64925257538981,
+    "azimuth": 289.1942000691026,
+    "elevation": 33.78761880214247,
     "confidence": 1.0,
-    "pixel_x": 920.607114340644,
-    "pixel_y": 223.86202979333797,
-    "brightness": 1077.0
+    "pixel_x": 1645.193671504228,
+    "pixel_y": 319.7859908144784,
+    "brightness": 1031.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 131.08674329540582,
-    "elevation": 49.69099612008426,
+    "azimuth": 310.2655178954434,
+    "elevation": 35.70745122275645,
     "confidence": 1.0,
-    "pixel_x": 745.7379174138642,
-    "pixel_y": 229.31344429463178,
-    "brightness": 1075.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_91117",
-    "azimuth": 206.3251060788997,
-    "elevation": 55.635027929460286,
-    "confidence": 1.0,
-    "pixel_x": 1173.7606034710739,
-    "pixel_y": 195.49850777907037,
-    "brightness": 1074.0
+    "pixel_x": 1765.0660573607447,
+    "pixel_y": 308.86427748831886,
+    "brightness": 1021.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 302.64536783970715,
-    "elevation": 57.084546429461085,
+    "azimuth": 20.924691835687764,
+    "elevation": 59.31932600483012,
     "confidence": 1.0,
-    "pixel_x": 1721.7158703770006,
-    "pixel_y": 187.25235809017693,
-    "brightness": 1062.0
+    "pixel_x": 119.03824688746816,
+    "pixel_y": 174.53894539474422,
+    "brightness": 1017.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_109492",
+    "azimuth": 325.2747958055085,
+    "elevation": 44.089499973048,
+    "confidence": 1.0,
+    "pixel_x": 1850.4521716935596,
+    "pixel_y": 261.17973348666027,
+    "brightness": 1001.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_104887",
+    "azimuth": 298.3617015484724,
+    "elevation": 35.92443622244838,
+    "confidence": 1.0,
+    "pixel_x": 1697.3465688090876,
+    "pixel_y": 307.6298739345159,
+    "brightness": 1001.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 12.502163427972507,
-    "elevation": 49.30106977915934,
+    "azimuth": 352.33855942723983,
+    "elevation": 39.071122558904,
     "confidence": 1.0,
-    "pixel_x": 71.12341861246581,
-    "pixel_y": 231.53169192300462,
-    "brightness": 1046.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_88048",
-    "azimuth": 217.9303811885728,
-    "elevation": 49.8394278755094,
-    "confidence": 1.0,
-    "pixel_x": 1239.781724094992,
-    "pixel_y": 228.4690325304354,
-    "brightness": 1022.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_84970",
-    "azimuth": 215.70214786009322,
-    "elevation": 32.39677165496806,
-    "confidence": 1.0,
-    "pixel_x": 1227.1055522707525,
-    "pixel_y": 327.69836569618167,
-    "brightness": 1013.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_86263",
-    "azimuth": 219.18267052843527,
-    "elevation": 42.18497024742827,
-    "confidence": 1.0,
-    "pixel_x": 1246.9058590062095,
-    "pixel_y": 272.01439148129697,
-    "brightness": 978.0
+    "pixel_x": 2004.4149158527423,
+    "pixel_y": 289.728724998235,
+    "brightness": 985.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 39.43870343987799,
-    "elevation": 56.90088406145546,
+    "azimuth": 304.77205713863725,
+    "elevation": 56.175661500915986,
     "confidence": 1.0,
-    "pixel_x": 224.3624017913059,
-    "pixel_y": 188.29719289483117,
-    "brightness": 958.0
+    "pixel_x": 1733.814369499803,
+    "pixel_y": 192.42290346145572,
+    "brightness": 964.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 12.146251525864745,
-    "elevation": 28.555385802145587,
+    "azimuth": 107.44064788489256,
+    "elevation": 52.63386627008742,
     "confidence": 1.0,
-    "pixel_x": 69.09867534714166,
-    "pixel_y": 349.5515829922384,
-    "brightness": 958.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_93864",
-    "azimuth": 187.64039926389935,
-    "elevation": 39.05929784527701,
-    "confidence": 1.0,
-    "pixel_x": 1067.4653824790719,
-    "pixel_y": 289.7959944802019,
-    "brightness": 910.0
+    "pixel_x": 611.2179079673888,
+    "pixel_y": 212.57178299683602,
+    "brightness": 944.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 27.83327103744174,
-    "elevation": 45.07694915710404,
+    "azimuth": 317.8367502026291,
+    "elevation": 47.47778316804808,
     "confidence": 1.0,
-    "pixel_x": 158.34038634633524,
-    "pixel_y": 255.56224479514148,
-    "brightness": 894.0
+    "pixel_x": 1808.1379567082902,
+    "pixel_y": 241.90416686621538,
+    "brightness": 942.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 247.70505908916454,
-    "elevation": 34.5447599364496,
+    "azimuth": 27.54924908396841,
+    "elevation": 65.27671109781866,
     "confidence": 1.0,
-    "pixel_x": 1409.1665583739139,
-    "pixel_y": 315.4786990281978,
-    "brightness": 883.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_81377",
-    "azimuth": 236.89792279139985,
-    "elevation": 35.293920872310736,
-    "confidence": 1.0,
-    "pixel_x": 1347.6859607688525,
-    "pixel_y": 311.21680570418783,
-    "brightness": 876.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_84012",
-    "azimuth": 225.4397127534214,
-    "elevation": 37.704341113378895,
-    "confidence": 1.0,
-    "pixel_x": 1282.5014769972418,
-    "pixel_y": 297.5041927772223,
-    "brightness": 853.0
+    "pixel_x": 156.72461701102029,
+    "pixel_y": 140.64804353240942,
+    "brightness": 919.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 35.064650561996636,
-    "elevation": 25.32802630717144,
+    "azimuth": 190.23801848843587,
+    "elevation": 51.02437419710732,
     "confidence": 1.0,
-    "pixel_x": 199.4789009749142,
-    "pixel_y": 367.9116725636469,
-    "brightness": 852.0
+    "pixel_x": 1082.2429496231018,
+    "pixel_y": 221.72800456756724,
+    "brightness": 916.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_110991",
+    "azimuth": 326.7174986506472,
+    "elevation": 46.27953083923755,
+    "confidence": 1.0,
+    "pixel_x": 1858.6595478792374,
+    "pixel_y": 248.7208912256708,
+    "brightness": 915.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_99675",
+    "azimuth": 311.0158117810589,
+    "elevation": 26.63738657374723,
+    "confidence": 1.0,
+    "pixel_x": 1769.3343959100239,
+    "pixel_y": 360.46286749157133,
+    "brightness": 909.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 116.78653417034577,
-    "elevation": 46.482733690678515,
+    "azimuth": 105.2941372560356,
+    "elevation": 39.49330585348381,
     "confidence": 1.0,
-    "pixel_x": 664.3856166135226,
-    "pixel_y": 247.5648927819178,
-    "brightness": 842.0
+    "pixel_x": 599.0066475010025,
+    "pixel_y": 287.3269711446254,
+    "brightness": 906.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 340.98835639557444,
-    "elevation": 30.074204074937306,
+    "azimuth": 297.97419456044446,
+    "elevation": 30.255874264082422,
     "confidence": 1.0,
-    "pixel_x": 1939.844871939268,
-    "pixel_y": 340.9111945959122,
-    "brightness": 812.0
+    "pixel_x": 1695.1420846105284,
+    "pixel_y": 339.8776930754422,
+    "brightness": 880.0
+  },
+  {
+    "object_type": "STAR",
+    "object_id": "HIP_106481",
+    "azimuth": 307.32980899512233,
+    "elevation": 40.19280439431107,
+    "confidence": 1.0,
+    "pixel_x": 1748.365135616696,
+    "pixel_y": 283.34760166791926,
+    "brightness": 872.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 39.78093077318367,
-    "elevation": 46.21711832793607,
+    "azimuth": 114.32763343243622,
+    "elevation": 26.007245797173518,
     "confidence": 1.0,
-    "pixel_x": 226.30929506522267,
-    "pixel_y": 249.07594906774148,
-    "brightness": 784.0
+    "pixel_x": 650.3972035267483,
+    "pixel_y": 364.0476683538573,
+    "brightness": 867.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 354.6347007084408,
-    "elevation": 59.46180884184905,
+    "azimuth": 3.6712650366598045,
+    "elevation": 67.61949057567918,
     "confidence": 1.0,
-    "pixel_x": 2017.4774084746855,
-    "pixel_y": 173.72837636636987,
-    "brightness": 779.0
+    "pixel_x": 20.88541887522022,
+    "pixel_y": 127.3202313916918,
+    "brightness": 851.0
   },
   {
     "object_type": "STAR",
     "object_id": "UNKNOWN",
-    "azimuth": 121.72797279710761,
-    "elevation": 59.82257663120957,
+    "azimuth": 348.0683277944594,
+    "elevation": 54.01193654710604,
     "confidence": 1.0,
-    "pixel_x": 692.4969119124344,
-    "pixel_y": 171.67600849800775,
-    "brightness": 773.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 256.39542034523936,
-    "elevation": 50.143419186976836,
-    "confidence": 1.0,
-    "pixel_x": 1458.6050579640282,
-    "pixel_y": 226.73965973630956,
-    "brightness": 762.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 231.86579929875546,
-    "elevation": 59.75666779381814,
-    "confidence": 1.0,
-    "pixel_x": 1319.0587693440311,
-    "pixel_y": 172.0509565507235,
-    "brightness": 756.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "HIP_87108",
-    "azimuth": 235.62027484013083,
-    "elevation": 57.23767823031944,
-    "confidence": 1.0,
-    "pixel_x": 1340.4175635349666,
-    "pixel_y": 186.3812082897383,
-    "brightness": 745.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 332.4671979906098,
-    "elevation": 39.8122895903698,
-    "confidence": 1.0,
-    "pixel_x": 1891.3689485688026,
-    "pixel_y": 285.5123081081185,
-    "brightness": 707.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 77.89539652593405,
-    "elevation": 55.25451307309446,
-    "confidence": 1.0,
-    "pixel_x": 443.1382557919803,
-    "pixel_y": 197.6632145175071,
-    "brightness": 698.0
-  },
-  {
-    "object_type": "STAR",
-    "object_id": "UNKNOWN",
-    "azimuth": 29.33324358851543,
-    "elevation": 42.914954892037755,
-    "confidence": 1.0,
-    "pixel_x": 166.87356352577666,
-    "pixel_y": 267.86158994751855,
-    "brightness": 688.0
+    "pixel_x": 1980.1220425640356,
+    "pixel_y": 204.73209430979676,
+    "brightness": 851.0
   }
 ]

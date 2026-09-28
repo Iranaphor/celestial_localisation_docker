@@ -66,6 +66,7 @@ class CelestialDetectorNode(Node):
         self.declare_parameter('minimum_confidence', 0.5)
         self.declare_parameter('debug_output_dir', '')
         self.declare_parameter('gmm_boundaries_filename', 'gmm_boundaries.json')
+        self.declare_parameter('star_benefit_filter_enabled', True)
         self.declare_parameter(
             'star_benefit_metrics_filename',
             'simulated_location_filter_samples*.csv',
@@ -89,11 +90,14 @@ class CelestialDetectorNode(Node):
         configured_metrics_path = Path(
             self.get_parameter('star_benefit_metrics_filename').value
         )
-        self.star_benefit_metrics_path = (
-            configured_metrics_path
-            if configured_metrics_path.is_absolute() or not debug_output_dir
-            else Path(debug_output_dir) / configured_metrics_path
-        )
+        if self.get_parameter('star_benefit_filter_enabled').value:
+            self.star_benefit_metrics_path = (
+                configured_metrics_path
+                if configured_metrics_path.is_absolute() or not debug_output_dir
+                else Path(debug_output_dir) / configured_metrics_path
+            )
+        else:
+            self.star_benefit_metrics_path = None
         self.star_identifier = StarIdentifier(
             database_path=self.get_parameter('star_database_path').value,
             fov_degrees=self.get_parameter('star_fov_degrees').value,
@@ -102,7 +106,11 @@ class CelestialDetectorNode(Node):
             match_radius=self.get_parameter('star_match_radius').value,
             match_threshold=self.get_parameter('star_match_threshold').value,
             min_matches=self.get_parameter('star_min_matches').value,
-            star_benefit_metrics_path=self.star_benefit_metrics_path,
+            star_benefit_metrics_path=(
+                str(self.star_benefit_metrics_path)
+                if self.star_benefit_metrics_path is not None
+                else ''
+            ),
             star_benefit_min_score=self.get_parameter('star_benefit_min_score').value,
             star_benefit_min_present_count=self.get_parameter(
                 'star_benefit_min_present_count'

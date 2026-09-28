@@ -14,13 +14,38 @@ docker exec celestial_localisation_docker-celestial_localisation_service-1 bash 
 To run repeated random-position accuracy measurements, call:
 
 ```sh
-docker exec celestial_localisation_docker-celestial_localisation_service-1 bash -lc 'source /opt/ros/$ROS_DISTRO/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 service call /test/run_random_evaluation celestial_interfaces/srv/RunRandomEvaluation "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"'
+docker exec celestial_localisation_docker-celestial_localisation_service-1 bash -lc 'source /opt/ros/$ROS_DISTRO/setup.bash && source ~/ros2_ws/install/setup.bash && ros2 service call /test/run_random_evaluation celestial_interfaces/srv/RunRandomEvaluation "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0, random_seed: 20260928}"'
+```
+
+For a clean stars-only baseline, start the service with Sun and Moon disabled,
+historical star-benefit filtering disabled, independent localizer starts and
+deterministic global multi-start enabled:
+
+```sh
+export CELESTIAL_USE_SUN=false
+export CELESTIAL_USE_MOON=false
+export CELESTIAL_STAR_BENEFIT_FILTER_ENABLED=false
+export CELESTIAL_LOCALIZER_STATEFUL_TRACKING=false
+export CELESTIAL_SOLVER_GLOBAL_SEARCH=true
+export CELESTIAL_SOLVER_MAX_STARTS=25
+export CELESTIAL_CODE_REVISION="$(git rev-parse HEAD)"
+docker compose up --build -d celestial_localisation_service
+docker compose exec celestial_localisation_service bash -lc \
+	'source /opt/ros/$ROS_DISTRO/setup.bash && source ~/ros2_ws/install/setup.bash && \
+	 ros2 service call /test/run_random_evaluation celestial_interfaces/srv/RunRandomEvaluation \
+	 "{samples: 5, reps: 5, var_time: 0.0, var_xy: 0.0, var_yaw: 0.0, random_seed: 20260928}"'
 ```
 
 Every repetition and one summary measurement per sample are appended to
 `random_localisation_metrics.csv` in this directory. Rows share a `sample_id`
 and are tagged with `record_type=step` or `record_type=summary`; step rows also
 carry their `repetition_index` and `is_outlier` status.
+Failed attempts are retained as `record_type=failure` rows. Summarize a run
+without rewriting it with:
+
+```sh
+python3 scripts/summarize_localisation_metrics.py --csv debug_output/random_localisation_metrics.csv
+```
 
 Render one run as KML from the repository root. The default input is this
 directory's `random_localisation_metrics.csv`, and the output is written beside

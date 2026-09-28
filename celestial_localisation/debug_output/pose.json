@@ -1,156 +1,225 @@
 {
+  "valid": true,
   "used_observations": [
     {
-      "object_id": "HIP_88635",
-      "azimuth": 202.48079115065258,
-      "elevation": 32.67858267587475,
+      "object_id": "HIP_27989",
+      "object_type": "star",
+      "azimuth": 99.10547974954108,
+      "elevation": 31.634267263086016,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_90185",
-      "azimuth": 196.56190705777718,
-      "elevation": 30.40307029809592,
+      "object_id": "HIP_24608",
+      "object_type": "star",
+      "azimuth": 51.681684119544705,
+      "elevation": 48.38034453932073,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_89931",
-      "azimuth": 199.18156340622704,
-      "elevation": 34.49872328157726,
+      "object_id": "HIP_17702",
+      "object_type": "star",
+      "azimuth": 94.17728303393379,
+      "elevation": 66.28474200647693,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_87261",
-      "azimuth": 202.64123305070135,
-      "elevation": 25.301929499626638,
+      "object_id": "HIP_21421",
+      "object_type": "star",
+      "azimuth": 100.14176222202074,
+      "elevation": 52.933160493805296,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_90496",
-      "azimuth": 199.20776905485718,
-      "elevation": 39.13311033273715,
+      "object_id": "HIP_31681",
+      "object_type": "star",
+      "azimuth": 84.68159536433303,
+      "elevation": 26.28897213231864,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_89642",
-      "azimuth": 197.06264864930478,
-      "elevation": 27.719166071140904,
+      "object_id": "HIP_746",
+      "object_type": "star",
+      "azimuth": 335.7078340095833,
+      "elevation": 53.58735919013455,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_92855",
-      "azimuth": 191.25622330550553,
-      "elevation": 39.992656401901876,
+      "object_id": "HIP_25428",
+      "object_type": "star",
+      "azimuth": 76.91190228437875,
+      "elevation": 45.65902238278211,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_86742",
-      "azimuth": 239.50826244483002,
-      "elevation": 57.52868933952607,
+      "object_id": "HIP_25336",
+      "object_type": "star",
+      "azimuth": 104.802815328005,
+      "elevation": 37.585345334820346,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_89341",
-      "azimuth": 205.35582469437875,
-      "elevation": 41.88950412309721,
+      "object_id": "HIP_20894",
+      "object_type": "star",
+      "azimuth": 102.44176208694546,
+      "elevation": 54.230921928516125,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_93506",
-      "azimuth": 188.39826653093107,
-      "elevation": 36.712860928045004,
+      "object_id": "HIP_23416",
+      "object_type": "star",
+      "azimuth": 54.19205539862884,
+      "elevation": 51.24827166650781,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_92041",
-      "azimuth": 193.76833853241297,
-      "elevation": 38.8067388440729,
+      "object_id": "HIP_30343",
+      "object_type": "star",
+      "azimuth": 79.71943115991883,
+      "elevation": 31.80698445793376,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_94141",
-      "azimuth": 187.99834742297475,
-      "elevation": 45.67191395480536,
+      "object_id": "HIP_28360",
+      "object_type": "star",
+      "azimuth": 53.53305857956704,
+      "elevation": 40.93893455517347,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_93085",
-      "azimuth": 191.97436178320046,
-      "elevation": 45.092771416124535,
+      "object_id": "HIP_23015",
+      "object_type": "star",
+      "azimuth": 71.43555310121349,
+      "elevation": 52.59214480687209,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_91117",
-      "azimuth": 206.3251060788997,
-      "elevation": 55.635027929460286,
+      "object_id": "HIP_105199",
+      "object_type": "star",
+      "azimuth": 328.4596106454694,
+      "elevation": 33.68769645670351,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_88048",
-      "azimuth": 217.9303811885728,
-      "elevation": 49.8394278755094,
+      "object_id": "HIP_29655",
+      "object_type": "star",
+      "azimuth": 80.4421756106767,
+      "elevation": 33.575205018357906,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_84970",
-      "azimuth": 215.70214786009322,
-      "elevation": 32.39677165496806,
+      "object_id": "HIP_26451",
+      "object_type": "star",
+      "azimuth": 85.75590931658682,
+      "elevation": 41.207287220450596,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_86263",
-      "azimuth": 219.18267052843527,
-      "elevation": 42.18497024742827,
+      "object_id": "HIP_32246",
+      "object_type": "star",
+      "azimuth": 74.9298914907367,
+      "elevation": 28.210203980161538,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_93864",
-      "azimuth": 187.64039926389935,
-      "elevation": 39.05929784527701,
+      "object_id": "HIP_23767",
+      "object_type": "star",
+      "azimuth": 58.48782201868927,
+      "elevation": 50.72376702840144,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_81377",
-      "azimuth": 236.89792279139985,
-      "elevation": 35.293920872310736,
+      "object_id": "HIP_23453",
+      "object_type": "star",
+      "azimuth": 58.64886236909442,
+      "elevation": 51.436597901834105,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_84012",
-      "azimuth": 225.4397127534214,
-      "elevation": 37.704341113378895,
+      "object_id": "HIP_28380",
+      "object_type": "star",
+      "azimuth": 63.605509808141306,
+      "elevation": 40.334854923629635,
       "confidence": 1.0
     },
     {
-      "object_id": "HIP_87108",
-      "azimuth": 235.62027484013083,
-      "elevation": 57.23767823031944,
+      "object_id": "HIP_109492",
+      "object_type": "star",
+      "azimuth": 324.06262548256973,
+      "elevation": 40.49617517770463,
+      "confidence": 1.0
+    },
+    {
+      "object_id": "HIP_20455",
+      "object_type": "star",
+      "azimuth": 100.89462060138793,
+      "elevation": 56.15630238342525,
       "confidence": 1.0
     }
   ],
+  "used_object_types": {
+    "star": 22
+  },
+  "skipped_observation_count": 42,
   "initial_guess": {
-    "latitude": 22.9038245155491,
-    "longitude": 96.80193206220311,
-    "heading": 0.0694258844200513
+    "latitude": 28.439193985420996,
+    "longitude": -106.37691812451583,
+    "heading": 0.1277533938486189
   },
   "refined_estimate": {
-    "latitude": 22.911568054423416,
-    "longitude": 96.82372847257044,
-    "heading": 0.09027324311704668
+    "latitude": 28.491241786334182,
+    "longitude": -106.40309411971216,
+    "heading": 0.12395685617177703
   },
   "observation_timestamp": {
-    "sec": 1792667081,
-    "nanosec": 190287255
+    "sec": 1790671068,
+    "nanosec": 264135631
   },
   "solver": {
-    "status": 0,
-    "nfev": 30,
-    "optimality": 2.9309203381894632e-05,
-    "message": "The maximum number of function evaluations is exceeded."
+    "status": 2,
+    "success": true,
+    "failure_reason": "",
+    "nfev": 20,
+    "total_nfev": 20,
+    "optimality": 1.2576772388429505e-06,
+    "message": "`ftol` termination condition is satisfied.",
+    "cost": 1.9283992093166447e-05,
+    "rms_residual": 0.0013240437833568805,
+    "max_residual": 0.0030163115750421227,
+    "residuals": [
+      0.0012723876315658674,
+      0.0030163115750421227,
+      0.0005655038381684015,
+      0.001442257017922789,
+      0.0014297979871718766,
+      0.0007582915764865746,
+      0.0009776006725894563,
+      0.0013112839318697985,
+      0.0009269967945749661,
+      0.00048683893006133623,
+      0.001162327625007243,
+      0.0006811071888591847,
+      0.00039291036315774856,
+      0.0023846189400698044,
+      0.001678812358854012,
+      0.001066587430647722,
+      0.0013564865857197599,
+      0.0007202202042622518,
+      0.0012845423523157628,
+      0.0008680930108774415,
+      0.001406141489419269,
+      0.0008419175170347881
+    ],
+    "selected_start": {
+      "latitude": 28.439193985420996,
+      "longitude": -106.37691812451583,
+      "heading": 0.1277533938486189
+    },
+    "starts_tried": 1,
+    "boundary_solution": false
   },
-  "cost": 9.415024250225557e-06,
   "covariance_diagonal": [
-    1.0000004483344882,
-    1.0000004483344882,
-    4.000001793337953
+    1.0000008765450952,
+    1.0000008765450952,
+    4.000003506180381
   ]
 }

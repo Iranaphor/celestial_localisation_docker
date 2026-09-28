@@ -15,6 +15,7 @@ celestial_detector:
     star_max_candidates: 64
     minimum_confidence: 0.5
     gmm_boundaries_filename: "gmm_boundaries.json"
+    star_benefit_filter_enabled: true
     star_benefit_metrics_filename: "simulated_location_filter_samples*.csv"
     star_benefit_min_score: -0.1
     star_benefit_min_present_count: 3

@@ -133,7 +133,7 @@ tagged result for every repetition plus one tagged summary per sample to
 ```bash
 ros2 service call /test/run_random_evaluation \
   celestial_interfaces/srv/RunRandomEvaluation \
-  "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0}"
+  "{samples: 5, reps: 10, var_time: 1800.0, var_xy: 200.0, var_yaw: 20.0, random_seed: 20260928}"
 ```
 
 `var_time` is the maximum timestamp variation in seconds, `var_xy` is the
@@ -154,3 +154,7 @@ all requested samples and repetitions finish or one request fails. The summary
 page uses the star list to compare each star's mean error when present with its
 mean error when absent; positive benefit scores indicate lower error when that
 star is present.
+Failed attempts are retained as `record_type=failure` rows, and the summary
+aggregation does not use ground truth to select inliers. Use
+`python3 scripts/summarize_localisation_metrics.py` for explicit denominators,
+percentiles and threshold fractions.
