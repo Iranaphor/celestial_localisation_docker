@@ -7457,7 +7457,7 @@
       return new THREE.Vector3(
         radius * Math.cos(latitudeRadians) * Math.cos(longitudeRadians),
         radius * Math.sin(latitudeRadians),
-        radius * Math.cos(latitudeRadians) * Math.sin(longitudeRadians)
+        -radius * Math.cos(latitudeRadians) * Math.sin(longitudeRadians)
       );
     }
 

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Random localisation run 47</name>
+    <description>Orange markers show estimated fixes. The larger translucent summary markers show the summary estimate and ground truth.</description>
+    <Style id="estimated-step">
+      <IconStyle>
+        <color>ff0066ff</color>
+        <scale>0.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/orange-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="estimated-summary">
+      <IconStyle>
+        <color>990066ff</color>
+        <scale>1.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/orange-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="ground-truth-summary">
+      <IconStyle>
+        <color>99ff6600</color>
+        <scale>1.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="estimated-path">
+      <LineStyle>
+        <color>cc0066ff</color>
+        <width>4</width>
+      </LineStyle>
+    </Style>
+    <Folder>
+      <name>Estimated fixes</name>
+      <Placemark>
+        <name>Run 47 step 2</name>
+        <description>Estimated fix for repetition 2: 28.41172323, 77.36788682</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>77.367886821354,28.411723234519,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 47 step 4</name>
+        <description>Estimated fix for repetition 4: 28.35995523, 77.13599016</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>77.135990160008,28.359955226145,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 47 step 7</name>
+        <description>Estimated fix for repetition 7: 28.38396911, 77.23756303</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>77.237563031543,28.383969112847,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 47 summary estimated fix</name>
+        <description>Summary estimated fix: 28.38396911, 77.23756303</description>
+        <styleUrl>#estimated-summary</styleUrl>
+        <Point>
+          <coordinates>77.237563031543,28.383969112847,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ground truth</name>
+      <Placemark>
+        <name>Run 47 summary ground truth</name>
+        <description>Summary ground truth: 28.33379016, 77.28752699</description>
+        <styleUrl>#ground-truth-summary</styleUrl>
+        <Point>
+          <coordinates>77.287526988850,28.333790162982,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Estimated path</name>
+      <Placemark>
+        <name>Run 47 estimated step path</name>
+        <styleUrl>#estimated-path</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>77.367886821354,28.411723234519,0
+77.135990160008,28.359955226145,0
+77.237563031543,28.383969112847,0</coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
