@@ -41,7 +41,6 @@
       --cluster-1: #94e3c4;
       --cluster-2: #e4d47b;
       --cluster-3: #ffb65c;
-      --cluster-4: #76c9d9;
       --run-quality-black: #273236;
       --run-quality-red: #df625e;
       --run-quality-yellow: #d8b94d;
@@ -117,7 +116,6 @@
       --cluster-1: #1f806a;
       --cluster-2: #a17c0d;
       --cluster-3: #c26722;
-      --cluster-4: #287d91;
       --danger: #b74438;
       --visual-background: #e4efeb;
       --visual-grid: rgba(23, 52, 50, 0.045);
@@ -753,7 +751,6 @@
     .cluster-1 { --cluster-color: var(--cluster-1); }
     .cluster-2 { --cluster-color: var(--cluster-2); }
     .cluster-3 { --cluster-color: var(--cluster-3); }
-    .cluster-4 { --cluster-color: var(--cluster-4); }
     .summary-cluster-key {
       display: flex;
       flex-wrap: wrap;
@@ -826,8 +823,7 @@
     .coordinate-point.category-outlier { fill: var(--category-outlier); }
     .coordinate-point.cluster-1,
     .coordinate-point.cluster-2,
-    .coordinate-point.cluster-3,
-    .coordinate-point.cluster-4 { fill: var(--cluster-color); }
+    .coordinate-point.cluster-3 { fill: var(--cluster-color); }
     .coordinate-point { pointer-events: none; }
 
     .distribution-chart {
@@ -920,8 +916,7 @@
     .observation-error-point.category-outlier { fill: var(--category-outlier); }
     .observation-error-point.cluster-1,
     .observation-error-point.cluster-2,
-    .observation-error-point.cluster-3,
-    .observation-error-point.cluster-4 { fill: var(--cluster-color); }
+    .observation-error-point.cluster-3 { fill: var(--cluster-color); }
     .observation-error-point { pointer-events: none; }
     .observation-error-boundary {
       fill: none;
@@ -3216,9 +3211,9 @@
             <small>valid nonzero-object records</small>
           </article>
           <article class="summary-stat-card">
-            <span class="metric-label" id="summary-mean-error-label">Mean error of samples</span>
-            <strong class="summary-stat-value" id="summary-mean-error">--</strong>
-            <small>average distance to truth</small>
+            <span class="metric-label">Samples in low error group</span>
+            <strong class="summary-stat-value" id="summary-low-error-count">--</strong>
+            <small>GMM-assigned sample summaries</small>
           </article>
           <article class="summary-stat-card">
             <span class="metric-label" id="summary-median-error-label">Median error of samples</span>
@@ -3234,11 +3229,6 @@
             <span class="metric-label">Outlier rate</span>
             <strong class="summary-stat-value" id="summary-outlier-rate">--</strong>
             <small>steps excluded from sample medians</small>
-          </article>
-          <article class="summary-stat-card">
-            <span class="metric-label">Samples in low error group</span>
-            <strong class="summary-stat-value" id="summary-low-error-count">--</strong>
-            <small>GMM-assigned sample summaries</small>
           </article>
           <article class="summary-stat-card">
             <span class="metric-label">Mean inlier error of low error group</span>
@@ -3258,6 +3248,11 @@
           <article class="summary-stat-card">
             <span class="metric-label">Samples with at least 1 step &lt; 10 km</span>
             <strong class="summary-stat-value" id="summary-samples-with-step-within-ten">--</strong>
+            <small>share of valid sample summaries</small>
+          </article>
+          <article class="summary-stat-card">
+            <span class="metric-label">Samples with at least 1 step &lt; 1 km</span>
+            <strong class="summary-stat-value" id="summary-samples-with-step-within-one">--</strong>
             <small>share of valid sample summaries</small>
           </article>
         </div>
@@ -3301,7 +3296,7 @@
               <figcaption><span>Step error spread by sample / group order</span><span class="chart-caption-meta" id="sample-variance-total">-- samples</span></figcaption>
               <svg class="sample-variance-chart" id="sample-variance-chart" viewBox="0 0 1280 640" role="img" aria-labelledby="sample-variance-title sample-variance-description">
                 <title id="sample-variance-title">Step error spread by sample in group order</title>
-                <desc id="sample-variance-description">Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. Samples are ordered LowSamples, HighError, MediumError, then LowError, with each group sorted from highest to lowest within-sample inlier standard deviation.</desc>
+                <desc id="sample-variance-description">Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. Samples are ordered HighError, MediumError, then LowError, with each group sorted from highest to lowest within-sample inlier standard deviation.</desc>
               </svg>
             </figure>
             <figure class="summary-chart">
@@ -3877,8 +3872,6 @@
       summaryView: document.getElementById("summary-view"),
       summaryRuns: document.getElementById("summary-runs"),
       summaryRecordLabel: document.getElementById("summary-record-label"),
-      summaryMeanErrorLabel: document.getElementById("summary-mean-error-label"),
-      summaryMeanError: document.getElementById("summary-mean-error"),
       summaryMedianErrorLabel: document.getElementById("summary-median-error-label"),
       summaryMedianError: document.getElementById("summary-median-error"),
       summaryObjectsLabel: document.getElementById("summary-objects-label"),
@@ -3889,6 +3882,7 @@
       summaryLowErrorStandardDeviation: document.getElementById("summary-low-error-standard-deviation"),
       summarySamplesWithinTen: document.getElementById("summary-samples-within-ten"),
       summarySamplesWithStepWithinTen: document.getElementById("summary-samples-with-step-within-ten"),
+      summarySamplesWithStepWithinOne: document.getElementById("summary-samples-with-step-within-one"),
       summaryRunMeta: document.getElementById("summary-run-meta"),
       latitudePoints: document.getElementById("latitude-points"),
       longitudePoints: document.getElementById("longitude-points"),
@@ -4334,20 +4328,17 @@
     const DEFAULT_GMM_CLUSTER_COLORS = {
       1: "#94e3c4",
       2: "#e4d47b",
-      3: "#ffb65c",
-      4: "#76c9d9"
+      3: "#ffb65c"
     };
     const DEFAULT_GMM_CLUSTER_NAMES = {
       1: "LowError",
       2: "MediumError",
-      3: "HighError",
-      4: "LowSamples"
+      3: "HighError"
     };
     const SAMPLE_VARIANCE_CLUSTER_ORDER = {
-      4: 0,
-      3: 1,
-      2: 2,
-      1: 3
+      3: 0,
+      2: 1,
+      1: 2
     };
     let GMM_CLUSTER_COLORS = { ...DEFAULT_GMM_CLUSTER_COLORS };
     let GMM_CLUSTER_NAMES = { ...DEFAULT_GMM_CLUSTER_NAMES };
@@ -5295,6 +5286,9 @@
       const samplesWithCloseStepCount = sampleVarianceMetrics.filter((metric) => (
         metric.errors.some((error) => error < 10)
       )).length;
+      const samplesWithVeryCloseStepCount = sampleVarianceMetrics.filter((metric) => (
+        metric.errors.some((error) => error < 1)
+      )).length;
 
       dom.summaryLowErrorCount.textContent = lowErrorClusterId === null
         ? "--"
@@ -5310,6 +5304,9 @@
         : "--";
       dom.summarySamplesWithStepWithinTen.textContent = sampleCount
         ? formatSummaryPercent(samplesWithCloseStepCount / sampleCount)
+        : "--";
+      dom.summarySamplesWithStepWithinOne.textContent = sampleCount
+        ? formatSummaryPercent(samplesWithVeryCloseStepCount / sampleCount)
         : "--";
     }
 
@@ -5612,7 +5609,7 @@
       title.textContent = options.title || "Step error spread by sample";
       const description = createSvgElement("desc", { id: descriptionId });
       description.textContent = groupFirst
-        ? "Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. Samples are ordered LowSamples, HighError, MediumError, then LowError, with each group sorted from highest to lowest within-sample inlier standard deviation."
+      ? "Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. Samples are ordered HighError, MediumError, then LowError, with each group sorted from highest to lowest within-sample inlier standard deviation."
         : "Each box plot uses inlier step errors only for its quartiles, median, and min-to-max whiskers. All valid step errors remain plotted as points, with flagged outlier steps highlighted. All samples are sorted from highest to lowest within-sample inlier standard deviation without grouping by GMM cluster.";
       chart.append(title, description);
 
@@ -6400,7 +6397,6 @@
         && Number.isFinite(Number(row.error_distance_meters))
       ));
       dom.summaryRecordLabel.textContent = `Total ${recordViewNoun}`;
-      dom.summaryMeanErrorLabel.textContent = `Mean error of ${recordViewNoun}`;
       dom.summaryMedianErrorLabel.textContent = `Median error of ${recordViewNoun}`;
       dom.summaryObjectsLabel.textContent = `Mean objects of ${recordViewNoun}`;
       renderSampleSummaryStats(sampleSummaryRows);
@@ -6408,7 +6404,6 @@
       const reasonableRows = summaryRows.filter((row) => Number(row.error_distance_meters) / 1000 <= 100);
       if (!errorKilometers.length) {
         dom.summaryRuns.textContent = "--";
-        dom.summaryMeanError.textContent = "--";
         dom.summaryMedianError.textContent = "--";
         dom.summaryObjects.textContent = "--";
         dom.summaryOutlierRate.textContent = "--";
@@ -6444,7 +6439,6 @@
       }
 
       const sortedErrors = [...errorKilometers].sort((first, second) => first - second);
-      const meanError = errorKilometers.reduce((total, value) => total + value, 0) / errorKilometers.length;
       const middle = Math.floor(sortedErrors.length / 2);
       const medianError = sortedErrors.length % 2 === 0
         ? (sortedErrors[middle - 1] + sortedErrors[middle]) / 2
@@ -6456,7 +6450,6 @@
         : 0;
       const outlierRate = getOutlierRate(summaryRows);
       dom.summaryRuns.textContent = summaryRows.length.toLocaleString("en-US");
-      dom.summaryMeanError.textContent = formatSummaryKilometers(meanError);
       dom.summaryMedianError.textContent = formatSummaryKilometers(medianError);
       dom.summaryObjects.textContent = meanObjects.toFixed(1);
       dom.summaryOutlierRate.textContent = formatSummaryPercent(outlierRate);
