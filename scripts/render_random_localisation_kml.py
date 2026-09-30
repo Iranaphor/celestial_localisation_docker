@@ -116,6 +116,8 @@ def load_run_records(
                 if summary is not None:
                     raise ValueError(f"Run {run_index} contains more than one summary row")
                 summary = _parse_record(row, row_number, False)
+            elif record_type == "failure":
+                continue
             else:
                 raise ValueError(
                     f"Run {run_index} has unsupported record_type on CSV row {row_number}: "

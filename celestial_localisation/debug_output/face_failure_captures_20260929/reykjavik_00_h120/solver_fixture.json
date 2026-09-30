@@ -1,0 +1,20 @@
+{
+  "timestamp": 1700000000,
+  "initial_state": [51.5, -0.1, 0.0],
+  "observations": [
+    {"azimuth": 144.17242964361344, "elevation": 48.674396823800336, "confidence": 1.0, "object_id": "HIP_100453"},
+    {"azimuth": 144.43384190102663, "elevation": 54.836695296529726, "confidence": 1.0, "object_id": "HIP_102098"},
+    {"azimuth": 133.24696514969256, "elevation": 45.96606614970002, "confidence": 1.0, "object_id": "HIP_102488"},
+    {"azimuth": 123.49389012316854, "elevation": 45.40783539243625, "confidence": 1.0, "object_id": "HIP_104732"},
+    {"azimuth": 128.8504183398363, "elevation": 52.44491986607587, "confidence": 1.0, "object_id": "HIP_104887"},
+    {"azimuth": 182.746993854119, "elevation": 42.62976501078692, "confidence": 1.0, "object_id": "HIP_87833"},
+    {"azimuth": 159.60235245780189, "elevation": 32.98212533408085, "confidence": 1.0, "object_id": "HIP_92420"},
+    {"azimuth": 157.30644696606055, "elevation": 33.334796672999886, "confidence": 1.0, "object_id": "HIP_93194"},
+    {"azimuth": 147.36880696377617, "elevation": 32.75527590770482, "confidence": 1.0, "object_id": "HIP_95947"},
+    {"azimuth": 156.89764368669523, "elevation": 48.575874531490584, "confidence": 1.0, "object_id": "HIP_97165"},
+    {"azimuth": 138.3911092018921, "elevation": 26.211708810145, "confidence": 1.0, "object_id": "HIP_97365"},
+    {"azimuth": 146.14698760770844, "elevation": 41.671767383714, "confidence": 1.0, "object_id": "HIP_98110"},
+    {"azimuth": 136.29398318291118, "elevation": 28.262749314369405, "confidence": 1.0, "object_id": "HIP_98337"},
+    {"azimuth": 152.39860376782704, "elevation": 52.898645084498845, "confidence": 1.0, "object_id": "HIP_99675"}
+  ]
+}

@@ -55,6 +55,29 @@ def cube_faces():
     )
 
 
+def oriented_cube_faces(yaw_degrees=0.0):
+    """Return cube face bases in the observation frame.
+
+    The renderer applies yaw to the sky content, while these bases describe
+    the corresponding local image directions used by the detector.
+    """
+    yaw = math.radians(float(yaw_degrees))
+    cosine = math.cos(yaw)
+    sine = math.sin(yaw)
+
+    def rotate(vector):
+        return np.array([
+            cosine * vector[0] - sine * vector[1],
+            sine * vector[0] + cosine * vector[1],
+            vector[2],
+        ], dtype=np.float64)
+
+    return tuple(
+        FaceView(face.name, rotate(face.center), rotate(face.right), rotate(face.up))
+        for face in cube_faces()
+    )
+
+
 def compose_equirectangular(faces, width, height, field_of_view_degrees=95.0):
     if width <= 0 or height <= 0:
         raise ValueError('panorama dimensions must be positive')

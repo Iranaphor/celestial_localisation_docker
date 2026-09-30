@@ -1,0 +1,426 @@
+{
+  "capture_type": "new_captures_of_same_scene_definitions",
+  "captured_utc": "2026-09-29T15:56:41.875415+00:00",
+  "exact_historical_replay": false,
+  "historical_campaign": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+  "resolved_capture_settings": {
+    "altitude": 0.0,
+    "browser_executable": "",
+    "data_root": "/opt/stellarium/data",
+    "engine_js": "/opt/stellarium/stellarium-web-engine.js",
+    "engine_wasm": "/opt/stellarium/stellarium-web-engine.wasm",
+    "face_duplicate_radius": 0.15,
+    "face_fov": 95.0,
+    "face_match_ambiguity_margin": 0.25,
+    "face_match_radius": 2.0,
+    "face_size": 512,
+    "global_search": true,
+    "heading": 17.0,
+    "initial_heading": 0.0,
+    "initial_latitude": 51.5,
+    "initial_longitude": -0.1,
+    "latitude": 23.0,
+    "longitude": -70.0,
+    "max_candidates": 64,
+    "max_nfev": 60,
+    "max_starts": 5,
+    "min_elevation": 25.0,
+    "panorama_height": 1024,
+    "panorama_width": 2048,
+    "scenes": "/tmp/celestial_scripts/quality_heldout_face_panorama_scenes.json",
+    "star_threshold": 5.0,
+    "star_tile_size": 512,
+    "timeout": 60.0,
+    "timestamp": 1700000000.0
+  },
+  "scene_ids": [
+    "berlin_00_h018",
+    "berlin_06_h138",
+    "berlin_12_h258",
+    "johannesburg_00_h036",
+    "johannesburg_06_h156",
+    "johannesburg_12_h276",
+    "rio_00_h054",
+    "rio_06_h174",
+    "rio_12_h294",
+    "melbourne_00_h072",
+    "melbourne_06_h192",
+    "melbourne_12_h312",
+    "seoul_00_h090",
+    "seoul_06_h210",
+    "seoul_12_h330",
+    "lima_00_h108",
+    "lima_06_h228",
+    "lima_12_h348",
+    "lisbon_00_h126",
+    "lisbon_06_h246",
+    "lisbon_12_h006",
+    "addis_ababa_00_h144",
+    "addis_ababa_06_h264",
+    "addis_ababa_12_h024"
+  ],
+  "scenes": [
+    {
+      "capture_file": "berlin_00_h018/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 22,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "berlin_00_h018",
+      "scene_runtime_seconds": 11.611531607995857
+    },
+    {
+      "capture_file": "berlin_06_h138/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 15,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "berlin_06_h138",
+      "scene_runtime_seconds": 8.353166176006198
+    },
+    {
+      "capture_file": "berlin_12_h258/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 0,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "berlin_12_h258",
+      "scene_runtime_seconds": 3.8159824470058084
+    },
+    {
+      "capture_file": "johannesburg_00_h036/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 22,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "johannesburg_00_h036",
+      "scene_runtime_seconds": 7.6352616700023646
+    },
+    {
+      "capture_file": "johannesburg_06_h156/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 0,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "johannesburg_06_h156",
+      "scene_runtime_seconds": 3.211428345995955
+    },
+    {
+      "capture_file": "johannesburg_12_h276/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 29,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "johannesburg_12_h276",
+      "scene_runtime_seconds": 6.917631182994228
+    },
+    {
+      "capture_file": "rio_00_h054/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 18,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "rio_00_h054",
+      "scene_runtime_seconds": 7.581704525000532
+    },
+    {
+      "capture_file": "rio_06_h174/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 35,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "rio_06_h174",
+      "scene_runtime_seconds": 7.23734364300617
+    },
+    {
+      "capture_file": "rio_12_h294/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 8,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "rio_12_h294",
+      "scene_runtime_seconds": 9.278443742005038
+    },
+    {
+      "capture_file": "melbourne_00_h072/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 26,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "melbourne_00_h072",
+      "scene_runtime_seconds": 9.601961627005949
+    },
+    {
+      "capture_file": "melbourne_06_h192/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 28,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "melbourne_06_h192",
+      "scene_runtime_seconds": 7.358371334994445
+    },
+    {
+      "capture_file": "melbourne_12_h312/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 29,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "melbourne_12_h312",
+      "scene_runtime_seconds": 8.862247673008824
+    },
+    {
+      "capture_file": "seoul_00_h090/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 19,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "seoul_00_h090",
+      "scene_runtime_seconds": 9.192014767992077
+    },
+    {
+      "capture_file": "seoul_06_h210/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 15,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "seoul_06_h210",
+      "scene_runtime_seconds": 9.033565179008292
+    },
+    {
+      "capture_file": "seoul_12_h330/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 18,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "seoul_12_h330",
+      "scene_runtime_seconds": 7.487724057005835
+    },
+    {
+      "capture_file": "lima_00_h108/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 28,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "lima_00_h108",
+      "scene_runtime_seconds": 7.940034102008212
+    },
+    {
+      "capture_file": "lima_06_h228/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 20,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "lima_06_h228",
+      "scene_runtime_seconds": 8.119173443003092
+    },
+    {
+      "capture_file": "lima_12_h348/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 20,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "lima_12_h348",
+      "scene_runtime_seconds": 6.045068214007188
+    },
+    {
+      "capture_file": "lisbon_00_h126/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 14,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "lisbon_00_h126",
+      "scene_runtime_seconds": 7.737330786985694
+    },
+    {
+      "capture_file": "lisbon_06_h246/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 25,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "lisbon_06_h246",
+      "scene_runtime_seconds": 6.882688028010307
+    },
+    {
+      "capture_file": "lisbon_12_h006/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 17,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "lisbon_12_h006",
+      "scene_runtime_seconds": 8.062586681000539
+    },
+    {
+      "capture_file": "addis_ababa_00_h144/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 21,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "addis_ababa_00_h144",
+      "scene_runtime_seconds": 8.82838589498715
+    },
+    {
+      "capture_file": "addis_ababa_06_h264/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 24,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "addis_ababa_06_h264",
+      "scene_runtime_seconds": 7.306535594994784
+    },
+    {
+      "capture_file": "addis_ababa_12_h024/capture.json",
+      "capture_type": "new_capture_of_same_scene_definition",
+      "face_observation_count": 13,
+      "historical_face_failure_reason": null,
+      "historical_reference": {
+        "artifact": "face_panorama_campaign_heldout_20260929_centerpix_nfev60_starts5.json",
+        "available": false,
+        "common_ids": null,
+        "face_failure_reason": null,
+        "face_valid": null
+      },
+      "scene_id": "addis_ababa_12_h024",
+      "scene_runtime_seconds": 8.817991782998433
+    }
+  ],
+  "schema_version": 1,
+  "source_scene_manifest": "quality_heldout_face_panorama_scenes.json"
+}

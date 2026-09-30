@@ -43,6 +43,9 @@ class CelestialLocalizerNode(Node):
         self.declare_parameter('initial_longitude', -0.1)
         self.declare_parameter('robust_loss', 'soft_l1')
         self.declare_parameter('solver_max_nfev', 30)
+        self.declare_parameter('solver_max_starts', 25)
+        self.declare_parameter('global_search', False)
+        self.declare_parameter('stateful_tracking', True)
         self.declare_parameter('publish_tf', True)
         self.declare_parameter('map_frame', 'map')
         self.declare_parameter('base_frame', 'base_link')
@@ -59,6 +62,11 @@ class CelestialLocalizerNode(Node):
         self.solver_max_nfev = int(self.get_parameter('solver_max_nfev').value)
         if self.solver_max_nfev <= 0:
             raise ValueError('solver_max_nfev must be greater than zero')
+        self.solver_max_starts = int(self.get_parameter('solver_max_starts').value)
+        if self.solver_max_starts <= 0:
+            raise ValueError('solver_max_starts must be greater than zero')
+        self.global_search = bool(self.get_parameter('global_search').value)
+        self.stateful_tracking = bool(self.get_parameter('stateful_tracking').value)
         self.publish_tf = self.get_parameter('publish_tf').value
         self.map_frame = self.get_parameter('map_frame').value
         self.base_frame = self.get_parameter('base_frame').value
@@ -72,11 +80,12 @@ class CelestialLocalizerNode(Node):
                 self.get_logger().error(f"cannot create debug output directory {self.debug_dir}: {error}")
                 self.debug_dir = None
 
-        self.state = [
+        self.initial_state = (
             self.get_parameter('initial_latitude').value,
             self.get_parameter('initial_longitude').value,
             0.0,
-        ]
+        )
+        self.state = list(self.initial_state)
 
         self.ephemeris = EphemerisProvider(self.get_parameter('star_database_path').value)
 
@@ -123,6 +132,7 @@ class CelestialLocalizerNode(Node):
 
             usable.append({
                 'object_id': object_id,
+                'object_type': type_name.lower(),
                 'azimuth': obs.azimuth,
                 'elevation': obs.elevation,
                 'confidence': max(obs.confidence, 1e-3),
@@ -142,14 +152,33 @@ class CelestialLocalizerNode(Node):
             timestamp = self.get_clock().now().nanoseconds / 1e9
 
         previous_state = list(self.state)
+        initial_state = tuple(self.state) if self.stateful_tracking else self.initial_state
         result = solve(
             usable,
             timestamp,
             self.ephemeris,
-            self.state,
+            initial_state,
             self.robust_loss,
             self.solver_max_nfev,
+            global_search=self.global_search,
+            max_starts=self.solver_max_starts,
         )
+        if not result.valid:
+            self.get_logger().warning(
+                f'pose solve rejected: reason={result.failure_reason}, '
+                f'status={result.status}, nfev={result.nfev}, '
+                f'max_residual={result.max_residual}, message={result.message}'
+            )
+            self._save_debug_output(
+                usable,
+                skipped,
+                initial_state,
+                result,
+                None,
+                msg.header,
+            )
+            return
+
         self.state = list(result.x)
         covariance = estimate_covariance(result, len(usable))
 
@@ -161,34 +190,62 @@ class CelestialLocalizerNode(Node):
         self.get_logger().info(
             f"solved pose lat={self.state[0]:.5f} lon={self.state[1]:.5f} heading={self.state[2]:.2f} "
             f"(delta lat={self.state[0] - previous_state[0]:+.5f}, lon={self.state[1] - previous_state[1]:+.5f}) "
-            f"cost={result.cost:.6f} using {len(usable)}/{len(msg.observations)} observations; "
-            f"solver_status={result.status} nfev={result.nfev}; "
+            f"cost={result.cost:.6f} rms_residual={result.rms_residual:.6g} "
+            f"max_residual={result.max_residual:.6g} "
+            f"using {len(usable)}/{len(msg.observations)} observations; "
+                f"solver_status={result.status} nfev={result.nfev}/total={result.total_nfev} "
+            f"starts={result.starts_tried} boundary={result.boundary_solution}; "
             f"published to {self.pose_pub.topic_name}, {self.fix_pub.topic_name}"
             + (", and broadcast tf" if self.publish_tf else "")
         )
 
-        self._save_debug_output(usable, skipped, previous_state, result, covariance, msg.header)
+        self._save_debug_output(usable, skipped, initial_state, result, covariance, msg.header)
 
-    def _save_debug_output(self, usable, skipped, previous_state, result, covariance, header):
+    def _save_debug_output(self, usable, skipped, initial_state, result, covariance, header):
         if self.debug_dir is None:
             return
 
+        object_type_counts = {}
+        for observation in usable:
+            object_type = observation.get('object_type', 'unknown')
+            object_type_counts[object_type] = object_type_counts.get(object_type, 0) + 1
         payload = {
+            'valid': bool(result.valid),
             'used_observations': usable,
-            'initial_guess': {'latitude': previous_state[0], 'longitude': previous_state[1], 'heading': previous_state[2]},
-            'refined_estimate': {'latitude': self.state[0], 'longitude': self.state[1], 'heading': self.state[2]},
+            'used_object_types': object_type_counts,
+            'skipped_observation_count': len(skipped),
+            'initial_guess': {'latitude': initial_state[0], 'longitude': initial_state[1], 'heading': initial_state[2]},
+            'refined_estimate': {'latitude': float(result.x[0]), 'longitude': float(result.x[1]), 'heading': float(result.x[2])},
             'observation_timestamp': {
                 'sec': int(header.stamp.sec),
                 'nanosec': int(header.stamp.nanosec),
             },
             'solver': {
                 'status': int(result.status),
+                'success': bool(result.success),
+                'failure_reason': result.failure_reason,
                 'nfev': int(result.nfev),
+                'total_nfev': int(result.total_nfev),
                 'optimality': float(result.optimality),
                 'message': str(result.message),
+                'cost': float(result.cost),
+                'rms_residual': float(result.rms_residual),
+                'max_residual': float(result.max_residual),
+                'residuals': [float(value) for value in result.residuals],
+                'selected_start': {
+                    'latitude': result.selected_start[0],
+                    'longitude': result.selected_start[1],
+                    'heading': result.selected_start[2],
+                },
+                'starts_tried': int(result.starts_tried),
+                'start_diagnostics': result.start_diagnostics,
+                'boundary_solution': bool(result.boundary_solution),
             },
-            'cost': float(result.cost),
-            'covariance_diagonal': [float(covariance[i][i]) for i in range(3)],
+            'covariance_diagonal': (
+                [float(covariance[i][i]) for i in range(3)]
+                if covariance is not None
+                else []
+            ),
         }
         debug_path = self.debug_dir / "pose.json"
         try:

@@ -27,10 +27,9 @@ DEFAULT_CONVERGENCE_TOLERANCE = 0.01
 DEFAULT_MERGE_DISTANCE = 0.5
 KERNEL_RADIUS = 3.0
 SEEDS = (
-    (25.0, 10.0, "low error"),
-    (30.0, 100.0, "medium error"),
-    (15.0, 10_000.0, "high error"),
-    (0.0, 10_000.0, "zero observations"),
+    (10.0, 8.0, "low error"),
+    (25.0, 200.0, "medium error"),
+    (8.0, 5_000.0, "high error"),
 )
 REQUIRED_COLUMNS = {"run_index", "identified_objects_used", "error_distance_meters"}
 CHART_WIDTH = 480
@@ -41,7 +40,7 @@ PLOT_TOP = 70
 PLOT_BOTTOM = 890
 CLUSTER_COLORS = ("#94e3c4", "#e4d47b", "#ffb65c", "#76c9d9", "#c0a0ed")
 NOISE_COLOR = "#ff7164"
-SEED_REFERENCE_COLORS = ("#e4d47b", "#ffb65c", "#ff7164", "#76c9d9")
+SEED_REFERENCE_COLORS = ("#e4d47b", "#ffb65c", "#ff7164")
 
 
 def load_points(csv_path: Path) -> list[dict[str, float | int]]:

@@ -1,9 +1,9 @@
 {
   "observation_timestamp": {
-    "sec": 1792667081,
-    "nanosec": 190287255
+    "sec": 1791004914,
+    "nanosec": 625314522
   },
-  "identified_objects_used": 64,
-  "provisional_cluster_id": 3,
+  "identified_objects_used": 39,
+  "provisional_cluster_id": 2,
   "classification": "observation-marginal"
 }

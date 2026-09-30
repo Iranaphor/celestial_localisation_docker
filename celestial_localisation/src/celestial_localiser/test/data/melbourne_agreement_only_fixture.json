@@ -1,0 +1,216 @@
+{
+  "case": "melbourne_00_h072_agreement_only",
+  "expected": {
+    "agreement_only": {
+      "minimum_geographic_error_meters_per_start": 1000000.0,
+      "minimum_start_count": 5,
+      "minimum_unweighted_rms_residual_degrees": 20.0,
+      "selected_start_index": 1,
+      "valid": true
+    },
+    "baseline": {
+      "max_unweighted_residual_degrees": 0.25,
+      "valid": true
+    }
+  },
+  "initial_state": [
+    51.5,
+    -0.1,
+    0.0
+  ],
+  "observations": [
+    {
+      "agreement_only_confidence": 0.3549449262986796,
+      "azimuth": 342.71446648019037,
+      "baseline_confidence": 1.0,
+      "elevation": 43.251029684934004,
+      "object_id": "HIP_23875"
+    },
+    {
+      "agreement_only_confidence": 0.2866611147942464,
+      "azimuth": 337.9923453413379,
+      "baseline_confidence": 1.0,
+      "elevation": 31.607520650688578,
+      "object_id": "HIP_25336"
+    },
+    {
+      "agreement_only_confidence": 0.6147880301312509,
+      "azimuth": 4.658266309024856,
+      "baseline_confidence": 1.0,
+      "elevation": 50.206156099706085,
+      "object_id": "HIP_25606"
+    },
+    {
+      "agreement_only_confidence": 0.3408373003162309,
+      "azimuth": 344.6563649252772,
+      "baseline_confidence": 1.0,
+      "elevation": 35.699930292224714,
+      "object_id": "HIP_25930"
+    },
+    {
+      "agreement_only_confidence": 0.7063528795019978,
+      "azimuth": 1.8871480360255568,
+      "baseline_confidence": 1.0,
+      "elevation": 47.61661316290817,
+      "object_id": "HIP_25985"
+    },
+    {
+      "agreement_only_confidence": 0.28113147739337446,
+      "azimuth": 337.78641965709375,
+      "baseline_confidence": 1.0,
+      "elevation": 27.33802602136921,
+      "object_id": "HIP_26207"
+    },
+    {
+      "agreement_only_confidence": 0.3263027454573057,
+      "azimuth": 346.3334311373387,
+      "baseline_confidence": 1.0,
+      "elevation": 35.68807902418964,
+      "object_id": "HIP_26311"
+    },
+    {
+      "agreement_only_confidence": 0.32694983267914574,
+      "azimuth": 347.9854753199979,
+      "baseline_confidence": 1.0,
+      "elevation": 35.429211380631436,
+      "object_id": "HIP_26727"
+    },
+    {
+      "agreement_only_confidence": 0.3524632878508434,
+      "azimuth": 356.4842371021588,
+      "baseline_confidence": 1.0,
+      "elevation": 39.62195525119264,
+      "object_id": "HIP_27366"
+    },
+    {
+      "agreement_only_confidence": 0.4201148133019041,
+      "azimuth": 343.76563130031775,
+      "baseline_confidence": 1.0,
+      "elevation": 26.097903116115962,
+      "object_id": "HIP_27989"
+    },
+    {
+      "agreement_only_confidence": 0.3893354718986158,
+      "azimuth": 11.564416997887179,
+      "baseline_confidence": 1.0,
+      "elevation": 38.067345116311714,
+      "object_id": "HIP_30324"
+    },
+    {
+      "agreement_only_confidence": 0.6383741651746165,
+      "azimuth": 58.27047250479513,
+      "baseline_confidence": 1.0,
+      "elevation": 49.39691950039083,
+      "object_id": "HIP_30438"
+    },
+    {
+      "agreement_only_confidence": 0.43738878918256047,
+      "azimuth": 28.814969803001155,
+      "baseline_confidence": 1.0,
+      "elevation": 36.671050188189035,
+      "object_id": "HIP_33579"
+    },
+    {
+      "agreement_only_confidence": 0.3771228598766338,
+      "azimuth": 28.050307013274626,
+      "baseline_confidence": 1.0,
+      "elevation": 35.55929167360585,
+      "object_id": "HIP_33856"
+    },
+    {
+      "agreement_only_confidence": 0.45080181968395033,
+      "azimuth": 23.917368940052704,
+      "baseline_confidence": 1.0,
+      "elevation": 33.28755155814807,
+      "object_id": "HIP_33977"
+    },
+    {
+      "agreement_only_confidence": 0.40444529366423654,
+      "azimuth": 27.330487057375805,
+      "baseline_confidence": 1.0,
+      "elevation": 33.50689064735745,
+      "object_id": "HIP_34444"
+    },
+    {
+      "agreement_only_confidence": 0.4136425957820217,
+      "azimuth": 32.36783122595252,
+      "baseline_confidence": 1.0,
+      "elevation": 31.918922867667852,
+      "object_id": "HIP_35904"
+    },
+    {
+      "agreement_only_confidence": 0.28201829546363155,
+      "azimuth": 47.76077093976516,
+      "baseline_confidence": 1.0,
+      "elevation": 29.627806988554152,
+      "object_id": "HIP_39429"
+    },
+    {
+      "agreement_only_confidence": 0.29534172008060544,
+      "azimuth": 55.999265831145486,
+      "baseline_confidence": 1.0,
+      "elevation": 31.751967997317003,
+      "object_id": "HIP_39953"
+    },
+    {
+      "agreement_only_confidence": 0.3582468290519103,
+      "azimuth": 70.41122405347737,
+      "baseline_confidence": 1.0,
+      "elevation": 34.233940073576115,
+      "object_id": "HIP_41037"
+    },
+    {
+      "agreement_only_confidence": 0.3017290165950528,
+      "azimuth": 66.41824160397817,
+      "baseline_confidence": 1.0,
+      "elevation": 29.682427081531713,
+      "object_id": "HIP_42913"
+    },
+    {
+      "agreement_only_confidence": 0.3432814316982112,
+      "azimuth": 84.05187369626911,
+      "baseline_confidence": 1.0,
+      "elevation": 32.586070857286636,
+      "object_id": "HIP_45238"
+    },
+    {
+      "agreement_only_confidence": 0.3393837732805259,
+      "azimuth": 73.38092209467177,
+      "baseline_confidence": 1.0,
+      "elevation": 27.803148299857433,
+      "object_id": "HIP_45556"
+    },
+    {
+      "agreement_only_confidence": 0.20524697912326662,
+      "azimuth": 69.62577889961787,
+      "baseline_confidence": 1.0,
+      "elevation": 25.05363689259422,
+      "object_id": "HIP_45941"
+    },
+    {
+      "agreement_only_confidence": 0.18672550193978785,
+      "azimuth": 72.28520968362751,
+      "baseline_confidence": 1.0,
+      "elevation": 25.026717010236403,
+      "object_id": "HIP_46701"
+    },
+    {
+      "agreement_only_confidence": 0.31567929441069326,
+      "azimuth": 81.02808495154171,
+      "baseline_confidence": 1.0,
+      "elevation": 27.5739917441133,
+      "object_id": "HIP_48002"
+    }
+  ],
+  "solver_settings": {
+    "global_search": true,
+    "max_nfev": 60,
+    "max_starts": 5
+  },
+  "timestamp": 1749254400,
+  "truth": {
+    "heading": 72.0,
+    "latitude": -37.8136,
+    "longitude": 144.9631
+  }
+}

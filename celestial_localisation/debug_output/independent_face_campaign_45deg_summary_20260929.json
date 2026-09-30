@@ -1,0 +1,1068 @@
+{
+  "capture_directory": "celestial_localisation/debug_output/quality_heldout_captures_20260929",
+  "causal_attribution_available": false,
+  "definition": {
+    "hybrid_invalidated": "baseline valid and hybrid invalid",
+    "hybrid_recovered": "baseline invalid and hybrid valid",
+    "improved": "both variants valid and hybrid geographic error is lower",
+    "threshold_rates": "reported over valid fixes and all attempts",
+    "worsened": "both variants valid and hybrid geographic error is higher"
+  },
+  "diagnostic_only": true,
+  "fixed_settings": {
+    "crop_fov_degrees": 45.0,
+    "crop_size": 512,
+    "face_duplicate_radius_degrees": 0.15,
+    "face_fov_degrees": 95.0,
+    "face_match_ambiguity_margin_degrees": 0.25,
+    "face_match_radius_degrees": 2.0,
+    "max_candidates": 64,
+    "star_threshold_sigma": 5.0
+  },
+  "ground_truth_used_for_selection": false,
+  "per_scene": [
+    {
+      "baseline_error_meters": 461.37578077256285,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 485.6585395280836,
+          "independent_pixel_y": 346.3736436392824,
+          "independent_truth_error_deg": 0.04990603870290962,
+          "match_count": 22,
+          "match_probability": 1.701799191382344e-26,
+          "object_id": "HIP_89931",
+          "saved_baseline_face": "azimuth_90",
+          "saved_baseline_face_error_deg": 0.03933736512203464,
+          "saved_baseline_panorama_error_deg": 0.04565684544109134
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_89931"
+      ],
+      "delta_hybrid_minus_baseline_meters": 450.88092338832075,
+      "hybrid_error_meters": 912.2567041608836,
+      "hybrid_valid": true,
+      "independent_selected_count": 20,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 485.6585395280836,
+          "independent_pixel_y": 346.3736436392824,
+          "match_count": 22,
+          "match_probability": 1.701799191382344e-26,
+          "object_id": "HIP_89931",
+          "truth_error_deg": 0.04990603870290962
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_89931"
+      ],
+      "saved_observation_count": 21,
+      "scene_id": "addis_ababa_00_h144"
+    },
+    {
+      "baseline_error_meters": 1145.1872824228838,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "azimuth_180",
+          "independent_pixel_x": 365.3950635649291,
+          "independent_pixel_y": 32.78287813996058,
+          "independent_truth_error_deg": 0.04486987873504296,
+          "match_count": 12,
+          "match_probability": 5.513512811735733e-12,
+          "object_id": "HIP_24436",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.02008321450475555,
+          "saved_baseline_panorama_error_deg": 0.05394365144397449
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_24436"
+      ],
+      "delta_hybrid_minus_baseline_meters": 170.81584053990105,
+      "hybrid_error_meters": 1316.0031229627848,
+      "hybrid_valid": true,
+      "independent_selected_count": 20,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 24,
+      "scene_id": "addis_ababa_06_h264"
+    },
+    {
+      "baseline_error_meters": 8560.156840973417,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": -17.96788619904146,
+      "hybrid_error_meters": 8542.188954774376,
+      "hybrid_valid": true,
+      "independent_selected_count": 6,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 13,
+      "scene_id": "addis_ababa_12_h024"
+    },
+    {
+      "baseline_error_meters": 537.2360254676462,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": -4.196459385879621,
+      "hybrid_error_meters": 533.0395660817666,
+      "hybrid_valid": true,
+      "independent_selected_count": 20,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 22,
+      "scene_id": "berlin_00_h018"
+    },
+    {
+      "baseline_error_meters": 6089.4981487256155,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 480.2222616624912,
+          "independent_pixel_y": 82.86759941945637,
+          "independent_truth_error_deg": 0.009720404237144377,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_95947",
+          "saved_baseline_face": "azimuth_90",
+          "saved_baseline_face_error_deg": 0.0599796617483926,
+          "saved_baseline_panorama_error_deg": 0.10773260593152503
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_95947"
+      ],
+      "delta_hybrid_minus_baseline_meters": 109.99342659235572,
+      "hybrid_error_meters": 6199.491575317971,
+      "hybrid_valid": true,
+      "independent_selected_count": 13,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 480.2222616624912,
+          "independent_pixel_y": 82.86759941945637,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_95947",
+          "truth_error_deg": 0.009720404237144377
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_95947"
+      ],
+      "saved_observation_count": 15,
+      "scene_id": "berlin_06_h138"
+    },
+    {
+      "baseline_error_meters": null,
+      "baseline_valid": false,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": null,
+      "hybrid_error_meters": null,
+      "hybrid_valid": false,
+      "independent_selected_count": 0,
+      "outcome": "both_invalid",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 0,
+      "scene_id": "berlin_12_h258"
+    },
+    {
+      "baseline_error_meters": 873.2155735103593,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 3,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 232.0227323044855,
+          "independent_pixel_y": 12.762777139279638,
+          "independent_truth_error_deg": 0.01360866340811912,
+          "match_count": 22,
+          "match_probability": 6.3502623245111195e-25,
+          "object_id": "HIP_74395",
+          "saved_baseline_face": "azimuth_180",
+          "saved_baseline_face_error_deg": 0.048336045057699284,
+          "saved_baseline_panorama_error_deg": 0.1571029226592374
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 349.3348916950301,
+          "independent_pixel_y": 34.03906394138434,
+          "independent_truth_error_deg": 0.00529743534513925,
+          "match_count": 22,
+          "match_probability": 6.3502623245111195e-25,
+          "object_id": "HIP_82273",
+          "saved_baseline_face": "azimuth_180",
+          "saved_baseline_face_error_deg": 0.0013672043378300878,
+          "saved_baseline_panorama_error_deg": 0.08370200396801254
+        },
+        {
+          "independent_face": "azimuth_0",
+          "independent_pixel_x": 198.86008800848992,
+          "independent_pixel_y": 37.455765443051966,
+          "independent_truth_error_deg": 0.029088534065114073,
+          "match_count": 19,
+          "match_probability": 8.112179273707571e-20,
+          "object_id": "HIP_97365",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.045055000330811404,
+          "saved_baseline_panorama_error_deg": 0.1476013311667361
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_74395",
+        "HIP_82273",
+        "HIP_97365"
+      ],
+      "delta_hybrid_minus_baseline_meters": -10.060364230290247,
+      "hybrid_error_meters": 863.155209280069,
+      "hybrid_valid": true,
+      "independent_selected_count": 20,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 3,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 232.0227323044855,
+          "independent_pixel_y": 12.762777139279638,
+          "match_count": 22,
+          "match_probability": 6.3502623245111195e-25,
+          "object_id": "HIP_74395",
+          "truth_error_deg": 0.01360866340811912
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 349.3348916950301,
+          "independent_pixel_y": 34.03906394138434,
+          "match_count": 22,
+          "match_probability": 6.3502623245111195e-25,
+          "object_id": "HIP_82273",
+          "truth_error_deg": 0.00529743534513925
+        },
+        {
+          "independent_face": "azimuth_0",
+          "independent_pixel_x": 198.86008800848992,
+          "independent_pixel_y": 37.455765443051966,
+          "match_count": 19,
+          "match_probability": 8.112179273707571e-20,
+          "object_id": "HIP_97365",
+          "truth_error_deg": 0.029088534065114073
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_74395",
+        "HIP_82273",
+        "HIP_97365"
+      ],
+      "saved_observation_count": 22,
+      "scene_id": "johannesburg_00_h036"
+    },
+    {
+      "baseline_error_meters": null,
+      "baseline_valid": false,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": null,
+      "hybrid_error_meters": null,
+      "hybrid_valid": false,
+      "independent_selected_count": 0,
+      "outcome": "both_invalid",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 0,
+      "scene_id": "johannesburg_06_h156"
+    },
+    {
+      "baseline_error_meters": 1969.4839628428606,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": -0.21399586517327407,
+      "hybrid_error_meters": 1969.2699669776873,
+      "hybrid_valid": true,
+      "independent_selected_count": 21,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 29,
+      "scene_id": "johannesburg_12_h276"
+    },
+    {
+      "baseline_error_meters": 4159.68593938038,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": -178.09912586216296,
+      "hybrid_error_meters": 3981.586813518217,
+      "hybrid_valid": true,
+      "independent_selected_count": 24,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 28,
+      "scene_id": "lima_00_h108"
+    },
+    {
+      "baseline_error_meters": 3838.4410275290293,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": -34.05447335942563,
+      "hybrid_error_meters": 3804.3865541696036,
+      "hybrid_valid": true,
+      "independent_selected_count": 16,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 20,
+      "scene_id": "lima_06_h228"
+    },
+    {
+      "baseline_error_meters": 780.6870506827132,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "azimuth_0",
+          "independent_pixel_x": 378.65601600693134,
+          "independent_pixel_y": 31.492719469694794,
+          "independent_truth_error_deg": 0.005462102097163534,
+          "match_count": 15,
+          "match_probability": 4.5385127261141545e-17,
+          "object_id": "HIP_5447",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.003909215751393097,
+          "saved_baseline_panorama_error_deg": 0.11987651109023068
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_5447"
+      ],
+      "delta_hybrid_minus_baseline_meters": -41.54460983189085,
+      "hybrid_error_meters": 739.1424408508224,
+      "hybrid_valid": true,
+      "independent_selected_count": 18,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "azimuth_0",
+          "independent_pixel_x": 378.65601600693134,
+          "independent_pixel_y": 31.492719469694794,
+          "match_count": 15,
+          "match_probability": 4.5385127261141545e-17,
+          "object_id": "HIP_5447",
+          "truth_error_deg": 0.005462102097163534
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_5447"
+      ],
+      "saved_observation_count": 20,
+      "scene_id": "lima_12_h348"
+    },
+    {
+      "baseline_error_meters": 2622.8262209319378,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": 44.25063633200534,
+      "hybrid_error_meters": 2667.076857263943,
+      "hybrid_valid": true,
+      "independent_selected_count": 8,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 14,
+      "scene_id": "lisbon_00_h126"
+    },
+    {
+      "baseline_error_meters": 1509.09327903887,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 324.52220652753243,
+          "independent_pixel_y": 30.700034001524983,
+          "independent_truth_error_deg": 0.03401790841662578,
+          "match_count": 14,
+          "match_probability": 1.1015352638397262e-14,
+          "object_id": "HIP_14328",
+          "saved_baseline_face": "azimuth_180",
+          "saved_baseline_face_error_deg": 0.038182082371286945,
+          "saved_baseline_panorama_error_deg": 0.0425112436796113
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_14328"
+      ],
+      "delta_hybrid_minus_baseline_meters": 276.87373987212595,
+      "hybrid_error_meters": 1785.9670189109959,
+      "hybrid_valid": true,
+      "independent_selected_count": 18,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 324.52220652753243,
+          "independent_pixel_y": 30.700034001524983,
+          "match_count": 14,
+          "match_probability": 1.1015352638397262e-14,
+          "object_id": "HIP_14328",
+          "truth_error_deg": 0.03401790841662578
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_14328"
+      ],
+      "saved_observation_count": 25,
+      "scene_id": "lisbon_06_h246"
+    },
+    {
+      "baseline_error_meters": 2155.17783209816,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 2,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 303.4075314309721,
+          "independent_pixel_y": 34.586755003307694,
+          "independent_truth_error_deg": 0.027191734551175982,
+          "match_count": 16,
+          "match_probability": 2.4865773941375494e-15,
+          "object_id": "HIP_23875",
+          "saved_baseline_face": "azimuth_180",
+          "saved_baseline_face_error_deg": 0.023756176456489458,
+          "saved_baseline_panorama_error_deg": 0.07235411724300381
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 480.86053254743393,
+          "independent_pixel_y": 153.1785930824891,
+          "independent_truth_error_deg": 0.024345232512578613,
+          "match_count": 8,
+          "match_probability": 0.00020336148671495043,
+          "object_id": "HIP_36188",
+          "saved_baseline_face": "azimuth_90",
+          "saved_baseline_face_error_deg": 0.025969090475218122,
+          "saved_baseline_panorama_error_deg": 0.0777967806773492
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_23875",
+        "HIP_36188"
+      ],
+      "delta_hybrid_minus_baseline_meters": 260.2103327222426,
+      "hybrid_error_meters": 2415.3881648204024,
+      "hybrid_valid": true,
+      "independent_selected_count": 15,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 2,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 303.4075314309721,
+          "independent_pixel_y": 34.586755003307694,
+          "match_count": 16,
+          "match_probability": 2.4865773941375494e-15,
+          "object_id": "HIP_23875",
+          "truth_error_deg": 0.027191734551175982
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 480.86053254743393,
+          "independent_pixel_y": 153.1785930824891,
+          "match_count": 8,
+          "match_probability": 0.00020336148671495043,
+          "object_id": "HIP_36188",
+          "truth_error_deg": 0.024345232512578613
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_23875",
+        "HIP_36188"
+      ],
+      "saved_observation_count": 17,
+      "scene_id": "lisbon_12_h006"
+    },
+    {
+      "baseline_error_meters": 1095.0333961227411,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "azimuth_0",
+          "independent_pixel_x": 182.45920573235625,
+          "independent_pixel_y": 24.53963467406697,
+          "independent_truth_error_deg": 0.043074371171253845,
+          "match_count": 11,
+          "match_probability": 1.2240392153263961e-09,
+          "object_id": "HIP_23875",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.027261241051681262,
+          "saved_baseline_panorama_error_deg": 0.16774519194848378
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_23875"
+      ],
+      "delta_hybrid_minus_baseline_meters": -148.74794925161814,
+      "hybrid_error_meters": 946.285446871123,
+      "hybrid_valid": true,
+      "independent_selected_count": 24,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "azimuth_0",
+          "independent_pixel_x": 182.45920573235625,
+          "independent_pixel_y": 24.53963467406697,
+          "match_count": 11,
+          "match_probability": 1.2240392153263961e-09,
+          "object_id": "HIP_23875",
+          "truth_error_deg": 0.043074371171253845
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_23875"
+      ],
+      "saved_observation_count": 26,
+      "scene_id": "melbourne_00_h072"
+    },
+    {
+      "baseline_error_meters": 1389.200836183999,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 2,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 0.7956486056348566,
+          "independent_pixel_y": 410.49703126728986,
+          "independent_truth_error_deg": 0.028265147018241663,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_66657",
+          "saved_baseline_face": "azimuth_270",
+          "saved_baseline_face_error_deg": 0.04792000995056025,
+          "saved_baseline_panorama_error_deg": 0.11004861757022771
+        },
+        {
+          "independent_face": "azimuth_180",
+          "independent_pixel_x": 10.487577077576757,
+          "independent_pixel_y": 71.70128512836871,
+          "independent_truth_error_deg": 0.020657926910741864,
+          "match_count": 19,
+          "match_probability": 1.43567355566066e-23,
+          "object_id": "HIP_31681",
+          "saved_baseline_face": "azimuth_90",
+          "saved_baseline_face_error_deg": 0.02165537524065439,
+          "saved_baseline_panorama_error_deg": 0.1225565830275228
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_66657",
+        "HIP_31681"
+      ],
+      "delta_hybrid_minus_baseline_meters": -49.49483921937599,
+      "hybrid_error_meters": 1339.705996964623,
+      "hybrid_valid": true,
+      "independent_selected_count": 26,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 2,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 0.7956486056348566,
+          "independent_pixel_y": 410.49703126728986,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_66657",
+          "truth_error_deg": 0.028265147018241663
+        },
+        {
+          "independent_face": "azimuth_180",
+          "independent_pixel_x": 10.487577077576757,
+          "independent_pixel_y": 71.70128512836871,
+          "match_count": 19,
+          "match_probability": 1.43567355566066e-23,
+          "object_id": "HIP_31681",
+          "truth_error_deg": 0.020657926910741864
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_66657",
+        "HIP_31681"
+      ],
+      "saved_observation_count": 28,
+      "scene_id": "melbourne_06_h192"
+    },
+    {
+      "baseline_error_meters": 1426.3278938135593,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 2,
+      "changed_correspondences": [
+        {
+          "independent_face": "azimuth_270",
+          "independent_pixel_x": 235.6715498775955,
+          "independent_pixel_y": 32.11076117597262,
+          "independent_truth_error_deg": 0.018476309895872116,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_50371",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.0431556350469528,
+          "saved_baseline_panorama_error_deg": 0.1551267160291657
+        },
+        {
+          "independent_face": "azimuth_270",
+          "independent_pixel_x": 250.5809133334724,
+          "independent_pixel_y": 22.449678286547474,
+          "independent_truth_error_deg": 0.04135049166408569,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_51232",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.05248730283957136,
+          "saved_baseline_panorama_error_deg": 0.1752180133737316
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_50371",
+        "HIP_51232"
+      ],
+      "delta_hybrid_minus_baseline_meters": -162.60619321946365,
+      "hybrid_error_meters": 1263.7217005940956,
+      "hybrid_valid": true,
+      "independent_selected_count": 28,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 3,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "azimuth_270",
+          "independent_pixel_x": 235.6715498775955,
+          "independent_pixel_y": 32.11076117597262,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_50371",
+          "truth_error_deg": 0.018476309895872116
+        },
+        {
+          "independent_face": "azimuth_270",
+          "independent_pixel_x": 250.5809133334724,
+          "independent_pixel_y": 22.449678286547474,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_51232",
+          "truth_error_deg": 0.04135049166408569
+        },
+        {
+          "independent_face": "azimuth_270",
+          "independent_pixel_x": 216.72323220829895,
+          "independent_pixel_y": 6.807637032410603,
+          "match_count": 21,
+          "match_probability": 9.514717239562842e-23,
+          "object_id": "HIP_52419",
+          "truth_error_deg": 0.028432952745719768
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_50371",
+        "HIP_51232",
+        "HIP_52419"
+      ],
+      "saved_observation_count": 29,
+      "scene_id": "melbourne_12_h312"
+    },
+    {
+      "baseline_error_meters": 5588.787947136477,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": -5277.908517246238,
+      "hybrid_error_meters": 310.8794298902389,
+      "hybrid_valid": true,
+      "independent_selected_count": 18,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "azimuth_90",
+          "independent_pixel_x": 151.4964394520894,
+          "independent_pixel_y": 21.74909048050719,
+          "match_count": 16,
+          "match_probability": 9.643678961250618e-13,
+          "object_id": "HIP_85927",
+          "truth_error_deg": 0.0016582684451111724
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_85927"
+      ],
+      "saved_observation_count": 18,
+      "scene_id": "rio_00_h054"
+    },
+    {
+      "baseline_error_meters": 1092.454409032412,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 495.5467676280754,
+          "independent_pixel_y": 306.32383546828316,
+          "independent_truth_error_deg": 0.04291119029719006,
+          "match_count": 23,
+          "match_probability": 3.669790470372244e-27,
+          "object_id": "HIP_81266",
+          "saved_baseline_face": "azimuth_90",
+          "saved_baseline_face_error_deg": 0.015038821424173742,
+          "saved_baseline_panorama_error_deg": 0.18555325278199158
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_81266"
+      ],
+      "delta_hybrid_minus_baseline_meters": 33.70972300912672,
+      "hybrid_error_meters": 1126.1641320415388,
+      "hybrid_valid": true,
+      "independent_selected_count": 32,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 2,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 400.5937362052633,
+          "independent_pixel_y": 328.50444602980815,
+          "match_count": 24,
+          "match_probability": 1.8220534104227522e-29,
+          "object_id": "HIP_85927",
+          "truth_error_deg": 0.01280204840138018
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 495.5467676280754,
+          "independent_pixel_y": 306.32383546828316,
+          "match_count": 23,
+          "match_probability": 3.669790470372244e-27,
+          "object_id": "HIP_81266",
+          "truth_error_deg": 0.04291119029719006
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_85927",
+        "HIP_81266"
+      ],
+      "saved_observation_count": 35,
+      "scene_id": "rio_06_h174"
+    },
+    {
+      "baseline_error_meters": null,
+      "baseline_valid": false,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": null,
+      "hybrid_error_meters": 2011.7512073190417,
+      "hybrid_valid": true,
+      "independent_selected_count": 8,
+      "outcome": "hybrid_recovered",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 8,
+      "scene_id": "rio_12_h294"
+    },
+    {
+      "baseline_error_meters": 379.97571544323284,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 1,
+      "changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 119.764238301075,
+          "independent_pixel_y": 484.4629914054126,
+          "independent_truth_error_deg": 0.010935229500166524,
+          "match_count": 13,
+          "match_probability": 2.1596855680432813e-12,
+          "object_id": "HIP_28360",
+          "saved_baseline_face": "azimuth_0",
+          "saved_baseline_face_error_deg": 0.013870462606996132,
+          "saved_baseline_panorama_error_deg": 0.06984098462658204
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_28360"
+      ],
+      "delta_hybrid_minus_baseline_meters": -86.23005183080505,
+      "hybrid_error_meters": 293.7456636124278,
+      "hybrid_valid": true,
+      "independent_selected_count": 16,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 1,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 119.764238301075,
+          "independent_pixel_y": 484.4629914054126,
+          "match_count": 13,
+          "match_probability": 2.1596855680432813e-12,
+          "object_id": "HIP_28360",
+          "truth_error_deg": 0.010935229500166524
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_28360"
+      ],
+      "saved_observation_count": 19,
+      "scene_id": "seoul_00_h090"
+    },
+    {
+      "baseline_error_meters": 5531.931527506527,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 0,
+      "changed_correspondences": [],
+      "changed_object_ids": [],
+      "delta_hybrid_minus_baseline_meters": 491.0821361252938,
+      "hybrid_error_meters": 6023.013663631821,
+      "hybrid_valid": true,
+      "independent_selected_count": 15,
+      "outcome": "worsened",
+      "rerun_changed_correspondence_count": 0,
+      "rerun_changed_correspondences": [],
+      "rerun_changed_object_ids": [],
+      "saved_observation_count": 15,
+      "scene_id": "seoul_06_h210"
+    },
+    {
+      "baseline_error_meters": 1557.310584249944,
+      "baseline_valid": true,
+      "causal_attribution_available": false,
+      "changed_correspondence_count": 2,
+      "changed_correspondences": [
+        {
+          "independent_face": "azimuth_90",
+          "independent_pixel_x": 218.0643946130921,
+          "independent_pixel_y": 28.07852269211909,
+          "independent_truth_error_deg": 0.01470324662212151,
+          "match_count": 22,
+          "match_probability": 6.3502623245111195e-25,
+          "object_id": "HIP_87833",
+          "saved_baseline_face": "zenith",
+          "saved_baseline_face_error_deg": 0.02538606210297961,
+          "saved_baseline_panorama_error_deg": 0.14198638518531723
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 25.76700697186523,
+          "independent_pixel_y": 347.39361752823874,
+          "independent_truth_error_deg": 0.014628200863295568,
+          "match_count": 18,
+          "match_probability": 8.182999031714391e-24,
+          "object_id": "HIP_50583",
+          "saved_baseline_face": "azimuth_270",
+          "saved_baseline_face_error_deg": 0.008480715210258649,
+          "saved_baseline_panorama_error_deg": 0.0858078643935199
+        }
+      ],
+      "changed_object_ids": [
+        "HIP_87833",
+        "HIP_50583"
+      ],
+      "delta_hybrid_minus_baseline_meters": -57.041265236064646,
+      "hybrid_error_meters": 1500.2693190138793,
+      "hybrid_valid": true,
+      "independent_selected_count": 16,
+      "outcome": "improved",
+      "rerun_changed_correspondence_count": 2,
+      "rerun_changed_correspondences": [
+        {
+          "independent_face": "azimuth_90",
+          "independent_pixel_x": 218.0643946130921,
+          "independent_pixel_y": 28.07852269211909,
+          "match_count": 22,
+          "match_probability": 6.3502623245111195e-25,
+          "object_id": "HIP_87833",
+          "truth_error_deg": 0.01470324662212151
+        },
+        {
+          "independent_face": "zenith",
+          "independent_pixel_x": 25.76700697186523,
+          "independent_pixel_y": 347.39361752823874,
+          "match_count": 18,
+          "match_probability": 8.182999031714391e-24,
+          "object_id": "HIP_50583",
+          "truth_error_deg": 0.014628200863295568
+        }
+      ],
+      "rerun_changed_object_ids": [
+        "HIP_87833",
+        "HIP_50583"
+      ],
+      "saved_observation_count": 18,
+      "scene_id": "seoul_12_h330"
+    }
+  ],
+  "production_changed": false,
+  "source_campaign": "independent_face_campaign_45deg_20260929.json",
+  "summary": {
+    "baseline": {
+      "invalid_count": 3,
+      "threshold_rates": {
+        "all_attempts": {
+          "le_10km": {
+            "count": 21,
+            "rate": 0.875
+          },
+          "le_1km": {
+            "count": 5,
+            "rate": 0.20833333333333334
+          },
+          "le_5km": {
+            "count": 17,
+            "rate": 0.7083333333333334
+          }
+        },
+        "attempt_count": 24,
+        "valid": {
+          "le_10km": {
+            "count": 21,
+            "rate": 1.0
+          },
+          "le_1km": {
+            "count": 5,
+            "rate": 0.23809523809523808
+          },
+          "le_5km": {
+            "count": 17,
+            "rate": 0.8095238095238095
+          }
+        },
+        "valid_count": 21
+      },
+      "valid_count": 21,
+      "worst_valid_error_meters": 8560.156840973417
+    },
+    "changed_correspondence_count": 19,
+    "changed_correspondence_scene_count": 13,
+    "hybrid": {
+      "invalid_count": 2,
+      "threshold_rates": {
+        "all_attempts": {
+          "le_10km": {
+            "count": 22,
+            "rate": 0.9166666666666666
+          },
+          "le_1km": {
+            "count": 7,
+            "rate": 0.2916666666666667
+          },
+          "le_5km": {
+            "count": 19,
+            "rate": 0.7916666666666666
+          }
+        },
+        "attempt_count": 24,
+        "valid": {
+          "le_10km": {
+            "count": 22,
+            "rate": 1.0
+          },
+          "le_1km": {
+            "count": 7,
+            "rate": 0.3181818181818182
+          },
+          "le_5km": {
+            "count": 19,
+            "rate": 0.8636363636363636
+          }
+        },
+        "valid_count": 22
+      },
+      "valid_count": 22,
+      "worst_valid_error_meters": 8542.188954774376
+    },
+    "outcomes": {
+      "both_invalid": 2,
+      "hybrid_recovered": 1,
+      "improved": 13,
+      "worsened": 8
+    },
+    "paired_valid": {
+      "count": 21,
+      "delta_meters": {
+        "count": 21,
+        "max": 491.0821361252938,
+        "mean": -201.44518915028843,
+        "median": -10.060364230290247,
+        "p90": 276.87373987212595
+      },
+      "improved_count": 13,
+      "unchanged_count": 0,
+      "worsened_count": 8
+    },
+    "rerun_changed_correspondence_count": 21,
+    "rerun_changed_correspondence_scene_count": 13,
+    "scene_count": 24
+  }
+}

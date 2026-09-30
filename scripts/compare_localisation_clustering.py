@@ -445,7 +445,7 @@ def gaussian_mixture(
     convergence_tolerance: float = GMM_TOLERANCE,
     regularization: float = GMM_REGULARIZATION,
 ) -> tuple[list[int], list[Feature], GmmModel]:
-    """Fit the shared four-component model and return zero-based plot ids."""
+    """Fit the shared seeded model and return zero-based plot ids."""
     model = fit_gmm(
         [
             (float(point["observations"]), float(point["error_km"]))
@@ -798,7 +798,7 @@ def build_results(
         AlgorithmResult(
             "GAUSSIAN MIXTURE",
             "random_localisation_gaussian_mixture.png",
-            "4 COMPONENTS / SEEDED MEANS / EM",
+            "3 COMPONENTS / SEEDED MEANS / EM",
             gmm_assignments,
             gmm_centers,
         ),

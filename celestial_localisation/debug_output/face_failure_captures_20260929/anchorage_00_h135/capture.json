@@ -1,0 +1,1690 @@
+{
+  "capture_type": "new_capture_of_same_scene_definition",
+  "captured_utc": "2026-09-29T12:12:33.670496+00:00",
+  "counts": {
+    "common_ids": 32,
+    "deduplicated_face_detections": 346,
+    "face_detections": 384,
+    "face_matched_to_panorama_ids": 32,
+    "face_stars_lost_during_matching": 2,
+    "face_stars_rejected_as_ambiguous": 1,
+    "panorama_identified": 35
+  },
+  "exact_historical_replay": false,
+  "face_observations": [
+    {
+      "azimuth": 216.34024782391785,
+      "confidence": 1.0,
+      "elevation": 49.88793449637178,
+      "object_id": "HIP_116727"
+    },
+    {
+      "azimuth": 175.09793385203204,
+      "confidence": 1.0,
+      "elevation": 40.543529928436776,
+      "object_id": "HIP_14328"
+    },
+    {
+      "azimuth": 164.72462723431772,
+      "confidence": 1.0,
+      "elevation": 28.541653475809152,
+      "object_id": "HIP_14354"
+    },
+    {
+      "azimuth": 165.44483728247397,
+      "confidence": 1.0,
+      "elevation": 30.672200209273893,
+      "object_id": "HIP_14576"
+    },
+    {
+      "azimuth": 168.99919567070626,
+      "confidence": 1.0,
+      "elevation": 39.5683706184257,
+      "object_id": "HIP_15863"
+    },
+    {
+      "azimuth": 164.26148142130222,
+      "confidence": 1.0,
+      "elevation": 39.84730344731184,
+      "object_id": "HIP_17358"
+    },
+    {
+      "azimuth": 150.89269790926753,
+      "confidence": 1.0,
+      "elevation": 28.106712484488206,
+      "object_id": "HIP_18246"
+    },
+    {
+      "azimuth": 146.4034654262618,
+      "confidence": 1.0,
+      "elevation": 45.58348428257374,
+      "object_id": "HIP_23416"
+    },
+    {
+      "azimuth": 143.76056067252725,
+      "confidence": 1.0,
+      "elevation": 43.50829997516353,
+      "object_id": "HIP_23453"
+    },
+    {
+      "azimuth": 143.09844456481102,
+      "confidence": 1.0,
+      "elevation": 44.1134557677743,
+      "object_id": "HIP_23767"
+    },
+    {
+      "azimuth": 129.13124181701937,
+      "confidence": 1.0,
+      "elevation": 36.253718717708956,
+      "object_id": "HIP_25428"
+    },
+    {
+      "azimuth": 148.33141449329256,
+      "confidence": 1.0,
+      "elevation": 59.57462683170772,
+      "object_id": "HIP_28358"
+    },
+    {
+      "azimuth": 135.79327423084112,
+      "confidence": 1.0,
+      "elevation": 53.24462561343064,
+      "object_id": "HIP_28360"
+    },
+    {
+      "azimuth": 128.02825969521703,
+      "confidence": 1.0,
+      "elevation": 47.32195094149879,
+      "object_id": "HIP_28380"
+    },
+    {
+      "azimuth": 198.24088331930685,
+      "confidence": 1.0,
+      "elevation": 29.958700314258387,
+      "object_id": "HIP_2920"
+    },
+    {
+      "azimuth": 113.53806383125844,
+      "confidence": 1.0,
+      "elevation": 36.79788262798312,
+      "object_id": "HIP_29655"
+    },
+    {
+      "azimuth": 111.46935370023073,
+      "confidence": 1.0,
+      "elevation": 37.64668097591501,
+      "object_id": "HIP_30343"
+    },
+    {
+      "azimuth": 104.27605736857934,
+      "confidence": 1.0,
+      "elevation": 33.79088409960083,
+      "object_id": "HIP_31681"
+    },
+    {
+      "azimuth": 198.8513297942849,
+      "confidence": 1.0,
+      "elevation": 32.55079413979887,
+      "object_id": "HIP_3179"
+    },
+    {
+      "azimuth": 107.53444426493148,
+      "confidence": 1.0,
+      "elevation": 42.1193424398225,
+      "object_id": "HIP_32246"
+    },
+    {
+      "azimuth": 100.61781176892185,
+      "confidence": 1.0,
+      "elevation": 31.35523106967928,
+      "object_id": "HIP_32362"
+    },
+    {
+      "azimuth": 111.4978096010681,
+      "confidence": 1.0,
+      "elevation": 50.74215105014894,
+      "object_id": "HIP_33018"
+    },
+    {
+      "azimuth": 87.33396138852102,
+      "confidence": 1.0,
+      "elevation": 30.840666220250323,
+      "object_id": "HIP_36188"
+    },
+    {
+      "azimuth": 97.43343826942474,
+      "confidence": 1.0,
+      "elevation": 53.2460818562773,
+      "object_id": "HIP_36850"
+    },
+    {
+      "azimuth": 83.07142538014924,
+      "confidence": 1.0,
+      "elevation": 28.873423397076312,
+      "object_id": "HIP_37279"
+    },
+    {
+      "azimuth": 91.57418913916777,
+      "confidence": 1.0,
+      "elevation": 50.718070978435115,
+      "object_id": "HIP_37826"
+    },
+    {
+      "azimuth": 198.6303535416233,
+      "confidence": 1.0,
+      "elevation": 37.250103383104744,
+      "object_id": "HIP_4427"
+    },
+    {
+      "azimuth": 194.38934813466517,
+      "confidence": 1.0,
+      "elevation": 38.452589458650564,
+      "object_id": "HIP_6686"
+    },
+    {
+      "azimuth": 204.65492392218928,
+      "confidence": 1.0,
+      "elevation": 33.49926951818418,
+      "object_id": "HIP_746"
+    },
+    {
+      "azimuth": 185.85543074120181,
+      "confidence": 1.0,
+      "elevation": 29.097268205616206,
+      "object_id": "HIP_7607"
+    },
+    {
+      "azimuth": 192.96347208148205,
+      "confidence": 1.0,
+      "elevation": 43.06748578305585,
+      "object_id": "HIP_8886"
+    },
+    {
+      "azimuth": 177.95602427964045,
+      "confidence": 1.0,
+      "elevation": 25.67972577559789,
+      "object_id": "HIP_9640"
+    }
+  ],
+  "historical_reference": {
+    "artifact": "face_panorama_campaign_20260929.json",
+    "available": true,
+    "common_ids": 32,
+    "face_failure_reason": "optimizer_not_converged",
+    "face_valid": false
+  },
+  "image_files": {
+    "azimuth_0": "face_azimuth_0.png",
+    "azimuth_180": "face_azimuth_180.png",
+    "azimuth_270": "face_azimuth_270.png",
+    "azimuth_90": "face_azimuth_90.png",
+    "nadir": "face_nadir.png",
+    "panorama": "panorama.png",
+    "zenith": "face_zenith.png"
+  },
+  "panorama_observations": [
+    {
+      "azimuth": 216.2283108049724,
+      "confidence": 1.0,
+      "elevation": 49.914816426537094,
+      "object_id": "HIP_116727"
+    },
+    {
+      "azimuth": 174.98777444328903,
+      "confidence": 1.0,
+      "elevation": 40.645136174272764,
+      "object_id": "HIP_14328"
+    },
+    {
+      "azimuth": 164.6253961356572,
+      "confidence": 1.0,
+      "elevation": 28.630498656091174,
+      "object_id": "HIP_14354"
+    },
+    {
+      "azimuth": 165.35120933178143,
+      "confidence": 1.0,
+      "elevation": 30.762398891105036,
+      "object_id": "HIP_14576"
+    },
+    {
+      "azimuth": 168.91721676549653,
+      "confidence": 1.0,
+      "elevation": 39.6587878311362,
+      "object_id": "HIP_15863"
+    },
+    {
+      "azimuth": 164.16017765193482,
+      "confidence": 1.0,
+      "elevation": 39.959452357591516,
+      "object_id": "HIP_17358"
+    },
+    {
+      "azimuth": 150.8198556375297,
+      "confidence": 1.0,
+      "elevation": 28.193978320027338,
+      "object_id": "HIP_18246"
+    },
+    {
+      "azimuth": 146.30296228202363,
+      "confidence": 1.0,
+      "elevation": 45.66808072306803,
+      "object_id": "HIP_23416"
+    },
+    {
+      "azimuth": 143.69770142358894,
+      "confidence": 1.0,
+      "elevation": 43.6029539839975,
+      "object_id": "HIP_23453"
+    },
+    {
+      "azimuth": 143.00934149376428,
+      "confidence": 1.0,
+      "elevation": 44.20560584686856,
+      "object_id": "HIP_23767"
+    },
+    {
+      "azimuth": 129.07945056514433,
+      "confidence": 1.0,
+      "elevation": 36.457185054297554,
+      "object_id": "HIP_25428"
+    },
+    {
+      "azimuth": 148.2258193513236,
+      "confidence": 1.0,
+      "elevation": 59.65456102196676,
+      "object_id": "HIP_28358"
+    },
+    {
+      "azimuth": 135.67472688590524,
+      "confidence": 1.0,
+      "elevation": 53.313032802880024,
+      "object_id": "HIP_28360"
+    },
+    {
+      "azimuth": 127.92623996420983,
+      "confidence": 1.0,
+      "elevation": 47.40138802963643,
+      "object_id": "HIP_28380"
+    },
+    {
+      "azimuth": 198.1668460507063,
+      "confidence": 1.0,
+      "elevation": 30.02557300489725,
+      "object_id": "HIP_2920"
+    },
+    {
+      "azimuth": 113.46319643880274,
+      "confidence": 1.0,
+      "elevation": 36.855633527837604,
+      "object_id": "HIP_29655"
+    },
+    {
+      "azimuth": 111.3890408000316,
+      "confidence": 1.0,
+      "elevation": 37.72617695005207,
+      "object_id": "HIP_30343"
+    },
+    {
+      "azimuth": 104.19588437260326,
+      "confidence": 1.0,
+      "elevation": 33.874290769904256,
+      "object_id": "HIP_31681"
+    },
+    {
+      "azimuth": 198.78262558045782,
+      "confidence": 1.0,
+      "elevation": 32.63700890530734,
+      "object_id": "HIP_3179"
+    },
+    {
+      "azimuth": 107.49412136202571,
+      "confidence": 1.0,
+      "elevation": 42.323873599952805,
+      "object_id": "HIP_32246"
+    },
+    {
+      "azimuth": 100.51364013568582,
+      "confidence": 1.0,
+      "elevation": 31.446878043221773,
+      "object_id": "HIP_32362"
+    },
+    {
+      "azimuth": 111.42669368081337,
+      "confidence": 1.0,
+      "elevation": 50.84848322550771,
+      "object_id": "HIP_33018"
+    },
+    {
+      "azimuth": 87.27469301562041,
+      "confidence": 1.0,
+      "elevation": 30.942590793736493,
+      "object_id": "HIP_36188"
+    },
+    {
+      "azimuth": 97.40255057587983,
+      "confidence": 1.0,
+      "elevation": 53.33015681464852,
+      "object_id": "HIP_36850"
+    },
+    {
+      "azimuth": 83.04849641665449,
+      "confidence": 1.0,
+      "elevation": 28.977394031682522,
+      "object_id": "HIP_37279"
+    },
+    {
+      "azimuth": 91.25292213301861,
+      "confidence": 1.0,
+      "elevation": 50.80958809301621,
+      "object_id": "HIP_37826"
+    },
+    {
+      "azimuth": 198.55274233403796,
+      "confidence": 1.0,
+      "elevation": 37.33428122822922,
+      "object_id": "HIP_4427"
+    },
+    {
+      "azimuth": 194.27908949327062,
+      "confidence": 1.0,
+      "elevation": 38.57274130574786,
+      "object_id": "HIP_6686"
+    },
+    {
+      "azimuth": 204.5717461991524,
+      "confidence": 1.0,
+      "elevation": 33.583651065427965,
+      "object_id": "HIP_746"
+    },
+    {
+      "azimuth": 185.74170499054935,
+      "confidence": 1.0,
+      "elevation": 29.2024466594039,
+      "object_id": "HIP_7607"
+    },
+    {
+      "azimuth": 192.9534363866578,
+      "confidence": 1.0,
+      "elevation": 43.254112100738645,
+      "object_id": "HIP_8886"
+    },
+    {
+      "azimuth": 177.88338928623213,
+      "confidence": 1.0,
+      "elevation": 25.763426159600954,
+      "object_id": "HIP_9640"
+    }
+  ],
+  "resolved_settings": {
+    "compare_configuration": {
+      "altitude": 30.0,
+      "browser_executable": "",
+      "data_root": "/opt/stellarium/data",
+      "engine_js": "/opt/stellarium/stellarium-web-engine.js",
+      "engine_wasm": "/opt/stellarium/stellarium-web-engine.wasm",
+      "face_duplicate_radius": 0.15,
+      "face_fov": 95.0,
+      "face_match_ambiguity_margin": 0.25,
+      "face_match_radius": 2.0,
+      "face_size": 512,
+      "global_search": true,
+      "heading": 135.0,
+      "historical_campaign": "/home/ros/debug_output/face_panorama_campaign_20260929.json",
+      "initial_heading": 0.0,
+      "initial_latitude": 51.5,
+      "initial_longitude": -0.1,
+      "latitude": 61.2181,
+      "longitude": -149.9003,
+      "max_candidates": 64,
+      "max_nfev": 30,
+      "max_starts": 5,
+      "min_elevation": 25.0,
+      "output_dir": "/home/ros/debug_output/face_failure_captures_20260929",
+      "panorama_height": 1024,
+      "panorama_width": 2048,
+      "scene_id": "anchorage_00_h135",
+      "scenes": "/tmp/celestial_scripts/fixed_face_panorama_scenes.json",
+      "star_threshold": 5.0,
+      "star_tile_size": 512,
+      "timeout": 60.0,
+      "timestamp": 1700064800
+    },
+    "pairing": {
+      "ambiguity_margin_degrees": 0.25,
+      "ambiguous_object_ids": [
+        "HIP_24608"
+      ],
+      "duplicate_radius_degrees": 0.15,
+      "face_match_radius_degrees": 2.0,
+      "lost_object_ids": [
+        "HIP_26451",
+        "HIP_35350"
+      ],
+      "method": "mutual nearest original-face centroid to observed panorama direction",
+      "uses_ground_truth_for_pairing": false
+    },
+    "solver_configuration": {
+      "global_search": true,
+      "initial_heading": 0.0,
+      "initial_latitude": 51.5,
+      "initial_longitude": -0.1,
+      "max_nfev": 30,
+      "max_starts": 5,
+      "min_observations": 3,
+      "robust_loss": "soft_l1"
+    }
+  },
+  "rows": [
+    {
+      "face_error_deg": 0.0920102542424589,
+      "object_id": "HIP_116727",
+      "panorama_error_deg": 0.10175442308957483,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.04653370415441589,
+      "object_id": "HIP_14328",
+      "panorama_error_deg": 0.14747273033582997,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.006316385524781729,
+      "object_id": "HIP_14354",
+      "panorama_error_deg": 0.1217143621178443,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.05436507229228442,
+      "object_id": "HIP_14576",
+      "panorama_error_deg": 0.17511875381875625,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.05352499335803719,
+      "object_id": "HIP_15863",
+      "panorama_error_deg": 0.16041806035111175,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.06217175739875066,
+      "object_id": "HIP_17358",
+      "panorama_error_deg": 0.1733622613387147,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.028237577022525353,
+      "object_id": "HIP_18246",
+      "panorama_error_deg": 0.1341778317438186,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.02395019396657065,
+      "object_id": "HIP_23416",
+      "panorama_error_deg": 0.0919364868416102,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.06998518379008725,
+      "object_id": "HIP_23453",
+      "panorama_error_deg": 0.1052771475981232,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.05888033805956301,
+      "object_id": "HIP_23767",
+      "panorama_error_deg": 0.11030523225025697,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.04763874128953188,
+      "object_id": "HIP_25428",
+      "panorama_error_deg": 0.16006748460300613,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.026889555761373887,
+      "object_id": "HIP_28358",
+      "panorama_error_deg": 0.07067531735102263,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.06244068820703781,
+      "object_id": "HIP_28360",
+      "panorama_error_deg": 0.04420706905911901,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.05785140429310906,
+      "object_id": "HIP_28380",
+      "panorama_error_deg": 0.048824895785451565,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.08665620898436306,
+      "object_id": "HIP_2920",
+      "panorama_error_deg": 0.167527760634792,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.0821803235688002,
+      "object_id": "HIP_29655",
+      "panorama_error_deg": 0.14663626182570721,
+      "source_face": "azimuth_90"
+    },
+    {
+      "face_error_deg": 0.029623667901685097,
+      "object_id": "HIP_30343",
+      "panorama_error_deg": 0.12604060226853123,
+      "source_face": "azimuth_90"
+    },
+    {
+      "face_error_deg": 0.061248314573779924,
+      "object_id": "HIP_31681",
+      "panorama_error_deg": 0.1453053473163188,
+      "source_face": "azimuth_90"
+    },
+    {
+      "face_error_deg": 0.043752396730961596,
+      "object_id": "HIP_3179",
+      "panorama_error_deg": 0.14515972423188103,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.07713616176428648,
+      "object_id": "HIP_32246",
+      "panorama_error_deg": 0.1446835731721953,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.08014655762574355,
+      "object_id": "HIP_32362",
+      "panorama_error_deg": 0.13455159706152334,
+      "source_face": "azimuth_90"
+    },
+    {
+      "face_error_deg": 0.0729703706971501,
+      "object_id": "HIP_33018",
+      "panorama_error_deg": 0.09406503462802279,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.06239643782278151,
+      "object_id": "HIP_36188",
+      "panorama_error_deg": 0.17253067536273373,
+      "source_face": "azimuth_90"
+    },
+    {
+      "face_error_deg": 0.062323718292535205,
+      "object_id": "HIP_36850",
+      "panorama_error_deg": 0.03909019843757162,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.08888322644816368,
+      "object_id": "HIP_37279",
+      "panorama_error_deg": 0.1660379900281003,
+      "source_face": "azimuth_90"
+    },
+    {
+      "face_error_deg": 0.1259732096473794,
+      "object_id": "HIP_37826",
+      "panorama_error_deg": 0.09714852078589264,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.06810289711864309,
+      "object_id": "HIP_4427",
+      "panorama_error_deg": 0.15969080810944974,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.058828888459480734,
+      "object_id": "HIP_6686",
+      "panorama_error_deg": 0.1433605144041084,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.05806593019701832,
+      "object_id": "HIP_746",
+      "panorama_error_deg": 0.13030287481513647,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.06944306865541407,
+      "object_id": "HIP_7607",
+      "panorama_error_deg": 0.14097034559096258,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.0662555329899034,
+      "object_id": "HIP_8886",
+      "panorama_error_deg": 0.13232991419380402,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.05003360707450254,
+      "object_id": "HIP_9640",
+      "panorama_error_deg": 0.14615489308446633,
+      "source_face": "azimuth_180"
+    }
+  ],
+  "scene_definition": {
+    "altitude": 30.0,
+    "heading": 135.0,
+    "latitude": 61.2181,
+    "longitude": -149.9003,
+    "scene_id": "anchorage_00_h135",
+    "timestamp": 1700064800
+  },
+  "schema_version": 1,
+  "solver_results_at_capture_settings": {
+    "face": {
+      "cost": 1.9289742573036506e-05,
+      "direction_build_seconds": 0.0004514210013439879,
+      "failure_reason": "optimizer_not_converged",
+      "geographic_error_meters": null,
+      "heading": 134.9808615856559,
+      "latitude": 61.23563090416246,
+      "longitude": -149.8956843842318,
+      "max_residual": 0.0020044503623947657,
+      "message": "The maximum number of function evaluations is exceeded.",
+      "observations": [
+        {
+          "azimuth": 216.34024782391785,
+          "confidence": 1.0,
+          "elevation": 49.88793449637178,
+          "object_id": "HIP_116727"
+        },
+        {
+          "azimuth": 175.09793385203204,
+          "confidence": 1.0,
+          "elevation": 40.543529928436776,
+          "object_id": "HIP_14328"
+        },
+        {
+          "azimuth": 164.72462723431772,
+          "confidence": 1.0,
+          "elevation": 28.541653475809152,
+          "object_id": "HIP_14354"
+        },
+        {
+          "azimuth": 165.44483728247397,
+          "confidence": 1.0,
+          "elevation": 30.672200209273893,
+          "object_id": "HIP_14576"
+        },
+        {
+          "azimuth": 168.99919567070626,
+          "confidence": 1.0,
+          "elevation": 39.5683706184257,
+          "object_id": "HIP_15863"
+        },
+        {
+          "azimuth": 164.26148142130222,
+          "confidence": 1.0,
+          "elevation": 39.84730344731184,
+          "object_id": "HIP_17358"
+        },
+        {
+          "azimuth": 150.89269790926753,
+          "confidence": 1.0,
+          "elevation": 28.106712484488206,
+          "object_id": "HIP_18246"
+        },
+        {
+          "azimuth": 146.4034654262618,
+          "confidence": 1.0,
+          "elevation": 45.58348428257374,
+          "object_id": "HIP_23416"
+        },
+        {
+          "azimuth": 143.76056067252725,
+          "confidence": 1.0,
+          "elevation": 43.50829997516353,
+          "object_id": "HIP_23453"
+        },
+        {
+          "azimuth": 143.09844456481102,
+          "confidence": 1.0,
+          "elevation": 44.1134557677743,
+          "object_id": "HIP_23767"
+        },
+        {
+          "azimuth": 129.13124181701937,
+          "confidence": 1.0,
+          "elevation": 36.253718717708956,
+          "object_id": "HIP_25428"
+        },
+        {
+          "azimuth": 148.33141449329256,
+          "confidence": 1.0,
+          "elevation": 59.57462683170772,
+          "object_id": "HIP_28358"
+        },
+        {
+          "azimuth": 135.79327423084112,
+          "confidence": 1.0,
+          "elevation": 53.24462561343064,
+          "object_id": "HIP_28360"
+        },
+        {
+          "azimuth": 128.02825969521703,
+          "confidence": 1.0,
+          "elevation": 47.32195094149879,
+          "object_id": "HIP_28380"
+        },
+        {
+          "azimuth": 198.24088331930685,
+          "confidence": 1.0,
+          "elevation": 29.958700314258387,
+          "object_id": "HIP_2920"
+        },
+        {
+          "azimuth": 113.53806383125844,
+          "confidence": 1.0,
+          "elevation": 36.79788262798312,
+          "object_id": "HIP_29655"
+        },
+        {
+          "azimuth": 111.46935370023073,
+          "confidence": 1.0,
+          "elevation": 37.64668097591501,
+          "object_id": "HIP_30343"
+        },
+        {
+          "azimuth": 104.27605736857934,
+          "confidence": 1.0,
+          "elevation": 33.79088409960083,
+          "object_id": "HIP_31681"
+        },
+        {
+          "azimuth": 198.8513297942849,
+          "confidence": 1.0,
+          "elevation": 32.55079413979887,
+          "object_id": "HIP_3179"
+        },
+        {
+          "azimuth": 107.53444426493148,
+          "confidence": 1.0,
+          "elevation": 42.1193424398225,
+          "object_id": "HIP_32246"
+        },
+        {
+          "azimuth": 100.61781176892185,
+          "confidence": 1.0,
+          "elevation": 31.35523106967928,
+          "object_id": "HIP_32362"
+        },
+        {
+          "azimuth": 111.4978096010681,
+          "confidence": 1.0,
+          "elevation": 50.74215105014894,
+          "object_id": "HIP_33018"
+        },
+        {
+          "azimuth": 87.33396138852102,
+          "confidence": 1.0,
+          "elevation": 30.840666220250323,
+          "object_id": "HIP_36188"
+        },
+        {
+          "azimuth": 97.43343826942474,
+          "confidence": 1.0,
+          "elevation": 53.2460818562773,
+          "object_id": "HIP_36850"
+        },
+        {
+          "azimuth": 83.07142538014924,
+          "confidence": 1.0,
+          "elevation": 28.873423397076312,
+          "object_id": "HIP_37279"
+        },
+        {
+          "azimuth": 91.57418913916777,
+          "confidence": 1.0,
+          "elevation": 50.718070978435115,
+          "object_id": "HIP_37826"
+        },
+        {
+          "azimuth": 198.6303535416233,
+          "confidence": 1.0,
+          "elevation": 37.250103383104744,
+          "object_id": "HIP_4427"
+        },
+        {
+          "azimuth": 194.38934813466517,
+          "confidence": 1.0,
+          "elevation": 38.452589458650564,
+          "object_id": "HIP_6686"
+        },
+        {
+          "azimuth": 204.65492392218928,
+          "confidence": 1.0,
+          "elevation": 33.49926951818418,
+          "object_id": "HIP_746"
+        },
+        {
+          "azimuth": 185.85543074120181,
+          "confidence": 1.0,
+          "elevation": 29.097268205616206,
+          "object_id": "HIP_7607"
+        },
+        {
+          "azimuth": 192.96347208148205,
+          "confidence": 1.0,
+          "elevation": 43.06748578305585,
+          "object_id": "HIP_8886"
+        },
+        {
+          "azimuth": 177.95602427964045,
+          "confidence": 1.0,
+          "elevation": 25.67972577559789,
+          "object_id": "HIP_9640"
+        }
+      ],
+      "rms_residual": 0.001098002502231802,
+      "runtime_seconds": 1.635022406000644,
+      "selected_nfev": 30,
+      "start_diagnostics": [
+        {
+          "cost": 1.6548463964336015,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            88.58311329398092,
+            35.61053631312394,
+            -59.15583023307253
+          ],
+          "initial_state": [
+            51.5,
+            -0.1,
+            0.0
+          ],
+          "max_residual": 0.5039915748223709,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.14748544345575185,
+          "residuals": [
+            0.5039915748223709,
+            0.26693008256458606,
+            0.18800264760294055,
+            0.18855044755990585,
+            0.21960345776411586,
+            0.18467586616327852,
+            0.07465206184613842,
+            0.1418180292255127,
+            0.1185785154822942,
+            0.12553385735280967,
+            0.1414548574740767,
+            0.28339344680332756,
+            0.22944921844429475,
+            0.2065224288875425,
+            0.43863299230038744,
+            0.2700266841221327,
+            0.28507303767417597,
+            0.3421731154326645,
+            0.4375762447466507,
+            0.31429250303817585,
+            0.37264521439585185,
+            0.310925468483938,
+            0.4603793227623104,
+            0.3904270850484013,
+            0.4888252081634553,
+            0.41704904782284147,
+            0.42767445376507635,
+            0.40033528656336054,
+            0.46940476147339266,
+            0.35639602070523085,
+            0.3905588971509698,
+            0.30591884662721003
+          ],
+          "rms_residual": 0.32753735299177206,
+          "selected": false,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 1.9289742573036506e-05,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            61.23563090416246,
+            -149.8956843842318,
+            134.9808615856559
+          ],
+          "initial_state": [
+            -60.0,
+            -135.0,
+            0.0
+          ],
+          "max_residual": 0.0020044503623947657,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 5.459701686854244e-05,
+          "residuals": [
+            0.0019232717150221299,
+            0.0005945417280698666,
+            0.00014222713810277225,
+            0.001001599718513909,
+            0.0008362078537464197,
+            0.0009240265490626342,
+            0.000676174130906742,
+            0.000441951148593332,
+            0.0012857960680286665,
+            0.0010797167422967298,
+            0.0007423934529848566,
+            0.000536074901280154,
+            0.0010607677304236964,
+            0.0009193793999477624,
+            0.0012952594673364508,
+            0.0015657757264105404,
+            0.0006912336204588845,
+            0.0011885047944205764,
+            0.0006313826726112218,
+            0.0012435764545480812,
+            0.0013433577132364847,
+            0.0011725052364187796,
+            0.0014473986723701328,
+            0.0008961054287433642,
+            0.0015402429676319449,
+            0.0020044503623947657,
+            0.0009166566465535199,
+            0.0007743158944242831,
+            0.0006371320439447517,
+            0.0009017796352293882,
+            0.0014428308297667937,
+            0.0007048956209558309
+          ],
+          "rms_residual": 0.001098002502231802,
+          "selected": true,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 1.929020251778546e-05,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            61.23568193916821,
+            -149.89564898776212,
+            134.98130201396324
+          ],
+          "initial_state": [
+            -60.0,
+            -135.0,
+            180.0
+          ],
+          "max_residual": 0.0020086528359711422,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.0011560753623739398,
+          "residuals": [
+            0.001923318890922113,
+            0.000598148776207496,
+            0.0001370074744786811,
+            0.0009963840567195346,
+            0.0008338192778401556,
+            0.0009264815937552271,
+            0.0006696772288227658,
+            0.000441329648501812,
+            0.0012814151856559992,
+            0.0010757956663029233,
+            0.000742303798202709,
+            0.000539476176946308,
+            0.0010628899974091683,
+            0.0009233742592000278,
+            0.0012930339228918182,
+            0.001566640812957638,
+            0.0006905503149984831,
+            0.001190471196674281,
+            0.0006268805966934886,
+            0.0012401499646205703,
+            0.001348510634751656,
+            0.0011689211464283628,
+            0.0014431163973945942,
+            0.0008938373543636069,
+            0.0015449008944892668,
+            0.0020086528359711422,
+            0.0009158274681717817,
+            0.0007802196299700482,
+            0.0006408789636662626,
+            0.0009077864817052858,
+            0.001440705811483327,
+            0.0007030380312991861
+          ],
+          "rms_residual": 0.0010980155928830494,
+          "selected": false,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 0.6918199681066943,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            68.39068074027414,
+            179.99459619575933,
+            102.40224829345527
+          ],
+          "initial_state": [
+            -60.0,
+            -45.0,
+            0.0
+          ],
+          "max_residual": 0.26791902533438106,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.4513569711559318,
+          "residuals": [
+            0.2673866482947644,
+            0.2561746023425767,
+            0.24763328931694092,
+            0.24747117760316104,
+            0.24954233716983304,
+            0.24288910719081686,
+            0.22117163173953636,
+            0.21357509419568368,
+            0.20751437532359543,
+            0.20641283997799073,
+            0.16572936831343735,
+            0.22558018046798484,
+            0.20163214887271028,
+            0.17797670367243706,
+            0.26514104799590466,
+            0.11954132181574002,
+            0.11673246680620085,
+            0.08678205286886129,
+            0.26613056839521565,
+            0.12185705859029809,
+            0.07017739158894919,
+            0.15545837985034638,
+            0.05235125130750574,
+            0.1501524808160686,
+            0.05332334864895379,
+            0.14033621650093095,
+            0.2662104923910248,
+            0.266726956596572,
+            0.26379802104653616,
+            0.26581121943557157,
+            0.26791902533438106,
+            0.2625360996443953
+          ],
+          "rms_residual": 0.20939912422446313,
+          "selected": false,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 1.928975352138984e-05,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            61.23566423710994,
+            -149.89547692626874,
+            134.98109328112793
+          ],
+          "initial_state": [
+            -60.0,
+            -45.0,
+            180.0
+          ],
+          "max_residual": 0.0020037805369106884,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.00012085601784666434,
+          "residuals": [
+            0.001923271600633162,
+            0.0005963557244906238,
+            0.0001403582844037442,
+            0.0010012493368081231,
+            0.0008366852058336163,
+            0.0009258019966995657,
+            0.0006753610380470243,
+            0.0004402458308843271,
+            0.001283799895797931,
+            0.0010776925633193826,
+            0.0007406434407232562,
+            0.0005360921234725946,
+            0.0010597175080652617,
+            0.0009189115940665739,
+            0.0012951108396604479,
+            0.0015676347172631103,
+            0.0006928920127389689,
+            0.001190364539439415,
+            0.0006305027652008715,
+            0.0012417773848314754,
+            0.0013449242865922243,
+            0.0011707971803530605,
+            0.0014482119536327002,
+            0.0008944536736234203,
+            0.001541616733683542,
+            0.0020037805369106884,
+            0.0009168574177042071,
+            0.0007761491713095008,
+            0.0006383578089063111,
+            0.0009035020724432875,
+            0.0014415853051430753,
+            0.0007054264739529509
+          ],
+          "rms_residual": 0.0010980028138127432,
+          "selected": false,
+          "status": 0,
+          "success": false
+        }
+      ],
+      "starts_tried": 5,
+      "total_nfev": 150,
+      "total_runtime_seconds": 1.6354741130053299,
+      "valid": false
+    },
+    "panorama": {
+      "cost": 3.093511999252563e-05,
+      "direction_build_seconds": 0.00037024599441792816,
+      "failure_reason": "",
+      "geographic_error_meters": 11356.29366163488,
+      "heading": 134.88924867855354,
+      "latitude": 61.25019950206784,
+      "longitude": -150.10177079496256,
+      "max_residual": 0.003455485867431261,
+      "message": "`ftol` termination condition is satisfied.",
+      "observations": [
+        {
+          "azimuth": 216.2283108049724,
+          "confidence": 1.0,
+          "elevation": 49.914816426537094,
+          "object_id": "HIP_116727"
+        },
+        {
+          "azimuth": 174.98777444328903,
+          "confidence": 1.0,
+          "elevation": 40.645136174272764,
+          "object_id": "HIP_14328"
+        },
+        {
+          "azimuth": 164.6253961356572,
+          "confidence": 1.0,
+          "elevation": 28.630498656091174,
+          "object_id": "HIP_14354"
+        },
+        {
+          "azimuth": 165.35120933178143,
+          "confidence": 1.0,
+          "elevation": 30.762398891105036,
+          "object_id": "HIP_14576"
+        },
+        {
+          "azimuth": 168.91721676549653,
+          "confidence": 1.0,
+          "elevation": 39.6587878311362,
+          "object_id": "HIP_15863"
+        },
+        {
+          "azimuth": 164.16017765193482,
+          "confidence": 1.0,
+          "elevation": 39.959452357591516,
+          "object_id": "HIP_17358"
+        },
+        {
+          "azimuth": 150.8198556375297,
+          "confidence": 1.0,
+          "elevation": 28.193978320027338,
+          "object_id": "HIP_18246"
+        },
+        {
+          "azimuth": 146.30296228202363,
+          "confidence": 1.0,
+          "elevation": 45.66808072306803,
+          "object_id": "HIP_23416"
+        },
+        {
+          "azimuth": 143.69770142358894,
+          "confidence": 1.0,
+          "elevation": 43.6029539839975,
+          "object_id": "HIP_23453"
+        },
+        {
+          "azimuth": 143.00934149376428,
+          "confidence": 1.0,
+          "elevation": 44.20560584686856,
+          "object_id": "HIP_23767"
+        },
+        {
+          "azimuth": 129.07945056514433,
+          "confidence": 1.0,
+          "elevation": 36.457185054297554,
+          "object_id": "HIP_25428"
+        },
+        {
+          "azimuth": 148.2258193513236,
+          "confidence": 1.0,
+          "elevation": 59.65456102196676,
+          "object_id": "HIP_28358"
+        },
+        {
+          "azimuth": 135.67472688590524,
+          "confidence": 1.0,
+          "elevation": 53.313032802880024,
+          "object_id": "HIP_28360"
+        },
+        {
+          "azimuth": 127.92623996420983,
+          "confidence": 1.0,
+          "elevation": 47.40138802963643,
+          "object_id": "HIP_28380"
+        },
+        {
+          "azimuth": 198.1668460507063,
+          "confidence": 1.0,
+          "elevation": 30.02557300489725,
+          "object_id": "HIP_2920"
+        },
+        {
+          "azimuth": 113.46319643880274,
+          "confidence": 1.0,
+          "elevation": 36.855633527837604,
+          "object_id": "HIP_29655"
+        },
+        {
+          "azimuth": 111.3890408000316,
+          "confidence": 1.0,
+          "elevation": 37.72617695005207,
+          "object_id": "HIP_30343"
+        },
+        {
+          "azimuth": 104.19588437260326,
+          "confidence": 1.0,
+          "elevation": 33.874290769904256,
+          "object_id": "HIP_31681"
+        },
+        {
+          "azimuth": 198.78262558045782,
+          "confidence": 1.0,
+          "elevation": 32.63700890530734,
+          "object_id": "HIP_3179"
+        },
+        {
+          "azimuth": 107.49412136202571,
+          "confidence": 1.0,
+          "elevation": 42.323873599952805,
+          "object_id": "HIP_32246"
+        },
+        {
+          "azimuth": 100.51364013568582,
+          "confidence": 1.0,
+          "elevation": 31.446878043221773,
+          "object_id": "HIP_32362"
+        },
+        {
+          "azimuth": 111.42669368081337,
+          "confidence": 1.0,
+          "elevation": 50.84848322550771,
+          "object_id": "HIP_33018"
+        },
+        {
+          "azimuth": 87.27469301562041,
+          "confidence": 1.0,
+          "elevation": 30.942590793736493,
+          "object_id": "HIP_36188"
+        },
+        {
+          "azimuth": 97.40255057587983,
+          "confidence": 1.0,
+          "elevation": 53.33015681464852,
+          "object_id": "HIP_36850"
+        },
+        {
+          "azimuth": 83.04849641665449,
+          "confidence": 1.0,
+          "elevation": 28.977394031682522,
+          "object_id": "HIP_37279"
+        },
+        {
+          "azimuth": 91.25292213301861,
+          "confidence": 1.0,
+          "elevation": 50.80958809301621,
+          "object_id": "HIP_37826"
+        },
+        {
+          "azimuth": 198.55274233403796,
+          "confidence": 1.0,
+          "elevation": 37.33428122822922,
+          "object_id": "HIP_4427"
+        },
+        {
+          "azimuth": 194.27908949327062,
+          "confidence": 1.0,
+          "elevation": 38.57274130574786,
+          "object_id": "HIP_6686"
+        },
+        {
+          "azimuth": 204.5717461991524,
+          "confidence": 1.0,
+          "elevation": 33.583651065427965,
+          "object_id": "HIP_746"
+        },
+        {
+          "azimuth": 185.74170499054935,
+          "confidence": 1.0,
+          "elevation": 29.2024466594039,
+          "object_id": "HIP_7607"
+        },
+        {
+          "azimuth": 192.9534363866578,
+          "confidence": 1.0,
+          "elevation": 43.254112100738645,
+          "object_id": "HIP_8886"
+        },
+        {
+          "azimuth": 177.88338928623213,
+          "confidence": 1.0,
+          "elevation": 25.763426159600954,
+          "object_id": "HIP_9640"
+        }
+      ],
+      "rms_residual": 0.0013904845053789585,
+      "runtime_seconds": 1.4924392790126149,
+      "selected_nfev": 23,
+      "start_diagnostics": [
+        {
+          "cost": 1.6538051140173233,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            88.58766483976618,
+            35.94661871458405,
+            -58.726708640819425
+          ],
+          "initial_state": [
+            51.5,
+            -0.1,
+            0.0
+          ],
+          "max_residual": 0.5035172537793632,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.15170026154582683,
+          "residuals": [
+            0.5035172537793632,
+            0.2652924825644786,
+            0.18657706160432017,
+            0.18709990314799896,
+            0.21836449502401717,
+            0.18309684665247294,
+            0.07327166574870057,
+            0.14192982074426888,
+            0.11943034495969776,
+            0.1261216082462473,
+            0.14477645102714295,
+            0.2834193647643032,
+            0.22982880436818356,
+            0.20754960151004145,
+            0.43751459412155647,
+            0.2707604157057609,
+            0.28619379098973935,
+            0.34325440148933467,
+            0.43612978672886754,
+            0.3175014231322239,
+            0.3739620104921634,
+            0.3126173448812719,
+            0.46149575016401667,
+            0.39170167687770113,
+            0.48965708153630194,
+            0.418818661988801,
+            0.4262783090561804,
+            0.39830018540182716,
+            0.4679888246673766,
+            0.35466420900573653,
+            0.3877138414291451,
+            0.3045443204905812
+          ],
+          "rms_residual": 0.3274267183555568,
+          "selected": false,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 3.093518333496803e-05,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            61.2502196670099,
+            -150.10155524809142,
+            134.8893210713865
+          ],
+          "initial_state": [
+            -60.0,
+            -135.0,
+            0.0
+          ],
+          "max_residual": 0.0034545114659815784,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.00011205571161587328,
+          "residuals": [
+            0.0026789767195022156,
+            0.0008907925044988808,
+            0.0005972909375466288,
+            0.0013165736833817793,
+            0.0010396063820588973,
+            0.0011710125561227311,
+            0.0005123338508544715,
+            0.0007502365889292796,
+            0.0011492070833498606,
+            0.0011840616649077664,
+            0.001379865584092244,
+            0.0006970584318257475,
+            0.0015203843844872743,
+            0.0012580917424523425,
+            0.0016277550955987043,
+            0.001316383242949687,
+            0.0007893820467601688,
+            0.0016007736828667159,
+            0.001330122513051671,
+            0.0012831438057161826,
+            0.001848109375947136,
+            0.0005888116678683712,
+            0.0017387036599536725,
+            0.0014462197121475641,
+            0.0034545114659815784,
+            0.00042638624056904624,
+            0.0015713014892518786,
+            0.0011570386343734559,
+            0.0011461577592214044,
+            0.0008761002851893834,
+            0.0010253700177704293,
+            0.0007804813859239468
+          ],
+          "rms_residual": 0.0013904859285614481,
+          "selected": false,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 3.093511999252563e-05,
+          "exception": "",
+          "failure_reason": "",
+          "final_state": [
+            61.25019950206784,
+            -150.10177079496256,
+            134.88924867855354
+          ],
+          "initial_state": [
+            -60.0,
+            -135.0,
+            180.0
+          ],
+          "max_residual": 0.003455485867431261,
+          "message": "`ftol` termination condition is satisfied.",
+          "nfev": 23,
+          "optimality": 1.373534371215549e-05,
+          "residuals": [
+            0.0026789953373544534,
+            0.0008894853298165161,
+            0.0005965088102155899,
+            0.001314944191349048,
+            0.001038136663760611,
+            0.0011695020448493983,
+            0.0005110431199783848,
+            0.000751545885144476,
+            0.001150102313510972,
+            0.001184844065996796,
+            0.001379287252200849,
+            0.0006987825982846288,
+            0.001522363324365436,
+            0.00126029666166858,
+            0.001626883075449499,
+            0.0013160179414933434,
+            0.0007893216812810964,
+            0.0016006507969627437,
+            0.0013292600717930217,
+            0.0012826796980842067,
+            0.001848536306177307,
+            0.0005910431497586026,
+            0.001737338622175783,
+            0.0014486090022474117,
+            0.003455485867431261,
+            0.0004289538459620121,
+            0.0015706112340919394,
+            0.0011562840453084229,
+            0.001145667784292887,
+            0.0008751087600529849,
+            0.001024649227720653,
+            0.0007789944863918342
+          ],
+          "rms_residual": 0.0013904845053789585,
+          "selected": true,
+          "status": 2,
+          "success": true
+        },
+        {
+          "cost": 0.6854711584296409,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            68.6813192904121,
+            179.9350006986423,
+            102.34482712369704
+          ],
+          "initial_state": [
+            -60.0,
+            -45.0,
+            0.0
+          ],
+          "max_residual": 0.26940723036681546,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 0.8106721452677784,
+          "residuals": [
+            0.26940723036681546,
+            0.2551572616443624,
+            0.24610625307778897,
+            0.24595194696886166,
+            0.24826223336263556,
+            0.24094826418268325,
+            0.21854290417214295,
+            0.2113057545494434,
+            0.20495936340455873,
+            0.20382380477436904,
+            0.16045330196282498,
+            0.2243396662052556,
+            0.19984253801976917,
+            0.1755074562691083,
+            0.26626585947048415,
+            0.11648288314158976,
+            0.1135680994700998,
+            0.08357773329744655,
+            0.2668712057097603,
+            0.11906223719630969,
+            0.06669969346322334,
+            0.15398188563360374,
+            0.054849820987096315,
+            0.15088512679728555,
+            0.058254559723330025,
+            0.1385484095823568,
+            0.26687723960798765,
+            0.26673388535364795,
+            0.2649541330231827,
+            0.26574254759871846,
+            0.2661648077149706,
+            0.2621090016672671
+          ],
+          "rms_residual": 0.20843288627268378,
+          "selected": false,
+          "status": 0,
+          "success": false
+        },
+        {
+          "cost": 3.093512463281378e-05,
+          "exception": "",
+          "failure_reason": "optimizer_not_converged",
+          "final_state": [
+            61.25020618387891,
+            -150.1017050860582,
+            134.88929984165378
+          ],
+          "initial_state": [
+            -60.0,
+            -45.0,
+            180.0
+          ],
+          "max_residual": 0.0034555417589443374,
+          "message": "The maximum number of function evaluations is exceeded.",
+          "nfev": 30,
+          "optimality": 1.9104461740502836e-05,
+          "residuals": [
+            0.002678770652032972,
+            0.0008896622917659864,
+            0.0005963156655722637,
+            0.0013150452930308042,
+            0.0010383201706381886,
+            0.0011699017119621475,
+            0.000510985347193057,
+            0.0007510298272265977,
+            0.0011496282417102909,
+            0.0011843861157612772,
+            0.0013797075670419026,
+            0.0006983135703374198,
+            0.0015218382842945928,
+            0.0012598748946504174,
+            0.0016269236440648897,
+            0.0013163766349513397,
+            0.0007896182627286638,
+            0.0016009524476756501,
+            0.001329235050774724,
+            0.0012830325516302702,
+            0.0018487322830499618,
+            0.0005904695191437322,
+            0.0017377821227837304,
+            0.0014481602780338759,
+            0.0034555417589443374,
+            0.00042844476117211676,
+            0.0015706236278288323,
+            0.001156379601768437,
+            0.0011456871791921204,
+            0.0008753484038210803,
+            0.001024652307290185,
+            0.0007792486681476808
+          ],
+          "rms_residual": 0.0013904846096771107,
+          "selected": false,
+          "status": 0,
+          "success": false
+        }
+      ],
+      "starts_tried": 5,
+      "total_nfev": 143,
+      "total_runtime_seconds": 1.49280986400845,
+      "valid": true
+    }
+  },
+  "timing": {
+    "face_detection_seconds": 0.17414848400221672,
+    "face_path_seconds": 4.179860978023498,
+    "matching_seconds": 0.2146290610107826,
+    "panorama_detection_seconds": 0.8685755370097468,
+    "panorama_path_seconds": 3.648419184013619,
+    "render_seconds": 1.2870337829954224,
+    "render_shared_by_both": true,
+    "scene_total_seconds": 6.438787699997192
+  }
+}

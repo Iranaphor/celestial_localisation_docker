@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='utf-8'?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Random localisation run 6</name>
+    <description>Orange markers show estimated fixes. The larger translucent summary markers show the summary estimate and ground truth.</description>
+    <Style id="estimated-step">
+      <IconStyle>
+        <color>ff0066ff</color>
+        <scale>0.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/orange-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="estimated-summary">
+      <IconStyle>
+        <color>990066ff</color>
+        <scale>1.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/orange-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="ground-truth-summary">
+      <IconStyle>
+        <color>99ff6600</color>
+        <scale>1.8</scale>
+        <Icon>
+          <href>http://maps.google.com/mapfiles/kml/pushpin/blue-pushpin.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="estimated-path">
+      <LineStyle>
+        <color>cc0066ff</color>
+        <width>4</width>
+      </LineStyle>
+    </Style>
+    <Folder>
+      <name>Estimated fixes</name>
+      <Placemark>
+        <name>Run 6 step 1 (outlier)</name>
+        <description>Estimated fix for repetition 1: 52.97963980, 65.27513638</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.275136380470,52.979639804712,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 2</name>
+        <description>Estimated fix for repetition 2: 53.03843159, 65.22598911</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.225989112267,53.038431587645,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 3</name>
+        <description>Estimated fix for repetition 3: 53.07074087, 65.21031938</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.210319375617,53.070740867628,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 4</name>
+        <description>Estimated fix for repetition 4: 53.08590909, 65.28306615</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.283066147626,53.085909090241,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 5</name>
+        <description>Estimated fix for repetition 5: 53.07990706, 65.23634781</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.236347805469,53.079907063658,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 6</name>
+        <description>Estimated fix for repetition 6: 53.08270442, 65.22128470</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.221284696001,53.082704417375,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 7</name>
+        <description>Estimated fix for repetition 7: 53.00523635, 65.22454488</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.224544875761,53.005236350756,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 8</name>
+        <description>Estimated fix for repetition 8: 53.04737893, 65.23422547</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.234225473055,53.047378926261,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 9</name>
+        <description>Estimated fix for repetition 9: 53.09002095, 65.23040469</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.230404691993,53.090020950030,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 step 10</name>
+        <description>Estimated fix for repetition 10: 53.07265009, 65.24647751</description>
+        <styleUrl>#estimated-step</styleUrl>
+        <Point>
+          <coordinates>65.246477508005,53.072650091673,0</coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Run 6 summary estimated fix</name>
+        <description>Summary estimated fix: 53.07265009, 65.23040469</description>
+        <styleUrl>#estimated-summary</styleUrl>
+        <Point>
+          <coordinates>65.230404691993,53.072650091673,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Ground truth</name>
+      <Placemark>
+        <name>Run 6 summary ground truth</name>
+        <description>Summary ground truth: 53.09134107, 65.15052707</description>
+        <styleUrl>#ground-truth-summary</styleUrl>
+        <Point>
+          <coordinates>65.150527065864,53.091341066754,0</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Estimated path</name>
+      <Placemark>
+        <name>Run 6 estimated step path</name>
+        <styleUrl>#estimated-path</styleUrl>
+        <LineString>
+          <tessellate>1</tessellate>
+          <coordinates>65.275136380470,52.979639804712,0
+65.225989112267,53.038431587645,0
+65.210319375617,53.070740867628,0
+65.283066147626,53.085909090241,0
+65.236347805469,53.079907063658,0
+65.221284696001,53.082704417375,0
+65.224544875761,53.005236350756,0
+65.234225473055,53.047378926261,0
+65.230404691993,53.090020950030,0
+65.246477508005,53.072650091673,0</coordinates>
+        </LineString>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

@@ -16,13 +16,12 @@ OBSERVATION_SCALE = 10.0
 GMM_MAX_ITERATIONS = 100
 GMM_TOLERANCE = 1e-4
 GMM_REGULARIZATION = 0.02
-CLUSTER_COLORS = ("#94e3c4", "#e4d47b", "#ffb65c", "#76c9d9")
-CLUSTER_NAMES = ("lowerror", "mediumerror", "higherror", "lowsamples")
+CLUSTER_COLORS = ("#94e3c4", "#e4d47b", "#ffb65c")
+CLUSTER_NAMES = ("lowerror", "mediumerror", "higherror")
 SEEDS = (
-    (25.0, 10.0, "low error"),
-    (30.0, 100.0, "medium error"),
-    (15.0, 10_000.0, "high error"),
-    (0.0, 10_000.0, "zero observations"),
+    (10.0, 8.0, "low error"),
+    (25.0, 200.0, "medium error"),
+    (8.0, 5_000.0, "high error"),
 )
 
 Feature = tuple[float, float]
@@ -121,7 +120,7 @@ def fit_gmm(
     convergence_tolerance: float = GMM_TOLERANCE,
     regularization: float = GMM_REGULARIZATION,
 ) -> GmmModel:
-    """Fit four full-covariance components from the fixed project seeds."""
+    """Fit full-covariance components from the fixed project seeds."""
     if max_iterations < 1 or convergence_tolerance <= 0 or regularization <= 0:
         raise ValueError("invalid Gaussian-mixture fitting settings")
 

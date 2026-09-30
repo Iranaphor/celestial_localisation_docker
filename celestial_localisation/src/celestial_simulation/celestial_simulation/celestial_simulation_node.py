@@ -7,9 +7,12 @@ import cv2
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+from cv_bridge import CvBridge
 
+from celestial_interfaces.msg import CelestialFaceArray, CelestialFaceImage
 from celestial_interfaces.srv import LoadGps
 
+from celestial_simulation.projection import oriented_cube_faces
 from celestial_simulation.renderer import StellariumRenderer
 from celestial_simulation.stellarium_browser import RendererError
 
@@ -19,6 +22,7 @@ class CelestialSimulationNode(Node):
         super().__init__('celestial_simulation_node')
 
         self.declare_parameter('output_topic', '/sky_map')
+        self.declare_parameter('face_output_topic', '')
         self.declare_parameter('load_gps_service', '/test/load_gps')
         self.declare_parameter('frame_id', 'sky_map')
         self.declare_parameter('panorama_width', 2048)
@@ -54,6 +58,7 @@ class CelestialSimulationNode(Node):
         self.declare_parameter('browser_executable', os.environ.get('CELESTIAL_BROWSER_EXECUTABLE', ''))
 
         output_topic = self.get_parameter('output_topic').value
+        face_output_topic = self.get_parameter('face_output_topic').value
         service_name = self.get_parameter('load_gps_service').value
         self.frame_id = self.get_parameter('frame_id').value
         debug_output_dir = self.get_parameter('debug_output_dir').value
@@ -68,7 +73,13 @@ class CelestialSimulationNode(Node):
                 self.debug_dir = None
 
         self.publisher = self.create_publisher(Image, output_topic, 10)
+        self.face_publisher = (
+            self.create_publisher(CelestialFaceArray, face_output_topic, 10)
+            if face_output_topic
+            else None
+        )
         self.service = self.create_service(LoadGps, service_name, self._load_gps)
+        self.bridge = CvBridge()
         self.renderer = StellariumRenderer(
             engine_js=self.get_parameter('engine_js').value,
             engine_wasm=self.get_parameter('engine_wasm').value,
@@ -86,6 +97,7 @@ class CelestialSimulationNode(Node):
         self.get_logger().info(
             f'celestial_simulation publishing generated sky maps on {output_topic}; '
             f'GPS service is {service_name}'
+            + (f', publishing original faces on {face_output_topic}' if self.face_publisher else '')
             + (f', saving debug output to {self.debug_dir}' if self.debug_dir else '')
         )
 
@@ -98,7 +110,7 @@ class CelestialSimulationNode(Node):
 
         timestamp_ms = request.timestamp.sec * 1000.0 + request.timestamp.nanosec / 1e6
         try:
-            image = self.renderer.render(
+            image, faces = self.renderer.render_scene(
                 latitude=request.latitude,
                 longitude=request.longitude,
                 altitude=request.altitude,
@@ -125,6 +137,7 @@ class CelestialSimulationNode(Node):
         message.is_bigendian = False
         message.step = image.shape[1] * 3
         message.data = image.tobytes()
+        self._publish_faces(faces, request.timestamp)
         self.publisher.publish(message)
         self._save_debug_output(image)
 
@@ -135,6 +148,31 @@ class CelestialSimulationNode(Node):
             f'altitude={request.altitude:.2f} m, yaw={request.yaw:.2f} deg'
         )
         return response
+
+    def _publish_faces(self, faces, stamp):
+        if self.face_publisher is None:
+            return
+
+        face_array = CelestialFaceArray()
+        face_array.header.stamp = stamp
+        face_array.header.frame_id = self.frame_id
+        face_array.field_of_view_degrees = float(
+            self.renderer.face_field_of_view
+        )
+        for face in oriented_cube_faces():
+            image = faces.get(face.name)
+            if image is None:
+                self.get_logger().error(f'missing rendered face {face.name}')
+                return
+            face_message = CelestialFaceImage()
+            face_message.name = face.name
+            face_message.center = [float(value) for value in face.center]
+            face_message.right = [float(value) for value in face.right]
+            face_message.up = [float(value) for value in face.up]
+            face_message.image = self.bridge.cv2_to_imgmsg(image, encoding='bgr8')
+            face_message.image.header = face_array.header
+            face_array.faces.append(face_message)
+        self.face_publisher.publish(face_array)
 
     def _save_debug_output(self, image):
         if self.debug_dir is None:
