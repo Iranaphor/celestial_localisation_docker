@@ -10,84 +10,64 @@
   "seed_locations": [
     {
       "name": "low error",
-      "observations": 25.0,
-      "error_km": 10.0
+      "observations": 10.0,
+      "error_km": 8.0
     },
     {
       "name": "medium error",
-      "observations": 30.0,
-      "error_km": 100.0
+      "observations": 25.0,
+      "error_km": 200.0
     },
     {
       "name": "high error",
-      "observations": 15.0,
-      "error_km": 10000.0
-    },
-    {
-      "name": "zero observations",
-      "observations": 0.0,
-      "error_km": 10000.0
+      "observations": 8.0,
+      "error_km": 5000.0
     }
   ],
   "components": [
     {
       "cluster_id": 1,
       "color": "#94e3c4",
-      "weight": 0.4015574003551656,
+      "weight": 0.7871276035813612,
       "mean": {
-        "observations": 25.809944626943512,
-        "log10_error_km": 0.956587318959902,
-        "error_km": 9.048723524834953
+        "observations": 13.513506727463906,
+        "log10_error_km": 0.1699018735641798,
+        "error_km": 1.4787742295618793
       },
       "covariance": {
-        "observations_scaled_xx": 0.7381163477406598,
-        "observations_scaled_log_error_xy": -0.07745968049625343,
-        "log_error_yy": 0.07435433567341031
+        "observations_scaled_xx": 0.3527043556570784,
+        "observations_scaled_log_error_xy": -0.07690282025355338,
+        "log_error_yy": 0.280844349979058
       }
     },
     {
       "cluster_id": 2,
       "color": "#e4d47b",
-      "weight": 0.27763512993858613,
+      "weight": 0.16402981690853669,
       "mean": {
-        "observations": 30.38773197667272,
-        "log10_error_km": 2.056430200642759,
-        "error_km": 113.87547476894136
+        "observations": 25.448921823018367,
+        "log10_error_km": 2.000029780894975,
+        "error_km": 100.00685753960103
       },
       "covariance": {
-        "observations_scaled_xx": 0.5279500829779367,
-        "observations_scaled_log_error_xy": -0.1644645777484619,
-        "log_error_yy": 0.6175746645836727
+        "observations_scaled_xx": 0.32219232663075603,
+        "observations_scaled_log_error_xy": -0.14823287950205766,
+        "log_error_yy": 0.2094053007251624
       }
     },
     {
       "cluster_id": 3,
       "color": "#ffb65c",
-      "weight": 0.27271478900572776,
+      "weight": 0.0488425795101023,
       "mean": {
-        "observations": 25.310925077086694,
-        "log10_error_km": 3.760179505027243,
-        "error_km": 5756.778305547246
+        "observations": 8.229741755170352,
+        "log10_error_km": 2.813436006230566,
+        "error_km": 650.782710227137
       },
       "covariance": {
-        "observations_scaled_xx": 0.9375410641440723,
-        "observations_scaled_log_error_xy": -0.012540591977104325,
-        "log_error_yy": 0.10919203409720378
-      }
-    },
-    {
-      "cluster_id": 4,
-      "color": "#76c9d9",
-      "weight": 0.04809268070051859,
-      "mean": {
-        "observations": 0.5481162982743016,
-        "log10_error_km": 3.893292656159162,
-        "error_km": 7821.5469426990785
-      },
-      "covariance": {
-        "observations_scaled_xx": 0.023547261456777293,
-        "observations_scaled_log_error_xy": -2.1143984470058548e-05,
-        "log_error_yy": 0.09295469788574197
+        "observations_scaled_xx": 0.08520874835569528,
+        "observations_scaled_log_error_xy": 0.03974862304292128,
+        "log_error_yy": 0.28115196681425547
       }
     }
   ],
@@ -99,12 +79,12 @@
       ],
       "equation": "score_1 - score_2 = 0",
       "coefficients": {
-        "x2": 0.2721866335488705,
-        "xy": -1.034572268578024,
-        "y2": -6.667098428457529,
-        "x": -1.9658598118372392,
-        "y": 13.231734432634319,
-        "constant": 2.0943535222847736
+        "x2": 0.7937394699991858,
+        "xy": 2.43250623221643,
+        "y2": 1.6475125743588266,
+        "x": -14.014950703494094,
+        "y": -20.696365232042044,
+        "constant": 43.86512351313442
       }
     },
     {
@@ -114,27 +94,12 @@
       ],
       "equation": "score_1 - score_3 = 0",
       "coefficients": {
-        "x2": -0.22641640784379435,
-        "xy": -1.4619323540017177,
-        "y2": -2.9638241578495412,
-        "x": 2.276564249680519,
-        "y": -16.265623669888,
-        "constant": 54.30100388350115
-      }
-    },
-    {
-      "between": [
-        1,
-        4
-      ],
-      "equation": "score_1 - score_4 = 0",
-      "coefficients": {
-        "x2": 20.473349127900295,
-        "xy": -1.5749610706386943,
-        "y2": -2.170992721552773,
-        "x": 3.076425250426606,
-        "y": -23.350015865883073,
-        "constant": 66.28053281995571
+        "x2": 4.774630681617079,
+        "xy": -2.6020038501654152,
+        "y2": 0.010575625345830675,
+        "x": -1.1276926933038434,
+        "y": -7.4923468976441026,
+        "constant": 14.282018512455283
       }
     },
     {
@@ -144,42 +109,12 @@
       ],
       "equation": "score_2 - score_3 = 0",
       "coefficients": {
-        "x2": -0.49860304139266487,
-        "xy": -0.4273600854236938,
-        "y2": 3.703274270607988,
-        "x": 4.242424061517758,
-        "y": -29.49735810252232,
-        "constant": 52.206650361216376
-      }
-    },
-    {
-      "between": [
-        2,
-        4
-      ],
-      "equation": "score_2 - score_4 = 0",
-      "coefficients": {
-        "x2": 20.201162494351426,
-        "xy": -0.5403888020606702,
-        "y2": 4.496105706904756,
-        "x": 5.042285062263845,
-        "y": -36.58175029851739,
-        "constant": 64.18617929767093
-      }
-    },
-    {
-      "between": [
-        3,
-        4
-      ],
-      "equation": "score_3 - score_4 = 0",
-      "coefficients": {
-        "x2": 20.69976553574409,
-        "xy": -0.11302871663697645,
-        "y2": 0.7928314362967681,
-        "x": 0.7998610007460871,
-        "y": -7.084392195995072,
-        "constant": 11.979528936454557
+        "x2": 3.980891211617894,
+        "xy": -5.034510082381845,
+        "y2": -1.636936949012996,
+        "x": 12.887258010190251,
+        "y": 13.204018334397944,
+        "constant": -29.583105000679137
       }
     }
   ]

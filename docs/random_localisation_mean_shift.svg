@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="960" viewBox="0 0 480 960" role="img" aria-labelledby="chart-title chart-description">
+  <title id="chart-title">Observations versus error with mean-shift density peaks</title>
+  <desc id="chart-description">Each point is a localisation run. The horizontal axis shows observations used and the vertical axis shows error in kilometres on a logarithmic scale. Mean shift discovers local density peaks and marks sparse points as noise. Crosshairs show the original seed locations for reference.</desc>
+  <style>
+    .axis { fill: #5f7779; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.04em; }
+    .axis-title { fill: #91a8a8; font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .grid { stroke: rgba(154, 196, 190, 0.13); stroke-width: 1; }
+    .plot { fill: rgba(148, 227, 196, 0.025); stroke: rgba(154, 196, 190, 0.17); stroke-width: 1; }
+    .point { stroke: #10272b; stroke-width: 0.75; opacity: 0.86; }
+    .seed { fill: none; stroke-width: 1.5; stroke-dasharray: 3 2; }
+    .peak { stroke: #071216; stroke-width: 1.5; }
+    .title { fill: #e8f1ee; font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 600; }
+    .legend { fill: #b6cbc5; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
+  </style>
+  <rect width="100%" height="100%" fill="#071216"/>
+  <text class="title" x="72" y="24">Observations vs error / mean shift</text>
+  <circle cx="72" cy="41" r="4" fill="#94e3c4"/>
+  <text class="legend" x="81" y="44">cluster 1 (n=154)</text>
+  <circle cx="270" cy="41" r="4" fill="#e4d47b"/>
+  <text class="legend" x="279" y="44">cluster 2 (n=34)</text>
+  <circle cx="72" cy="58" r="4" fill="#ffb65c"/>
+  <text class="legend" x="81" y="61">cluster 3 (n=8)</text>
+  <circle cx="270" cy="58" r="4" fill="#ff7164"/>
+  <text class="legend" x="279" y="61">noise / outlier (n=1)</text>
+  <rect class="plot" x="72" y="70" width="386" height="820"/>
+  <line class="grid" x1="72.00" y1="70" x2="72.00" y2="890"/>
+  <text class="axis" x="72.00" y="914" text-anchor="middle">0</text>
+  <line class="grid" x1="179.22" y1="70" x2="179.22" y2="890"/>
+  <text class="axis" x="179.22" y="914" text-anchor="middle">10</text>
+  <line class="grid" x1="286.44" y1="70" x2="286.44" y2="890"/>
+  <text class="axis" x="286.44" y="914" text-anchor="middle">20</text>
+  <line class="grid" x1="393.67" y1="70" x2="393.67" y2="890"/>
+  <text class="axis" x="393.67" y="914" text-anchor="middle">30</text>
+  <line class="grid" x1="458.00" y1="70" x2="458.00" y2="890"/>
+  <text class="axis" x="458.00" y="914" text-anchor="middle">36</text>
+  <line class="grid" x1="72" y1="890.00" x2="458" y2="890.00"/>
+  <text class="axis" x="60" y="894.00" text-anchor="end">0.0</text>
+  <line class="grid" x1="72" y1="753.33" x2="458" y2="753.33"/>
+  <text class="axis" x="60" y="757.33" text-anchor="end">0.1</text>
+  <line class="grid" x1="72" y1="616.67" x2="458" y2="616.67"/>
+  <text class="axis" x="60" y="620.67" text-anchor="end">1</text>
+  <line class="grid" x1="72" y1="480.00" x2="458" y2="480.00"/>
+  <text class="axis" x="60" y="484.00" text-anchor="end">10</text>
+  <line class="grid" x1="72" y1="343.33" x2="458" y2="343.33"/>
+  <text class="axis" x="60" y="347.33" text-anchor="end">100</text>
+  <line class="grid" x1="72" y1="206.67" x2="458" y2="206.67"/>
+  <text class="axis" x="60" y="210.67" text-anchor="end">1,000</text>
+  <line class="grid" x1="72" y1="70.00" x2="458" y2="70.00"/>
+  <text class="axis" x="60" y="74.00" text-anchor="end">10,000</text>
+  <circle class="point" cx="136.33" cy="624.44" r="2.7" fill="#94e3c4"><title>Run 1: 6 observations, 0.88 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="511.33" r="2.7" fill="#94e3c4"><title>Run 2: 7 observations, 5.90 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="533.90" r="2.7" fill="#94e3c4"><title>Run 3: 18 observations, 4.03 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="244.61" r="2.7" fill="#e4d47b"><title>Run 4: 17 observations, 527.6 km, cluster 2</title></circle>
+  <circle class="point" cx="275.72" cy="644.66" r="2.7" fill="#94e3c4"><title>Run 5: 19 observations, 0.62 km, cluster 1</title></circle>
+  <circle class="point" cx="125.61" cy="613.63" r="2.7" fill="#94e3c4"><title>Run 6: 5 observations, 1.05 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="477.88" r="2.7" fill="#94e3c4"><title>Run 7: 15 observations, 10.36 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="638.79" r="2.7" fill="#94e3c4"><title>Run 9: 17 observations, 0.69 km, cluster 1</title></circle>
+  <circle class="point" cx="318.61" cy="337.57" r="2.7" fill="#e4d47b"><title>Run 10: 23 observations, 110.2 km, cluster 2</title></circle>
+  <circle class="point" cx="200.67" cy="575.56" r="2.7" fill="#94e3c4"><title>Run 11: 12 observations, 2.00 km, cluster 1</title></circle>
+  <circle class="point" cx="286.44" cy="631.85" r="2.7" fill="#94e3c4"><title>Run 13: 20 observations, 0.77 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="564.41" r="2.7" fill="#94e3c4"><title>Run 14: 18 observations, 2.41 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="602.96" r="2.7" fill="#94e3c4"><title>Run 15: 17 observations, 1.26 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="482.04" r="2.7" fill="#94e3c4"><title>Run 16: 11 observations, 9.66 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="611.85" r="2.7" fill="#94e3c4"><title>Run 17: 12 observations, 1.08 km, cluster 1</title></circle>
+  <circle class="point" cx="179.22" cy="633.89" r="2.7" fill="#94e3c4"><title>Run 18: 10 observations, 0.75 km, cluster 1</title></circle>
+  <circle class="point" cx="382.94" cy="389.19" r="2.7" fill="#e4d47b"><title>Run 19: 29 observations, 46.18 km, cluster 2</title></circle>
+  <circle class="point" cx="136.33" cy="481.69" r="2.7" fill="#94e3c4"><title>Run 20: 6 observations, 9.72 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="743.76" r="2.7" fill="#94e3c4"><title>Run 21: 18 observations, 0.12 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="714.38" r="2.7" fill="#94e3c4"><title>Run 22: 15 observations, 0.19 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="647.86" r="2.7" fill="#94e3c4"><title>Run 23: 9 observations, 0.59 km, cluster 1</title></circle>
+  <circle class="point" cx="382.94" cy="413.10" r="2.7" fill="#e4d47b"><title>Run 24: 29 observations, 30.87 km, cluster 2</title></circle>
+  <circle class="point" cx="340.06" cy="322.07" r="2.7" fill="#e4d47b"><title>Run 25: 25 observations, 143.1 km, cluster 2</title></circle>
+  <circle class="point" cx="425.83" cy="446.07" r="2.7" fill="#e4d47b"><title>Run 26: 33 observations, 17.71 km, cluster 2</title></circle>
+  <circle class="point" cx="200.67" cy="610.17" r="2.7" fill="#94e3c4"><title>Run 27: 12 observations, 1.12 km, cluster 1</title></circle>
+  <circle class="point" cx="179.22" cy="550.26" r="2.7" fill="#94e3c4"><title>Run 28: 10 observations, 3.06 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="639.60" r="2.7" fill="#94e3c4"><title>Run 29: 15 observations, 0.68 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="636.48" r="2.7" fill="#94e3c4"><title>Run 30: 11 observations, 0.72 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="644.04" r="2.7" fill="#94e3c4"><title>Run 31: 16 observations, 0.63 km, cluster 1</title></circle>
+  <circle class="point" cx="125.61" cy="603.46" r="2.7" fill="#94e3c4"><title>Run 32: 5 observations, 1.25 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="595.58" r="2.7" fill="#94e3c4"><title>Run 33: 16 observations, 1.43 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="607.13" r="2.7" fill="#94e3c4"><title>Run 34: 17 observations, 1.17 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="607.88" r="2.7" fill="#94e3c4"><title>Run 35: 6 observations, 1.16 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="329.25" r="2.7" fill="#e4d47b"><title>Run 36: 11 observations, 126.8 km, cluster 2</title></circle>
+  <circle class="point" cx="125.61" cy="562.95" r="2.7" fill="#94e3c4"><title>Run 37: 5 observations, 2.47 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="664.49" r="2.7" fill="#94e3c4"><title>Run 38: 12 observations, 0.45 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="640.35" r="2.7" fill="#94e3c4"><title>Run 39: 9 observations, 0.67 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="651.10" r="2.7" fill="#94e3c4"><title>Run 40: 7 observations, 0.56 km, cluster 1</title></circle>
+  <circle class="point" cx="114.89" cy="596.20" r="2.7" fill="#94e3c4"><title>Run 41: 4 observations, 1.41 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="728.09" r="2.7" fill="#94e3c4"><title>Run 42: 22 observations, 0.15 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="644.33" r="2.7" fill="#94e3c4"><title>Run 43: 12 observations, 0.63 km, cluster 1</title></circle>
+  <circle class="point" cx="125.61" cy="564.38" r="2.7" fill="#94e3c4"><title>Run 44: 5 observations, 2.41 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="584.51" r="2.7" fill="#94e3c4"><title>Run 45: 12 observations, 1.72 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="639.74" r="2.7" fill="#94e3c4"><title>Run 46: 6 observations, 0.68 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="577.33" r="2.7" fill="#94e3c4"><title>Run 47: 12 observations, 1.94 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="537.69" r="2.7" fill="#94e3c4"><title>Run 48: 12 observations, 3.78 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="635.87" r="2.7" fill="#94e3c4"><title>Run 49: 12 observations, 0.72 km, cluster 1</title></circle>
+  <circle class="point" cx="179.22" cy="633.95" r="2.7" fill="#94e3c4"><title>Run 50: 10 observations, 0.75 km, cluster 1</title></circle>
+  <circle class="point" cx="222.11" cy="573.51" r="2.7" fill="#94e3c4"><title>Run 51: 14 observations, 2.07 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="662.69" r="2.7" fill="#94e3c4"><title>Run 52: 15 observations, 0.46 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="570.31" r="2.7" fill="#94e3c4"><title>Run 53: 12 observations, 2.18 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="548.74" r="2.7" fill="#94e3c4"><title>Run 54: 13 observations, 3.14 km, cluster 1</title></circle>
+  <circle class="point" cx="361.50" cy="292.12" r="2.7" fill="#e4d47b"><title>Run 55: 27 observations, 237.0 km, cluster 2</title></circle>
+  <circle class="point" cx="307.89" cy="298.58" r="2.7" fill="#e4d47b"><title>Run 56: 22 observations, 212.5 km, cluster 2</title></circle>
+  <circle class="point" cx="297.17" cy="768.72" r="2.7" fill="#94e3c4"><title>Run 57: 21 observations, 0.08 km, cluster 1</title></circle>
+  <circle class="point" cx="340.06" cy="414.99" r="2.7" fill="#e4d47b"><title>Run 58: 25 observations, 29.90 km, cluster 2</title></circle>
+  <circle class="point" cx="157.78" cy="547.02" r="2.7" fill="#94e3c4"><title>Run 59: 8 observations, 3.23 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="676.42" r="2.7" fill="#94e3c4"><title>Run 60: 18 observations, 0.37 km, cluster 1</title></circle>
+  <circle class="point" cx="447.28" cy="430.43" r="2.7" fill="#e4d47b"><title>Run 61: 35 observations, 23.05 km, cluster 2</title></circle>
+  <circle class="point" cx="232.83" cy="589.02" r="2.7" fill="#94e3c4"><title>Run 62: 15 observations, 1.59 km, cluster 1</title></circle>
+  <circle class="point" cx="458.00" cy="425.71" r="2.7" fill="#e4d47b"><title>Run 63: 36 observations, 24.96 km, cluster 2</title></circle>
+  <circle class="point" cx="318.61" cy="314.56" r="2.7" fill="#e4d47b"><title>Run 64: 23 observations, 162.4 km, cluster 2</title></circle>
+  <circle class="point" cx="222.11" cy="626.31" r="2.7" fill="#94e3c4"><title>Run 65: 14 observations, 0.85 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="466.16" r="2.7" fill="#94e3c4"><title>Run 66: 9 observations, 12.63 km, cluster 1</title></circle>
+  <circle class="point" cx="372.22" cy="279.09" r="2.7" fill="#e4d47b"><title>Run 67: 28 observations, 295.2 km, cluster 2</title></circle>
+  <circle class="point" cx="232.83" cy="466.80" r="2.7" fill="#94e3c4"><title>Run 68: 15 observations, 12.49 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="543.78" r="2.7" fill="#94e3c4"><title>Run 69: 17 observations, 3.41 km, cluster 1</title></circle>
+  <circle class="point" cx="361.50" cy="409.64" r="2.7" fill="#e4d47b"><title>Run 70: 27 observations, 32.72 km, cluster 2</title></circle>
+  <circle class="point" cx="179.22" cy="610.93" r="2.7" fill="#94e3c4"><title>Run 71: 10 observations, 1.10 km, cluster 1</title></circle>
+  <circle class="point" cx="318.61" cy="645.08" r="2.7" fill="#94e3c4"><title>Run 72: 23 observations, 0.62 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="614.80" r="2.7" fill="#94e3c4"><title>Run 73: 16 observations, 1.03 km, cluster 1</title></circle>
+  <circle class="point" cx="393.67" cy="386.77" r="2.7" fill="#e4d47b"><title>Run 74: 30 observations, 48.10 km, cluster 2</title></circle>
+  <circle class="point" cx="232.83" cy="493.39" r="2.7" fill="#94e3c4"><title>Run 75: 15 observations, 7.98 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="603.38" r="2.7" fill="#94e3c4"><title>Run 76: 11 observations, 1.25 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="597.72" r="2.7" fill="#94e3c4"><title>Run 77: 22 observations, 1.38 km, cluster 1</title></circle>
+  <circle class="point" cx="286.44" cy="653.41" r="2.7" fill="#94e3c4"><title>Run 78: 20 observations, 0.54 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="573.15" r="2.7" fill="#94e3c4"><title>Run 79: 12 observations, 2.08 km, cluster 1</title></circle>
+  <circle class="point" cx="340.06" cy="648.54" r="2.7" fill="#94e3c4"><title>Run 80: 25 observations, 0.58 km, cluster 1</title></circle>
+  <circle class="point" cx="104.17" cy="502.29" r="2.7" fill="#94e3c4"><title>Run 81: 3 observations, 6.87 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="455.46" r="2.7" fill="#94e3c4"><title>Run 82: 7 observations, 15.12 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="668.89" r="2.7" fill="#94e3c4"><title>Run 83: 16 observations, 0.41 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="543.71" r="2.7" fill="#94e3c4"><title>Run 84: 7 observations, 3.42 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="544.84" r="2.7" fill="#94e3c4"><title>Run 85: 9 observations, 3.35 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="353.95" r="2.7" fill="#e4d47b"><title>Run 86: 22 observations, 83.62 km, cluster 2</title></circle>
+  <circle class="point" cx="200.67" cy="623.18" r="2.7" fill="#94e3c4"><title>Run 87: 12 observations, 0.90 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="488.17" r="2.7" fill="#94e3c4"><title>Run 88: 15 observations, 8.71 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="483.04" r="2.7" fill="#94e3c4"><title>Run 89: 6 observations, 9.50 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="600.91" r="2.7" fill="#94e3c4"><title>Run 90: 12 observations, 1.30 km, cluster 1</title></circle>
+  <circle class="point" cx="329.33" cy="312.90" r="2.7" fill="#e4d47b"><title>Run 91: 24 observations, 167.0 km, cluster 2</title></circle>
+  <circle class="point" cx="179.22" cy="549.19" r="2.7" fill="#94e3c4"><title>Run 92: 10 observations, 3.12 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="484.28" r="2.7" fill="#94e3c4"><title>Run 93: 9 observations, 9.30 km, cluster 1</title></circle>
+  <circle class="point" cx="222.11" cy="459.20" r="2.7" fill="#94e3c4"><title>Run 94: 14 observations, 14.20 km, cluster 1</title></circle>
+  <circle class="point" cx="350.78" cy="638.99" r="2.7" fill="#94e3c4"><title>Run 95: 26 observations, 0.69 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="581.62" r="2.7" fill="#94e3c4"><title>Run 96: 7 observations, 1.80 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="559.19" r="2.7" fill="#94e3c4"><title>Run 97: 9 observations, 2.63 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="627.06" r="2.7" fill="#94e3c4"><title>Run 98: 15 observations, 0.84 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="639.56" r="2.7" fill="#94e3c4"><title>Run 99: 12 observations, 0.68 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="319.31" r="2.7" fill="#e4d47b"><title>Run 100: 22 observations, 149.9 km, cluster 2</title></circle>
+  <circle class="point" cx="275.72" cy="522.54" r="2.7" fill="#94e3c4"><title>Run 101: 19 observations, 4.88 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="675.03" r="2.7" fill="#94e3c4"><title>Run 102: 13 observations, 0.37 km, cluster 1</title></circle>
+  <circle class="point" cx="286.44" cy="662.26" r="2.7" fill="#94e3c4"><title>Run 103: 20 observations, 0.46 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="535.20" r="2.7" fill="#94e3c4"><title>Run 104: 16 observations, 3.95 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="642.11" r="2.7" fill="#94e3c4"><title>Run 105: 15 observations, 0.65 km, cluster 1</title></circle>
+  <circle class="point" cx="157.78" cy="671.99" r="2.7" fill="#94e3c4"><title>Run 106: 8 observations, 0.39 km, cluster 1</title></circle>
+  <circle class="point" cx="350.78" cy="374.87" r="2.7" fill="#e4d47b"><title>Run 107: 26 observations, 58.78 km, cluster 2</title></circle>
+  <circle class="point" cx="200.67" cy="689.98" r="2.7" fill="#94e3c4"><title>Run 108: 12 observations, 0.29 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="486.12" r="2.7" fill="#94e3c4"><title>Run 109: 7 observations, 9.02 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="134.93" r="2.7" fill="#ffb65c"><title>Run 110: 11 observations, 3,349 km, cluster 3</title></circle>
+  <circle class="point" cx="232.83" cy="569.74" r="2.7" fill="#94e3c4"><title>Run 111: 15 observations, 2.20 km, cluster 1</title></circle>
+  <circle class="point" cx="350.78" cy="612.82" r="2.7" fill="#94e3c4"><title>Run 112: 26 observations, 1.07 km, cluster 1</title></circle>
+  <circle class="point" cx="275.72" cy="460.83" r="2.7" fill="#94e3c4"><title>Run 113: 19 observations, 13.81 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="634.21" r="2.7" fill="#94e3c4"><title>Run 114: 6 observations, 0.74 km, cluster 1</title></circle>
+  <circle class="point" cx="232.83" cy="533.49" r="2.7" fill="#94e3c4"><title>Run 115: 15 observations, 4.06 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="708.09" r="2.7" fill="#94e3c4"><title>Run 116: 7 observations, 0.21 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="161.99" r="2.7" fill="#ffb65c"><title>Run 117: 9 observations, 2,123 km, cluster 3</title></circle>
+  <circle class="point" cx="297.17" cy="608.80" r="2.7" fill="#94e3c4"><title>Run 118: 21 observations, 1.14 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="596.10" r="2.7" fill="#94e3c4"><title>Run 119: 11 observations, 1.41 km, cluster 1</title></circle>
+  <circle class="point" cx="372.22" cy="349.46" r="2.7" fill="#e4d47b"><title>Run 120: 28 observations, 90.19 km, cluster 2</title></circle>
+  <circle class="point" cx="393.67" cy="729.75" r="2.7" fill="#94e3c4"><title>Run 121: 30 observations, 0.15 km, cluster 1</title></circle>
+  <circle class="point" cx="179.22" cy="626.97" r="2.7" fill="#94e3c4"><title>Run 122: 10 observations, 0.84 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="581.50" r="2.7" fill="#94e3c4"><title>Run 123: 12 observations, 1.81 km, cluster 1</title></circle>
+  <circle class="point" cx="318.61" cy="285.01" r="2.7" fill="#e4d47b"><title>Run 124: 23 observations, 267.1 km, cluster 2</title></circle>
+  <circle class="point" cx="372.22" cy="609.47" r="2.7" fill="#94e3c4"><title>Run 125: 28 observations, 1.13 km, cluster 1</title></circle>
+  <circle class="point" cx="318.61" cy="672.13" r="2.7" fill="#94e3c4"><title>Run 126: 23 observations, 0.39 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="615.90" r="2.7" fill="#94e3c4"><title>Run 127: 13 observations, 1.01 km, cluster 1</title></circle>
+  <circle class="point" cx="147.06" cy="479.84" r="2.7" fill="#94e3c4"><title>Run 128: 7 observations, 10.03 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="501.30" r="2.7" fill="#94e3c4"><title>Run 129: 11 observations, 6.98 km, cluster 1</title></circle>
+  <circle class="point" cx="125.61" cy="230.75" r="2.7" fill="#ffb65c"><title>Run 130: 5 observations, 666.5 km, cluster 3</title></circle>
+  <circle class="point" cx="211.39" cy="562.69" r="2.7" fill="#94e3c4"><title>Run 131: 13 observations, 2.48 km, cluster 1</title></circle>
+  <circle class="point" cx="329.33" cy="624.69" r="2.7" fill="#94e3c4"><title>Run 132: 24 observations, 0.87 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="316.48" r="2.7" fill="#e4d47b"><title>Run 133: 22 observations, 157.2 km, cluster 2</title></circle>
+  <circle class="point" cx="168.50" cy="525.75" r="2.7" fill="#94e3c4"><title>Run 134: 9 observations, 4.63 km, cluster 1</title></circle>
+  <circle class="point" cx="179.22" cy="555.31" r="2.7" fill="#94e3c4"><title>Run 135: 10 observations, 2.81 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="608.80" r="2.7" fill="#94e3c4"><title>Run 136: 11 observations, 1.14 km, cluster 1</title></circle>
+  <circle class="point" cx="222.11" cy="682.98" r="2.7" fill="#94e3c4"><title>Run 137: 14 observations, 0.33 km, cluster 1</title></circle>
+  <circle class="point" cx="340.06" cy="716.09" r="2.7" fill="#94e3c4"><title>Run 138: 25 observations, 0.19 km, cluster 1</title></circle>
+  <circle class="point" cx="275.72" cy="454.51" r="2.7" fill="#94e3c4"><title>Run 139: 19 observations, 15.36 km, cluster 1</title></circle>
+  <circle class="point" cx="222.11" cy="604.62" r="2.7" fill="#94e3c4"><title>Run 140: 14 observations, 1.23 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="606.75" r="2.7" fill="#94e3c4"><title>Run 141: 18 observations, 1.18 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="154.22" r="2.7" fill="#ffb65c"><title>Run 142: 13 observations, 2,420 km, cluster 3</title></circle>
+  <circle class="point" cx="189.94" cy="604.70" r="2.7" fill="#94e3c4"><title>Run 143: 11 observations, 1.22 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="612.70" r="2.7" fill="#94e3c4"><title>Run 144: 18 observations, 1.07 km, cluster 1</title></circle>
+  <circle class="point" cx="297.17" cy="248.83" r="2.7" fill="#e4d47b"><title>Run 145: 21 observations, 491.4 km, cluster 2</title></circle>
+  <circle class="point" cx="265.00" cy="603.42" r="2.7" fill="#94e3c4"><title>Run 146: 18 observations, 1.25 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="511.61" r="2.7" fill="#94e3c4"><title>Run 147: 11 observations, 5.87 km, cluster 1</title></circle>
+  <circle class="point" cx="168.50" cy="677.04" r="2.7" fill="#94e3c4"><title>Run 148: 9 observations, 0.36 km, cluster 1</title></circle>
+  <circle class="point" cx="286.44" cy="397.89" r="2.7" fill="#e4d47b"><title>Run 149: 20 observations, 39.89 km, cluster 2</title></circle>
+  <circle class="point" cx="157.78" cy="338.83" r="2.7" fill="#e4d47b"><title>Run 150: 8 observations, 107.9 km, cluster 2</title></circle>
+  <circle class="point" cx="340.06" cy="732.70" r="2.7" fill="#94e3c4"><title>Run 151: 25 observations, 0.14 km, cluster 1</title></circle>
+  <circle class="point" cx="157.78" cy="262.45" r="2.7" fill="#ffb65c"><title>Run 152: 8 observations, 390.7 km, cluster 3</title></circle>
+  <circle class="point" cx="136.33" cy="261.09" r="2.7" fill="#ffb65c"><title>Run 153: 6 observations, 399.7 km, cluster 3</title></circle>
+  <circle class="point" cx="265.00" cy="207.45" r="2.7" fill="#e4d47b"><title>Run 154: 18 observations, 986.9 km, cluster 2</title></circle>
+  <circle class="point" cx="318.61" cy="639.67" r="2.7" fill="#94e3c4"><title>Run 155: 23 observations, 0.68 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="562.81" r="2.7" fill="#94e3c4"><title>Run 156: 16 observations, 2.48 km, cluster 1</title></circle>
+  <circle class="point" cx="189.94" cy="639.05" r="2.7" fill="#94e3c4"><title>Run 158: 11 observations, 0.69 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="640.96" r="2.7" fill="#94e3c4"><title>Run 159: 18 observations, 0.66 km, cluster 1</title></circle>
+  <circle class="point" cx="265.00" cy="340.30" r="2.7" fill="#e4d47b"><title>Run 160: 18 observations, 105.2 km, cluster 2</title></circle>
+  <circle class="point" cx="147.06" cy="582.22" r="2.7" fill="#94e3c4"><title>Run 161: 7 observations, 1.79 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="501.10" r="2.7" fill="#94e3c4"><title>Run 162: 16 observations, 7.01 km, cluster 1</title></circle>
+  <circle class="point" cx="125.61" cy="515.47" r="2.7" fill="#94e3c4"><title>Run 163: 5 observations, 5.50 km, cluster 1</title></circle>
+  <circle class="point" cx="350.78" cy="327.72" r="2.7" fill="#e4d47b"><title>Run 164: 26 observations, 130.1 km, cluster 2</title></circle>
+  <circle class="point" cx="179.22" cy="659.30" r="2.7" fill="#94e3c4"><title>Run 165: 10 observations, 0.49 km, cluster 1</title></circle>
+  <circle class="point" cx="104.17" cy="517.81" r="2.7" fill="#94e3c4"><title>Run 166: 3 observations, 5.29 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="668.69" r="2.7" fill="#94e3c4"><title>Run 167: 6 observations, 0.42 km, cluster 1</title></circle>
+  <circle class="point" cx="458.00" cy="380.65" r="2.7" fill="#e4d47b"><title>Run 168: 36 observations, 53.33 km, cluster 2</title></circle>
+  <circle class="point" cx="286.44" cy="574.94" r="2.7" fill="#94e3c4"><title>Run 169: 20 observations, 2.02 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="560.48" r="2.7" fill="#94e3c4"><title>Run 170: 17 observations, 2.58 km, cluster 1</title></circle>
+  <circle class="point" cx="393.67" cy="630.88" r="2.7" fill="#94e3c4"><title>Run 171: 30 observations, 0.79 km, cluster 1</title></circle>
+  <circle class="point" cx="179.22" cy="584.68" r="2.7" fill="#94e3c4"><title>Run 172: 10 observations, 1.71 km, cluster 1</title></circle>
+  <circle class="point" cx="243.56" cy="537.28" r="2.7" fill="#94e3c4"><title>Run 173: 16 observations, 3.81 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="515.02" r="2.7" fill="#94e3c4"><title>Run 174: 13 observations, 5.54 km, cluster 1</title></circle>
+  <circle class="point" cx="318.61" cy="625.63" r="2.7" fill="#94e3c4"><title>Run 175: 23 observations, 0.86 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="585.07" r="2.7" fill="#94e3c4"><title>Run 176: 13 observations, 1.70 km, cluster 1</title></circle>
+  <circle class="point" cx="157.78" cy="558.02" r="2.7" fill="#94e3c4"><title>Run 177: 8 observations, 2.69 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="594.92" r="2.7" fill="#94e3c4"><title>Run 178: 6 observations, 1.44 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="871.18" r="2.7" fill="#ff7164"><title>Run 179: 13 observations, 0.01 km, noise / outlier</title></circle>
+  <circle class="point" cx="200.67" cy="504.33" r="2.7" fill="#94e3c4"><title>Run 180: 12 observations, 6.64 km, cluster 1</title></circle>
+  <circle class="point" cx="222.11" cy="567.14" r="2.7" fill="#94e3c4"><title>Run 181: 14 observations, 2.30 km, cluster 1</title></circle>
+  <circle class="point" cx="254.28" cy="523.54" r="2.7" fill="#94e3c4"><title>Run 182: 17 observations, 4.80 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="517.30" r="2.7" fill="#94e3c4"><title>Run 183: 12 observations, 5.33 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="596.65" r="2.7" fill="#94e3c4"><title>Run 184: 12 observations, 1.40 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="468.03" r="2.7" fill="#94e3c4"><title>Run 185: 22 observations, 12.23 km, cluster 1</title></circle>
+  <circle class="point" cx="222.11" cy="557.85" r="2.7" fill="#94e3c4"><title>Run 186: 14 observations, 2.69 km, cluster 1</title></circle>
+  <circle class="point" cx="125.61" cy="588.49" r="2.7" fill="#94e3c4"><title>Run 187: 5 observations, 1.61 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="556.04" r="2.7" fill="#94e3c4"><title>Run 188: 22 observations, 2.78 km, cluster 1</title></circle>
+  <circle class="point" cx="382.94" cy="291.13" r="2.7" fill="#e4d47b"><title>Run 189: 29 observations, 241.0 km, cluster 2</title></circle>
+  <circle class="point" cx="211.39" cy="630.07" r="2.7" fill="#94e3c4"><title>Run 190: 13 observations, 0.80 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="173.69" r="2.7" fill="#ffb65c"><title>Run 191: 6 observations, 1,743 km, cluster 3</title></circle>
+  <circle class="point" cx="265.00" cy="345.82" r="2.7" fill="#e4d47b"><title>Run 192: 18 observations, 95.89 km, cluster 2</title></circle>
+  <circle class="point" cx="297.17" cy="611.90" r="2.7" fill="#94e3c4"><title>Run 193: 21 observations, 1.08 km, cluster 1</title></circle>
+  <circle class="point" cx="211.39" cy="588.85" r="2.7" fill="#94e3c4"><title>Run 194: 13 observations, 1.60 km, cluster 1</title></circle>
+  <circle class="point" cx="307.89" cy="349.54" r="2.7" fill="#e4d47b"><title>Run 195: 22 observations, 90.07 km, cluster 2</title></circle>
+  <circle class="point" cx="157.78" cy="626.91" r="2.7" fill="#94e3c4"><title>Run 196: 8 observations, 0.84 km, cluster 1</title></circle>
+  <circle class="point" cx="200.67" cy="563.95" r="2.7" fill="#94e3c4"><title>Run 197: 12 observations, 2.43 km, cluster 1</title></circle>
+  <circle class="point" cx="114.89" cy="618.83" r="2.7" fill="#94e3c4"><title>Run 198: 4 observations, 0.96 km, cluster 1</title></circle>
+  <circle class="point" cx="136.33" cy="285.26" r="2.7" fill="#ffb65c"><title>Run 199: 6 observations, 266.0 km, cluster 3</title></circle>
+  <circle class="point" cx="447.28" cy="396.69" r="2.7" fill="#e4d47b"><title>Run 200: 35 observations, 40.70 km, cluster 2</title></circle>
+  <circle class="peak" cx="204.25" cy="597.05" r="5" fill="#94e3c4"><title>Density peak 1: 12.3 observations, 1.39 km, support 142</title></circle>
+  <circle class="peak" cx="327.01" cy="329.52" r="5" fill="#e4d47b"><title>Density peak 2: 23.8 observations, 126.2 km, support 33</title></circle>
+  <circle class="peak" cx="154.78" cy="263.84" r="5" fill="#ffb65c"><title>Density peak 3: 7.7 observations, 381.7 km, support 16</title></circle>
+  <g class="seed" stroke="#e4d47b"><line x1="174.22" y1="493.24" x2="184.22" y2="493.24"/><line x1="179.22" y1="488.24" x2="179.22" y2="498.24"/><title>low error initial seed reference: 10 observations, 8.00 km</title></g>
+  <g class="seed" stroke="#ffb65c"><line x1="335.06" y1="302.19" x2="345.06" y2="302.19"/><line x1="340.06" y1="297.19" x2="340.06" y2="307.19"/><title>medium error initial seed reference: 25 observations, 200.0 km</title></g>
+  <g class="seed" stroke="#ff7164"><line x1="152.78" y1="111.14" x2="162.78" y2="111.14"/><line x1="157.78" y1="106.14" x2="157.78" y2="116.14"/><title>high error initial seed reference: 8 observations, 5,000 km</title></g>
+  <text class="axis-title" x="265" y="950" text-anchor="middle">observations used</text>
+  <text class="axis-title" x="20" y="472" text-anchor="middle" transform="rotate(-90 20 472)">error km / log scale</text>
+</svg>
