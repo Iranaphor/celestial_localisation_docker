@@ -26,6 +26,7 @@ class SolveResult:
     selected_start: tuple[float, float, float]
     starts_tried: int
     boundary_solution: bool
+    start_diagnostics: list[dict]
 
     @property
     def max_residual(self):
@@ -43,8 +44,19 @@ class SolveResult:
 def _residuals(state, observations, timestamp, ephemeris):
     latitude, longitude, heading = state
     errors = []
-    for obs in observations:
-        predicted = ephemeris.predict(obs['object_id'], timestamp, latitude, longitude)
+    if hasattr(ephemeris, 'predict_many'):
+        predictions = ephemeris.predict_many(
+            [obs['object_id'] for obs in observations],
+            timestamp,
+            latitude,
+            longitude,
+        )
+    else:
+        predictions = [
+            ephemeris.predict(obs['object_id'], timestamp, latitude, longitude)
+            for obs in observations
+        ]
+    for obs, predicted in zip(observations, predictions):
         if predicted is None:
             continue
         pred_az, pred_el = predicted
@@ -77,7 +89,13 @@ def _boundary_solution(state, tolerance=1e-6):
     )
 
 
-def _invalid_result(initial_state, reason, message, starts_tried=0):
+def _invalid_result(
+    initial_state,
+    reason,
+    message,
+    starts_tried=0,
+    start_diagnostics=None,
+):
     state = tuple(float(value) for value in initial_state)
     return SolveResult(
         x=np.asarray(state, dtype=np.float64),
@@ -95,7 +113,61 @@ def _invalid_result(initial_state, reason, message, starts_tried=0):
         selected_start=state,
         starts_tried=starts_tried,
         boundary_solution=False,
+        start_diagnostics=list(start_diagnostics or []),
     )
+
+
+def _finite_float(value):
+    value = float(value)
+    return value if np.isfinite(value) else None
+
+
+def _start_diagnostic(start, result=None, error=None):
+    diagnostic = {
+        'initial_state': [float(value) for value in start],
+        'final_state': None,
+        'cost': None,
+        'status': None,
+        'message': '',
+        'nfev': 0,
+        'optimality': None,
+        'residuals': [],
+        'rms_residual': None,
+        'max_residual': None,
+        'success': False,
+        'failure_reason': '',
+        'exception': '',
+        'selected': False,
+    }
+    if error is not None:
+        diagnostic['failure_reason'] = 'optimizer_exception'
+        diagnostic['exception'] = str(error)
+        return diagnostic
+
+    final_state = np.asarray(result.x, dtype=np.float64)
+    residuals = np.asarray(result.fun, dtype=np.float64).reshape(-1)
+    diagnostic.update({
+        'final_state': [
+            _finite_float(value) for value in final_state
+        ] if np.all(np.isfinite(final_state)) else None,
+        'cost': _finite_float(result.cost),
+        'status': int(result.status),
+        'message': str(result.message),
+        'nfev': int(result.nfev),
+        'optimality': _finite_float(result.optimality),
+        'residuals': [
+            _finite_float(value) for value in residuals
+        ] if np.all(np.isfinite(residuals)) else [],
+        'success': bool(result.success),
+        'failure_reason': '' if result.success else 'optimizer_not_converged',
+    })
+    if diagnostic['residuals']:
+        residual_array = np.asarray(diagnostic['residuals'], dtype=np.float64)
+        diagnostic['rms_residual'] = float(
+            np.sqrt(np.mean(np.square(residual_array)))
+        )
+        diagnostic['max_residual'] = float(np.max(np.abs(residual_array)))
+    return diagnostic
 
 
 def solve(
@@ -145,8 +217,9 @@ def solve(
     starts = starts[:max_starts]
 
     candidates = []
+    start_diagnostics = []
     start_errors = []
-    for start in starts:
+    for start_index, start in enumerate(starts):
         try:
             result = least_squares(
                 _residuals,
@@ -158,9 +231,12 @@ def solve(
             )
         except (FloatingPointError, RuntimeError, ValueError) as error:
             start_errors.append(str(error))
+            start_diagnostics.append(_start_diagnostic(start, error=error))
             continue
+        diagnostic = _start_diagnostic(start, result=result)
+        start_diagnostics.append(diagnostic)
         if np.all(np.isfinite(result.x)) and np.isfinite(result.cost):
-            candidates.append((result, start))
+            candidates.append((result, start, start_index))
 
     if not candidates:
         return _invalid_result(
@@ -172,11 +248,14 @@ def solve(
                 else 'all optimiser starts returned non-finite results'
             ),
             starts_tried=len(starts),
+            start_diagnostics=start_diagnostics,
         )
 
-    successful = [candidate for candidate in candidates if candidate[0].success]
-    ranked_candidates = successful or candidates
-    best_result, selected_start = min(ranked_candidates, key=lambda candidate: candidate[0].cost)
+    best_result, selected_start, selected_index = min(
+        candidates,
+        key=lambda candidate: candidate[0].cost,
+    )
+    start_diagnostics[selected_index]['selected'] = True
     valid = bool(best_result.success)
     return SolveResult(
         x=np.asarray(best_result.x, dtype=np.float64),
@@ -194,4 +273,5 @@ def solve(
         selected_start=tuple(float(value) for value in selected_start),
         starts_tried=len(starts),
         boundary_solution=_boundary_solution(best_result.x),
+        start_diagnostics=start_diagnostics,
     )

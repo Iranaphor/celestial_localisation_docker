@@ -201,3 +201,15 @@ def test_read_pose_preserves_timestamped_solver_failure(tmp_path):
     assert result['valid'] is False
     assert result['failure_reason'] == 'insufficient_observations'
     assert result['diagnostics']['status'] == -1
+
+
+def test_timestamp_text_preserves_nanosecond_identity():
+    first = _timestamp_from_nanoseconds(1_700_000_000_123456789)
+    second = _timestamp_from_nanoseconds(1_700_000_000_123456790)
+
+    first_text = RandomLocalisationEvaluator._timestamp_to_utc(first)
+    second_text = RandomLocalisationEvaluator._timestamp_to_utc(second)
+
+    assert first_text.endswith('.123456789Z')
+    assert second_text.endswith('.123456790Z')
+    assert first_text != second_text

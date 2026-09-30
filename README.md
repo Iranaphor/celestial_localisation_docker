@@ -69,6 +69,11 @@ values. The most commonly changed settings are:
 - `REALSENSE_SERIAL_NUMBER` selects a specific camera.
 - `REALSENSE_TF_*` configures the camera transform relative to the robot.
 - `CELESTIAL_CAMERA_TOPIC` selects the image topic consumed by the pipeline.
+- `CELESTIAL_DIRECTION_SOURCE` selects `original_face` (the simulated-pipeline
+  default) or `panorama` (the comparison baseline and camera-only override).
+- `CELESTIAL_SOLVER_MAX_NFEV`, `CELESTIAL_SOLVER_MAX_STARTS`, and
+  `CELESTIAL_SOLVER_GLOBAL_SEARCH` control the frozen simulated candidate
+  configuration: `60`, `5`, and `true` by default.
 - `CELESTIAL_PANORAMA_WIDTH` and `CELESTIAL_PANORAMA_HEIGHT` set the sky map size.
 - `CELESTIAL_CALIBRATION_FILE` optionally supplies camera calibration.
 - `CELESTIAL_INITIAL_LATITUDE` and `CELESTIAL_INITIAL_LONGITUDE` set the

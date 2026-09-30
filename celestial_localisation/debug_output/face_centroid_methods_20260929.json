@@ -1,0 +1,4151 @@
+{
+  "analysis": {
+    "anchorage_00_h135": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 32,
+          "max": 0.112470961439673,
+          "mean": 0.0374137905606826,
+          "median": 0.03744185802092178,
+          "p90": 0.053343247030967746
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.05478988738175524,
+              "mean": 0.04416583861190385,
+              "median": 0.044410507007885465,
+              "p90": 0.05384141318016668
+            },
+            "lower": 607.0,
+            "quartile": 1,
+            "upper": 1004.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.052518152180018894,
+              "mean": 0.04136443073168454,
+              "median": 0.041456840355932556,
+              "p90": 0.052005956546173154
+            },
+            "lower": 1004.75,
+            "quartile": 2,
+            "upper": 1192.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.047603155427779355,
+              "mean": 0.030391276166099532,
+              "median": 0.03324265372524654,
+              "p90": 0.04680724902837634
+            },
+            "lower": 1192.0,
+            "quartile": 3,
+            "upper": 1886.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.112470961439673,
+              "mean": 0.03373361673304248,
+              "median": 0.013689127257857606,
+              "p90": 0.09149152411192318
+            },
+            "lower": 1886.75,
+            "quartile": 4,
+            "upper": 4313.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.0825003366857447,
+              "mean": 0.04309772124676035,
+              "median": 0.04861073529024844,
+              "p90": 0.06310302217295208
+            },
+            "lower": 25.71162558364896,
+            "quartile": 1,
+            "upper": 34.33057521428538
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.112470961439673,
+              "mean": 0.0402104077937486,
+              "median": 0.032957648306869966,
+              "p90": 0.071145735397542
+            },
+            "lower": 34.33057521428538,
+            "quartile": 2,
+            "upper": 39.79366671334323
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.052518152180018894,
+              "mean": 0.03101243031000819,
+              "median": 0.03576903285855598,
+              "p90": 0.0482817480540482
+            },
+            "lower": 39.79366671334323,
+            "quartile": 3,
+            "upper": 42.515720202811096
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.04996754567421994,
+              "mean": 0.03533460289221328,
+              "median": 0.0349944021909248,
+              "p90": 0.04831247250171153
+            },
+            "lower": 42.515720202811096,
+            "quartile": 4,
+            "upper": 53.69284801016501
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.12871258548720224,
+        "correlation_abs_error_with_center_distance": -0.1590519958433317,
+        "correlation_abs_error_with_normalized_x": 0.047356456745390206,
+        "correlation_abs_error_with_normalized_y": 0.3145120559703324,
+        "cross_track_error_degrees": {
+          "count": 32,
+          "max": 0.11245523312610498,
+          "mean": 0.0308330165635577,
+          "median": 0.029484894594219435,
+          "p90": 0.052218689766952424
+        },
+        "elevation_error_degrees": {
+          "count": 32,
+          "max": 0.042899605880098335,
+          "mean": 0.01476504126031819,
+          "median": 0.008672747533676528,
+          "p90": 0.035596816748247315
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 369.2420421229679,
+          "global_search": true,
+          "heading": 269.9960076457177,
+          "latitude": 61.215143599012755,
+          "longitude": -149.8971595199473,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 32,
+          "rms_residual": 0.0007465607212530326,
+          "runtime_seconds": 1.9356725060060853,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 32,
+          "max": 0.2943169925444902,
+          "mean": 0.05218123842233866,
+          "median": 0.0364337920373152,
+          "p90": 0.08659038544427543
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.0480203089445099,
+              "mean": 0.0284507928664058,
+              "median": 0.026796831513340495,
+              "p90": 0.04097935612812874
+            },
+            "lower": 607.0,
+            "quartile": 1,
+            "upper": 1004.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.04660511195726793,
+              "mean": 0.034040807733835124,
+              "median": 0.03561356538768768,
+              "p90": 0.04376567896922006
+            },
+            "lower": 1004.75,
+            "quartile": 2,
+            "upper": 1192.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.09656715546941232,
+              "mean": 0.04380752492221077,
+              "median": 0.032686997164513495,
+              "p90": 0.08615915336710232
+            },
+            "lower": 1192.0,
+            "quartile": 3,
+            "upper": 1886.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.2943169925444902,
+              "mean": 0.10242582816690296,
+              "median": 0.08478946062730672,
+              "p90": 0.15547189445763127
+            },
+            "lower": 1886.75,
+            "quartile": 4,
+            "upper": 4313.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.2943169925444902,
+              "mean": 0.07918775287499286,
+              "median": 0.0402552920191539,
+              "p90": 0.15589210659193564
+            },
+            "lower": 25.780480294343377,
+            "quartile": 1,
+            "upper": 34.354852765147115
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.09596685242040605,
+              "mean": 0.04985997614906289,
+              "median": 0.03769891195449827,
+              "p90": 0.08798802517575027
+            },
+            "lower": 34.354852765147115,
+            "quartile": 2,
+            "upper": 39.77323749213585
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.08501039346942993,
+              "mean": 0.049650989274857525,
+              "median": 0.04324811840613648,
+              "p90": 0.07905245566945104
+            },
+            "lower": 39.77323749213585,
+            "quartile": 3,
+            "upper": 42.51480237203825
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.08676594010814714,
+              "mean": 0.03002623539044138,
+              "median": 0.024864926398625437,
+              "p90": 0.050823224753294656
+            },
+            "lower": 42.51480237203825,
+            "quartile": 4,
+            "upper": 53.64861561375489
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.8550846022877633,
+        "correlation_abs_error_with_center_distance": -0.2855852196281335,
+        "correlation_abs_error_with_normalized_x": -0.13708226953677444,
+        "correlation_abs_error_with_normalized_y": 0.21825120884664673,
+        "cross_track_error_degrees": {
+          "count": 32,
+          "max": 0.24438242775047286,
+          "mean": 0.035202038601199304,
+          "median": 0.024194776165672074,
+          "p90": 0.06989129802857957
+        },
+        "elevation_error_degrees": {
+          "count": 32,
+          "max": 0.16429892578535288,
+          "mean": 0.0329164046970023,
+          "median": 0.021956986051009153,
+          "p90": 0.0753503797239688
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2766.7571549462127,
+          "global_search": true,
+          "heading": 269.9699877723015,
+          "latitude": 61.205851856022726,
+          "longitude": -149.94527513296242,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 32,
+          "rms_residual": 0.0012207973447864492,
+          "runtime_seconds": 2.05067493399838,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 32,
+          "max": 0.1026330632819249,
+          "mean": 0.027701082040792697,
+          "median": 0.023326668479343435,
+          "p90": 0.0482447093995547
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.07964158231414611,
+              "mean": 0.03680727953029402,
+              "median": 0.030598370820176496,
+              "p90": 0.06997401215493636
+            },
+            "lower": 607.0,
+            "quartile": 1,
+            "upper": 1004.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.1026330632819249,
+              "mean": 0.03465065256219782,
+              "median": 0.024315001317024576,
+              "p90": 0.06511028865157051
+            },
+            "lower": 1004.75,
+            "quartile": 2,
+            "upper": 1192.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.04059564251247667,
+              "mean": 0.022166170481348026,
+              "median": 0.023326668479343435,
+              "p90": 0.03149858820498526
+            },
+            "lower": 1192.0,
+            "quartile": 3,
+            "upper": 1886.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.03233370540334738,
+              "mean": 0.017180225589330925,
+              "median": 0.015111279789596335,
+              "p90": 0.030895642764710487
+            },
+            "lower": 1886.75,
+            "quartile": 4,
+            "upper": 4313.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.1026330632819249,
+              "mean": 0.03237901435061187,
+              "median": 0.027270270274900955,
+              "p90": 0.05961955777852278
+            },
+            "lower": 25.71881237448159,
+            "quartile": 1,
+            "upper": 34.36587411878998
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.06583076780098931,
+              "mean": 0.024674100414087963,
+              "median": 0.020448273763295284,
+              "p90": 0.040944761484003056
+            },
+            "lower": 34.36587411878998,
+            "quartile": 2,
+            "upper": 39.7819712466918
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.04902909952427579,
+              "mean": 0.023573212529234833,
+              "median": 0.024898825311691866,
+              "p90": 0.0373423236396259
+            },
+            "lower": 39.7819712466918,
+            "quartile": 3,
+            "upper": 42.524764745643054
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.07964158231414611,
+              "mean": 0.03017800086923613,
+              "median": 0.024761533935304763,
+              "p90": 0.052309424452977496
+            },
+            "lower": 42.524764745643054,
+            "quartile": 4,
+            "upper": 53.68205651296019
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.35193770651367057,
+        "correlation_abs_error_with_center_distance": -0.042498118638721265,
+        "correlation_abs_error_with_normalized_x": -0.022521851760851207,
+        "correlation_abs_error_with_normalized_y": -0.2228260481900968,
+        "cross_track_error_degrees": {
+          "count": 32,
+          "max": 0.09942623236657598,
+          "mean": 0.021127705087316935,
+          "median": 0.017934723791171815,
+          "p90": 0.03587925925619277
+        },
+        "elevation_error_degrees": {
+          "count": 32,
+          "max": 0.05858062596359659,
+          "mean": 0.014910810813694941,
+          "median": 0.011540365332642466,
+          "p90": 0.02707372453753152
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 1278.1633947390758,
+          "global_search": true,
+          "heading": 269.96912613808826,
+          "latitude": 61.2194195706444,
+          "longitude": -149.92401671036984,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 32,
+          "rms_residual": 0.0005656342939771222,
+          "runtime_seconds": 2.0184404239989817,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 30,
+          "max": 0.2117478604617756,
+          "mean": 0.04711964586734919,
+          "median": 0.02975231723521918,
+          "p90": 0.0964443087548211
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.2117478604617756,
+              "mean": 0.05470308961867881,
+              "median": 0.02721048150402356,
+              "p90": 0.12814288271122598
+            },
+            "lower": 607.0,
+            "quartile": 1,
+            "upper": 1030.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.1337763055734079,
+              "mean": 0.06577570081225634,
+              "median": 0.031908982081318135,
+              "p90": 0.13369061376894098
+            },
+            "lower": 1030.5,
+            "quartile": 2,
+            "upper": 1212.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.08386723932219858,
+              "mean": 0.028967173627789916,
+              "median": 0.02182841436580698,
+              "p90": 0.060683243588270014
+            },
+            "lower": 1212.5,
+            "quartile": 3,
+            "upper": 1940.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.07597520561711538,
+              "mean": 0.039095567248840134,
+              "median": 0.03941150351978252,
+              "p90": 0.07445347577000326
+            },
+            "lower": 1940.25,
+            "quartile": 4,
+            "upper": 4313.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.13363348589929636,
+              "mean": 0.04956075479742758,
+              "median": 0.02721048150402356,
+              "p90": 0.10470857034248221
+            },
+            "lower": 25.725820627365195,
+            "quartile": 1,
+            "upper": 33.87967144093173
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.2117478604617756,
+              "mean": 0.06966457280744949,
+              "median": 0.051210007929617676,
+              "p90": 0.13028426755497952
+            },
+            "lower": 33.87967144093173,
+            "quartile": 2,
+            "upper": 39.36834174910808
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.08386723932219858,
+              "mean": 0.031813693918566095,
+              "median": 0.023323549019970757,
+              "p90": 0.06391433361063754
+            },
+            "lower": 39.36834174910808,
+            "quartile": 3,
+            "upper": 41.95026778082089
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.1337763055734079,
+              "mean": 0.03834443381986821,
+              "median": 0.027980118545285936,
+              "p90": 0.06947763834447804
+            },
+            "lower": 41.95026778082089,
+            "quartile": 4,
+            "upper": 53.67572060104023
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.18878457966452336,
+        "correlation_abs_error_with_center_distance": -0.17635257431442333,
+        "correlation_abs_error_with_normalized_x": -0.07407479741445974,
+        "correlation_abs_error_with_normalized_y": 0.021412904118817046,
+        "cross_track_error_degrees": {
+          "count": 30,
+          "max": 0.18493512596213502,
+          "mean": 0.03299065266308336,
+          "median": 0.016472546886993365,
+          "p90": 0.07359712278654394
+        },
+        "elevation_error_degrees": {
+          "count": 30,
+          "max": 0.13312561768162112,
+          "mean": 0.027083080484167254,
+          "median": 0.0185789082967176,
+          "p90": 0.05386422701300336
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2389.0163797954783,
+          "global_search": true,
+          "heading": 269.9317439310342,
+          "latitude": 61.22091795467497,
+          "longitude": -149.94453949608172,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 30,
+          "rms_residual": 0.0010271964262939296,
+          "runtime_seconds": 1.7396467590006068,
+          "valid": true
+        }
+      }
+    },
+    "london_06_h090": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.4155300930247195,
+          "mean": 0.04983492426701057,
+          "median": 0.020341631113723994,
+          "p90": 0.04923431039446053
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.047119806734341116,
+              "mean": 0.03127522666918992,
+              "median": 0.030105850250326763,
+              "p90": 0.04562563602486648
+            },
+            "lower": 808.0,
+            "quartile": 1,
+            "upper": 917.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04578545091134594,
+              "mean": 0.03252199224277311,
+              "median": 0.03785119701375543,
+              "p90": 0.04484151308964674
+            },
+            "lower": 917.0,
+            "quartile": 2,
+            "upper": 1303.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.051348814054579944,
+              "mean": 0.020112901034330367,
+              "median": 0.011102229312887225,
+              "p90": 0.040262637801784844
+            },
+            "lower": 1303.5,
+            "quartile": 3,
+            "upper": 1858.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.4155300930247195,
+              "mean": 0.11542957712174888,
+              "median": 0.020153242454350656,
+              "p90": 0.29765430494616973
+            },
+            "lower": 1858.5,
+            "quartile": 4,
+            "upper": 2432.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.4155300930247195,
+              "mean": 0.12834731537351382,
+              "median": 0.04462952221855005,
+              "p90": 0.30500700713760603
+            },
+            "lower": 29.09126032314783,
+            "quartile": 1,
+            "upper": 38.32782034736621
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04263899150568194,
+              "mean": 0.027867635576138316,
+              "median": 0.025567932659861726,
+              "p90": 0.03976631481052603
+            },
+            "lower": 38.32782034736621,
+            "quartile": 2,
+            "upper": 41.88233491398617
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04578545091134594,
+              "mean": 0.025140135748648505,
+              "median": 0.020190099435659248,
+              "p90": 0.038833055466808195
+            },
+            "lower": 41.88233491398617,
+            "quartile": 3,
+            "upper": 45.94924761542405
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.051348814054579944,
+              "mean": 0.017984610369741645,
+              "median": 0.007353948435405967,
+              "p90": 0.03828703946235942
+            },
+            "lower": 45.94924761542405,
+            "quartile": 4,
+            "upper": 51.89570008388339
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.18027597710566104,
+        "correlation_abs_error_with_center_distance": -0.23368929445048386,
+        "correlation_abs_error_with_normalized_x": 0.1395080663849279,
+        "correlation_abs_error_with_normalized_y": 0.03433802951766444,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.4043343785683855,
+          "mean": 0.04400542004634243,
+          "median": 0.015282347549128862,
+          "p90": 0.04698790461214508
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.09473262768791813,
+          "mean": 0.017592424205000068,
+          "median": 0.01311617089309891,
+          "p90": 0.03359434506058179
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 5229.579495550579,
+          "global_search": true,
+          "heading": -180.02968370931882,
+          "latitude": 51.54351741376953,
+          "longitude": -0.07938298287678051,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.0018058072170267334,
+          "runtime_seconds": 1.4448389329918427,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.0805132638386554,
+          "mean": 0.043219411574398445,
+          "median": 0.03814762799258517,
+          "p90": 0.07080793107383215
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.038450578844026584,
+              "mean": 0.0334138141220264,
+              "median": 0.03686795961306299,
+              "p90": 0.038268808333161736
+            },
+            "lower": 808.0,
+            "quartile": 1,
+            "upper": 917.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.023390781449919754,
+              "mean": 0.01645585247424909,
+              "median": 0.016246713250619875,
+              "p90": 0.02211932445588718
+            },
+            "lower": 917.0,
+            "quartile": 2,
+            "upper": 1303.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.0705458276923008,
+              "mean": 0.05538450344579943,
+              "median": 0.061010752301077206,
+              "p90": 0.06946331121456562
+            },
+            "lower": 1303.5,
+            "quartile": 3,
+            "upper": 1858.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.0805132638386554,
+              "mean": 0.06762347625551886,
+              "median": 0.06774675644297182,
+              "p90": 0.07768029502366783
+            },
+            "lower": 1858.5,
+            "quartile": 4,
+            "upper": 2432.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.0805132638386554,
+              "mean": 0.043350443633648136,
+              "median": 0.03686795961306299,
+              "p90": 0.06771268782940192
+            },
+            "lower": 29.076049241726924,
+            "quartile": 1,
+            "upper": 38.33962999593162
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.07107003445536349,
+              "mean": 0.03146719406726829,
+              "median": 0.02242976993393641,
+              "p90": 0.056766258553730374
+            },
+            "lower": 38.33962999593162,
+            "quartile": 2,
+            "upper": 41.906228502369075
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.06693743943318349,
+              "mean": 0.04330399540152875,
+              "median": 0.04646885357075148,
+              "p90": 0.06320234609247136
+            },
+            "lower": 41.906228502369075,
+            "quartile": 3,
+            "upper": 45.94158028562263
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.0705458276923008,
+              "mean": 0.05475601319514859,
+              "median": 0.059753771799775535,
+              "p90": 0.06870912291378461
+            },
+            "lower": 45.94158028562263,
+            "quartile": 4,
+            "upper": 51.89027199989656
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.8275688992155009,
+        "correlation_abs_error_with_center_distance": 0.3468157086495779,
+        "correlation_abs_error_with_normalized_x": -0.17603220211481502,
+        "correlation_abs_error_with_normalized_y": -0.22676066812796716,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.0696521723451156,
+          "mean": 0.03212027068282271,
+          "median": 0.023660365820842764,
+          "p90": 0.06541903896230242
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.06143998999405653,
+          "mean": 0.023398434580341076,
+          "median": 0.021188585750312683,
+          "p90": 0.04771525088134254
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2598.257128055465,
+          "global_search": true,
+          "heading": -180.0095988930222,
+          "latitude": 51.487540795505204,
+          "longitude": -0.14757862643236905,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.000815299123785621,
+          "runtime_seconds": 1.198976744999527,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.244427090953838,
+          "mean": 0.04852572249857899,
+          "median": 0.022585369877986747,
+          "p90": 0.13392404357200843
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.03450746643763303,
+              "mean": 0.02178891820989116,
+              "median": 0.02122350381742779,
+              "p90": 0.03177517771732525
+            },
+            "lower": 808.0,
+            "quartile": 1,
+            "upper": 917.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.22325328321698984,
+              "mean": 0.07133022088588475,
+              "median": 0.022585369877986747,
+              "p90": 0.16356185397977327
+            },
+            "lower": 917.0,
+            "quartile": 2,
+            "upper": 1303.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.03669127213177436,
+              "mean": 0.017858729559406043,
+              "median": 0.011954701282300726,
+              "p90": 0.02947445767750031
+            },
+            "lower": 1303.5,
+            "quartile": 3,
+            "upper": 1858.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.244427090953838,
+              "mean": 0.08312502133913399,
+              "median": 0.037766550634419076,
+              "p90": 0.18447740484579472
+            },
+            "lower": 1858.5,
+            "quartile": 4,
+            "upper": 2432.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.244427090953838,
+              "mean": 0.1318969194946003,
+              "median": 0.12888037482731143,
+              "p90": 0.23807494863278356
+            },
+            "lower": 29.28345300517978,
+            "quartile": 1,
+            "upper": 38.31254112101486
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.030938297341811118,
+              "mean": 0.020579552276432676,
+              "median": 0.020589356498421776,
+              "p90": 0.02894136386714814
+            },
+            "lower": 38.31254112101486,
+            "quartile": 2,
+            "upper": 41.881466384455784
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.02088888732970564,
+              "mean": 0.015327548567432247,
+              "median": 0.014793531699387491,
+              "p90": 0.019736372210268492
+            },
+            "lower": 41.881466384455784,
+            "quartile": 3,
+            "upper": 45.94655690590846
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.044594803927027034,
+              "mean": 0.02629886965585071,
+              "median": 0.0246632480413176,
+              "p90": 0.04222374438845123
+            },
+            "lower": 45.94655690590846,
+            "quartile": 4,
+            "upper": 51.89508972802679
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.0985878826261713,
+        "correlation_abs_error_with_center_distance": -0.5432309338545315,
+        "correlation_abs_error_with_normalized_x": 0.18692960146695492,
+        "correlation_abs_error_with_normalized_y": 0.3685770569876691,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.2352427671834411,
+          "mean": 0.035864189807407236,
+          "median": 0.014151831703016853,
+          "p90": 0.08210201555851059
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.18828421614677637,
+          "mean": 0.025868817396669463,
+          "median": 0.011567696168832242,
+          "p90": 0.04844305577336172
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 6295.0699753745075,
+          "global_search": true,
+          "heading": 179.97302820780837,
+          "latitude": 51.54739804986913,
+          "longitude": -0.06340183678076051,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.0013589720255709151,
+          "runtime_seconds": 1.140563386012218,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.3044930106659642,
+          "mean": 0.06149958141917822,
+          "median": 0.03133983936811274,
+          "p90": 0.13961675685617037
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.039194831740664814,
+              "mean": 0.026285941756713012,
+              "median": 0.02474386556346052,
+              "p90": 0.03622057608779666
+            },
+            "lower": 808.0,
+            "quartile": 1,
+            "upper": 917.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.3044930106659642,
+              "mean": 0.09384079649320909,
+              "median": 0.02812830188704977,
+              "p90": 0.2231648172177113
+            },
+            "lower": 917.0,
+            "quartile": 2,
+            "upper": 1303.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.0652958229678428,
+              "mean": 0.036273204968751464,
+              "median": 0.030568321595098487,
+              "p90": 0.05761352464176326
+            },
+            "lower": 1303.5,
+            "quartile": 3,
+            "upper": 1858.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.19002294547692353,
+              "mean": 0.08959838245803929,
+              "median": 0.07731108505609388,
+              "p90": 0.15977923230447166
+            },
+            "lower": 1858.5,
+            "quartile": 4,
+            "upper": 2432.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.3044930106659642,
+              "mean": 0.13506445163331454,
+              "median": 0.10965179585401393,
+              "p90": 0.27015199110925203
+            },
+            "lower": 29.356111748422087,
+            "quartile": 1,
+            "upper": 38.32516379266482
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.06541160187677053,
+              "mean": 0.03340782270262027,
+              "median": 0.02680305870046895,
+              "p90": 0.05580783106527573
+            },
+            "lower": 38.32516379266482,
+            "quartile": 2,
+            "upper": 41.88484308436978
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.039194831740664814,
+              "mean": 0.02431232464049375,
+              "median": 0.022153026289132165,
+              "p90": 0.03429365359915888
+            },
+            "lower": 41.88484308436978,
+            "quartile": 3,
+            "upper": 45.943800649850076
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.08921056823541722,
+              "mean": 0.05321372670028428,
+              "median": 0.052491992424376896,
+              "p90": 0.08203614465514489
+            },
+            "lower": 45.943800649850076,
+            "quartile": 4,
+            "upper": 51.88558564743229
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.12159432142461928,
+        "correlation_abs_error_with_center_distance": -0.4826072519121626,
+        "correlation_abs_error_with_normalized_x": 0.0862991602642107,
+        "correlation_abs_error_with_normalized_y": 0.4118889756877657,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.18628254703230987,
+          "mean": 0.04425736285292879,
+          "median": 0.02338646402794716,
+          "p90": 0.12251373753008754
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.26094295938908374,
+          "mean": 0.03483702484836804,
+          "median": 0.019290292564548395,
+          "p90": 0.05000545076029894
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 6555.771474398585,
+          "global_search": true,
+          "heading": -180.0337204585469,
+          "latitude": 51.550617892205985,
+          "longitude": -0.06333904979414233,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.0015651917752081905,
+          "runtime_seconds": 1.2580231840111082,
+          "valid": true
+        }
+      }
+    },
+    "perth_00_h075": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 31,
+          "max": 0.602178217985148,
+          "mean": 0.05037639209758048,
+          "median": 0.029234715637124563,
+          "p90": 0.04751784725734255
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.03717945140163807,
+              "mean": 0.0276268420431624,
+              "median": 0.027679315914417583,
+              "p90": 0.036407372304975046
+            },
+            "lower": 1107.0,
+            "quartile": 1,
+            "upper": 1312.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.047302314912759345,
+              "mean": 0.03586223184037222,
+              "median": 0.03707974680763255,
+              "p90": 0.04723815172366392
+            },
+            "lower": 1312.5,
+            "quartile": 2,
+            "upper": 1446.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.04910299049427311,
+              "mean": 0.03399568339761005,
+              "median": 0.027974254294344192,
+              "p90": 0.04761788356644458
+            },
+            "lower": 1446.0,
+            "quartile": 3,
+            "upper": 1769.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.602178217985148,
+              "mean": 0.10220654107702622,
+              "median": 0.03524846675557043,
+              "p90": 0.22816362032454407
+            },
+            "lower": 1769.0,
+            "quartile": 4,
+            "upper": 3827.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.0678716498985711,
+              "mean": 0.035226029878180215,
+              "median": 0.029713647607145267,
+              "p90": 0.053623988049711115
+            },
+            "lower": 30.28157778436194,
+            "quartile": 1,
+            "upper": 35.47681013773291
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.602178217985148,
+              "mean": 0.11443806339621244,
+              "median": 0.03707974680763255,
+              "p90": 0.269252676141715
+            },
+            "lower": 35.47681013773291,
+            "quartile": 2,
+            "upper": 38.520820710368305
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.047195376264266974,
+              "mean": 0.03293362636920047,
+              "median": 0.028453013695536614,
+              "p90": 0.04704559929744274
+            },
+            "lower": 38.520820710368305,
+            "quartile": 3,
+            "upper": 42.080490215415985
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.04910299049427311,
+              "mean": 0.02691555765905779,
+              "median": 0.02502398121259359,
+              "p90": 0.047879733127712716
+            },
+            "lower": 42.080490215415985,
+            "quartile": 4,
+            "upper": 54.714991015518684
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.3324341999240577,
+        "correlation_abs_error_with_center_distance": -0.08257414039860331,
+        "correlation_abs_error_with_normalized_x": 0.07590575676881604,
+        "correlation_abs_error_with_normalized_y": -0.04952432752899807,
+        "cross_track_error_degrees": {
+          "count": 31,
+          "max": 0.18072493759965738,
+          "mean": 0.026553843514581756,
+          "median": 0.01992056093381929,
+          "p90": 0.042997842611715055
+        },
+        "elevation_error_degrees": {
+          "count": 31,
+          "max": 0.57403854678779,
+          "mean": 0.03787223383287439,
+          "median": 0.01862131836315939,
+          "p90": 0.04311731759697324
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 3741.9142884141056,
+          "global_search": true,
+          "heading": -210.01638759524602,
+          "latitude": -31.941275892866315,
+          "longitude": 115.89863923579708,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 31,
+          "rms_residual": 0.0019016551155413275,
+          "runtime_seconds": 2.137634418992093,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 31,
+          "max": 0.6034965845885591,
+          "mean": 0.061505142537110175,
+          "median": 0.03891503837501504,
+          "p90": 0.0723471436435451
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.03897394174984645,
+              "mean": 0.026241104403156114,
+              "median": 0.024292540037829335,
+              "p90": 0.03893270938746446
+            },
+            "lower": 1107.0,
+            "quartile": 1,
+            "upper": 1312.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.08113634285686575,
+              "mean": 0.05227302276940554,
+              "median": 0.05113523983988239,
+              "p90": 0.07586282332887335
+            },
+            "lower": 1312.5,
+            "quartile": 2,
+            "upper": 1446.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.06799229535173185,
+              "mean": 0.03980679313599929,
+              "median": 0.040326711678403376,
+              "p90": 0.062102125131809904
+            },
+            "lower": 1446.0,
+            "quartile": 3,
+            "upper": 1769.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.6034965845885591,
+              "mean": 0.12654563486891665,
+              "median": 0.050288028057578676,
+              "p90": 0.30605748997394
+            },
+            "lower": 1769.0,
+            "quartile": 4,
+            "upper": 3827.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.08113634285686575,
+              "mean": 0.04016623361745651,
+              "median": 0.03164790889632556,
+              "p90": 0.07193550960327201
+            },
+            "lower": 30.279078788859675,
+            "quartile": 1,
+            "upper": 35.46184691026911
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.6034965845885591,
+              "mean": 0.13806053133167465,
+              "median": 0.05113523983988239,
+              "p90": 0.3485487892046001
+            },
+            "lower": 35.46184691026911,
+            "quartile": 2,
+            "upper": 38.52649192114014
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.0723471436435451,
+              "mean": 0.040955013503493655,
+              "median": 0.03894449006243074,
+              "p90": 0.05928930504597375
+            },
+            "lower": 38.52649192114014,
+            "quartile": 3,
+            "upper": 42.08135624092658
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.05957776646612908,
+              "mean": 0.03640821529513643,
+              "median": 0.04297692633426573,
+              "p90": 0.05445806930988521
+            },
+            "lower": 42.08135624092658,
+            "quartile": 4,
+            "upper": 54.71666421273334
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.5025520062717568,
+        "correlation_abs_error_with_center_distance": -0.08312366347668952,
+        "correlation_abs_error_with_normalized_x": 0.11840035536610544,
+        "correlation_abs_error_with_normalized_y": -0.04376255810670135,
+        "cross_track_error_degrees": {
+          "count": 31,
+          "max": 0.23332909499949794,
+          "mean": 0.03407171501264787,
+          "median": 0.015980480357949474,
+          "p90": 0.062405905785259196
+        },
+        "elevation_error_degrees": {
+          "count": 31,
+          "max": 0.555932062824624,
+          "mean": 0.04251721473808426,
+          "median": 0.02991735561976583,
+          "p90": 0.05210325550186923
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 3707.8404436122946,
+          "global_search": true,
+          "heading": 149.99776747475988,
+          "latitude": -31.930542893539805,
+          "longitude": 115.89198000322664,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 31,
+          "rms_residual": 0.002015233101047126,
+          "runtime_seconds": 1.8238987140066456,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 29,
+          "max": 0.145348835936374,
+          "mean": 0.04480257742791221,
+          "median": 0.03415124063944815,
+          "p90": 0.08823243917681908
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.1305447831512245,
+              "mean": 0.047526696757665014,
+              "median": 0.035478329291276776,
+              "p90": 0.08051761601532055
+            },
+            "lower": 1107.0,
+            "quartile": 1,
+            "upper": 1304.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.08669720929297445,
+              "mean": 0.040344182759903244,
+              "median": 0.03415124063944815,
+              "p90": 0.06449109874595488
+            },
+            "lower": 1304.0,
+            "quartile": 2,
+            "upper": 1443.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.145348835936374,
+              "mean": 0.04867032022799034,
+              "median": 0.033129750379280516,
+              "p90": 0.0873647218498465
+            },
+            "lower": 1443.0,
+            "quartile": 3,
+            "upper": 1666.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.08885793417472487,
+              "mean": 0.04293579339881797,
+              "median": 0.028624636469612302,
+              "p90": 0.08831062605155732
+            },
+            "lower": 1666.0,
+            "quartile": 4,
+            "upper": 3827.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.145348835936374,
+              "mean": 0.0699810132447538,
+              "median": 0.0471661712580512,
+              "p90": 0.1364664042652843
+            },
+            "lower": 30.289503658001856,
+            "quartile": 1,
+            "upper": 35.64335863655534
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.08669720929297445,
+              "mean": 0.04202461831840144,
+              "median": 0.03486075731036487,
+              "p90": 0.06449109874595488
+            },
+            "lower": 35.64335863655534,
+            "quartile": 2,
+            "upper": 38.569903065001355
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.04870864579216145,
+              "mean": 0.03480887690941555,
+              "median": 0.03415124063944815,
+              "p90": 0.045570459666867645
+            },
+            "lower": 38.569903065001355,
+            "quartile": 3,
+            "upper": 42.13727698100081
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.08807606542734264,
+              "mean": 0.0339466482626823,
+              "median": 0.023533599428512693,
+              "p90": 0.0661960254753556
+            },
+            "lower": 42.13727698100081,
+            "quartile": 4,
+            "upper": 54.72149453015265
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.12458447226762664,
+        "correlation_abs_error_with_center_distance": -0.3089754400566178,
+        "correlation_abs_error_with_normalized_x": -0.03229398651806885,
+        "correlation_abs_error_with_normalized_y": 0.215587374063052,
+        "cross_track_error_degrees": {
+          "count": 29,
+          "max": 0.12852935530909584,
+          "mean": 0.03183080360309492,
+          "median": 0.024014498244628528,
+          "p90": 0.05481397938777642
+        },
+        "elevation_error_degrees": {
+          "count": 29,
+          "max": 0.08748993338981848,
+          "mean": 0.025976523243513926,
+          "median": 0.021109784106982943,
+          "p90": 0.05490686038922659
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 1228.1167645939897,
+          "global_search": true,
+          "heading": -209.98131617027005,
+          "latitude": -31.961158802853774,
+          "longitude": 115.86391100457803,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 29,
+          "rms_residual": 0.0009435458640405217,
+          "runtime_seconds": 1.98613834400021,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 31,
+          "max": 0.4391643201717961,
+          "mean": 0.11721377865159756,
+          "median": 0.08710787621288946,
+          "p90": 0.22708282734965843
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.4391643201717961,
+              "mean": 0.11998810657663715,
+              "median": 0.0808961345043582,
+              "p90": 0.24608398144132465
+            },
+            "lower": 1107.0,
+            "quartile": 1,
+            "upper": 1312.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.22708282734965843,
+              "mean": 0.1035604525031134,
+              "median": 0.08089366619080565,
+              "p90": 0.19003820897502194
+            },
+            "lower": 1312.5,
+            "quartile": 2,
+            "upper": 1446.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.3342133507927375,
+              "mean": 0.14865631519386435,
+              "median": 0.11797180039404298,
+              "p90": 0.29400504367486496
+            },
+            "lower": 1446.0,
+            "quartile": 3,
+            "upper": 1769.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.1889204649872688,
+              "mean": 0.09494357456421484,
+              "median": 0.083908887362934,
+              "p90": 0.18795426055638054
+            },
+            "lower": 1769.0,
+            "quartile": 4,
+            "upper": 3827.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.4391643201717961,
+              "mean": 0.18292230199850631,
+              "median": 0.15874636648624646,
+              "p90": 0.36569864160645504
+            },
+            "lower": 30.273643002375387,
+            "quartile": 1,
+            "upper": 35.5330168261255
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.1875401729431427,
+              "mean": 0.10717353886612856,
+              "median": 0.11038985237563828,
+              "p90": 0.17301722808278783
+            },
+            "lower": 35.5330168261255,
+            "quartile": 2,
+            "upper": 38.51132591959265
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.2767729120529196,
+              "mean": 0.09940593281158823,
+              "median": 0.06716351534142445,
+              "p90": 0.1987711313235608
+            },
+            "lower": 38.51132591959265,
+            "quartile": 3,
+            "upper": 42.028632532074724
+          },
+          {
+            "angular_error_degrees": {
+              "count": 8,
+              "max": 0.17195808990978473,
+              "mean": 0.07809831095698355,
+              "median": 0.08209118681065944,
+              "p90": 0.11392944327346752
+            },
+            "lower": 42.028632532074724,
+            "quartile": 4,
+            "upper": 54.7200999665819
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.07025085241226628,
+        "correlation_abs_error_with_center_distance": -0.31651073933532564,
+        "correlation_abs_error_with_normalized_x": -0.09299055856792952,
+        "correlation_abs_error_with_normalized_y": 0.3426977048716168,
+        "cross_track_error_degrees": {
+          "count": 31,
+          "max": 0.4347781789865513,
+          "mean": 0.08548959984604511,
+          "median": 0.05188950845381405,
+          "p90": 0.18886044609718586
+        },
+        "elevation_error_degrees": {
+          "count": 31,
+          "max": 0.23131945955494615,
+          "mean": 0.06210717788410033,
+          "median": 0.048109856596653344,
+          "p90": 0.1283799473888756
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 344.4927808173731,
+          "global_search": true,
+          "heading": -209.9808186683953,
+          "latitude": -31.948056116878366,
+          "longitude": 115.8627440485309,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 31,
+          "rms_residual": 0.0026391579128980614,
+          "runtime_seconds": 2.0460898129967973,
+          "valid": true
+        }
+      }
+    },
+    "perth_06_h195": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 27,
+          "max": 0.43063723431373085,
+          "mean": 0.04449588996163602,
+          "median": 0.024674457385719117,
+          "p90": 0.057510693207803
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.0662272602290935,
+              "mean": 0.038026478368422705,
+              "median": 0.03570255260659524,
+              "p90": 0.05722710053893761
+            },
+            "lower": 791.0,
+            "quartile": 1,
+            "upper": 1023.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.05428656934267685,
+              "mean": 0.035511631130595724,
+              "median": 0.035485370558090396,
+              "p90": 0.05228021839123883
+            },
+            "lower": 1023.0,
+            "quartile": 2,
+            "upper": 1550.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.43063723431373085,
+              "mean": 0.07720704132547504,
+              "median": 0.023228631614533535,
+              "p90": 0.18815944450611527
+            },
+            "lower": 1550.0,
+            "quartile": 3,
+            "upper": 2138.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.062346879005492184,
+              "mean": 0.025954943474759136,
+              "median": 0.020237238334566292,
+              "p90": 0.04418511925768611
+            },
+            "lower": 2138.5,
+            "quartile": 4,
+            "upper": 4172.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.05088749121819962,
+              "mean": 0.02799658152331726,
+              "median": 0.026507584634371265,
+              "p90": 0.037728715174677525
+            },
+            "lower": 28.90981439886653,
+            "quartile": 1,
+            "upper": 33.24210178170658
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.0662272602290935,
+              "mean": 0.038069456467196214,
+              "median": 0.035732116206699985,
+              "p90": 0.06025691478588518
+            },
+            "lower": 33.24210178170658,
+            "quartile": 2,
+            "upper": 39.59356940340488
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.062346879005492184,
+              "mean": 0.03443155326859538,
+              "median": 0.03570255260659524,
+              "p90": 0.05510307206607736
+            },
+            "lower": 39.59356940340488,
+            "quartile": 3,
+            "upper": 47.52986653472785
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.43063723431373085,
+              "mean": 0.07656790665965811,
+              "median": 0.01610366537273307,
+              "p90": 0.1915012613809817
+            },
+            "lower": 47.52986653472785,
+            "quartile": 4,
+            "upper": 53.30202479089944
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.06206694428098847,
+        "correlation_abs_error_with_center_distance": 0.2354006089605006,
+        "correlation_abs_error_with_normalized_x": -0.16094534141296626,
+        "correlation_abs_error_with_normalized_y": -0.2713414131460819,
+        "cross_track_error_degrees": {
+          "count": 27,
+          "max": 0.3572110506103356,
+          "mean": 0.02887420006974753,
+          "median": 0.017037373611577755,
+          "p90": 0.03204516941250524
+        },
+        "elevation_error_degrees": {
+          "count": 27,
+          "max": 0.23957968138656582,
+          "mean": 0.02987978191155402,
+          "median": 0.01627295923182004,
+          "p90": 0.05136593303632681
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2892.24663826712,
+          "global_search": true,
+          "heading": 30.008775409783535,
+          "latitude": -31.973208012358917,
+          "longitude": 115.84554888660142,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 27,
+          "rms_residual": 0.0015208317929801423,
+          "runtime_seconds": 2.2332126300025266,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 27,
+          "max": 0.46568155473539713,
+          "mean": 0.0702442706278697,
+          "median": 0.056346460502839105,
+          "p90": 0.08267960478520715
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.07072719767977524,
+              "mean": 0.04021659665677011,
+              "median": 0.03448445687049841,
+              "p90": 0.060122217614031095
+            },
+            "lower": 791.0,
+            "quartile": 1,
+            "upper": 1023.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.06098158858192153,
+              "mean": 0.04248581422288481,
+              "median": 0.04584199905537378,
+              "p90": 0.05950795727675863
+            },
+            "lower": 1023.0,
+            "quartile": 2,
+            "upper": 1550.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.46568155473539713,
+              "mean": 0.11783905948456516,
+              "median": 0.05774032913194811,
+              "p90": 0.23511929319267955
+            },
+            "lower": 1550.0,
+            "quartile": 3,
+            "upper": 2138.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.12765097788968102,
+              "mean": 0.07647011837511798,
+              "median": 0.07280122113448312,
+              "p90": 0.10180979138590229
+            },
+            "lower": 2138.5,
+            "quartile": 4,
+            "upper": 4172.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.07443815059325007,
+              "mean": 0.054455573880899825,
+              "median": 0.05774032913194811,
+              "p90": 0.06911966746743957
+            },
+            "lower": 28.959209693906654,
+            "quartile": 1,
+            "upper": 33.28680538677464
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.07072719767977524,
+              "mean": 0.04666085411484051,
+              "median": 0.05929399753062732,
+              "p90": 0.06888028511197142
+            },
+            "lower": 33.28680538677464,
+            "quartile": 2,
+            "upper": 39.543784174163854
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.05803432597159574,
+              "mean": 0.043501613595246964,
+              "median": 0.04324900858980804,
+              "p90": 0.05661197320078526
+            },
+            "lower": 39.543784174163854,
+            "quartile": 3,
+            "upper": 47.51229374104953
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.46568155473539713,
+              "mean": 0.13298998141863014,
+              "median": 0.0814111188308676,
+              "p90": 0.26286320862796764
+            },
+            "lower": 47.51229374104953,
+            "quartile": 4,
+            "upper": 53.30767274462988
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.24108119972338993,
+        "correlation_abs_error_with_center_distance": 0.3590530209942665,
+        "correlation_abs_error_with_normalized_x": -0.1227756027944058,
+        "correlation_abs_error_with_normalized_y": -0.4011122931108626,
+        "cross_track_error_degrees": {
+          "count": 27,
+          "max": 0.3736719496618682,
+          "mean": 0.05114855572170304,
+          "median": 0.041664698124565275,
+          "p90": 0.08041999689260537
+        },
+        "elevation_error_degrees": {
+          "count": 27,
+          "max": 0.2768741353994386,
+          "mean": 0.041843869973304595,
+          "median": 0.03072260266884541,
+          "p90": 0.05719640548547105
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 6328.5165303809945,
+          "global_search": true,
+          "heading": 29.970247651701143,
+          "latitude": -32.004602425528056,
+          "longitude": 115.83967335879436,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 27,
+          "rms_residual": 0.001808791834486355,
+          "runtime_seconds": 2.19386737899913,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 27,
+          "max": 0.313241161184881,
+          "mean": 0.042006369610485705,
+          "median": 0.025321167160615745,
+          "p90": 0.07674254810075856
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.10774616128336166,
+              "mean": 0.045018178991941625,
+              "median": 0.035576488559042274,
+              "p90": 0.0794173355826396
+            },
+            "lower": 791.0,
+            "quartile": 1,
+            "upper": 1023.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.0839237509720171,
+              "mean": 0.04264261830142504,
+              "median": 0.03131299136691247,
+              "p90": 0.07793941524596829
+            },
+            "lower": 1023.0,
+            "quartile": 2,
+            "upper": 1550.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.313241161184881,
+              "mean": 0.06054458012463402,
+              "median": 0.01790759107488506,
+              "p90": 0.14582222925765304
+            },
+            "lower": 1550.0,
+            "quartile": 3,
+            "upper": 2138.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.037254347370990794,
+              "mean": 0.019910993694076333,
+              "median": 0.01730802830260667,
+              "p90": 0.03009443924476577
+            },
+            "lower": 2138.5,
+            "quartile": 4,
+            "upper": 4172.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.10774616128336166,
+              "mean": 0.044297499765269734,
+              "median": 0.037254347370990794,
+              "p90": 0.08627151222529637
+            },
+            "lower": 28.90457769273866,
+            "quartile": 1,
+            "upper": 33.25094434277182
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.0839237509720171,
+              "mean": 0.041406488911904044,
+              "median": 0.03170099102609712,
+              "p90": 0.07222760137708764
+            },
+            "lower": 33.25094434277182,
+            "quartile": 2,
+            "upper": 39.599558815417275
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.0334938738788793,
+              "mean": 0.021110401925675332,
+              "median": 0.01519277623198453,
+              "p90": 0.03182356123499113
+            },
+            "lower": 39.599558815417275,
+            "quartile": 3,
+            "upper": 47.532082615924196
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.313241161184881,
+              "mean": 0.06112539059643919,
+              "median": 0.01750799090116218,
+              "p90": 0.14582222925765304
+            },
+            "lower": 47.532082615924196,
+            "quartile": 4,
+            "upper": 53.30464598511197
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.088203909841679,
+        "correlation_abs_error_with_center_distance": 0.10733159070636268,
+        "correlation_abs_error_with_normalized_x": -0.06262866545579851,
+        "correlation_abs_error_with_normalized_y": -0.3073067817598298,
+        "cross_track_error_degrees": {
+          "count": 27,
+          "max": 0.25973629991595204,
+          "mean": 0.02967506310869378,
+          "median": 0.014366022690023572,
+          "p90": 0.0595624972972554
+        },
+        "elevation_error_degrees": {
+          "count": 27,
+          "max": 0.17459519582240546,
+          "mean": 0.02536170736793074,
+          "median": 0.01716630879607095,
+          "p90": 0.04672871163534041
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 3056.8901279405245,
+          "global_search": true,
+          "heading": 29.991338348774036,
+          "latitude": -31.973514623959375,
+          "longitude": 115.84277658955382,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 27,
+          "rms_residual": 0.001216572284594302,
+          "runtime_seconds": 2.2081829590024427,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 26,
+          "max": 0.5041170884751008,
+          "mean": 0.06364899286156765,
+          "median": 0.026573880825895308,
+          "p90": 0.12677013780739482
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.15056475366405156,
+              "mean": 0.04942149898464266,
+              "median": 0.027563993342024567,
+              "p90": 0.1093313367275142
+            },
+            "lower": 791.0,
+            "quartile": 1,
+            "upper": 1021.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.5041170884751008,
+              "mean": 0.11884813738415932,
+              "median": 0.04329263232501473,
+              "p90": 0.2886900202916065
+            },
+            "lower": 1021.5,
+            "quartile": 2,
+            "upper": 1496.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.10732612809189387,
+              "mean": 0.040620006980821736,
+              "median": 0.02294881643310097,
+              "p90": 0.08603031013520324
+            },
+            "lower": 1496.0,
+            "quartile": 3,
+            "upper": 2157.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.14621414752289574,
+              "mean": 0.05030206504548199,
+              "median": 0.02449116052062035,
+              "p90": 0.10480719702263527
+            },
+            "lower": 2157.25,
+            "quartile": 4,
+            "upper": 4172.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.5041170884751008,
+              "mean": 0.12845778906789404,
+              "median": 0.0647344921785126,
+              "p90": 0.29198568758847143
+            },
+            "lower": 28.85190545340229,
+            "quartile": 1,
+            "upper": 33.22833853967083
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.14621414752289574,
+              "mean": 0.06891447092582573,
+              "median": 0.060799093658001416,
+              "p90": 0.11402826981302583
+            },
+            "lower": 33.22833853967083,
+            "quartile": 2,
+            "upper": 39.15193084110092
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.030399385544411423,
+              "mean": 0.017992150025676012,
+              "median": 0.016093273066063132,
+              "p90": 0.027991576927088736
+            },
+            "lower": 39.15193084110092,
+            "quartile": 3,
+            "upper": 44.841937632855625
+          },
+          {
+            "angular_error_degrees": {
+              "count": 7,
+              "max": 0.10732612809189387,
+              "mean": 0.03346136645949857,
+              "median": 0.023238887401148912,
+              "p90": 0.05762514754912979
+            },
+            "lower": 44.841937632855625,
+            "quartile": 4,
+            "upper": 53.29637649731833
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.17031020733340416,
+        "correlation_abs_error_with_center_distance": -0.3158133058931833,
+        "correlation_abs_error_with_normalized_x": 0.15967465111619042,
+        "correlation_abs_error_with_normalized_y": -0.10566554371200818,
+        "cross_track_error_degrees": {
+          "count": 26,
+          "max": 0.34470660924878505,
+          "mean": 0.04109649980713129,
+          "median": 0.01796362604330798,
+          "p90": 0.0873606564555855
+        },
+        "elevation_error_degrees": {
+          "count": 26,
+          "max": 0.36851643774693343,
+          "mean": 0.04370061609875282,
+          "median": 0.02309100010572962,
+          "p90": 0.07004309640099216
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 1439.2370891642006,
+          "global_search": true,
+          "heading": 29.972666938584656,
+          "latitude": -31.951853459146715,
+          "longitude": 115.84532920279446,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 26,
+          "rms_residual": 0.0019446436038453036,
+          "runtime_seconds": 2.1304281409975374,
+          "valid": true
+        }
+      }
+    },
+    "quito_06_h150": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 22,
+          "max": 0.0661354624548905,
+          "mean": 0.024923863134632074,
+          "median": 0.02299508079419469,
+          "p90": 0.04960851937511108
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.0661354624548905,
+              "mean": 0.034331505833790896,
+              "median": 0.028118437543046746,
+              "p90": 0.05862714865731693
+            },
+            "lower": 903.0,
+            "quartile": 1,
+            "upper": 1076.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.04305257864860067,
+              "mean": 0.031496785979558545,
+              "median": 0.030143399456837375,
+              "p90": 0.037899935157452706
+            },
+            "lower": 1076.5,
+            "quartile": 2,
+            "upper": 1514.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.050336957233612215,
+              "mean": 0.020605381636706898,
+              "median": 0.01337854284035715,
+              "p90": 0.04044495982519627
+            },
+            "lower": 1514.0,
+            "quartile": 3,
+            "upper": 1889.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.03131597661093794,
+              "mean": 0.013637519312972168,
+              "median": 0.009506169568958956,
+              "p90": 0.025198239670689813
+            },
+            "lower": 1889.5,
+            "quartile": 4,
+            "upper": 2469.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.05111883485974335,
+              "mean": 0.024493847173123025,
+              "median": 0.02425030961141622,
+              "p90": 0.04064490239023706
+            },
+            "lower": 24.951128446774927,
+            "quartile": 1,
+            "upper": 31.872203678190047
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.0661354624548905,
+              "mean": 0.034015841539448005,
+              "median": 0.03131597661093794,
+              "p90": 0.05690230893237457
+            },
+            "lower": 31.872203678190047,
+            "quartile": 2,
+            "upper": 37.20150704009161
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.050336957233612215,
+              "mean": 0.020695118680362366,
+              "median": 0.014196106519300491,
+              "p90": 0.037522876773254346
+            },
+            "lower": 37.20150704009161,
+            "quartile": 3,
+            "upper": 40.816906242706146
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.03494357887693726,
+              "mean": 0.021301184137352602,
+              "median": 0.025151914545902744,
+              "p90": 0.03254348916688732
+            },
+            "lower": 40.816906242706146,
+            "quartile": 4,
+            "upper": 47.80429156674162
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.5186407491672543,
+        "correlation_abs_error_with_center_distance": -0.17077083769685972,
+        "correlation_abs_error_with_normalized_x": -0.42639711225815186,
+        "correlation_abs_error_with_normalized_y": -0.12387342533921658,
+        "cross_track_error_degrees": {
+          "count": 22,
+          "max": 0.04335415651588027,
+          "mean": 0.017498792165391956,
+          "median": 0.018622515068471394,
+          "p90": 0.03382936259192115
+        },
+        "elevation_error_degrees": {
+          "count": 22,
+          "max": 0.049955169797314625,
+          "mean": 0.015368854722174903,
+          "median": 0.00940712285991907,
+          "p90": 0.036710840411797833
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 573.0986252873381,
+          "global_search": true,
+          "heading": 299.99747720803737,
+          "latitude": -0.17578884412134915,
+          "longitude": -78.46623657903191,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 22,
+          "rms_residual": 0.0005113977193280921,
+          "runtime_seconds": 1.023343342996668,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 21,
+          "max": 0.07794110805346205,
+          "mean": 0.03934902765101013,
+          "median": 0.03878263851137857,
+          "p90": 0.06810467757737526
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.07053207360666239,
+              "mean": 0.031717349180352114,
+              "median": 0.025139153837158826,
+              "p90": 0.05912200021430063
+            },
+            "lower": 903.0,
+            "quartile": 1,
+            "upper": 1105.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.06725768920310204,
+              "mean": 0.038143118839866576,
+              "median": 0.032312124248528334,
+              "p90": 0.05942735253114606
+            },
+            "lower": 1105.0,
+            "quartile": 2,
+            "upper": 1542.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.07794110805346205,
+              "mean": 0.047117564356991756,
+              "median": 0.045996513843664905,
+              "p90": 0.06875324995506665
+            },
+            "lower": 1542.0,
+            "quartile": 3,
+            "upper": 1920.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.06810467757737526,
+              "mean": 0.04023990313086007,
+              "median": 0.032785352447028605,
+              "p90": 0.06734683352374767
+            },
+            "lower": 1920.0,
+            "quartile": 4,
+            "upper": 2469.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.06725768920310204,
+              "mean": 0.04079426059522352,
+              "median": 0.045996513843664905,
+              "p90": 0.05942735253114606
+            },
+            "lower": 24.96933063744859,
+            "quartile": 1,
+            "upper": 31.389328423420423
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.06810467757737526,
+              "mean": 0.03467646241688614,
+              "median": 0.032312124248528334,
+              "p90": 0.05723184047151238
+            },
+            "lower": 31.389328423420423,
+            "quartile": 2,
+            "upper": 37.21868812432898
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.07794110805346205,
+              "mean": 0.03879021032747511,
+              "median": 0.03878263851137857,
+              "p90": 0.06356742088238042
+            },
+            "lower": 37.21868812432898,
+            "quartile": 3,
+            "upper": 40.898657408945574
+          },
+          {
+            "angular_error_degrees": {
+              "count": 6,
+              "max": 0.07053207360666239,
+              "mean": 0.04250415232888147,
+              "median": 0.0390904674640162,
+              "p90": 0.06856053153839123
+            },
+            "lower": 40.898657408945574,
+            "quartile": 4,
+            "upper": 47.86281968768568
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.2770283824538541,
+        "correlation_abs_error_with_center_distance": 0.018060624575579113,
+        "correlation_abs_error_with_normalized_x": 0.5127335355008895,
+        "correlation_abs_error_with_normalized_y": 0.5422864663969841,
+        "cross_track_error_degrees": {
+          "count": 21,
+          "max": 0.06952609275174455,
+          "mean": 0.023535845466488865,
+          "median": 0.01909103060857769,
+          "p90": 0.05425715532221791
+        },
+        "elevation_error_degrees": {
+          "count": 21,
+          "max": 0.06517414894421591,
+          "mean": 0.02574939959724785,
+          "median": 0.02304702477037779,
+          "p90": 0.062664377417466
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2191.010543575479,
+          "global_search": true,
+          "heading": -60.00659684046917,
+          "latitude": -0.1624089828529528,
+          "longitude": -78.46047225130025,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 21,
+          "rms_residual": 0.0007083666702464843,
+          "runtime_seconds": 1.0519281240121927,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 20,
+          "max": 0.10553650221290713,
+          "mean": 0.024881262868464992,
+          "median": 0.01613049112760325,
+          "p90": 0.046439837881123235
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.10415698868100985,
+              "mean": 0.033268422776621565,
+              "median": 0.010783325634853153,
+              "p90": 0.07850492165883799
+            },
+            "lower": 903.0,
+            "quartile": 1,
+            "upper": 1125.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.027278274189068762,
+              "mean": 0.018032971146174106,
+              "median": 0.01964522244209099,
+              "p90": 0.025008153390215136
+            },
+            "lower": 1125.25,
+            "quartile": 2,
+            "upper": 1556.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.01791392524844631,
+              "mean": 0.014033461353167926,
+              "median": 0.01597656459644861,
+              "p90": 0.017222172507655932
+            },
+            "lower": 1556.0,
+            "quartile": 3,
+            "upper": 1941.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.10553650221290713,
+              "mean": 0.034190196197896386,
+              "median": 0.017840497105667548,
+              "p90": 0.07214246052631537
+            },
+            "lower": 1941.25,
+            "quartile": 4,
+            "upper": 2469.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.040026821125580175,
+              "mean": 0.018591863377632648,
+              "median": 0.013671937765687913,
+              "p90": 0.03492740235097561
+            },
+            "lower": 24.93777072688264,
+            "quartile": 1,
+            "upper": 31.068502035386146
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.10553650221290713,
+              "mean": 0.03550165246998127,
+              "median": 0.01964522244209099,
+              "p90": 0.07196309020451816
+            },
+            "lower": 31.068502035386146,
+            "quartile": 2,
+            "upper": 37.41754950961236
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.10415698868100985,
+              "mean": 0.031172832813329842,
+              "median": 0.017840497105667548,
+              "p90": 0.06965976330798444
+            },
+            "lower": 37.41754950961236,
+            "quartile": 3,
+            "upper": 41.19713054301714
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.022051397996427705,
+              "mean": 0.014258702812916215,
+              "median": 0.01607643885873614,
+              "p90": 0.019704656156444768
+            },
+            "lower": 41.19713054301714,
+            "quartile": 4,
+            "upper": 47.81834416276851
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.02490815838522152,
+        "correlation_abs_error_with_center_distance": -0.13763839708959563,
+        "correlation_abs_error_with_normalized_x": 0.042655482649646,
+        "correlation_abs_error_with_normalized_y": 0.06256684763386902,
+        "cross_track_error_degrees": {
+          "count": 20,
+          "max": 0.08201093700005951,
+          "mean": 0.015452709087512178,
+          "median": 0.009545032460194306,
+          "p90": 0.024813902311725717
+        },
+        "elevation_error_degrees": {
+          "count": 20,
+          "max": 0.08583900823838064,
+          "mean": 0.017633743015752934,
+          "median": 0.008730772045694835,
+          "p90": 0.0395859815619421
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 729.5457784962235,
+          "global_search": true,
+          "heading": 299.99293498560706,
+          "latitude": -0.17588599985582062,
+          "longitude": -78.47225778286328,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 20,
+          "rms_residual": 0.0006400818589039992,
+          "runtime_seconds": 1.1525528540078085,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 20,
+          "max": 0.19149349798322504,
+          "mean": 0.05198997615060683,
+          "median": 0.04373877397266711,
+          "p90": 0.09988049670515936
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.12009627644345948,
+              "mean": 0.050506862525825445,
+              "median": 0.03455509642252772,
+              "p90": 0.0902403312527128
+            },
+            "lower": 903.0,
+            "quartile": 1,
+            "upper": 1125.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.09763429895645931,
+              "mean": 0.04880361837817654,
+              "median": 0.045822590310243376,
+              "p90": 0.08266651042809078
+            },
+            "lower": 1125.25,
+            "quartile": 2,
+            "upper": 1556.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.05994979377675902,
+              "mean": 0.038400229487357926,
+              "median": 0.038822377751584855,
+              "p90": 0.056065906960311294
+            },
+            "lower": 1556.0,
+            "quartile": 3,
+            "upper": 1941.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.19149349798322504,
+              "mean": 0.07024919421106746,
+              "median": 0.04792732419556974,
+              "p90": 0.1353839112338816
+            },
+            "lower": 1941.25,
+            "quartile": 4,
+            "upper": 2469.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.09763429895645931,
+              "mean": 0.06051881870538476,
+              "median": 0.05994979377675902,
+              "p90": 0.08266651042809078
+            },
+            "lower": 24.892049653914313,
+            "quartile": 1,
+            "upper": 31.138439576321705
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.19149349798322504,
+              "mean": 0.06464988153265387,
+              "median": 0.038822377751584855,
+              "p90": 0.1332251349140324
+            },
+            "lower": 31.138439576321705,
+            "quartile": 2,
+            "upper": 37.39557912746822
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.12009627644345948,
+              "mean": 0.05702591338831266,
+              "median": 0.04792732419556974,
+              "p90": 0.09254557831002228
+            },
+            "lower": 37.39557912746822,
+            "quartile": 3,
+            "upper": 41.171503335484516
+          },
+          {
+            "angular_error_degrees": {
+              "count": 5,
+              "max": 0.04202113447874146,
+              "mean": 0.02576529097607607,
+              "median": 0.02255887744673114,
+              "p90": 0.038756820167769844
+            },
+            "lower": 41.171503335484516,
+            "quartile": 4,
+            "upper": 47.82895415944379
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.13392326997487503,
+        "correlation_abs_error_with_center_distance": -0.4225958943559034,
+        "correlation_abs_error_with_normalized_x": 0.15951462059881283,
+        "correlation_abs_error_with_normalized_y": 0.12861592937760866,
+        "cross_track_error_degrees": {
+          "count": 20,
+          "max": 0.11415075095654162,
+          "mean": 0.034002749279491526,
+          "median": 0.03012386404941962,
+          "p90": 0.0619943933680528
+        },
+        "elevation_error_degrees": {
+          "count": 20,
+          "max": 0.15381052295964537,
+          "mean": 0.03517686530046706,
+          "median": 0.023500124911734588,
+          "p90": 0.055638887940550406
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2517.2641419819056,
+          "global_search": true,
+          "heading": -60.00564615373353,
+          "latitude": -0.18089457193932104,
+          "longitude": -78.49043757684049,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 20,
+          "rms_residual": 0.0011242066805162172,
+          "runtime_seconds": 1.1767357640055707,
+          "valid": true
+        }
+      }
+    },
+    "reykjavik_00_h120": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 14,
+          "max": 0.04312274197417832,
+          "mean": 0.02705284952688517,
+          "median": 0.025774841965398282,
+          "p90": 0.04102027352692899
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04184730151402195,
+              "mean": 0.028546877631680588,
+              "median": 0.032109619917016836,
+              "p90": 0.04102027352692899
+            },
+            "lower": 926.0,
+            "quartile": 1,
+            "upper": 1122.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.038860995599978056,
+              "mean": 0.028697329880723987,
+              "median": 0.03666603973422745,
+              "p90": 0.03842200442682794
+            },
+            "lower": 1122.0,
+            "quartile": 2,
+            "upper": 1314.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.04312274197417832,
+              "mean": 0.025671757148260196,
+              "median": 0.023280468153639863,
+              "p90": 0.03915428721007063
+            },
+            "lower": 1314.5,
+            "quartile": 3,
+            "upper": 1621.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.03684485994393498,
+              "mean": 0.02536128044067937,
+              "median": 0.02405736803991009,
+              "p90": 0.03371769765689697
+            },
+            "lower": 1621.5,
+            "quartile": 4,
+            "upper": 3500.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04184730151402195,
+              "mean": 0.030638016771754484,
+              "median": 0.032109619917016836,
+              "p90": 0.04102027352692899
+            },
+            "lower": 35.11058379565028,
+            "quartile": 1,
+            "upper": 38.4623906944358
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.04312274197417832,
+              "mean": 0.025127148902718888,
+              "median": 0.021693750426011894,
+              "p90": 0.038836943664545036
+            },
+            "lower": 38.4623906944358,
+            "quartile": 2,
+            "upper": 42.00698907200491
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.03684485994393498,
+              "mean": 0.018525963479854704,
+              "median": 0.010612061316962398,
+              "p90": 0.031598300218540466
+            },
+            "lower": 42.00698907200491,
+            "quartile": 3,
+            "upper": 44.77271240307975
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.038860995599978056,
+              "mean": 0.031307122285413415,
+              "median": 0.03154351269401787,
+              "p90": 0.03820250884025287
+            },
+            "lower": 44.77271240307975,
+            "quartile": 4,
+            "upper": 52.458561613919194
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.2359119946926698,
+        "correlation_abs_error_with_center_distance": 0.1638692327858129,
+        "correlation_abs_error_with_normalized_x": 0.1553062505818935,
+        "correlation_abs_error_with_normalized_y": -0.14261645573398946,
+        "cross_track_error_degrees": {
+          "count": 14,
+          "max": 0.03987456914376557,
+          "mean": 0.017894587473148683,
+          "median": 0.013472597898136436,
+          "p90": 0.035713725742453184
+        },
+        "elevation_error_degrees": {
+          "count": 14,
+          "max": 0.04092079279924832,
+          "mean": 0.01795565485916712,
+          "median": 0.016886519169352354,
+          "p90": 0.03145280879883075
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 825.7264361283671,
+          "global_search": true,
+          "heading": -120.01494582263497,
+          "latitude": 64.13952081845123,
+          "longitude": -21.947742333327053,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 14,
+          "rms_residual": 0.0004688015092103537,
+          "runtime_seconds": 1.6307095819938695,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 14,
+          "max": 0.18899119259861014,
+          "mean": 0.041471650372682536,
+          "median": 0.03426020847825273,
+          "p90": 0.05117781254652089
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04874168843950856,
+              "mean": 0.029670770217535346,
+              "median": 0.030480853313677614,
+              "p90": 0.045779116661931234
+            },
+            "lower": 926.0,
+            "quartile": 1,
+            "upper": 1122.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.048132914205558604,
+              "mean": 0.03118375437473134,
+              "median": 0.03320801230064264,
+              "p90": 0.04514793382457541
+            },
+            "lower": 1122.0,
+            "quartile": 2,
+            "upper": 1314.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.05222186573524045,
+              "mean": 0.03467523698464808,
+              "median": 0.04202950469394164,
+              "p90": 0.05018339352698069
+            },
+            "lower": 1314.5,
+            "quartile": 3,
+            "upper": 1621.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.18899119259861014,
+              "mean": 0.06608576256731895,
+              "median": 0.030823503757514775,
+              "p90": 0.14288755621578597
+            },
+            "lower": 1621.5,
+            "quartile": 4,
+            "upper": 3500.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.18899119259861014,
+              "mean": 0.07139475400557843,
+              "median": 0.043804068810213016,
+              "p90": 0.1469163413508797
+            },
+            "lower": 35.0027821662808,
+            "quartile": 1,
+            "upper": 38.453731074141196
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.05222186573524045,
+              "mean": 0.03324820233636536,
+              "median": 0.03531240465586283,
+              "p90": 0.04883997351936493
+            },
+            "lower": 38.453731074141196,
+            "quartile": 2,
+            "upper": 42.029289279602196
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.04202950469394164,
+              "mean": 0.025943204098671846,
+              "median": 0.02209525744643775,
+              "p90": 0.038042655244440865
+            },
+            "lower": 42.029289279602196,
+            "quartile": 3,
+            "upper": 44.77319803905131
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.048132914205558604,
+              "mean": 0.029362467472532523,
+              "median": 0.029771307579904677,
+              "p90": 0.043655443634083815
+            },
+            "lower": 44.77319803905131,
+            "quartile": 4,
+            "upper": 52.45878691108539
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.7999471784404405,
+        "correlation_abs_error_with_center_distance": -0.386351929827044,
+        "correlation_abs_error_with_normalized_x": 0.2832748974811948,
+        "correlation_abs_error_with_normalized_y": 0.19585845543567157,
+        "cross_track_error_degrees": {
+          "count": 14,
+          "max": 0.1482453152793172,
+          "mean": 0.031646598482619144,
+          "median": 0.022188497183952008,
+          "p90": 0.047300524837979765
+        },
+        "elevation_error_degrees": {
+          "count": 14,
+          "max": 0.11749522843060589,
+          "mean": 0.023079875450980985,
+          "median": 0.010774741723480474,
+          "p90": 0.042063175457395734
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 2871.630173668274,
+          "global_search": true,
+          "heading": -120.01324470896827,
+          "latitude": 64.12195517794441,
+          "longitude": -21.960291988326784,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 14,
+          "rms_residual": 0.0010020979986606724,
+          "runtime_seconds": 1.1661909270042088,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 14,
+          "max": 0.062222134976757985,
+          "mean": 0.03168456753736813,
+          "median": 0.02852515060076416,
+          "p90": 0.055674669557274944
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05801883642376264,
+              "mean": 0.035040592460173645,
+              "median": 0.033519279245070865,
+              "p90": 0.05462325148132324
+            },
+            "lower": 926.0,
+            "quartile": 1,
+            "upper": 1122.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.02898733908955422,
+              "mean": 0.01902443138916247,
+              "median": 0.019734253197779817,
+              "p90": 0.02713672191119934
+            },
+            "lower": 1122.0,
+            "quartile": 2,
+            "upper": 1314.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.05020494686880362,
+              "mean": 0.027582789188430493,
+              "median": 0.028646468924389455,
+              "p90": 0.04589325127992079
+            },
+            "lower": 1314.5,
+            "quartile": 3,
+            "upper": 1621.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.062222134976757985,
+              "mean": 0.04089997848742011,
+              "median": 0.038235109399396394,
+              "p90": 0.05797541044022677
+            },
+            "lower": 1621.5,
+            "quartile": 4,
+            "upper": 3500.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05801883642376264,
+              "mean": 0.03749123877200851,
+              "median": 0.03580389006154716,
+              "p90": 0.05462325148132324
+            },
+            "lower": 35.100074315844644,
+            "quartile": 1,
+            "upper": 38.445197438573686
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.028646468924389455,
+              "mean": 0.0218006676938939,
+              "median": 0.028403832277138864,
+              "p90": 0.028597941594939336
+            },
+            "lower": 38.445197438573686,
+            "quartile": 2,
+            "upper": 42.0108320610573
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.048066386521653924,
+              "mean": 0.022356104406847516,
+              "median": 0.015104974926790214,
+              "p90": 0.04147410420268118
+            },
+            "lower": 42.0108320610573,
+            "quartile": 3,
+            "upper": 44.77591340346147
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.062222134976757985,
+              "mean": 0.040287168533223915,
+              "median": 0.03959614297917892,
+              "p90": 0.05861697854437168
+            },
+            "lower": 44.77591340346147,
+            "quartile": 4,
+            "upper": 52.47581663005857
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.0018393155351679375,
+        "correlation_abs_error_with_center_distance": -0.019178105424218796,
+        "correlation_abs_error_with_normalized_x": -0.13903870136902124,
+        "correlation_abs_error_with_normalized_y": 0.2996648037133222,
+        "cross_track_error_degrees": {
+          "count": 14,
+          "max": 0.04747785592123057,
+          "mean": 0.018688325121535253,
+          "median": 0.014058597233323943,
+          "p90": 0.041123082362330234
+        },
+        "elevation_error_degrees": {
+          "count": 14,
+          "max": 0.06082695826827944,
+          "mean": 0.022421224355145597,
+          "median": 0.018506048845189582,
+          "p90": 0.04385255441800952
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 3822.4287608020586,
+          "global_search": true,
+          "heading": -120.02817911700133,
+          "latitude": 64.11542933347688,
+          "longitude": -21.9758205581994,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 14,
+          "rms_residual": 0.00044970489062365993,
+          "runtime_seconds": 1.9500325419940054,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 12,
+          "max": 0.15108237363398425,
+          "mean": 0.061119523532520266,
+          "median": 0.05547847605053102,
+          "p90": 0.12285768997848553
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.09509615000400799,
+              "mean": 0.054998189097686105,
+              "median": 0.04686253179202747,
+              "p90": 0.08544942636161189
+            },
+            "lower": 926.0,
+            "quartile": 1,
+            "upper": 1133.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.050725990889622104,
+              "mean": 0.027920156720403034,
+              "median": 0.026306817424172155,
+              "p90": 0.04584215619653212
+            },
+            "lower": 1133.25,
+            "quartile": 2,
+            "upper": 1359.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.15108237363398425,
+              "mean": 0.09348712417253376,
+              "median": 0.12594230553120525,
+              "p90": 0.14605436001342845
+            },
+            "lower": 1359.5,
+            "quartile": 3,
+            "upper": 1709.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.07634059964605304,
+              "mean": 0.06807262413945821,
+              "median": 0.06764631156088163,
+              "p90": 0.07460174202901876
+            },
+            "lower": 1709.0,
+            "quartile": 4,
+            "upper": 3500.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.09509615000400799,
+              "mean": 0.059454332237490255,
+              "median": 0.06023096121143994,
+              "p90": 0.08812311224549438
+            },
+            "lower": 35.08085002231645,
+            "quartile": 1,
+            "upper": 39.16403208772742
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.07634059964605304,
+              "mean": 0.036458359639213345,
+              "median": 0.026306817424172155,
+              "p90": 0.06633384320167686
+            },
+            "lower": 39.16403208772742,
+            "quartile": 2,
+            "upper": 42.02019191056342
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.06764631156088163,
+              "mean": 0.03931517890177363,
+              "median": 0.04686253179202747,
+              "p90": 0.0634895556071108
+            },
+            "lower": 42.02019191056342,
+            "quartile": 3,
+            "upper": 44.61488112705914
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.15108237363398425,
+              "mean": 0.10925022335160385,
+              "median": 0.12594230553120525,
+              "p90": 0.14605436001342845
+            },
+            "lower": 44.61488112705914,
+            "quartile": 4,
+            "upper": 52.49788691403042
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.15126732581043487,
+        "correlation_abs_error_with_center_distance": 0.24215362540149118,
+        "correlation_abs_error_with_normalized_x": -0.31254873108136816,
+        "correlation_abs_error_with_normalized_y": 0.3480529767357901,
+        "cross_track_error_degrees": {
+          "count": 12,
+          "max": 0.080667427942907,
+          "mean": 0.031901422620872366,
+          "median": 0.02969182448978917,
+          "p90": 0.054770838491936195
+        },
+        "elevation_error_degrees": {
+          "count": 12,
+          "max": 0.14897086808781523,
+          "mean": 0.04496233952678411,
+          "median": 0.031099697647437807,
+          "p90": 0.1199057119152233
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 8179.312398520321,
+          "global_search": true,
+          "heading": -120.0122938646509,
+          "latitude": 64.07540602111625,
+          "longitude": -21.984969752198385,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 12,
+          "rms_residual": 0.0011151215516275997,
+          "runtime_seconds": 1.437223789995187,
+          "valid": true
+        }
+      }
+    },
+    "tokyo_00_h015": {
+      "dao": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.053726773459337636,
+          "mean": 0.03456921230761825,
+          "median": 0.031801432795273595,
+          "p90": 0.05255704734482018
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05313976418994144,
+              "mean": 0.03632109089393775,
+              "median": 0.03618481792126243,
+              "p90": 0.05246713446710713
+            },
+            "lower": 761.0,
+            "quartile": 1,
+            "upper": 973.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05197433049969893,
+              "mean": 0.03566067658517374,
+              "median": 0.034316183548496436,
+              "p90": 0.047759108039358775
+            },
+            "lower": 973.25,
+            "quartile": 2,
+            "upper": 1189.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04719844542830118,
+              "mean": 0.03172463944718144,
+              "median": 0.03727859391693688,
+              "p90": 0.04610848073760758
+            },
+            "lower": 1189.0,
+            "quartile": 3,
+            "upper": 1394.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.053726773459337636,
+              "mean": 0.03457044230418009,
+              "median": 0.031033757733261266,
+              "p90": 0.04739201368633513
+            },
+            "lower": 1394.75,
+            "quartile": 4,
+            "upper": 1944.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05089766511382707,
+              "mean": 0.03132988623761105,
+              "median": 0.027323458146666216,
+              "p90": 0.045411637844477735
+            },
+            "lower": 22.689551625062172,
+            "quartile": 1,
+            "upper": 32.87583043292494
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05313976418994144,
+              "mean": 0.045755329562425666,
+              "median": 0.049586387964000056,
+              "p90": 0.05279013408286869
+            },
+            "lower": 32.87583043292494,
+            "quartile": 2,
+            "upper": 38.918553235541225
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04356522979265585,
+              "mean": 0.02702592850328405,
+              "median": 0.02969777984696477,
+              "p90": 0.04187273754442862
+            },
+            "lower": 38.918553235541225,
+            "quartile": 3,
+            "upper": 43.951229836988915
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.053726773459337636,
+              "mean": 0.03416570492715225,
+              "median": 0.030224282979205583,
+              "p90": 0.04690632883390172
+            },
+            "lower": 43.951229836988915,
+            "quartile": 4,
+            "upper": 47.47134837939194
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.027000900688629183,
+        "correlation_abs_error_with_center_distance": 0.005660590365395409,
+        "correlation_abs_error_with_normalized_x": 0.0461620368243077,
+        "correlation_abs_error_with_normalized_y": 0.23186439295279887,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.052508913346192926,
+          "mean": 0.02540244810170116,
+          "median": 0.026439426054808417,
+          "p90": 0.043307313743781405
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.04145538182592645,
+          "mean": 0.01963185346895746,
+          "median": 0.020548886971322844,
+          "p90": 0.0324846687811835
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 1745.1435408188604,
+          "global_search": true,
+          "heading": 30.005202162935152,
+          "latitude": 35.6679898593094,
+          "longitude": 139.66676508659887,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.0005897311577150344,
+          "runtime_seconds": 1.749851952001336,
+          "valid": true
+        }
+      },
+      "quadratic_peak": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.09105392279344783,
+          "mean": 0.03650503710384403,
+          "median": 0.029593395803762485,
+          "p90": 0.05972198199943517
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.09105392279344783,
+              "mean": 0.038939477013798754,
+              "median": 0.029505048880603856,
+              "p90": 0.07264821703795193
+            },
+            "lower": 761.0,
+            "quartile": 1,
+            "upper": 973.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05487751887633833,
+              "mean": 0.03904346617659987,
+              "median": 0.04493259929131589,
+              "p90": 0.054168047232509814
+            },
+            "lower": 973.25,
+            "quartile": 2,
+            "upper": 1189.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05225407681136132,
+              "mean": 0.029600970761787714,
+              "median": 0.02364871458474853,
+              "p90": 0.044311983978575546
+            },
+            "lower": 1189.0,
+            "quartile": 3,
+            "upper": 1394.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.064566445122532,
+              "mean": 0.03843623446318976,
+              "median": 0.03649595273763133,
+              "p90": 0.05824851682863215
+            },
+            "lower": 1394.75,
+            "quartile": 4,
+            "upper": 1944.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.09105392279344783,
+              "mean": 0.05345671720335731,
+              "median": 0.05853952925972097,
+              "p90": 0.08310767949217308
+            },
+            "lower": 22.671818112796633,
+            "quartile": 1,
+            "upper": 32.89661322677284
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05487751887633833,
+              "mean": 0.036928027093149254,
+              "median": 0.03352707773042499,
+              "p90": 0.049620038769153385
+            },
+            "lower": 32.89661322677284,
+            "quartile": 2,
+            "upper": 38.939207208145305
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.05225407681136132,
+              "mean": 0.027961532152790694,
+              "median": 0.02408045227618604,
+              "p90": 0.045370412013776805
+            },
+            "lower": 38.939207208145305,
+            "quartile": 3,
+            "upper": 43.955663534849776
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04350668414286581,
+              "mean": 0.027673871966078845,
+              "median": 0.025501108233242593,
+              "p90": 0.039300245299725124
+            },
+            "lower": 43.955663534849776,
+            "quartile": 4,
+            "upper": 47.4712966943797
+          }
+        ],
+        "correlation_abs_error_with_brightness": 0.025014616475208126,
+        "correlation_abs_error_with_center_distance": -0.4076149814762232,
+        "correlation_abs_error_with_normalized_x": -0.23471530997206777,
+        "correlation_abs_error_with_normalized_y": 0.6101096790035092,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.08050904323935723,
+          "mean": 0.022452312178484632,
+          "median": 0.017303387504274185,
+          "p90": 0.04290978788796003
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.06389087410290983,
+          "mean": 0.024930966051545767,
+          "median": 0.023278412784527802,
+          "p90": 0.04547459052928815
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 1994.1930900466227,
+          "global_search": true,
+          "heading": 30.009640978649106,
+          "latitude": 35.66608649193503,
+          "longitude": 139.66853113976876,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.0006792572234189052,
+          "runtime_seconds": 1.8863094449916389,
+          "valid": true
+        }
+      },
+      "weighted_radius_3": {
+        "angular_error_degrees": {
+          "count": 16,
+          "max": 0.08751127693533335,
+          "mean": 0.05004869654465817,
+          "median": 0.053884453408030664,
+          "p90": 0.0768186573121788
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.08751127693533335,
+              "mean": 0.07101164297629715,
+              "median": 0.07136220138697566,
+              "p90": 0.08484831133998033
+            },
+            "lower": 761.0,
+            "quartile": 1,
+            "upper": 973.25
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.06898831247698517,
+              "mean": 0.04529840135836479,
+              "median": 0.04418865925430304,
+              "p90": 0.06583635037819045
+            },
+            "lower": 973.25,
+            "quartile": 2,
+            "upper": 1189.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.04796100696626794,
+              "mean": 0.03295380441589634,
+              "median": 0.030420910122040158,
+              "p90": 0.0428201925225603
+            },
+            "lower": 1189.0,
+            "quartile": 3,
+            "upper": 1394.75
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.07500258967353432,
+              "mean": 0.050930937428074384,
+              "median": 0.05590474400905117,
+              "p90": 0.06985725479085751
+            },
+            "lower": 1394.75,
+            "quartile": 4,
+            "upper": 1944.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.07863472495082328,
+              "mean": 0.05512759796049414,
+              "median": 0.05902384622164271,
+              "p90": 0.07427121081251471
+            },
+            "lower": 22.6797515886296,
+            "quartile": 1,
+            "upper": 32.85829917269616
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.06898831247698517,
+              "mean": 0.05731049594670662,
+              "median": 0.05614633217178669,
+              "p90": 0.06583635037819045
+            },
+            "lower": 32.85829917269616,
+            "quartile": 2,
+            "upper": 38.92585805001453
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.08751127693533335,
+              "mean": 0.042811043142520724,
+              "median": 0.030360252590756226,
+              "p90": 0.0705053815009061
+            },
+            "lower": 38.92585805001453,
+            "quartile": 3,
+            "upper": 43.9349272150253
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.07500258967353432,
+              "mean": 0.044945649128911164,
+              "median": 0.04393416741072474,
+              "p90": 0.06985725479085751
+            },
+            "lower": 43.9349272150253,
+            "quartile": 4,
+            "upper": 47.483895525237195
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.24635888511223,
+        "correlation_abs_error_with_center_distance": -0.22670320983671263,
+        "correlation_abs_error_with_normalized_x": -0.09945697332920074,
+        "correlation_abs_error_with_normalized_y": 0.2952967750162677,
+        "cross_track_error_degrees": {
+          "count": 16,
+          "max": 0.08184153068160031,
+          "mean": 0.04051820224992522,
+          "median": 0.03271573517219206,
+          "p90": 0.06931966322657442
+        },
+        "elevation_error_degrees": {
+          "count": 16,
+          "max": 0.07506550673903689,
+          "mean": 0.022295734574033332,
+          "median": 0.01289462510184336,
+          "p90": 0.04662325694552294
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 5176.032446070493,
+          "global_search": true,
+          "heading": 30.00483488195015,
+          "latitude": 35.63010595323283,
+          "longitude": 139.65829133976032,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 16,
+          "rms_residual": 0.0007111418488004402,
+          "runtime_seconds": 1.6814151230064454,
+          "valid": true
+        }
+      },
+      "weighted_radius_5": {
+        "angular_error_degrees": {
+          "count": 15,
+          "max": 0.3217881385816085,
+          "mean": 0.10533325624542048,
+          "median": 0.09330618154887396,
+          "p90": 0.16505891095454972
+        },
+        "brightness_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.3217881385816085,
+              "mean": 0.1648541269652731,
+              "median": 0.13751159368596788,
+              "p90": 0.2777219136473657
+            },
+            "lower": 761.0,
+            "quartile": 1,
+            "upper": 972.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.10357285242879662,
+              "mean": 0.07319266340863308,
+              "median": 0.058934597449453,
+              "p90": 0.0946452014329279
+            },
+            "lower": 972.5,
+            "quartile": 2,
+            "upper": 1243.0
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.12547663111267876,
+              "mean": 0.07501636397356219,
+              "median": 0.0808353921056788,
+              "p90": 0.11410018659611096
+            },
+            "lower": 1243.0,
+            "quartile": 3,
+            "upper": 1418.5
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.15029619418517573,
+              "mean": 0.10023472242501674,
+              "median": 0.11831524928384803,
+              "p90": 0.14820463103526965
+            },
+            "lower": 1418.5,
+            "quartile": 4,
+            "upper": 1944.0
+          }
+        ],
+        "center_distance_quartiles": [
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.3217881385816085,
+              "mean": 0.16223240992851695,
+              "median": 0.13410345184150319,
+              "p90": 0.2777219136473657
+            },
+            "lower": 22.66447230447895,
+            "quartile": 1,
+            "upper": 33.10026215669189
+          },
+          {
+            "angular_error_degrees": {
+              "count": 3,
+              "max": 0.10357285242879662,
+              "mean": 0.08457772790904355,
+              "median": 0.08755514939078604,
+              "p90": 0.1003693118211945
+            },
+            "lower": 33.10026215669189,
+            "quartile": 2,
+            "upper": 39.15714510807118
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.10012246523780341,
+              "mean": 0.06105667024405925,
+              "median": 0.0655930875841106,
+              "p90": 0.09232041611263386
+            },
+            "lower": 39.15714510807118,
+            "quartile": 3,
+            "upper": 44.11097143408047
+          },
+          {
+            "angular_error_degrees": {
+              "count": 4,
+              "max": 0.15029619418517573,
+              "mean": 0.10827733481596795,
+              "median": 0.13440047406575042,
+              "p90": 0.14820463103526965
+            },
+            "lower": 44.11097143408047,
+            "quartile": 4,
+            "upper": 47.49402513565884
+          }
+        ],
+        "correlation_abs_error_with_brightness": -0.22311142062655503,
+        "correlation_abs_error_with_center_distance": -0.39054670685142995,
+        "correlation_abs_error_with_normalized_x": -0.06001366825128674,
+        "correlation_abs_error_with_normalized_y": 0.34284840967140123,
+        "cross_track_error_degrees": {
+          "count": 15,
+          "max": 0.20480591449476002,
+          "mean": 0.0867572194215627,
+          "median": 0.08941397845716993,
+          "p90": 0.15348565063371816
+        },
+        "elevation_error_degrees": {
+          "count": 15,
+          "max": 0.24741109270874517,
+          "mean": 0.04743342656387218,
+          "median": 0.02251940228985916,
+          "p90": 0.10782055288091355
+        },
+        "fixed_solver": {
+          "failure_reason": "",
+          "geographic_error_meters": 18130.983826624753,
+          "global_search": true,
+          "heading": 30.06772937031836,
+          "latitude": 35.51320909974378,
+          "longitude": 139.6446405741269,
+          "max_nfev": 60,
+          "max_starts": 5,
+          "observation_count": 15,
+          "rms_residual": 0.0016451344480669639,
+          "runtime_seconds": 1.9125296330021229,
+          "valid": true
+        }
+      }
+    }
+  },
+  "captures": [
+    "anchorage_00_h135",
+    "london_06_h090",
+    "perth_00_h075",
+    "perth_06_h195",
+    "quito_06_h150",
+    "reykjavik_00_h120",
+    "tokyo_00_h015"
+  ],
+  "methods": [
+    "dao",
+    "weighted_radius_3",
+    "weighted_radius_5",
+    "quadratic_peak"
+  ],
+  "overall": {
+    "dao": {
+      "angular_error_degrees": {
+        "count": 158,
+        "max": 0.602178217985148,
+        "mean": 0.039479933857363106,
+        "median": 0.029438362204792005,
+        "p90": 0.052006258475605735
+      },
+      "cross_track_error_degrees": {
+        "count": 158,
+        "max": 0.4043343785683855,
+        "mean": 0.02743957356645865,
+        "median": 0.019670538242130303,
+        "p90": 0.04376508328911821
+      },
+      "elevation_error_degrees": {
+        "count": 158,
+        "max": 0.57403854678779,
+        "mean": 0.023027576553549083,
+        "median": 0.01624299674801044,
+        "p90": 0.040935475693191135
+      },
+      "fixed_solver": {
+        "capture_count": 7,
+        "geographic_error_meters": {
+          "count": 7,
+          "max": 5229.579495550579,
+          "mean": 2196.7072952270482,
+          "median": 1745.1435408188604,
+          "p90": 4336.980371268695
+        },
+        "runtime_seconds": {
+          "count": 7,
+          "max": 2.2332126300025266,
+          "mean": 1.7364661949977744,
+          "median": 1.749851952001336,
+          "p90": 2.1758657033962665
+        },
+        "valid_count": 7
+      }
+    },
+    "quadratic_peak": {
+      "angular_error_degrees": {
+        "count": 157,
+        "max": 0.6034965845885591,
+        "mean": 0.05194635808826994,
+        "median": 0.03886644918091747,
+        "p90": 0.08076249544593954
+      },
+      "cross_track_error_degrees": {
+        "count": 157,
+        "max": 0.3736719496618682,
+        "mean": 0.034230355824524175,
+        "median": 0.0227834620358646,
+        "p90": 0.0678289085541076
+      },
+      "elevation_error_degrees": {
+        "count": 157,
+        "max": 0.555932062824624,
+        "mean": 0.03272782900910852,
+        "median": 0.02499416429364487,
+        "p90": 0.058361199193329584
+      },
+      "fixed_solver": {
+        "capture_count": 7,
+        "geographic_error_meters": {
+          "count": 7,
+          "max": 6328.5165303809945,
+          "mean": 3208.31500918362,
+          "median": 2766.7571549462127,
+          "p90": 4756.110878319776
+        },
+        "runtime_seconds": {
+          "count": 7,
+          "max": 2.19386737899913,
+          "mean": 1.6245494668588176,
+          "median": 1.8238987140066456,
+          "p90": 2.10795191199868
+        },
+        "valid_count": 7
+      }
+    },
+    "weighted_radius_3": {
+      "angular_error_degrees": {
+        "count": 154,
+        "max": 0.313241161184881,
+        "mean": 0.03791091725832586,
+        "median": 0.02741477238364772,
+        "p90": 0.07754508436763666
+      },
+      "cross_track_error_degrees": {
+        "count": 154,
+        "max": 0.25973629991595204,
+        "mean": 0.0272286725817382,
+        "median": 0.01638294631817712,
+        "p90": 0.05738319323537763
+      },
+      "elevation_error_degrees": {
+        "count": 154,
+        "max": 0.18828421614677637,
+        "mean": 0.021769065271770218,
+        "median": 0.01383865811763485,
+        "p90": 0.04939373097883151
+      },
+      "fixed_solver": {
+        "capture_count": 7,
+        "geographic_error_meters": {
+          "count": 7,
+          "max": 6295.0699753745075,
+          "mean": 3083.7496068595533,
+          "median": 3056.8901279405245,
+          "p90": 5623.647457792099
+        },
+        "runtime_seconds": {
+          "count": 7,
+          "max": 2.2081829590024427,
+          "mean": 1.7339036617174446,
+          "median": 1.9500325419940054,
+          "p90": 2.094337438000366
+        },
+        "valid_count": 7
+      }
+    },
+    "weighted_radius_5": {
+      "angular_error_degrees": {
+        "count": 150,
+        "max": 0.5041170884751008,
+        "mean": 0.07359544186940865,
+        "median": 0.04813127970173018,
+        "p90": 0.1635359180308225
+      },
+      "cross_track_error_degrees": {
+        "count": 150,
+        "max": 0.4347781789865513,
+        "mean": 0.051871695494106085,
+        "median": 0.030264736140903314,
+        "p90": 0.1255856255740194
+      },
+      "elevation_error_degrees": {
+        "count": 150,
+        "max": 0.36851643774693343,
+        "mean": 0.04257340082574949,
+        "median": 0.02309100010572962,
+        "p90": 0.1105638267339998
+      },
+      "fixed_solver": {
+        "capture_count": 7,
+        "geographic_error_meters": {
+          "count": 7,
+          "max": 18130.983826624753,
+          "mean": 5650.868298757516,
+          "median": 2517.2641419819056,
+          "p90": 12159.980969762099
+        },
+        "runtime_seconds": {
+          "count": 7,
+          "max": 2.1304281409975374,
+          "mean": 1.6715252977155615,
+          "median": 1.7396467590006068,
+          "p90": 2.0798251441970934
+        },
+        "valid_count": 7
+      }
+    }
+  },
+  "pairing": {
+    "method": "mutual nearest face centroid to observed panorama directions",
+    "uses_ground_truth_for_pairing": false
+  }
+}

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import json
+import math
 from pathlib import Path
+import time
 
 import cv2
 import rclpy
@@ -8,7 +10,11 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 
-from celestial_interfaces.msg import CelestialObservation, CelestialObservationArray
+from celestial_interfaces.msg import (
+    CelestialFaceArray,
+    CelestialObservation,
+    CelestialObservationArray,
+)
 
 from celestial_detector.angular_projection import pixel_to_az_el
 from celestial_detector.star_detector import detect_stars
@@ -21,6 +27,11 @@ from celestial_detector.gmm_classifier import (
     classify_live_observations,
     cluster_filename,
     load_gmm_boundaries,
+)
+from celestial_detector.face_direction import (
+    direction_to_azimuth_elevation,
+    face_pixel_to_direction,
+    match_face_detections,
 )
 
 _MARKER_COLOR_BGR = {
@@ -49,6 +60,12 @@ class CelestialDetectorNode(Node):
         super().__init__('celestial_detector_node')
 
         self.declare_parameter('input_topic', '/sky_map')
+        self.declare_parameter('face_input_topic', '/celestial_faces')
+        self.declare_parameter('direction_source', 'panorama')
+        self.declare_parameter('face_match_radius_degrees', 2.0)
+        self.declare_parameter('face_match_ambiguity_margin_degrees', 0.25)
+        self.declare_parameter('face_duplicate_radius_degrees', 0.15)
+        self.declare_parameter('face_sync_timeout_seconds', 1.0)
         self.declare_parameter('output_topic', '/celestial_observations')
         self.declare_parameter('detect_stars', True)
         self.declare_parameter('detect_sun', True)
@@ -78,7 +95,23 @@ class CelestialDetectorNode(Node):
         self.declare_parameter('star_benefit_use_medium_error_group', False)
 
         input_topic = self.get_parameter('input_topic').value
+        face_input_topic = self.get_parameter('face_input_topic').value
         output_topic = self.get_parameter('output_topic').value
+        self.direction_source = str(self.get_parameter('direction_source').value).lower()
+        if self.direction_source not in ('panorama', 'original_face'):
+            raise ValueError("direction_source must be 'panorama' or 'original_face'")
+        self.face_match_radius_degrees = float(
+            self.get_parameter('face_match_radius_degrees').value
+        )
+        self.face_match_ambiguity_margin_degrees = float(
+            self.get_parameter('face_match_ambiguity_margin_degrees').value
+        )
+        self.face_duplicate_radius_degrees = float(
+            self.get_parameter('face_duplicate_radius_degrees').value
+        )
+        self.face_sync_timeout_seconds = float(
+            self.get_parameter('face_sync_timeout_seconds').value
+        )
         self.do_stars = self.get_parameter('detect_stars').value
         self.do_sun = self.get_parameter('detect_sun').value
         self.do_moon = self.get_parameter('detect_moon').value
@@ -164,9 +197,24 @@ class CelestialDetectorNode(Node):
         self.bridge = CvBridge()
         self.sub = self.create_subscription(Image, input_topic, self._on_sky_map, 10)
         self.pub = self.create_publisher(CelestialObservationArray, output_topic, 10)
+        self.face_sub = None
+        self.face_timer = None
+        self.face_bundles = {}
+        self.pending_sky_maps = {}
+        if self.direction_source == 'original_face':
+            if not face_input_topic:
+                raise ValueError('face_input_topic is required for original_face direction source')
+            self.face_sub = self.create_subscription(
+                CelestialFaceArray,
+                face_input_topic,
+                self._on_face_bundle,
+                10,
+            )
+            self.face_timer = self.create_timer(0.05, self._expire_pending_sky_maps)
 
         self.get_logger().info(
             f"celestial_detector listening on {input_topic}, publishing on {output_topic}"
+            f", direction source={self.direction_source}"
             + (f", saving debug output to {self.debug_dir}" if self.debug_dir else "")
         )
         if self.star_identifier.enabled:
@@ -197,17 +245,67 @@ class CelestialDetectorNode(Node):
                 f"star benefit filter found no exclusions in {source_paths}"
             )
 
+    @staticmethod
+    def _stamp_key(header):
+        return int(header.stamp.sec), int(header.stamp.nanosec)
+
+    def _on_face_bundle(self, msg):
+        key = self._stamp_key(msg.header)
+        self.face_bundles[key] = msg
+        pending = self.pending_sky_maps.pop(key, None)
+        if pending is not None:
+            self._process_sky_map(pending[0], msg)
+
+    def _expire_pending_sky_maps(self):
+        now = time.monotonic()
+        expired = [
+            key for key, (_, received_at) in self.pending_sky_maps.items()
+            if now - received_at >= self.face_sync_timeout_seconds
+        ]
+        for key in expired:
+            msg, _ = self.pending_sky_maps.pop(key)
+            self.get_logger().error(
+                f'no face bundle arrived for sky map timestamp {key}; '
+                'dropping original-face observation'
+            )
+            self._process_sky_map(msg, None)
+
     def _on_sky_map(self, msg):
+        if self.direction_source != 'original_face':
+            self._process_sky_map(msg, None)
+            return
+
+        key = self._stamp_key(msg.header)
+        face_bundle = self.face_bundles.pop(key, None)
+        if face_bundle is None:
+            self.pending_sky_maps[key] = (msg, time.monotonic())
+            return
+        self._process_sky_map(msg, face_bundle)
+
+    def _process_sky_map(self, msg, face_bundle):
         self.get_logger().info(f"received sky map ({msg.width}x{msg.height})")
+        if self.direction_source == 'original_face' and face_bundle is None:
+            return
         image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         height, width = gray.shape[:2]
 
         observations = []
 
+        face_sources = None
+        if self.direction_source == 'original_face':
+            face_sources = self._detect_face_sources(face_bundle)
+            self.get_logger().info(
+                f"received {len(face_bundle.faces)} face images; "
+                f"face detections stars={len(face_sources['stars'])}, "
+                f"fov={face_bundle.field_of_view_degrees:.3f}"
+            )
+
         sun = detect_sun(gray) if self.do_sun else None
         if sun and sun['confidence'] >= self.min_confidence:
-            observations.append(self._build_observation(sun, width, height, CelestialObservation.SUN, 'SUN'))
+            observations.append(self._build_observation(
+                sun, width, height, CelestialObservation.SUN, 'SUN'
+            ))
 
         moon = detect_moon(gray) if self.do_moon else None
         if (
@@ -220,8 +318,11 @@ class CelestialDetectorNode(Node):
                 'moon detection overlaps the accepted sun detection; suppressing duplicate moon observation'
             )
             moon = None
+
         if moon and moon['confidence'] >= self.min_confidence:
-            observations.append(self._build_observation(moon, width, height, CelestialObservation.MOON, 'MOON'))
+            observations.append(self._build_observation(
+                moon, width, height, CelestialObservation.MOON, 'MOON'
+            ))
 
         if self.do_stars:
             stars = detect_stars(
@@ -234,9 +335,39 @@ class CelestialDetectorNode(Node):
             stars = classify_point_sources(stars)
             stars = [star for star in stars if star['confidence'] >= self.min_confidence]
             stars = identify_stars(stars, (width, height), self.star_identifier)
+            face_matching = None
+            if self.direction_source == 'original_face':
+                face_detections = face_sources['stars']
+                face_matching = match_face_detections(
+                    stars,
+                    face_detections,
+                    (width, height),
+                    max_distance_degrees=self.face_match_radius_degrees,
+                    ambiguity_margin_degrees=self.face_match_ambiguity_margin_degrees,
+                    duplicate_radius_degrees=self.face_duplicate_radius_degrees,
+                )
+                self.get_logger().info(
+                    f"face matching accepted {len(face_matching['matches'])}/"
+                    f"{face_matching['panorama_id_count']} panorama star IDs; "
+                    f"lost={len(face_matching['lost_object_ids'])}, "
+                    f"ambiguous={len(face_matching['ambiguous_object_ids'])}"
+                )
             for star in stars:
+                direction_override = None
+                if face_matching is not None:
+                    match = face_matching['matches'].get(star.get('object_id'))
+                    if match is None:
+                        continue
+                    direction_override = match['face_detection']['direction']
                 observations.append(
-                    self._build_observation(star, width, height, CelestialObservation.STAR, star['object_id'])
+                    self._build_observation(
+                        star,
+                        width,
+                        height,
+                        CelestialObservation.STAR,
+                        star['object_id'],
+                        direction_override=direction_override,
+                    )
                 )
 
         for obs in observations:
@@ -262,8 +393,21 @@ class CelestialDetectorNode(Node):
 
         self._save_debug_output(image, observations, msg.header)
 
-    def _build_observation(self, detection, width, height, object_type, object_id):
-        azimuth, elevation = pixel_to_az_el(detection['pixel_x'], detection['pixel_y'], width, height)
+    def _build_observation(
+        self,
+        detection,
+        width,
+        height,
+        object_type,
+        object_id,
+        direction_override=None,
+    ):
+        if direction_override is None:
+            azimuth, elevation = pixel_to_az_el(
+                detection['pixel_x'], detection['pixel_y'], width, height
+            )
+        else:
+            azimuth, elevation = direction_to_azimuth_elevation(direction_override)
         obs = CelestialObservation()
         obs.object_type = object_type
         obs.object_id = object_id
@@ -275,6 +419,49 @@ class CelestialDetectorNode(Node):
         obs.pixel_y = detection['pixel_y']
         obs.brightness = detection['brightness']
         return obs
+
+    def _detect_face_sources(self, face_bundle):
+        stars = []
+        for face in face_bundle.faces:
+            image = self.bridge.imgmsg_to_cv2(face.image, desired_encoding='bgr8')
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            sun = detect_sun(gray) if self.do_sun else None
+            moon = detect_moon(gray) if self.do_moon else None
+            if (
+                sun
+                and moon
+                and sun['confidence'] >= self.min_confidence
+                and detections_overlap(sun, moon)
+            ):
+                moon = None
+            face_stars = detect_stars(
+                gray,
+                self.star_threshold,
+                [detection for detection in (sun, moon) if detection],
+                minimum_elevation_degrees=-90.0,
+                max_candidates=self.star_max_candidates,
+            )
+            face_stars = classify_point_sources(face_stars)
+            for detection in face_stars:
+                if detection['confidence'] < self.min_confidence:
+                    continue
+                direction = face_pixel_to_direction(
+                    face,
+                    detection['pixel_x'],
+                    detection['pixel_y'],
+                    image.shape[1],
+                    image.shape[0],
+                    face_bundle.field_of_view_degrees,
+                )
+                _, elevation = direction_to_azimuth_elevation(direction)
+                if elevation < self.star_min_elevation:
+                    continue
+                stars.append({
+                    **detection,
+                    'face_name': face.name,
+                    'direction': direction,
+                })
+        return {'stars': stars}
 
     def _load_gmm_model_if_available(self):
         if self.gmm_model is not None or self.gmm_boundaries_path is None:

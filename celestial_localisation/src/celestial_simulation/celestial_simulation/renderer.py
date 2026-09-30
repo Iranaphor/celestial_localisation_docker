@@ -36,7 +36,7 @@ class StellariumRenderer:
             landscape_key=landscape_key,
         )
 
-    def render(self, latitude, longitude, altitude, timestamp_ms, yaw_degrees=0.0):
+    def render_scene(self, latitude, longitude, altitude, timestamp_ms, yaw_degrees=0.0):
         faces = self._bridge.render_faces(
             latitude=latitude,
             longitude=longitude,
@@ -53,7 +53,17 @@ class StellariumRenderer:
         )
         if image.shape != (self.panorama_height, self.panorama_width, 3):
             raise RuntimeError('Stellarium renderer returned an unexpected panorama shape')
-        return np.ascontiguousarray(image, dtype=np.uint8)
+        return np.ascontiguousarray(image, dtype=np.uint8), faces
+
+    def render(self, latitude, longitude, altitude, timestamp_ms, yaw_degrees=0.0):
+        image, _ = self.render_scene(
+            latitude,
+            longitude,
+            altitude,
+            timestamp_ms,
+            yaw_degrees=yaw_degrees,
+        )
+        return image
 
     def close(self):
         self._bridge.close()

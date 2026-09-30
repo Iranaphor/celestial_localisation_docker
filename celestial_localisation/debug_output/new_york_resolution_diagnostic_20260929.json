@@ -1,0 +1,3563 @@
+{
+  "common_all_face_sizes_ids": [
+    "HIP_105199",
+    "HIP_109492",
+    "HIP_112724",
+    "HIP_14328",
+    "HIP_23875",
+    "HIP_25336",
+    "HIP_25930",
+    "HIP_26241",
+    "HIP_26311",
+    "HIP_26727",
+    "HIP_27366",
+    "HIP_30324",
+    "HIP_3179",
+    "HIP_4427",
+    "HIP_5447",
+    "HIP_746",
+    "HIP_9640"
+  ],
+  "higher_resolution_observations_saved": true,
+  "overlap_face_candidates": {
+    "1024": {
+      "HIP_10064": [
+        {
+          "brightness": 1968.0,
+          "distance_to_canonical_degrees": 0.014147282109258726,
+          "face_name": "zenith",
+          "object_id": "HIP_10064",
+          "pixel_x": 290.02710375450846,
+          "pixel_y": 314.4353708524095
+        }
+      ],
+      "HIP_105199": [
+        {
+          "brightness": 3020.0,
+          "distance_to_canonical_degrees": 0.08856086373623347,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_105199",
+          "pixel_x": 655.1826214238803,
+          "pixel_y": 270.91626110207545
+        }
+      ],
+      "HIP_109492": [
+        {
+          "brightness": 1918.0,
+          "distance_to_canonical_degrees": 0.15415864722679337,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_109492",
+          "pixel_x": 584.6763176550554,
+          "pixel_y": 249.83794495026785
+        }
+      ],
+      "HIP_112724": [
+        {
+          "brightness": 1605.0,
+          "distance_to_canonical_degrees": 0.15345949965756753,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_112724",
+          "pixel_x": 638.0029484338785,
+          "pixel_y": 153.46648690752397
+        }
+      ],
+      "HIP_14328": [
+        {
+          "brightness": 2394.0,
+          "distance_to_canonical_degrees": 0.08942919859005136,
+          "face_name": "zenith",
+          "object_id": "HIP_14328",
+          "pixel_x": 321.0468844741659,
+          "pixel_y": 510.4314733640636
+        },
+        {
+          "brightness": 2392.0,
+          "distance_to_canonical_degrees": 0.09452281844032712,
+          "face_name": "zenith",
+          "object_id": "HIP_14328",
+          "pixel_x": 321.0477475687293,
+          "pixel_y": 510.56575256717554
+        }
+      ],
+      "HIP_23875": [
+        {
+          "brightness": 2521.0,
+          "distance_to_canonical_degrees": 0.07068483354907497,
+          "face_name": "zenith",
+          "object_id": "HIP_23875",
+          "pixel_x": 884.1677023416485,
+          "pixel_y": 202.44718646627578
+        }
+      ],
+      "HIP_25336": [
+        {
+          "brightness": 3575.0,
+          "distance_to_canonical_degrees": 0.017756212437437028,
+          "face_name": "zenith",
+          "object_id": "HIP_25336",
+          "pixel_x": 794.7261018999802,
+          "pixel_y": 343.306709358598
+        },
+        {
+          "brightness": 2998.0,
+          "distance_to_canonical_degrees": 0.052880001680681694,
+          "face_name": "zenith",
+          "object_id": "HIP_25336",
+          "pixel_x": 795.1809922386509,
+          "pixel_y": 342.81790078904555
+        }
+      ],
+      "HIP_25606": [
+        {
+          "brightness": 2545.0,
+          "distance_to_canonical_degrees": 0.07932153324061611,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_25606",
+          "pixel_x": 846.92591683366,
+          "pixel_y": 204.9731968676982
+        }
+      ],
+      "HIP_25930": [
+        {
+          "brightness": 2818.0,
+          "distance_to_canonical_degrees": 0.1024110298014442,
+          "face_name": "zenith",
+          "object_id": "HIP_25930",
+          "pixel_x": 875.8039246028519,
+          "pixel_y": 299.8858944995188
+        },
+        {
+          "brightness": 2706.0,
+          "distance_to_canonical_degrees": 0.19287250125532301,
+          "face_name": "zenith",
+          "object_id": "HIP_25930",
+          "pixel_x": 874.3935244057517,
+          "pixel_y": 299.8765121668842
+        }
+      ],
+      "HIP_25985": [
+        {
+          "brightness": 2987.0,
+          "distance_to_canonical_degrees": 0.12378611645783559,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_25985",
+          "pixel_x": 826.3002010739739,
+          "pixel_y": 175.4477577638855
+        }
+      ],
+      "HIP_26241": [
+        {
+          "brightness": 3030.0,
+          "distance_to_canonical_degrees": 0.07445475197149641,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_26241",
+          "pixel_x": 786.6805041653313,
+          "pixel_y": 6.944672693853766
+        },
+        {
+          "brightness": 2899.0,
+          "distance_to_canonical_degrees": 0.08019697310443674,
+          "face_name": "zenith",
+          "object_id": "HIP_26241",
+          "pixel_x": 947.5920752225326,
+          "pixel_y": 255.7054371312825
+        },
+        {
+          "brightness": 3109.0,
+          "distance_to_canonical_degrees": 0.4691977931342069,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_26241",
+          "pixel_x": 787.5084313414148,
+          "pixel_y": 15.099306478727655
+        },
+        {
+          "brightness": 2986.0,
+          "distance_to_canonical_degrees": 0.47321397382085684,
+          "face_name": "zenith",
+          "object_id": "HIP_26241",
+          "pixel_x": 954.9253911385557,
+          "pixel_y": 250.55569898979132
+        }
+      ],
+      "HIP_26311": [
+        {
+          "brightness": 3536.0,
+          "distance_to_canonical_degrees": 0.10993093755991361,
+          "face_name": "zenith",
+          "object_id": "HIP_26311",
+          "pixel_x": 896.125305296834,
+          "pixel_y": 299.70946576590944
+        },
+        {
+          "brightness": 3261.0,
+          "distance_to_canonical_degrees": 0.11763399958352962,
+          "face_name": "zenith",
+          "object_id": "HIP_26311",
+          "pixel_x": 895.3599974966108,
+          "pixel_y": 299.78136488421114
+        }
+      ],
+      "HIP_26727": [
+        {
+          "brightness": 3673.0,
+          "distance_to_canonical_degrees": 0.132366031555753,
+          "face_name": "zenith",
+          "object_id": "HIP_26727",
+          "pixel_x": 914.3298989240726,
+          "pixel_y": 301.8237280444051
+        }
+      ],
+      "HIP_27366": [
+        {
+          "brightness": 2943.0,
+          "distance_to_canonical_degrees": 0.0879083700094218,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_27366",
+          "pixel_x": 756.8848866020527,
+          "pixel_y": 96.62845903336603
+        },
+        {
+          "brightness": 3184.0,
+          "distance_to_canonical_degrees": 0.14898172240980634,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_27366",
+          "pixel_x": 756.8595759236578,
+          "pixel_y": 97.5841109084912
+        }
+      ],
+      "HIP_30324": [
+        {
+          "brightness": 2926.0,
+          "distance_to_canonical_degrees": 0.09396186822733886,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_30324",
+          "pixel_x": 688.7092466358399,
+          "pixel_y": 247.77961141977286
+        },
+        {
+          "brightness": 2936.0,
+          "distance_to_canonical_degrees": 0.1660274057329325,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_30324",
+          "pixel_x": 689.2133127372692,
+          "pixel_y": 248.2919455701664
+        }
+      ],
+      "HIP_3179": [
+        {
+          "brightness": 3432.0,
+          "distance_to_canonical_degrees": 0.049989206683805174,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_3179",
+          "pixel_x": 502.20444423376193,
+          "pixel_y": 2.994577917193937
+        },
+        {
+          "brightness": 3767.0,
+          "distance_to_canonical_degrees": 0.052399230277816226,
+          "face_name": "zenith",
+          "object_id": "HIP_3179",
+          "pixel_x": 78.28618238316963,
+          "pixel_y": 502.93694497676984
+        },
+        {
+          "brightness": 3263.0,
+          "distance_to_canonical_degrees": 0.06058178893576103,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_3179",
+          "pixel_x": 502.23460130176653,
+          "pixel_y": 2.606412563389498
+        }
+      ],
+      "HIP_4427": [
+        {
+          "brightness": 3246.0,
+          "distance_to_canonical_degrees": 0.060120236063511176,
+          "face_name": "zenith",
+          "object_id": "HIP_4427",
+          "pixel_x": 113.23599002773383,
+          "pixel_y": 546.7145951438882
+        },
+        {
+          "brightness": 3308.0,
+          "distance_to_canonical_degrees": 0.07260506104412327,
+          "face_name": "zenith",
+          "object_id": "HIP_4427",
+          "pixel_x": 112.06731936884549,
+          "pixel_y": 546.6954500154509
+        }
+      ],
+      "HIP_5447": [
+        {
+          "brightness": 3183.0,
+          "distance_to_canonical_degrees": 0.022035910466031344,
+          "face_name": "zenith",
+          "object_id": "HIP_5447",
+          "pixel_x": 141.49172056157104,
+          "pixel_y": 271.93878023291586
+        },
+        {
+          "brightness": 3527.0,
+          "distance_to_canonical_degrees": 0.08751402201271924,
+          "face_name": "zenith",
+          "object_id": "HIP_5447",
+          "pixel_x": 140.45794326514155,
+          "pixel_y": 271.9128728407532
+        }
+      ],
+      "HIP_746": [
+        {
+          "brightness": 3817.0,
+          "distance_to_canonical_degrees": 0.13974697218983387,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_746",
+          "pixel_x": 538.850121204531,
+          "pixel_y": 65.55426280349297
+        },
+        {
+          "brightness": 3519.0,
+          "distance_to_canonical_degrees": 0.19575357558123427,
+          "face_name": "zenith",
+          "object_id": "HIP_746",
+          "pixel_x": 16.906090090123573,
+          "pixel_y": 540.3097087238431
+        },
+        {
+          "brightness": 3456.0,
+          "distance_to_canonical_degrees": 0.2776640086658613,
+          "face_name": "zenith",
+          "object_id": "HIP_746",
+          "pixel_x": 15.451065478496707,
+          "pixel_y": 540.333029881526
+        }
+      ],
+      "HIP_9640": [
+        {
+          "brightness": 3574.0,
+          "distance_to_canonical_degrees": 0.04738131908698876,
+          "face_name": "zenith",
+          "object_id": "HIP_9640",
+          "pixel_x": 259.98171178974263,
+          "pixel_y": 379.1998121148267
+        },
+        {
+          "brightness": 3314.0,
+          "distance_to_canonical_degrees": 0.11868790451780126,
+          "face_name": "zenith",
+          "object_id": "HIP_9640",
+          "pixel_x": 259.998806400295,
+          "pixel_y": 380.3890538517925
+        }
+      ]
+    },
+    "2048": {
+      "HIP_105199": [
+        {
+          "brightness": 3049.0,
+          "distance_to_canonical_degrees": 0.14446409942258967,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_105199",
+          "pixel_x": 1312.0320346683457,
+          "pixel_y": 543.0019753533228
+        }
+      ],
+      "HIP_106032": [
+        {
+          "brightness": 1508.0,
+          "distance_to_canonical_degrees": 0.14273800471784964,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_106032",
+          "pixel_x": 1436.0907007586393,
+          "pixel_y": 391.5150630210409
+        }
+      ],
+      "HIP_109492": [
+        {
+          "brightness": 1982.0,
+          "distance_to_canonical_degrees": 0.16243668612881387,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_109492",
+          "pixel_x": 1169.9992551756168,
+          "pixel_y": 500.3046034363354
+        }
+      ],
+      "HIP_111169": [
+        {
+          "brightness": 1473.0,
+          "distance_to_canonical_degrees": 0.17313191934618993,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_111169",
+          "pixel_x": 1014.5292188485204,
+          "pixel_y": 540.4455884067854
+        }
+      ],
+      "HIP_112724": [
+        {
+          "brightness": 1474.0,
+          "distance_to_canonical_degrees": 0.16084363175416946,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_112724",
+          "pixel_x": 1276.5968367053172,
+          "pixel_y": 307.57565064945396
+        }
+      ],
+      "HIP_14328": [
+        {
+          "brightness": 2457.0,
+          "distance_to_canonical_degrees": 0.07996854791714973,
+          "face_name": "zenith",
+          "object_id": "HIP_14328",
+          "pixel_x": 642.807672280406,
+          "pixel_y": 1021.4336152519273
+        }
+      ],
+      "HIP_23875": [
+        {
+          "brightness": 2435.0,
+          "distance_to_canonical_degrees": 0.060604726186325265,
+          "face_name": "zenith",
+          "object_id": "HIP_23875",
+          "pixel_x": 1769.035333654424,
+          "pixel_y": 405.5896657569864
+        }
+      ],
+      "HIP_25336": [
+        {
+          "brightness": 3444.0,
+          "distance_to_canonical_degrees": 0.024309810662184444,
+          "face_name": "zenith",
+          "object_id": "HIP_25336",
+          "pixel_x": 1590.1625989945,
+          "pixel_y": 686.3906715218678
+        },
+        {
+          "brightness": 2969.0,
+          "distance_to_canonical_degrees": 0.1644346877052139,
+          "face_name": "zenith",
+          "object_id": "HIP_25336",
+          "pixel_x": 1593.6090737240077,
+          "pixel_y": 686.2961323211545
+        }
+      ],
+      "HIP_25606": [
+        {
+          "brightness": 2577.0,
+          "distance_to_canonical_degrees": 0.07198384024329943,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_25606",
+          "pixel_x": 1694.112657094492,
+          "pixel_y": 410.3143938093613
+        }
+      ],
+      "HIP_25930": [
+        {
+          "brightness": 2860.0,
+          "distance_to_canonical_degrees": 0.08226861719887546,
+          "face_name": "zenith",
+          "object_id": "HIP_25930",
+          "pixel_x": 1752.989653309377,
+          "pixel_y": 600.2618203533455
+        },
+        {
+          "brightness": 2691.0,
+          "distance_to_canonical_degrees": 0.1215739299102272,
+          "face_name": "zenith",
+          "object_id": "HIP_25930",
+          "pixel_x": 1751.3940174326467,
+          "pixel_y": 600.3149442278843
+        }
+      ],
+      "HIP_25985": [
+        {
+          "brightness": 2873.0,
+          "distance_to_canonical_degrees": 0.12083842759203951,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_25985",
+          "pixel_x": 1653.1713589097974,
+          "pixel_y": 351.26367180872614
+        }
+      ],
+      "HIP_26241": [
+        {
+          "brightness": 3416.0,
+          "distance_to_canonical_degrees": 0.06973334239307387,
+          "face_name": "zenith",
+          "object_id": "HIP_26241",
+          "pixel_x": 1895.7709295158365,
+          "pixel_y": 512.3091991033647
+        },
+        {
+          "brightness": 3344.0,
+          "distance_to_canonical_degrees": 0.07660449025124826,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_26241",
+          "pixel_x": 1573.629805588943,
+          "pixel_y": 13.953570683241347
+        },
+        {
+          "brightness": 2947.0,
+          "distance_to_canonical_degrees": 0.46803932312644053,
+          "face_name": "zenith",
+          "object_id": "HIP_26241",
+          "pixel_x": 1910.37627561595,
+          "pixel_y": 501.8583219973546
+        },
+        {
+          "brightness": 2908.0,
+          "distance_to_canonical_degrees": 0.4715456139551378,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_26241",
+          "pixel_x": 1575.4454477104644,
+          "pixel_y": 30.838159834311007
+        }
+      ],
+      "HIP_26311": [
+        {
+          "brightness": 3348.0,
+          "distance_to_canonical_degrees": 0.10276772836125996,
+          "face_name": "zenith",
+          "object_id": "HIP_26311",
+          "pixel_x": 1791.3962575858916,
+          "pixel_y": 600.3539812604822
+        },
+        {
+          "brightness": 3081.0,
+          "distance_to_canonical_degrees": 0.11676879827508113,
+          "face_name": "zenith",
+          "object_id": "HIP_26311",
+          "pixel_x": 1794.5798373092039,
+          "pixel_y": 600.2798486634002
+        },
+        {
+          "brightness": 3056.0,
+          "distance_to_canonical_degrees": 0.17270969387417348,
+          "face_name": "zenith",
+          "object_id": "HIP_26311",
+          "pixel_x": 1791.6852636211004,
+          "pixel_y": 598.5898727222782
+        }
+      ],
+      "HIP_26727": [
+        {
+          "brightness": 3927.0,
+          "distance_to_canonical_degrees": 0.0918859408308098,
+          "face_name": "zenith",
+          "object_id": "HIP_26727",
+          "pixel_x": 1828.6052929718383,
+          "pixel_y": 605.15492565143
+        },
+        {
+          "brightness": 3741.0,
+          "distance_to_canonical_degrees": 0.11209002806302737,
+          "face_name": "zenith",
+          "object_id": "HIP_26727",
+          "pixel_x": 1828.990564457869,
+          "pixel_y": 604.6538094068104
+        },
+        {
+          "brightness": 3538.0,
+          "distance_to_canonical_degrees": 0.11312015982495449,
+          "face_name": "zenith",
+          "object_id": "HIP_26727",
+          "pixel_x": 1828.275494622702,
+          "pixel_y": 604.6644354702433
+        }
+      ],
+      "HIP_27366": [
+        {
+          "brightness": 3330.0,
+          "distance_to_canonical_degrees": 0.13183815763130752,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_27366",
+          "pixel_x": 1514.2780078177368,
+          "pixel_y": 195.11193278920788
+        },
+        {
+          "brightness": 2737.0,
+          "distance_to_canonical_degrees": 0.17227250140444214,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_27366",
+          "pixel_x": 1514.2328605677433,
+          "pixel_y": 196.36423042123252
+        },
+        {
+          "brightness": 2841.0,
+          "distance_to_canonical_degrees": 0.1962797143835008,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_27366",
+          "pixel_x": 1516.623153422806,
+          "pixel_y": 195.10942040407843
+        }
+      ],
+      "HIP_30324": [
+        {
+          "brightness": 2807.0,
+          "distance_to_canonical_degrees": 0.07713420130391142,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_30324",
+          "pixel_x": 1377.8636675077578,
+          "pixel_y": 495.629040229317
+        },
+        {
+          "brightness": 2891.0,
+          "distance_to_canonical_degrees": 0.11471954839541292,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_30324",
+          "pixel_x": 1375.390987535954,
+          "pixel_y": 496.9609968941383
+        },
+        {
+          "brightness": 2819.0,
+          "distance_to_canonical_degrees": 0.1875393929194944,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_30324",
+          "pixel_x": 1377.8704542084395,
+          "pixel_y": 498.3907508702138
+        }
+      ],
+      "HIP_3179": [
+        {
+          "brightness": 3146.0,
+          "distance_to_canonical_degrees": 0.05029985003761477,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_3179",
+          "pixel_x": 1004.9331810918848,
+          "pixel_y": 6.6404969372789235
+        },
+        {
+          "brightness": 3633.0,
+          "distance_to_canonical_degrees": 0.05251048693164431,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_3179",
+          "pixel_x": 1004.9353962491524,
+          "pixel_y": 7.418793282064505
+        },
+        {
+          "brightness": 3920.0,
+          "distance_to_canonical_degrees": 0.057367204829326675,
+          "face_name": "zenith",
+          "object_id": "HIP_3179",
+          "pixel_x": 156.64455680555008,
+          "pixel_y": 1006.3609523890535
+        },
+        {
+          "brightness": 3507.0,
+          "distance_to_canonical_degrees": 0.0756343934528575,
+          "face_name": "zenith",
+          "object_id": "HIP_3179",
+          "pixel_x": 156.68809567092688,
+          "pixel_y": 1006.8233031710308
+        }
+      ],
+      "HIP_32349": [
+        {
+          "brightness": 4804.0,
+          "distance_to_canonical_degrees": 0.3534652941204288,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_32349",
+          "pixel_x": 1262.381927601686,
+          "pixel_y": 530.7154038620008
+        },
+        {
+          "brightness": 4992.0,
+          "distance_to_canonical_degrees": 0.7637012886209851,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_32349",
+          "pixel_x": 1266.8989677485004,
+          "pixel_y": 537.5350097325196
+        }
+      ],
+      "HIP_4427": [
+        {
+          "brightness": 3429.0,
+          "distance_to_canonical_degrees": 0.06315028487607408,
+          "face_name": "zenith",
+          "object_id": "HIP_4427",
+          "pixel_x": 225.11609783670033,
+          "pixel_y": 1093.9381516519895
+        },
+        {
+          "brightness": 3269.0,
+          "distance_to_canonical_degrees": 0.10785816781802712,
+          "face_name": "zenith",
+          "object_id": "HIP_4427",
+          "pixel_x": 223.4532999164578,
+          "pixel_y": 1093.9434350427737
+        }
+      ],
+      "HIP_5447": [
+        {
+          "brightness": 3227.0,
+          "distance_to_canonical_degrees": 0.06272263785841493,
+          "face_name": "zenith",
+          "object_id": "HIP_5447",
+          "pixel_x": 281.8693585705406,
+          "pixel_y": 543.7186121413865
+        },
+        {
+          "brightness": 3457.0,
+          "distance_to_canonical_degrees": 0.08037860882059313,
+          "face_name": "zenith",
+          "object_id": "HIP_5447",
+          "pixel_x": 281.845868401842,
+          "pixel_y": 544.6739813919612
+        }
+      ],
+      "HIP_6686": [
+        {
+          "brightness": 2980.0,
+          "distance_to_canonical_degrees": 0.054205859553656574,
+          "face_name": "zenith",
+          "object_id": "HIP_6686",
+          "pixel_x": 322.1031551559476,
+          "pixel_y": 1082.315853324519
+        }
+      ],
+      "HIP_746": [
+        {
+          "brightness": 3752.0,
+          "distance_to_canonical_degrees": 0.16761566662652871,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_746",
+          "pixel_x": 1078.7496357859072,
+          "pixel_y": 132.22406532674654
+        },
+        {
+          "brightness": 3733.0,
+          "distance_to_canonical_degrees": 0.17522359846968938,
+          "face_name": "zenith",
+          "object_id": "HIP_746",
+          "pixel_x": 35.07039928184821,
+          "pixel_y": 1081.1526643382222
+        },
+        {
+          "brightness": 3362.0,
+          "distance_to_canonical_degrees": 0.19770761609124102,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_746",
+          "pixel_x": 1078.3130471922475,
+          "pixel_y": 133.4314489928525
+        },
+        {
+          "brightness": 3487.0,
+          "distance_to_canonical_degrees": 0.2146026028676247,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_746",
+          "pixel_x": 1080.5374235054135,
+          "pixel_y": 132.25807427923613
+        },
+        {
+          "brightness": 3534.0,
+          "distance_to_canonical_degrees": 0.22018334207159976,
+          "face_name": "zenith",
+          "object_id": "HIP_746",
+          "pixel_x": 33.45451742213999,
+          "pixel_y": 1081.1797845070446
+        }
+      ],
+      "HIP_9640": [
+        {
+          "brightness": 3378.0,
+          "distance_to_canonical_degrees": 0.04273635052647212,
+          "face_name": "zenith",
+          "object_id": "HIP_9640",
+          "pixel_x": 520.7670900372738,
+          "pixel_y": 759.6946959933128
+        },
+        {
+          "brightness": 3246.0,
+          "distance_to_canonical_degrees": 0.08060897869604704,
+          "face_name": "zenith",
+          "object_id": "HIP_9640",
+          "pixel_x": 519.8646176427978,
+          "pixel_y": 759.6761709453779
+        }
+      ]
+    },
+    "512": {
+      "HIP_10064": [
+        {
+          "brightness": 846.0,
+          "distance_to_canonical_degrees": 0.034065738660915605,
+          "face_name": "zenith",
+          "object_id": "HIP_10064",
+          "pixel_x": 144.65369198902877,
+          "pixel_y": 157.01902398481624
+        }
+      ],
+      "HIP_105199": [
+        {
+          "brightness": 1480.0,
+          "distance_to_canonical_degrees": 0.13831473324888266,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_105199",
+          "pixel_x": 327.5053560232299,
+          "pixel_y": 135.41608677699878
+        }
+      ],
+      "HIP_106032": [
+        {
+          "brightness": 793.0,
+          "distance_to_canonical_degrees": 0.10530486492017095,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_106032",
+          "pixel_x": 358.43158461783753,
+          "pixel_y": 97.41192493914957
+        }
+      ],
+      "HIP_109492": [
+        {
+          "brightness": 1045.0,
+          "distance_to_canonical_degrees": 0.15331410293806294,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_109492",
+          "pixel_x": 292.2745872531192,
+          "pixel_y": 124.56456153038648
+        }
+      ],
+      "HIP_111169": [
+        {
+          "brightness": 926.0,
+          "distance_to_canonical_degrees": 0.16526791739181768,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_111169",
+          "pixel_x": 253.53241346347724,
+          "pixel_y": 134.5206168490451
+        }
+      ],
+      "HIP_112724": [
+        {
+          "brightness": 849.0,
+          "distance_to_canonical_degrees": 0.13997095181052613,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_112724",
+          "pixel_x": 318.4933929862997,
+          "pixel_y": 76.55876239423236
+        }
+      ],
+      "HIP_14328": [
+        {
+          "brightness": 1054.0,
+          "distance_to_canonical_degrees": 0.06630901951888286,
+          "face_name": "zenith",
+          "object_id": "HIP_14328",
+          "pixel_x": 160.40472085844556,
+          "pixel_y": 254.99730219666523
+        }
+      ],
+      "HIP_22449": [
+        {
+          "brightness": 829.0,
+          "distance_to_canonical_degrees": 0.035373452103195355,
+          "face_name": "zenith",
+          "object_id": "HIP_22449",
+          "pixel_x": 363.99517254906704,
+          "pixel_y": 142.60629451849363
+        }
+      ],
+      "HIP_23875": [
+        {
+          "brightness": 1055.0,
+          "distance_to_canonical_degrees": 0.07408879348204679,
+          "face_name": "zenith",
+          "object_id": "HIP_23875",
+          "pixel_x": 441.73794590992907,
+          "pixel_y": 100.99651532040785
+        }
+      ],
+      "HIP_25336": [
+        {
+          "brightness": 2061.0,
+          "distance_to_canonical_degrees": 0.039537103721537,
+          "face_name": "zenith",
+          "object_id": "HIP_25336",
+          "pixel_x": 397.17787742651694,
+          "pixel_y": 171.1299712334852
+        }
+      ],
+      "HIP_25930": [
+        {
+          "brightness": 1509.0,
+          "distance_to_canonical_degrees": 0.08173298084665791,
+          "face_name": "zenith",
+          "object_id": "HIP_25930",
+          "pixel_x": 438.136481698067,
+          "pixel_y": 149.6261719192875
+        }
+      ],
+      "HIP_26207": [
+        {
+          "brightness": 1064.0,
+          "distance_to_canonical_degrees": 0.06184332802346523,
+          "face_name": "zenith",
+          "object_id": "HIP_26207",
+          "pixel_x": 389.72713182394915,
+          "pixel_y": 193.53385477397057
+        }
+      ],
+      "HIP_26241": [
+        {
+          "brightness": 1731.0,
+          "distance_to_canonical_degrees": 0.08432831988241919,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_26241",
+          "pixel_x": 393.22306136430274,
+          "pixel_y": 3.5322055716810272
+        },
+        {
+          "brightness": 1673.0,
+          "distance_to_canonical_degrees": 0.08472780310934423,
+          "face_name": "zenith",
+          "object_id": "HIP_26241",
+          "pixel_x": 473.88103783461185,
+          "pixel_y": 127.28416938739609
+        },
+        {
+          "brightness": 1535.0,
+          "distance_to_canonical_degrees": 0.4500360376877283,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_26241",
+          "pixel_x": 393.4372280799192,
+          "pixel_y": 7.178761238520908
+        },
+        {
+          "brightness": 1563.0,
+          "distance_to_canonical_degrees": 0.4550087465359025,
+          "face_name": "zenith",
+          "object_id": "HIP_26241",
+          "pixel_x": 477.2118392316644,
+          "pixel_y": 125.23195500975307
+        }
+      ],
+      "HIP_26311": [
+        {
+          "brightness": 2142.0,
+          "distance_to_canonical_degrees": 0.08043523204555558,
+          "face_name": "zenith",
+          "object_id": "HIP_26311",
+          "pixel_x": 447.6050727548059,
+          "pixel_y": 149.80584040384218
+        }
+      ],
+      "HIP_26727": [
+        {
+          "brightness": 2187.0,
+          "distance_to_canonical_degrees": 0.09477733342648831,
+          "face_name": "zenith",
+          "object_id": "HIP_26727",
+          "pixel_x": 456.8411579501802,
+          "pixel_y": 150.89677262991907
+        },
+        {
+          "brightness": 794.0,
+          "distance_to_canonical_degrees": 0.9235610907590901,
+          "face_name": "zenith",
+          "object_id": "HIP_26727",
+          "pixel_x": 458.5924339929834,
+          "pixel_y": 145.68389256056776
+        }
+      ],
+      "HIP_27366": [
+        {
+          "brightness": 1513.0,
+          "distance_to_canonical_degrees": 0.13881086878394555,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_27366",
+          "pixel_x": 378.1896884442369,
+          "pixel_y": 48.45907724915207
+        }
+      ],
+      "HIP_30324": [
+        {
+          "brightness": 1787.0,
+          "distance_to_canonical_degrees": 0.12905586209748965,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_30324",
+          "pixel_x": 344.0762907895353,
+          "pixel_y": 123.8858543484902
+        }
+      ],
+      "HIP_3179": [
+        {
+          "brightness": 1801.0,
+          "distance_to_canonical_degrees": 0.03628244837376445,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_3179",
+          "pixel_x": 250.7626312637188,
+          "pixel_y": 1.446248980354566
+        },
+        {
+          "brightness": 1854.0,
+          "distance_to_canonical_degrees": 0.06674797893450866,
+          "face_name": "zenith",
+          "object_id": "HIP_3179",
+          "pixel_x": 38.75390438299747,
+          "pixel_y": 251.26161266055797
+        },
+        {
+          "brightness": 1063.0,
+          "distance_to_canonical_degrees": 1.7427727848567889,
+          "face_name": "zenith",
+          "object_id": "HIP_3179",
+          "pixel_x": 48.29020084773501,
+          "pixel_y": 257.66004997252406
+        }
+      ],
+      "HIP_32349": [
+        {
+          "brightness": 4353.0,
+          "distance_to_canonical_degrees": 0.882396152417631,
+          "face_name": "azimuth_90",
+          "object_id": "HIP_32349",
+          "pixel_x": 316.5109728254362,
+          "pixel_y": 134.65419425734004
+        }
+      ],
+      "HIP_4427": [
+        {
+          "brightness": 1974.0,
+          "distance_to_canonical_degrees": 0.06844763983855828,
+          "face_name": "zenith",
+          "object_id": "HIP_4427",
+          "pixel_x": 55.98680700784446,
+          "pixel_y": 273.1750634613565
+        },
+        {
+          "brightness": 802.0,
+          "distance_to_canonical_degrees": 0.601277607232653,
+          "face_name": "zenith",
+          "object_id": "HIP_4427",
+          "pixel_x": 55.70157574368533,
+          "pixel_y": 276.0704534104388
+        }
+      ],
+      "HIP_5447": [
+        {
+          "brightness": 1744.0,
+          "distance_to_canonical_degrees": 0.06848553563392856,
+          "face_name": "zenith",
+          "object_id": "HIP_5447",
+          "pixel_x": 70.11491611811819,
+          "pixel_y": 135.70954075041547
+        }
+      ],
+      "HIP_6686": [
+        {
+          "brightness": 1438.0,
+          "distance_to_canonical_degrees": 0.08125774673914535,
+          "face_name": "zenith",
+          "object_id": "HIP_6686",
+          "pixel_x": 80.37580920421584,
+          "pixel_y": 270.38032458439716
+        }
+      ],
+      "HIP_746": [
+        {
+          "brightness": 1926.0,
+          "distance_to_canonical_degrees": 0.15641942287695879,
+          "face_name": "azimuth_270",
+          "object_id": "HIP_746",
+          "pixel_x": 269.32575286682516,
+          "pixel_y": 32.57611244672064
+        },
+        {
+          "brightness": 2014.0,
+          "distance_to_canonical_degrees": 0.16445068298559423,
+          "face_name": "zenith",
+          "object_id": "HIP_746",
+          "pixel_x": 8.440056950121193,
+          "pixel_y": 269.7645710455431
+        }
+      ],
+      "HIP_7607": [
+        {
+          "brightness": 757.0,
+          "distance_to_canonical_degrees": 0.0866079111724493,
+          "face_name": "zenith",
+          "object_id": "HIP_7607",
+          "pixel_x": 98.29304803712769,
+          "pixel_y": 213.46891584772555
+        }
+      ],
+      "HIP_9640": [
+        {
+          "brightness": 1620.0,
+          "distance_to_canonical_degrees": 0.05811100813068708,
+          "face_name": "zenith",
+          "object_id": "HIP_9640",
+          "pixel_x": 129.69453884653277,
+          "pixel_y": 189.49211058733903
+        }
+      ]
+    }
+  },
+  "resolution_observations": {
+    "1024": {
+      "ambiguous_canonical_ids": [],
+      "dropped_canonical_ids": [
+        "HIP_106032",
+        "HIP_111169",
+        "HIP_22449",
+        "HIP_26207",
+        "HIP_32349",
+        "HIP_6686",
+        "HIP_7607"
+      ],
+      "matched_id_count": 20,
+      "signed_truth_errors": [
+        {
+          "angular_error_deg": 0.05364945166092466,
+          "cross_track_error_deg": -0.05355615785816029,
+          "object_id": "HIP_105199",
+          "signed_azimuth_error_deg": -0.0596458597194669,
+          "signed_elevation_error_deg": 0.0031748369513238117
+        },
+        {
+          "angular_error_deg": 0.007995485179212959,
+          "cross_track_error_deg": -0.007993415289973323,
+          "object_id": "HIP_109492",
+          "signed_azimuth_error_deg": -0.009126725334454022,
+          "signed_elevation_error_deg": 0.00018222876908069452
+        },
+        {
+          "angular_error_deg": 0.006390156223158068,
+          "cross_track_error_deg": 0.0015052520048806097,
+          "object_id": "HIP_112724",
+          "signed_azimuth_error_deg": 0.001869878130946745,
+          "signed_elevation_error_deg": -0.006210324606783502
+        },
+        {
+          "angular_error_deg": 0.011774987328271607,
+          "cross_track_error_deg": -0.009792255847262909,
+          "object_id": "HIP_14328",
+          "signed_azimuth_error_deg": -0.026040969985615448,
+          "signed_elevation_error_deg": -0.006537208508902381
+        },
+        {
+          "angular_error_deg": 0.010932282016721548,
+          "cross_track_error_deg": 0.01064997311361718,
+          "object_id": "HIP_23875",
+          "signed_azimuth_error_deg": 0.014829510878342944,
+          "signed_elevation_error_deg": 0.0024693318701309863
+        },
+        {
+          "angular_error_deg": 0.04574540538121124,
+          "cross_track_error_deg": -0.01918731208804316,
+          "object_id": "HIP_25336",
+          "signed_azimuth_error_deg": -0.033356869035486625,
+          "signed_elevation_error_deg": 0.0415315390801112
+        },
+        {
+          "angular_error_deg": 0.05715842621371108,
+          "cross_track_error_deg": 0.03445758141507721,
+          "object_id": "HIP_25930",
+          "signed_azimuth_error_deg": 0.051526705014850904,
+          "signed_elevation_error_deg": 0.045615918748140416
+        },
+        {
+          "angular_error_deg": 0.4920500838633645,
+          "cross_track_error_deg": -0.05214472261231745,
+          "object_id": "HIP_26241",
+          "signed_azimuth_error_deg": -0.07056955011435662,
+          "signed_elevation_error_deg": 0.4893009847597014
+        },
+        {
+          "angular_error_deg": 0.035325753999703446,
+          "cross_track_error_deg": -0.008008802115610525,
+          "object_id": "HIP_26311",
+          "signed_azimuth_error_deg": -0.011728077097131973,
+          "signed_elevation_error_deg": -0.03440533080215147
+        },
+        {
+          "angular_error_deg": 0.02689912112592354,
+          "cross_track_error_deg": 0.010813459983593544,
+          "object_id": "HIP_26727",
+          "signed_azimuth_error_deg": 0.015554560805298934,
+          "signed_elevation_error_deg": -0.024628841567754023
+        },
+        {
+          "angular_error_deg": 0.019922084619309128,
+          "cross_track_error_deg": 0.0015764172851739173,
+          "object_id": "HIP_27366",
+          "signed_azimuth_error_deg": 0.002001533792764576,
+          "signed_elevation_error_deg": -0.019859599462456856
+        },
+        {
+          "angular_error_deg": 0.05343389424990935,
+          "cross_track_error_deg": 0.05136182196796386,
+          "object_id": "HIP_30324",
+          "signed_azimuth_error_deg": 0.058009129547457405,
+          "signed_elevation_error_deg": -0.014723740028372845
+        },
+        {
+          "angular_error_deg": 0.013166746813099752,
+          "cross_track_error_deg": 0.001578846818075863,
+          "object_id": "HIP_3179",
+          "signed_azimuth_error_deg": 0.0023264902011987942,
+          "signed_elevation_error_deg": 0.013071766530771356
+        },
+        {
+          "angular_error_deg": 0.03486733403791123,
+          "cross_track_error_deg": -0.006552685244552376,
+          "object_id": "HIP_4427",
+          "signed_azimuth_error_deg": -0.010092631047882605,
+          "signed_elevation_error_deg": -0.03424563096972122
+        },
+        {
+          "angular_error_deg": 0.018129736982868117,
+          "cross_track_error_deg": 0.009315397816390769,
+          "object_id": "HIP_5447",
+          "signed_azimuth_error_deg": 0.01359403867780884,
+          "signed_elevation_error_deg": -0.015552674830601632
+        },
+        {
+          "angular_error_deg": 0.014446224335168376,
+          "cross_track_error_deg": 1.444411019904353e-05,
+          "object_id": "HIP_746",
+          "signed_azimuth_error_deg": 1.99072772488762e-05,
+          "signed_elevation_error_deg": 0.01444621710432159
+        },
+        {
+          "angular_error_deg": 0.04058427140674007,
+          "cross_track_error_deg": -0.036730474750577634,
+          "object_id": "HIP_9640",
+          "signed_azimuth_error_deg": -0.0709293683507326,
+          "signed_elevation_error_deg": -0.0172419484075661
+        }
+      ],
+      "signed_truth_summary": {
+        "angular_error_deg": {
+          "count": 17,
+          "max": 0.4920500838633645,
+          "mean": 0.05543949679042404,
+          "median": 0.02689912112592354,
+          "p90": 0.05505304148203923
+        },
+        "cross_track_error_deg": {
+          "count": 17,
+          "max": 0.05355615785816029,
+          "mean": 0.01854347178361586,
+          "median": 0.009792255847262909,
+          "p90": 0.051674982225705296
+        },
+        "elevation_error_deg": {
+          "count": 17,
+          "max": 0.4893009847597014,
+          "mean": 0.046070477823405384,
+          "median": 0.015552674830601632,
+          "p90": 0.04316529094732289
+        }
+      },
+      "solver": {
+        "failure_reason": "",
+        "ground_truth_objective": {
+          "max_residual": 0.00858786765746487,
+          "raw_half_squared": 3.9525605070895025e-05,
+          "rms_residual": 0.002156402370804479,
+          "soft_l1": 3.9524924743350454e-05
+        },
+        "leave_one_out": [
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007997044492146152,
+              "raw_half_squared": 3.6569432350968105e-05,
+              "rms_residual": 0.0021380315815887783,
+              "soft_l1": 3.656891993508715e-05
+            },
+            "removed_object_id": "HIP_105199",
+            "selected_state": {
+              "geographic_error_meters": 3744.9297759257743,
+              "heading": 45.017084072522884,
+              "latitude": 40.6808729693017,
+              "longitude": -73.99185953808892
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00799837362498934,
+              "raw_half_squared": 3.693080785495115e-05,
+              "rms_residual": 0.002148569519905952,
+              "soft_l1": 3.693029494944433e-05
+            },
+            "removed_object_id": "HIP_109492",
+            "selected_state": {
+              "geographic_error_meters": 3753.22341540154,
+              "heading": 45.024635226634324,
+              "latitude": 40.6818662582431,
+              "longitude": -73.98818623723169
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.008002763416074836,
+              "raw_half_squared": 3.696811691049972e-05,
+              "rms_residual": 0.0021496545335966113,
+              "soft_l1": 3.6967602886850415e-05
+            },
+            "removed_object_id": "HIP_112724",
+            "selected_state": {
+              "geographic_error_meters": 3723.7112523293654,
+              "heading": 45.02571536985872,
+              "latitude": 40.682222152670406,
+              "longitude": -73.98798975145844
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007998659560148828,
+              "raw_half_squared": 3.695909589050737e-05,
+              "rms_residual": 0.002149392236496964,
+              "soft_l1": 3.695858290786447e-05
+            },
+            "removed_object_id": "HIP_14328",
+            "selected_state": {
+              "geographic_error_meters": 3723.9068238464324,
+              "heading": 45.0224703151065,
+              "latitude": 40.681534185524484,
+              "longitude": -73.99017112542195
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007988451517851795,
+              "raw_half_squared": 3.692753160820481e-05,
+              "rms_residual": 0.0021484742146522496,
+              "soft_l1": 3.692702117130686e-05
+            },
+            "removed_object_id": "HIP_23875",
+            "selected_state": {
+              "geographic_error_meters": 3748.888663395906,
+              "heading": 45.02345784121499,
+              "latitude": 40.6808508979584,
+              "longitude": -73.99179879751303
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.008052677451400621,
+              "raw_half_squared": 3.702777067660087e-05,
+              "rms_residual": 0.002151388234274583,
+              "soft_l1": 3.702724394116785e-05
+            },
+            "removed_object_id": "HIP_25336",
+            "selected_state": {
+              "geographic_error_meters": 3443.906368858808,
+              "heading": 45.02276270523461,
+              "latitude": 40.68488716468615,
+              "longitude": -73.98829752083478
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.008025935779417145,
+              "raw_half_squared": 3.678839249280522e-05,
+              "rms_residual": 0.002144422780517091,
+              "soft_l1": 3.678787258665217e-05
+            },
+            "removed_object_id": "HIP_25930",
+            "selected_state": {
+              "geographic_error_meters": 3480.865380810383,
+              "heading": 45.02333348854419,
+              "latitude": 40.682779687255334,
+              "longitude": -73.99429650632676
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.0009332226549165477,
+              "raw_half_squared": 2.386623019904343e-06,
+              "rms_residual": 0.000546193992541151,
+              "soft_l1": 2.386622661498805e-06
+            },
+            "removed_object_id": "HIP_26241",
+            "selected_state": {
+              "geographic_error_meters": 1573.9906507427859,
+              "heading": 45.01131131248786,
+              "latitude": 40.71842610089971,
+              "longitude": -73.98886295074884
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007948816986894893,
+              "raw_half_squared": 3.637838611411721e-05,
+              "rms_residual": 0.0021324395101068286,
+              "soft_l1": 3.637788581989376e-05
+            },
+            "removed_object_id": "HIP_26311",
+            "selected_state": {
+              "geographic_error_meters": 4031.664854000407,
+              "heading": 45.024494956329484,
+              "latitude": 40.6788669520161,
+              "longitude": -73.98915235713748
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00794931254388372,
+              "raw_half_squared": 3.6512830887143646e-05,
+              "rms_residual": 0.0021363763387785765,
+              "soft_l1": 3.6512330353843936e-05
+            },
+            "removed_object_id": "HIP_26727",
+            "selected_state": {
+              "geographic_error_meters": 3992.3930467227237,
+              "heading": 45.024874638658126,
+              "latitude": 40.678739619128116,
+              "longitude": -73.99101850463231
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007960175892518974,
+              "raw_half_squared": 3.6636162247065277e-05,
+              "rms_residual": 0.0021399813739570632,
+              "soft_l1": 3.6635658965167295e-05
+            },
+            "removed_object_id": "HIP_27366",
+            "selected_state": {
+              "geographic_error_meters": 3941.2305689220584,
+              "heading": 45.02479073959565,
+              "latitude": 40.6794559290535,
+              "longitude": -73.99014656019492
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007933187264465685,
+              "raw_half_squared": 3.603784476234695e-05,
+              "rms_residual": 0.0021224350626799795,
+              "soft_l1": 3.603734858947938e-05
+            },
+            "removed_object_id": "HIP_30324",
+            "selected_state": {
+              "geographic_error_meters": 4040.641679942341,
+              "heading": 45.029779544784816,
+              "latitude": 40.677989187834775,
+              "longitude": -73.99224987341032
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00799355148156629,
+              "raw_half_squared": 3.6796995967067694e-05,
+              "rms_residual": 0.002144673517317604,
+              "soft_l1": 3.679648431154092e-05
+            },
+            "removed_object_id": "HIP_3179",
+            "selected_state": {
+              "geographic_error_meters": 3815.971155271638,
+              "heading": 45.02610462000267,
+              "latitude": 40.68185984529341,
+              "longitude": -73.98641769629492
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.008032849718569966,
+              "raw_half_squared": 3.707898111782703e-05,
+              "rms_residual": 0.0021528754352559227,
+              "soft_l1": 3.7078459452777324e-05
+            },
+            "removed_object_id": "HIP_4427",
+            "selected_state": {
+              "geographic_error_meters": 3505.4375897406917,
+              "heading": 45.02177698623835,
+              "latitude": 40.68340563175611,
+              "longitude": -73.99097238707763
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.008029507289392824,
+              "raw_half_squared": 3.708608846182724e-05,
+              "rms_residual": 0.002153081758254527,
+              "soft_l1": 3.7085567651251594e-05
+            },
+            "removed_object_id": "HIP_5447",
+            "selected_state": {
+              "geographic_error_meters": 3541.6607539003708,
+              "heading": 45.02305015917456,
+              "latitude": 40.68341746400803,
+              "longitude": -73.9897840535741
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007988539382069712,
+              "raw_half_squared": 3.676453765867086e-05,
+              "rms_residual": 0.002143727409754761,
+              "soft_l1": 3.6764027270708155e-05
+            },
+            "removed_object_id": "HIP_746",
+            "selected_state": {
+              "geographic_error_meters": 3841.3623318053524,
+              "heading": 45.02619529871576,
+              "latitude": 40.68156237027359,
+              "longitude": -73.98654123243814
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00798615247409094,
+              "raw_half_squared": 3.6650840810125114e-05,
+              "rms_residual": 0.002140410031107507,
+              "soft_l1": 3.665033107180804e-05
+            },
+            "removed_object_id": "HIP_9640",
+            "selected_state": {
+              "geographic_error_meters": 3784.1934639206797,
+              "heading": 45.017942496846075,
+              "latitude": 40.68017750807743,
+              "longitude": -73.9932153047565
+            },
+            "valid": true
+          }
+        ],
+        "observation_count": 17,
+        "runtime_seconds": 1.222389254005975,
+        "selected_objective": {
+          "max_residual": 0.00803094514121796,
+          "raw_half_squared": 3.708727297342459e-05,
+          "rms_residual": 0.0020888294772692132,
+          "soft_l1": 3.7086751794701556e-05
+        },
+        "selected_state": {
+          "geographic_error_meters": 3527.7935910265774,
+          "heading": 45.02292798303705,
+          "latitude": 40.683466656248235,
+          "longitude": -73.99005671893482
+        },
+        "start_diagnostics": [
+          {
+            "cost": 3.70867518422191e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.68346532592326,
+              -73.99005830536115,
+              45.02293308868595
+            ],
+            "geographic_error_meters": 3527.879414911085,
+            "initial_state": [
+              51.5,
+              -0.1,
+              0.0
+            ],
+            "max_residual": 0.008030918454949746,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 26,
+            "optimality": 6.549951699767675e-06,
+            "residuals": [
+              0.000973759669539325,
+              0.0005412232146618504,
+              0.00046859131960780417,
+              0.0004898321448629169,
+              0.000537887839145915,
+              0.00032512550322547453,
+              0.0007361775110768195,
+              0.008030918454949746,
+              0.0011514494201140663,
+              0.001028461912125892,
+              0.0009142017838115407,
+              0.0013652529030701833,
+              0.000735172788163151,
+              0.00012133550288370003,
+              4.6839939512519686e-05,
+              0.0007755978044697191,
+              0.0008939051419880643
+            ],
+            "rms_residual": 0.002088829478408196,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.708675182001464e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.6834662186083,
+              -73.99005434298759,
+              45.02292639199279
+            ],
+            "geographic_error_meters": 3527.914902572443,
+            "initial_state": [
+              -60.0,
+              -135.0,
+              0.0
+            ],
+            "max_residual": 0.008030935834815404,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 33,
+            "optimality": 2.78996705447876e-06,
+            "residuals": [
+              0.0009738617126797675,
+              0.0005412439723138845,
+              0.0004685695512929021,
+              0.0004898631186958976,
+              0.0005378125634141085,
+              0.0003252423819696394,
+              0.000736037786525985,
+              0.008030935834815404,
+              0.0011514535389705457,
+              0.0010284174454934744,
+              0.0009141725758745187,
+              0.0013651215896025234,
+              0.0007351985085842148,
+              0.000121377903494739,
+              4.6921914331188616e-05,
+              0.000775617398524258,
+              0.0008939655752855222
+            ],
+            "rms_residual": 0.002088829477928284,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.708675182467758e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.68346567683385,
+              -73.99006171593872,
+              45.022921237662445
+            ],
+            "geographic_error_meters": 3527.7338146451225,
+            "initial_state": [
+              -60.0,
+              -135.0,
+              180.0
+            ],
+            "max_residual": 0.008030945068633165,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 26,
+            "optimality": 2.624981205517849e-06,
+            "residuals": [
+              0.0009738739211750172,
+              0.0005411950782795513,
+              0.0004685118445229369,
+              0.0004898548868509815,
+              0.0005378401905322735,
+              0.0003251868173286292,
+              0.0007361070899246798,
+              0.008030945068633165,
+              0.0011514335225396696,
+              0.0010284173690475432,
+              0.0009141629132000865,
+              0.0013651333100309436,
+              0.0007351337583240621,
+              0.00012146328917999257,
+              4.6847953838530946e-05,
+              0.0007755571488690322,
+              0.0008939958714450937
+            ],
+            "rms_residual": 0.0020888294781140084,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.7086751820236685e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.6834656605657,
+              -73.9900552999371,
+              45.0229255176425
+            ],
+            "geographic_error_meters": 3527.941536679531,
+            "initial_state": [
+              -60.0,
+              -45.0,
+              0.0
+            ],
+            "max_residual": 0.008030928952530091,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 34,
+            "optimality": 3.026285552318491e-06,
+            "residuals": [
+              0.0009738718720190251,
+              0.000541244618103127,
+              0.0004685671628616774,
+              0.0004898709833992579,
+              0.0005378229477219891,
+              0.0003252309760814095,
+              0.0007360432922035744,
+              0.008030928952530091,
+              0.0011514591357158128,
+              0.0010284249897819853,
+              0.0009141790704974468,
+              0.001365126473042626,
+              0.0007351958879656922,
+              0.00012139054410318857,
+              4.6917504804958995e-05,
+              0.0007756156551413952,
+              0.0008939784494319174
+            ],
+            "rms_residual": 0.0020888294778706293,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.7086751794701556e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.683466656248235,
+              -73.99005671893482,
+              45.02292798303705
+            ],
+            "geographic_error_meters": 3527.7935910265774,
+            "initial_state": [
+              -60.0,
+              -45.0,
+              180.0
+            ],
+            "max_residual": 0.00803094514121796,
+            "message": "Both `ftol` and `xtol` termination conditions are satisfied.",
+            "nfev": 30,
+            "optimality": 1.6331551825093028e-07,
+            "residuals": [
+              0.000973818168527347,
+              0.0005412184800565856,
+              0.00046855887045734373,
+              0.0004898376768917821,
+              0.0005378289613000298,
+              0.00032520452720426755,
+              0.0007360973938380687,
+              0.00803094514121796,
+              0.0011514357313467936,
+              0.0010284187766457765,
+              0.0009141673857291204,
+              0.0013651583788642295,
+              0.0007351709806440763,
+              0.0001213756747273801,
+              4.687656589963605e-05,
+              0.0007755919836868833,
+              0.0008939370828410386
+            ],
+            "rms_residual": 0.0020888294772692132,
+            "selected": true,
+            "status": 4,
+            "success": true
+          }
+        ],
+        "valid": true
+      }
+    },
+    "2048": {
+      "ambiguous_canonical_ids": [],
+      "dropped_canonical_ids": [
+        "HIP_10064",
+        "HIP_22449",
+        "HIP_26207",
+        "HIP_7607"
+      ],
+      "matched_id_count": 23,
+      "signed_truth_errors": [
+        {
+          "angular_error_deg": 0.036566668540688095,
+          "cross_track_error_deg": 0.004910298841451544,
+          "object_id": "HIP_105199",
+          "signed_azimuth_error_deg": 0.005468633441807924,
+          "signed_elevation_error_deg": -0.0362353796941548
+        },
+        {
+          "angular_error_deg": 0.006360307963688148,
+          "cross_track_error_deg": -0.00033866042839318135,
+          "object_id": "HIP_109492",
+          "signed_azimuth_error_deg": -0.00038667585749863065,
+          "signed_elevation_error_deg": -0.006351284837244009
+        },
+        {
+          "angular_error_deg": 0.01357164190506899,
+          "cross_track_error_deg": 0.005672313837610089,
+          "object_id": "HIP_112724",
+          "signed_azimuth_error_deg": 0.0070463520808630165,
+          "signed_elevation_error_deg": -0.012329201825082237
+        },
+        {
+          "angular_error_deg": 0.007510524047160519,
+          "cross_track_error_deg": -0.005860845621139852,
+          "object_id": "HIP_14328",
+          "signed_azimuth_error_deg": -0.01558600053868986,
+          "signed_elevation_error_deg": 0.004697382260388849
+        },
+        {
+          "angular_error_deg": 0.0019800612308688067,
+          "cross_track_error_deg": -0.0011612458564224585,
+          "object_id": "HIP_23875",
+          "signed_azimuth_error_deg": -0.0016169719750962486,
+          "signed_elevation_error_deg": 0.0016038039055246145
+        },
+        {
+          "angular_error_deg": 0.02011724429672923,
+          "cross_track_error_deg": 0.006504671264078408,
+          "object_id": "HIP_25336",
+          "signed_azimuth_error_deg": 0.011308278433119767,
+          "signed_elevation_error_deg": 0.019037141671248037
+        },
+        {
+          "angular_error_deg": 0.024577431226323984,
+          "cross_track_error_deg": 0.014727099834412796,
+          "object_id": "HIP_25930",
+          "signed_azimuth_error_deg": 0.022022408356264123,
+          "signed_elevation_error_deg": 0.019678553967253265
+        },
+        {
+          "angular_error_deg": 0.507448517295639,
+          "cross_track_error_deg": -0.06761022553421306,
+          "object_id": "HIP_26241",
+          "signed_azimuth_error_deg": -0.09149963716467369,
+          "signed_elevation_error_deg": 0.5029607977184298
+        },
+        {
+          "angular_error_deg": 0.011823182814579919,
+          "cross_track_error_deg": 0.004137183652221905,
+          "object_id": "HIP_26311",
+          "signed_azimuth_error_deg": 0.006058485168921379,
+          "signed_elevation_error_deg": 0.01107587030866597
+        },
+        {
+          "angular_error_deg": 0.018052736148588672,
+          "cross_track_error_deg": -0.017179563426349607,
+          "object_id": "HIP_26727",
+          "signed_azimuth_error_deg": -0.024711846562439632,
+          "signed_elevation_error_deg": 0.005549183893613474
+        },
+        {
+          "angular_error_deg": 0.004247070980765964,
+          "cross_track_error_deg": 0.0037990005366583283,
+          "object_id": "HIP_27366",
+          "signed_azimuth_error_deg": 0.004823486791451614,
+          "signed_elevation_error_deg": -0.001898639830649529
+        },
+        {
+          "angular_error_deg": 0.1177331531753641,
+          "cross_track_error_deg": -0.11601444667994823,
+          "object_id": "HIP_30324",
+          "signed_azimuth_error_deg": -0.13102917320634333,
+          "signed_elevation_error_deg": 0.020105341058656023
+        },
+        {
+          "angular_error_deg": 0.001719471084891996,
+          "cross_track_error_deg": 0.0013779119989887397,
+          "object_id": "HIP_3179",
+          "signed_azimuth_error_deg": 0.0020304051837456427,
+          "signed_elevation_error_deg": -0.0010285440231925236
+        },
+        {
+          "angular_error_deg": 0.0176296938367378,
+          "cross_track_error_deg": -0.002406653139970701,
+          "object_id": "HIP_4427",
+          "signed_azimuth_error_deg": -0.0037067951985250147,
+          "signed_elevation_error_deg": -0.017464594400841804
+        },
+        {
+          "angular_error_deg": 0.012164596985661632,
+          "cross_track_error_deg": 0.01195284925539927,
+          "object_id": "HIP_5447",
+          "signed_azimuth_error_deg": 0.01744289382918396,
+          "signed_elevation_error_deg": 0.002261151779521242
+        },
+        {
+          "angular_error_deg": 0.025072952208920203,
+          "cross_track_error_deg": 0.02427184904583517,
+          "object_id": "HIP_746",
+          "signed_azimuth_error_deg": 0.033452142197745616,
+          "signed_elevation_error_deg": -0.006282437588701839
+        },
+        {
+          "angular_error_deg": 0.013471434916753186,
+          "cross_track_error_deg": -0.007344778468937143,
+          "object_id": "HIP_9640",
+          "signed_azimuth_error_deg": -0.01418333144385997,
+          "signed_elevation_error_deg": 0.011293863616899102
+        }
+      ],
+      "signed_truth_summary": {
+        "angular_error_deg": {
+          "count": 17,
+          "max": 0.507448517295639,
+          "mean": 0.04941451109755472,
+          "median": 0.01357164190506899,
+          "p90": 0.06903326239455854
+        },
+        "cross_track_error_deg": {
+          "count": 17,
+          "max": 0.11601444667994823,
+          "mean": 0.017368799848354734,
+          "median": 0.005860845621139852,
+          "p90": 0.04160719964118634
+        },
+        "elevation_error_deg": {
+          "count": 17,
+          "max": 0.5029607977184298,
+          "mean": 0.03999136308118042,
+          "median": 0.01107587030866597,
+          "p90": 0.02655735651285554
+        }
+      },
+      "solver": {
+        "failure_reason": "",
+        "ground_truth_objective": {
+          "max_residual": 0.008856618464574858,
+          "raw_half_squared": 4.1999103988747255e-05,
+          "rms_residual": 0.0022228520098062482,
+          "soft_l1": 4.1998332656723036e-05
+        },
+        "leave_one_out": [
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007990901579551376,
+              "raw_half_squared": 3.665606747392562e-05,
+              "rms_residual": 0.0021405626443159057,
+              "soft_l1": 3.6655556577835924e-05
+            },
+            "removed_object_id": "HIP_105199",
+            "selected_state": {
+              "geographic_error_meters": 5478.474595140542,
+              "heading": 45.022155834662584,
+              "latitude": 40.66364755640537,
+              "longitude": -74.01046876106791
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007966120348586047,
+              "raw_half_squared": 3.653714476106785e-05,
+              "rms_residual": 0.0021370875263155417,
+              "soft_l1": 3.653664009006796e-05
+            },
+            "removed_object_id": "HIP_109492",
+            "selected_state": {
+              "geographic_error_meters": 5623.23409642233,
+              "heading": 45.02207351099211,
+              "latitude": 40.66229852715229,
+              "longitude": -74.00949493236344
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007967182221562149,
+              "raw_half_squared": 3.655589578440704e-05,
+              "rms_residual": 0.0021376358373331227,
+              "soft_l1": 3.655539084990167e-05
+            },
+            "removed_object_id": "HIP_112724",
+            "selected_state": {
+              "geographic_error_meters": 5618.3700476394915,
+              "heading": 45.02221132978241,
+              "latitude": 40.6623497472538,
+              "longitude": -74.00967642830364
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007942860113421565,
+              "raw_half_squared": 3.63124616806406e-05,
+              "rms_residual": 0.0021305064445056427,
+              "soft_l1": 3.631196284237248e-05
+            },
+            "removed_object_id": "HIP_14328",
+            "selected_state": {
+              "geographic_error_meters": 5860.494667641523,
+              "heading": 45.018066491418786,
+              "latitude": 40.66033637687654,
+              "longitude": -74.01264021059627
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007928397450787794,
+              "raw_half_squared": 3.6246901211755814e-05,
+              "rms_residual": 0.0021285823102406625,
+              "soft_l1": 3.6246406029727396e-05
+            },
+            "removed_object_id": "HIP_23875",
+            "selected_state": {
+              "geographic_error_meters": 5981.308882308658,
+              "heading": 45.020423629068134,
+              "latitude": 40.65940752400172,
+              "longitude": -74.01462115617392
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007946287254559424,
+              "raw_half_squared": 3.637795862147504e-05,
+              "rms_residual": 0.0021324269806219345,
+              "soft_l1": 3.6377458964675924e-05
+            },
+            "removed_object_id": "HIP_25336",
+            "selected_state": {
+              "geographic_error_meters": 5888.214274256971,
+              "heading": 45.02000774221502,
+              "latitude": 40.660333299481024,
+              "longitude": -74.01545191290359
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00794135782144531,
+              "raw_half_squared": 3.625912927767023e-05,
+              "rms_residual": 0.002128941323688555,
+              "soft_l1": 3.6258630905727784e-05
+            },
+            "removed_object_id": "HIP_25930",
+            "selected_state": {
+              "geographic_error_meters": 5928.205892620873,
+              "heading": 45.020898595202134,
+              "latitude": 40.660028418894306,
+              "longitude": -74.01600033558788
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.0017753772805947539,
+              "raw_half_squared": 2.2979819981410026e-06,
+              "rms_residual": 0.0005359549885649217,
+              "soft_l1": 2.2979807274836617e-06
+            },
+            "removed_object_id": "HIP_26241",
+            "selected_state": {
+              "geographic_error_meters": 1661.903163453427,
+              "heading": 45.00817095105818,
+              "latitude": 40.69837680922257,
+              "longitude": -74.01116828256389
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007935722061610723,
+              "raw_half_squared": 3.6303102194150584e-05,
+              "rms_residual": 0.002130231859274671,
+              "soft_l1": 3.630260518838746e-05
+            },
+            "removed_object_id": "HIP_26311",
+            "selected_state": {
+              "geographic_error_meters": 5932.346104538839,
+              "heading": 45.0211041665113,
+              "latitude": 40.659862012516555,
+              "longitude": -74.01473618934271
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00794099855800332,
+              "raw_half_squared": 3.640513985006804e-05,
+              "rms_residual": 0.0021332234953840407,
+              "soft_l1": 3.6404641478471333e-05
+            },
+            "removed_object_id": "HIP_26727",
+            "selected_state": {
+              "geographic_error_meters": 5848.453471384975,
+              "heading": 45.0209243465447,
+              "latitude": 40.660429743051836,
+              "longitude": -74.01242524080658
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007919163553173849,
+              "raw_half_squared": 3.612376600305819e-05,
+              "rms_residual": 0.0021249637056623516,
+              "soft_l1": 3.6123273180477256e-05
+            },
+            "removed_object_id": "HIP_27366",
+            "selected_state": {
+              "geographic_error_meters": 6011.4305955713735,
+              "heading": 45.02245774855599,
+              "latitude": 40.65906985209732,
+              "longitude": -74.01388841690762
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.008028615745311118,
+              "raw_half_squared": 3.540116341469115e-05,
+              "rms_residual": 0.002103602963212496,
+              "soft_l1": 3.540064363161122e-05
+            },
+            "removed_object_id": "HIP_30324",
+            "selected_state": {
+              "geographic_error_meters": 5240.030392500554,
+              "heading": 45.013665762978775,
+              "latitude": 40.66567535881271,
+              "longitude": -74.00611754626837
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007967156624517855,
+              "raw_half_squared": 3.653111029545672e-05,
+              "rms_residual": 0.0021369110386097244,
+              "soft_l1": 3.65306053438097e-05
+            },
+            "removed_object_id": "HIP_3179",
+            "selected_state": {
+              "geographic_error_meters": 5645.0460444043265,
+              "heading": 45.02003490151944,
+              "latitude": 40.66213830937365,
+              "longitude": -74.01031251962354
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007976210061981726,
+              "raw_half_squared": 3.6614721683157474e-05,
+              "rms_residual": 0.002139355092170228,
+              "soft_l1": 3.661421445055879e-05
+            },
+            "removed_object_id": "HIP_4427",
+            "selected_state": {
+              "geographic_error_meters": 5628.681941638835,
+              "heading": 45.01850314509615,
+              "latitude": 40.66238549338959,
+              "longitude": -74.01200837239988
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007991192962875374,
+              "raw_half_squared": 3.667369738983756e-05,
+              "rms_residual": 0.002141077339502171,
+              "soft_l1": 3.6673186383451295e-05
+            },
+            "removed_object_id": "HIP_5447",
+            "selected_state": {
+              "geographic_error_meters": 5505.226494125323,
+              "heading": 45.01950972192595,
+              "latitude": 40.66343609672475,
+              "longitude": -74.01100699938695
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007976476188773582,
+              "raw_half_squared": 3.652181569912986e-05,
+              "rms_residual": 0.0021366391745896714,
+              "soft_l1": 3.6521308447001744e-05
+            },
+            "removed_object_id": "HIP_746",
+            "selected_state": {
+              "geographic_error_meters": 5519.30643545556,
+              "heading": 45.02400945962535,
+              "latitude": 40.66318777786341,
+              "longitude": -74.00803931505824
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007959071383611007,
+              "raw_half_squared": 3.640171520772e-05,
+              "rms_residual": 0.0021331231565394904,
+              "soft_l1": 3.640121228665194e-05
+            },
+            "removed_object_id": "HIP_9640",
+            "selected_state": {
+              "geographic_error_meters": 5732.527996538598,
+              "heading": 45.01794294501976,
+              "latitude": 40.66140976154441,
+              "longitude": -74.01141245839271
+            },
+            "valid": true
+          }
+        ],
+        "observation_count": 17,
+        "runtime_seconds": 1.1661593689932488,
+        "selected_objective": {
+          "max_residual": 0.007998492685312131,
+          "raw_half_squared": 3.669457301967962e-05,
+          "rms_residual": 0.0020777412231917968,
+          "soft_l1": 3.669406017792198e-05
+        },
+        "selected_state": {
+          "geographic_error_meters": 5471.600139709455,
+          "heading": 45.01953626871925,
+          "latitude": 40.66378557951598,
+          "longitude": -74.01173990042756
+        },
+        "start_diagnostics": [
+          {
+            "cost": 3.669406022588362e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.66378485758701,
+              -74.01174483471922,
+              45.01953058154649
+            ],
+            "geographic_error_meters": 5471.716913772618,
+            "initial_state": [
+              51.5,
+              -0.1,
+              0.0
+            ],
+            "max_residual": 0.007998495793067094,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 29,
+            "optimality": 2.2715220732972845e-06,
+            "residuals": [
+              0.0002602198780144568,
+              0.0005409064203538139,
+              0.0005065845475916163,
+              0.000844382533553889,
+              0.0009005803017549354,
+              0.0007514390904254159,
+              0.0008789367224977567,
+              0.007998495793067094,
+              0.0008374814647588504,
+              0.0007299375609623312,
+              0.0010148515486016819,
+              0.0015213827826162244,
+              0.0005544351412808859,
+              0.00038607284139568804,
+              0.0001974602771526126,
+              0.0005591821236598828,
+              0.0007404274923475974
+            ],
+            "rms_residual": 0.0020777412245601774,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.669406017792198e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.66378557951598,
+              -74.01173990042756,
+              45.01953626871925
+            ],
+            "geographic_error_meters": 5471.600139709455,
+            "initial_state": [
+              -60.0,
+              -135.0,
+              0.0
+            ],
+            "max_residual": 0.007998492685312131,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 28,
+            "optimality": 7.35848614461162e-07,
+            "residuals": [
+              0.0002602892392165686,
+              0.000540943978344779,
+              0.0005066244892058687,
+              0.0008443658652773177,
+              0.0009005680650400737,
+              0.0007514187565770689,
+              0.0008789217055332914,
+              0.007998492685312131,
+              0.0008374727926327892,
+              0.0007299395809111604,
+              0.0010148537244524273,
+              0.0015213790255090601,
+              0.0005544472020649622,
+              0.00038605317575368,
+              0.00019747245430176168,
+              0.0005592476754015032,
+              0.0007404152271693384
+            ],
+            "rms_residual": 0.0020777412231917968,
+            "selected": true,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.669406021344912e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.663786010321665,
+              -74.01173154890957,
+              45.01954259939599
+            ],
+            "geographic_error_meters": 5471.490185228834,
+            "initial_state": [
+              -60.0,
+              -135.0,
+              180.0
+            ],
+            "max_residual": 0.007998477520332092,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 22,
+            "optimality": 1.2522289446060133e-06,
+            "residuals": [
+              0.00026035947462362533,
+              0.0005410108499797095,
+              0.0005066902934840642,
+              0.0008443653665643322,
+              0.0009005427976736669,
+              0.0007513695028007758,
+              0.0008788729199655147,
+              0.007998477520332092,
+              0.0008374426335870162,
+              0.0007299444152726171,
+              0.0010148433546385174,
+              0.001521422531026392,
+              0.000554492628039434,
+              0.0003860556271624346,
+              0.00019752857785441014,
+              0.0005593426841237942,
+              0.0007404318351950098
+            ],
+            "rms_residual": 0.0020777412240858143,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.6694060197239864e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.663787091888956,
+              -74.01173834540269,
+              45.01954156565397
+            ],
+            "geographic_error_meters": 5471.4210344533885,
+            "initial_state": [
+              -60.0,
+              -45.0,
+              0.0
+            ],
+            "max_residual": 0.007998509816946085,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 31,
+            "optimality": 4.205282487220501e-06,
+            "residuals": [
+              0.0002603604484449429,
+              0.0005409464423765382,
+              0.0005066331430779604,
+              0.0008443236964139708,
+              0.0009005618581797779,
+              0.0007514221578361852,
+              0.0008789366273558041,
+              0.007998509816946085,
+              0.0008374800550340803,
+              0.0007299311745246372,
+              0.0010148625150640164,
+              0.0015213244002435734,
+              0.0005544179733201864,
+              0.00038600200663498497,
+              0.00019743365720788824,
+              0.0005592821639233044,
+              0.0007403650270887478
+            ],
+            "rms_residual": 0.0020777412238502818,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 3.669406018791399e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.66378726892603,
+              -74.01173505838223,
+              45.01954165595931
+            ],
+            "geographic_error_meters": 5471.376924999649,
+            "initial_state": [
+              -60.0,
+              -45.0,
+              180.0
+            ],
+            "max_residual": 0.00799850660610133,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 32,
+            "optimality": 1.728809124183542e-06,
+            "residuals": [
+              0.0002603526467303949,
+              0.0005409674226933946,
+              0.0005066499986881921,
+              0.0008443338668705998,
+              0.0009005391083083147,
+              0.0007513840851296363,
+              0.0008788935418398012,
+              0.00799850660610133,
+              0.0008374483737256247,
+              0.000729924171245824,
+              0.00101483917698019,
+              0.0015213773266339859,
+              0.0005544455711358873,
+              0.00038601977909888245,
+              0.00019747509507704494,
+              0.000559303811398533,
+              0.0007403900800451359
+            ],
+            "rms_residual": 0.002077741223564888,
+            "selected": false,
+            "status": 2,
+            "success": true
+          }
+        ],
+        "valid": true
+      }
+    },
+    "512": {
+      "ambiguous_canonical_ids": [],
+      "dropped_canonical_ids": [
+        "HIP_25606",
+        "HIP_25985"
+      ],
+      "matched_id_count": 25,
+      "signed_truth_errors": [
+        {
+          "angular_error_deg": 0.04540535592469186,
+          "cross_track_error_deg": -0.020670730276007448,
+          "object_id": "HIP_105199",
+          "signed_azimuth_error_deg": -0.02302113384621407,
+          "signed_elevation_error_deg": -0.04042548123043588
+        },
+        {
+          "angular_error_deg": 0.03509016885828436,
+          "cross_track_error_deg": 0.0309351404251428,
+          "object_id": "HIP_109492",
+          "signed_azimuth_error_deg": 0.03532113866236841,
+          "signed_elevation_error_deg": 0.016567726482549006
+        },
+        {
+          "angular_error_deg": 0.04693748711769475,
+          "cross_track_error_deg": -0.04581235023995797,
+          "object_id": "HIP_112724",
+          "signed_azimuth_error_deg": -0.05690974771215451,
+          "signed_elevation_error_deg": -0.010202006187576274
+        },
+        {
+          "angular_error_deg": 0.021218244212682636,
+          "cross_track_error_deg": -0.0028077517629481867,
+          "object_id": "HIP_14328",
+          "signed_azimuth_error_deg": -0.0074667758406690155,
+          "signed_elevation_error_deg": 0.021031822296549763
+        },
+        {
+          "angular_error_deg": 0.022212023269344145,
+          "cross_track_error_deg": 0.018059923693080196,
+          "object_id": "HIP_23875",
+          "signed_azimuth_error_deg": 0.025147465820936077,
+          "signed_elevation_error_deg": 0.012933850359395649
+        },
+        {
+          "angular_error_deg": 0.023236420287305524,
+          "cross_track_error_deg": 0.021177581861939444,
+          "object_id": "HIP_25336",
+          "signed_azimuth_error_deg": 0.036816924716475796,
+          "signed_elevation_error_deg": 0.009568060227195474
+        },
+        {
+          "angular_error_deg": 0.015539878343699595,
+          "cross_track_error_deg": 0.0007667068630965259,
+          "object_id": "HIP_25930",
+          "signed_azimuth_error_deg": 0.0011465075825185522,
+          "signed_elevation_error_deg": -0.015520947220757364
+        },
+        {
+          "angular_error_deg": 0.4484385844352772,
+          "cross_track_error_deg": -0.034315317103189164,
+          "object_id": "HIP_26241",
+          "signed_azimuth_error_deg": -0.04644029862825505,
+          "signed_elevation_error_deg": 0.4471331196293207
+        },
+        {
+          "angular_error_deg": 0.021662532758197173,
+          "cross_track_error_deg": -0.021577608203600433,
+          "object_id": "HIP_26311",
+          "signed_azimuth_error_deg": -0.03159821518005401,
+          "signed_elevation_error_deg": 0.0019206385039112206
+        },
+        {
+          "angular_error_deg": 0.01996947850808573,
+          "cross_track_error_deg": -0.01978579149099096,
+          "object_id": "HIP_26727",
+          "signed_azimuth_error_deg": -0.02846076069033643,
+          "signed_elevation_error_deg": -0.002698789579078209
+        },
+        {
+          "angular_error_deg": 0.00969605366496281,
+          "cross_track_error_deg": 0.0030719210822708837,
+          "object_id": "HIP_27366",
+          "signed_azimuth_error_deg": 0.003900333948820389,
+          "signed_elevation_error_deg": -0.00919649787186927
+        },
+        {
+          "angular_error_deg": 0.003963678612348429,
+          "cross_track_error_deg": -0.0016828479954177997,
+          "object_id": "HIP_30324",
+          "signed_azimuth_error_deg": -0.0019006441678754982,
+          "signed_elevation_error_deg": -0.003588687619636488
+        },
+        {
+          "angular_error_deg": 0.011080662793394638,
+          "cross_track_error_deg": 0.009808347075760232,
+          "object_id": "HIP_3179",
+          "signed_azimuth_error_deg": 0.014452968521368348,
+          "signed_elevation_error_deg": -0.0051544203441338254
+        },
+        {
+          "angular_error_deg": 0.012903248416764376,
+          "cross_track_error_deg": 0.01106713387473307,
+          "object_id": "HIP_4427",
+          "signed_azimuth_error_deg": 0.01704591244453013,
+          "signed_elevation_error_deg": -0.006632929895324935
+        },
+        {
+          "angular_error_deg": 0.003382509175672096,
+          "cross_track_error_deg": -0.003338433033187015,
+          "object_id": "HIP_5447",
+          "signed_azimuth_error_deg": -0.004871803509729489,
+          "signed_elevation_error_deg": -0.0005441702286219652
+        },
+        {
+          "angular_error_deg": 0.027872358476940844,
+          "cross_track_error_deg": -0.02312375432428633,
+          "object_id": "HIP_746",
+          "signed_azimuth_error_deg": -0.03186980589492805,
+          "signed_elevation_error_deg": -0.015557077993292978
+        },
+        {
+          "angular_error_deg": 0.01406860331641135,
+          "cross_track_error_deg": -0.005943432124636832,
+          "object_id": "HIP_9640",
+          "signed_azimuth_error_deg": -0.011477224002646835,
+          "signed_elevation_error_deg": -0.012751008927786245
+        }
+      ],
+      "signed_truth_summary": {
+        "angular_error_deg": {
+          "count": 17,
+          "max": 0.4484385844352772,
+          "mean": 0.04603984048069162,
+          "median": 0.021218244212682636,
+          "p90": 0.04601820840189302
+        },
+        "cross_track_error_deg": {
+          "count": 17,
+          "max": 0.04581235023995797,
+          "mean": 0.016114398319426192,
+          "median": 0.018059923693080196,
+          "p90": 0.032287211096361346
+        },
+        "elevation_error_deg": {
+          "count": 17,
+          "max": 0.4471331196293207,
+          "mean": 0.037142778505731486,
+          "median": 0.010202006187576274,
+          "p90": 0.028789285870104216
+        }
+      },
+      "solver": {
+        "failure_reason": "",
+        "ground_truth_objective": {
+          "max_residual": 0.007826709814243478,
+          "raw_half_squared": 3.2071723917971275e-05,
+          "rms_residual": 0.0019424582338752002,
+          "soft_l1": 3.2071254728593956e-05
+        },
+        "leave_one_out": [
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007260458580662718,
+              "raw_half_squared": 2.9530925705401995e-05,
+              "rms_residual": 0.0019212927192844014,
+              "soft_l1": 2.9530577906777822e-05
+            },
+            "removed_object_id": "HIP_105199",
+            "selected_state": {
+              "geographic_error_meters": 3548.879946340448,
+              "heading": 45.01717925023971,
+              "latitude": 40.68122015186213,
+              "longitude": -73.99990780864843
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007200282068807536,
+              "raw_half_squared": 2.8984019243256618e-05,
+              "rms_residual": 0.0019034186101346906,
+              "soft_l1": 2.898368284776076e-05
+            },
+            "removed_object_id": "HIP_109492",
+            "selected_state": {
+              "geographic_error_meters": 3903.315602363052,
+              "heading": 45.02850371249268,
+              "latitude": 40.67912834062462,
+              "longitude": -73.99291212622009
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.0072231517932756575,
+              "raw_half_squared": 2.922439060793075e-05,
+              "rms_residual": 0.0019112950651302754,
+              "soft_l1": 2.9224049897802473e-05
+            },
+            "removed_object_id": "HIP_112724",
+            "selected_state": {
+              "geographic_error_meters": 3814.8009409899323,
+              "heading": 45.0137082889216,
+              "latitude": 40.678661858749635,
+              "longitude": -74.00151168896389
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007194180438144216,
+              "raw_half_squared": 2.916890572566444e-05,
+              "rms_residual": 0.001909479828567994,
+              "soft_l1": 2.916857037882359e-05
+            },
+            "removed_object_id": "HIP_14328",
+            "selected_state": {
+              "geographic_error_meters": 3954.9298976428017,
+              "heading": 45.02115585592005,
+              "latitude": 40.67797855897036,
+              "longitude": -73.99644184470027
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00721408774891276,
+              "raw_half_squared": 2.938093279936706e-05,
+              "rms_residual": 0.0019164072114039026,
+              "soft_l1": 2.9380593699945834e-05
+            },
+            "removed_object_id": "HIP_23875",
+            "selected_state": {
+              "geographic_error_meters": 3846.3462109600696,
+              "heading": 45.02048065733919,
+              "latitude": 40.678374840671054,
+              "longitude": -74.00153752750145
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007205078650175973,
+              "raw_half_squared": 2.9308978109971273e-05,
+              "rms_residual": 0.0019140591066491152,
+              "soft_l1": 2.9308640699499122e-05
+            },
+            "removed_object_id": "HIP_25336",
+            "selected_state": {
+              "geographic_error_meters": 3912.726322294714,
+              "heading": 45.020000455801394,
+              "latitude": 40.67773143396698,
+              "longitude": -74.00217951948068
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007181827146251223,
+              "raw_half_squared": 2.9164111106610102e-05,
+              "rms_residual": 0.0019093228873939218,
+              "soft_l1": 2.9163778027863074e-05
+            },
+            "removed_object_id": "HIP_25930",
+            "selected_state": {
+              "geographic_error_meters": 4040.893190247515,
+              "heading": 45.02091064936357,
+              "latitude": 40.676784824211836,
+              "longitude": -73.99959972619494
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.0007432764604043596,
+              "raw_half_squared": 1.367225367785807e-06,
+              "rms_residual": 0.0004134043673852828,
+              "soft_l1": 1.3672252525687156e-06
+            },
+            "removed_object_id": "HIP_26241",
+            "selected_state": {
+              "geographic_error_meters": 572.633072036975,
+              "heading": 45.00978658237488,
+              "latitude": 40.71164157743878,
+              "longitude": -73.99938012819939
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.0072148137654176984,
+              "raw_half_squared": 2.940785996799937e-05,
+              "rms_residual": 0.0019172851890107328,
+              "soft_l1": 2.9407520737212423e-05
+            },
+            "removed_object_id": "HIP_26311",
+            "selected_state": {
+              "geographic_error_meters": 3826.047238651076,
+              "heading": 45.02017175720586,
+              "latitude": 40.679017207913056,
+              "longitude": -73.99738477207107
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007208297007200448,
+              "raw_half_squared": 2.9365921781502826e-05,
+              "rms_residual": 0.0019159175928749788,
+              "soft_l1": 2.936558376709364e-05
+            },
+            "removed_object_id": "HIP_26727",
+            "selected_state": {
+              "geographic_error_meters": 3866.8381848231543,
+              "heading": 45.02039637071126,
+              "latitude": 40.678629489644976,
+              "longitude": -73.99748301052625
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00718758182962819,
+              "raw_half_squared": 2.9234526271109765e-05,
+              "rms_residual": 0.001911626476037806,
+              "soft_l1": 2.9234192106208923e-05
+            },
+            "removed_object_id": "HIP_27366",
+            "selected_state": {
+              "geographic_error_meters": 4000.4941768376693,
+              "heading": 45.02158241201392,
+              "latitude": 40.67716338081491,
+              "longitude": -73.99948522938519
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.00719758162304355,
+              "raw_half_squared": 2.9327474102726803e-05,
+              "rms_residual": 0.0019146629632498901,
+              "soft_l1": 2.9327138066692626e-05
+            },
+            "removed_object_id": "HIP_30324",
+            "selected_state": {
+              "geographic_error_meters": 3929.4260787721637,
+              "heading": 45.02220236642858,
+              "latitude": 40.67793630399382,
+              "longitude": -73.9983878427921
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007231325768175941,
+              "raw_half_squared": 2.949107794126379e-05,
+              "rms_residual": 0.0019199960267297362,
+              "soft_l1": 2.949073561420157e-05
+            },
+            "removed_object_id": "HIP_3179",
+            "selected_state": {
+              "geographic_error_meters": 3714.522184580908,
+              "heading": 45.022038497252595,
+              "latitude": 40.680222566622945,
+              "longitude": -73.99625055918285
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007229644378892222,
+              "raw_half_squared": 2.9481866034496718e-05,
+              "rms_residual": 0.0019196961359319578,
+              "soft_l1": 2.9481524021601757e-05
+            },
+            "removed_object_id": "HIP_4427",
+            "selected_state": {
+              "geographic_error_meters": 3724.3519073100047,
+              "heading": 45.022299609387375,
+              "latitude": 40.68014505626531,
+              "longitude": -73.99617433375784
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007234600397120238,
+              "raw_half_squared": 2.951070862012936e-05,
+              "rms_residual": 0.0019206349412410912,
+              "soft_l1": 2.9510365690654794e-05
+            },
+            "removed_object_id": "HIP_5447",
+            "selected_state": {
+              "geographic_error_meters": 3703.8317797596765,
+              "heading": 45.01907177702553,
+              "latitude": 40.68007141544983,
+              "longitude": -73.99783170706552
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007229259156708126,
+              "raw_half_squared": 2.9448450619856357e-05,
+              "rms_residual": 0.0019186079139527296,
+              "soft_l1": 2.944810870264547e-05
+            },
+            "removed_object_id": "HIP_746",
+            "selected_state": {
+              "geographic_error_meters": 3754.1264581494474,
+              "heading": 45.01657426691048,
+              "latitude": 40.67933516785604,
+              "longitude": -74.00010805917972
+            },
+            "valid": true
+          },
+          {
+            "failure_reason": "",
+            "objective": {
+              "max_residual": 0.007227773518231147,
+              "raw_half_squared": 2.948169805986292e-05,
+              "rms_residual": 0.0019196906671343863,
+              "soft_l1": 2.948135641367422e-05
+            },
+            "removed_object_id": "HIP_9640",
+            "selected_state": {
+              "geographic_error_meters": 3759.1057262654263,
+              "heading": 45.01746008953694,
+              "latitude": 40.679307695592094,
+              "longitude": -73.99993547045985
+            },
+            "valid": true
+          }
+        ],
+        "observation_count": 17,
+        "runtime_seconds": 1.2174245770002017,
+        "selected_objective": {
+          "max_residual": 0.007248293793634999,
+          "raw_half_squared": 2.95702232758677e-05,
+          "rms_residual": 0.0018651674984196207,
+          "soft_l1": 2.956987776925324e-05
+        },
+        "selected_state": {
+          "geographic_error_meters": 3613.7534608319784,
+          "heading": 45.01962343680139,
+          "latitude": 40.680786697442365,
+          "longitude": -73.99861489355713
+        },
+        "start_diagnostics": [
+          {
+            "cost": 2.9569877773472086e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.68078413732713,
+              -73.99861926658501,
+              45.01962200779635
+            ],
+            "geographic_error_meters": 3613.97038530668,
+            "initial_state": [
+              51.5,
+              -0.1,
+              0.0
+            ],
+            "max_residual": 0.007248261816065195,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 25,
+            "optimality": 1.5514725620696558e-06,
+            "residuals": [
+              0.00026446379365759954,
+              0.0010264840652257161,
+              0.0007908434313327184,
+              0.0008682460108337598,
+              0.0005792417562273836,
+              0.0006818652940364929,
+              0.0008651954716096313,
+              0.007248261816065195,
+              0.0005525667141581755,
+              0.0006195070181175705,
+              0.0007837358621959772,
+              0.0006669974293572417,
+              0.0003812637069356909,
+              0.00040246538838701847,
+              0.00033337454515303816,
+              0.00047126871424367126,
+              0.0004029987769357453
+            ],
+            "rms_residual": 0.0018651674983834639,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 2.956987781077558e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.680787643916396,
+              -73.99861083055255,
+              45.01962373258385
+            ],
+            "geographic_error_meters": 3613.7088214135515,
+            "initial_state": [
+              -60.0,
+              -135.0,
+              0.0
+            ],
+            "max_residual": 0.007248299810177191,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 31,
+            "optimality": 1.961233287586897e-06,
+            "residuals": [
+              0.00026446741925852503,
+              0.0010264987909255907,
+              0.0007908245654130965,
+              0.0008682546252546582,
+              0.000579107899485976,
+              0.0006817341055089911,
+              0.0008651310252876937,
+              0.007248299810177191,
+              0.0005525782187184734,
+              0.0006195071245314518,
+              0.000783663014519495,
+              0.0006669417883564281,
+              0.00038131213654119125,
+              0.000402507281857864,
+              0.000333421035924259,
+              0.0004712478840850889,
+              0.0004029628279687674
+            ],
+            "rms_residual": 0.0018651674997842854,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 2.9569877807889e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.68078711608706,
+              -73.99861030639077,
+              45.019627187531476
+            ],
+            "geographic_error_meters": 3613.7742528088525,
+            "initial_state": [
+              -60.0,
+              -135.0,
+              180.0
+            ],
+            "max_residual": 0.007248287245752555,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 26,
+            "optimality": 1.1103247104943494e-06,
+            "residuals": [
+              0.0002644216624195511,
+              0.0010265377401731108,
+              0.0007907898568684749,
+              0.0008682599668680096,
+              0.000579141837178171,
+              0.0006817627067742984,
+              0.0008651498743353187,
+              0.007248287245752555,
+              0.0005525789913504589,
+              0.0006195115064952263,
+              0.0007836886353962676,
+              0.0006669707561276342,
+              0.00038133250464285546,
+              0.00040253059926860355,
+              0.0003334012360171697,
+              0.0004712183399696911,
+              0.00040294139638637785
+            ],
+            "rms_residual": 0.0018651674996202914,
+            "selected": false,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 2.956987776925324e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.680786697442365,
+              -73.99861489355713,
+              45.01962343680139
+            ],
+            "geographic_error_meters": 3613.7534608319784,
+            "initial_state": [
+              -60.0,
+              -45.0,
+              0.0
+            ],
+            "max_residual": 0.007248293793634999,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 34,
+            "optimality": 3.31468369727837e-07,
+            "residuals": [
+              0.00026446426080864937,
+              0.0010264910163507485,
+              0.0007908184680719264,
+              0.0008682382136473409,
+              0.0005791695526611729,
+              0.0006817921856892109,
+              0.0008651509323189661,
+              0.007248293793634999,
+              0.0005525596789007424,
+              0.0006194942518955399,
+              0.0007836886089651205,
+              0.0006669600462398325,
+              0.0003812836294471593,
+              0.0004024823078825371,
+              0.00033338460634687217,
+              0.00047124222566779904,
+              0.00040296443242434136
+            ],
+            "rms_residual": 0.0018651674984196207,
+            "selected": true,
+            "status": 2,
+            "success": true
+          },
+          {
+            "cost": 2.9569877783464094e-05,
+            "exception": "",
+            "failure_reason": "",
+            "final_state": [
+              40.680786987802364,
+              -73.9986142221202,
+              45.01962678643172
+            ],
+            "geographic_error_meters": 3613.7314096522828,
+            "initial_state": [
+              -60.0,
+              -45.0,
+              180.0
+            ],
+            "max_residual": 0.00724829487020704,
+            "message": "`ftol` termination condition is satisfied.",
+            "nfev": 30,
+            "optimality": 3.3064221214842325e-06,
+            "residuals": [
+              0.00026442543679451347,
+              0.001026522982536198,
+              0.0007907764977215446,
+              0.0008682325190171996,
+              0.0005791913743138329,
+              0.0006818077514916311,
+              0.0008651552639229952,
+              0.00724829487020704,
+              0.000552549683019487,
+              0.0006194870588918806,
+              0.0007836996721069977,
+              0.0006669751602927712,
+              0.000381297430656636,
+              0.00040249868102659443,
+              0.00033335775194405596,
+              0.00047120403081597593,
+              0.00040293248605308954
+            ],
+            "rms_residual": 0.0018651674988877183,
+            "selected": false,
+            "status": 2,
+            "success": true
+          }
+        ],
+        "valid": true
+      }
+    }
+  },
+  "scene": {
+    "altitude": 10.0,
+    "heading": 45.0,
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "scene_id": "new_york_00_h045",
+    "timestamp": 1700028800
+  },
+  "shared_bias_by_object_id": {
+    "HIP_105199": {
+      "1024": {
+        "angular_error_deg": 0.05364945166092466,
+        "cross_track_error_deg": -0.05355615785816029,
+        "object_id": "HIP_105199",
+        "signed_azimuth_error_deg": -0.0596458597194669,
+        "signed_elevation_error_deg": 0.0031748369513238117
+      },
+      "2048": {
+        "angular_error_deg": 0.036566668540688095,
+        "cross_track_error_deg": 0.004910298841451544,
+        "object_id": "HIP_105199",
+        "signed_azimuth_error_deg": 0.005468633441807924,
+        "signed_elevation_error_deg": -0.0362353796941548
+      },
+      "512": {
+        "angular_error_deg": 0.04540535592469186,
+        "cross_track_error_deg": -0.020670730276007448,
+        "object_id": "HIP_105199",
+        "signed_azimuth_error_deg": -0.02302113384621407,
+        "signed_elevation_error_deg": -0.04042548123043588
+      }
+    },
+    "HIP_109492": {
+      "1024": {
+        "angular_error_deg": 0.007995485179212959,
+        "cross_track_error_deg": -0.007993415289973323,
+        "object_id": "HIP_109492",
+        "signed_azimuth_error_deg": -0.009126725334454022,
+        "signed_elevation_error_deg": 0.00018222876908069452
+      },
+      "2048": {
+        "angular_error_deg": 0.006360307963688148,
+        "cross_track_error_deg": -0.00033866042839318135,
+        "object_id": "HIP_109492",
+        "signed_azimuth_error_deg": -0.00038667585749863065,
+        "signed_elevation_error_deg": -0.006351284837244009
+      },
+      "512": {
+        "angular_error_deg": 0.03509016885828436,
+        "cross_track_error_deg": 0.0309351404251428,
+        "object_id": "HIP_109492",
+        "signed_azimuth_error_deg": 0.03532113866236841,
+        "signed_elevation_error_deg": 0.016567726482549006
+      }
+    },
+    "HIP_112724": {
+      "1024": {
+        "angular_error_deg": 0.006390156223158068,
+        "cross_track_error_deg": 0.0015052520048806097,
+        "object_id": "HIP_112724",
+        "signed_azimuth_error_deg": 0.001869878130946745,
+        "signed_elevation_error_deg": -0.006210324606783502
+      },
+      "2048": {
+        "angular_error_deg": 0.01357164190506899,
+        "cross_track_error_deg": 0.005672313837610089,
+        "object_id": "HIP_112724",
+        "signed_azimuth_error_deg": 0.0070463520808630165,
+        "signed_elevation_error_deg": -0.012329201825082237
+      },
+      "512": {
+        "angular_error_deg": 0.04693748711769475,
+        "cross_track_error_deg": -0.04581235023995797,
+        "object_id": "HIP_112724",
+        "signed_azimuth_error_deg": -0.05690974771215451,
+        "signed_elevation_error_deg": -0.010202006187576274
+      }
+    },
+    "HIP_14328": {
+      "1024": {
+        "angular_error_deg": 0.011774987328271607,
+        "cross_track_error_deg": -0.009792255847262909,
+        "object_id": "HIP_14328",
+        "signed_azimuth_error_deg": -0.026040969985615448,
+        "signed_elevation_error_deg": -0.006537208508902381
+      },
+      "2048": {
+        "angular_error_deg": 0.007510524047160519,
+        "cross_track_error_deg": -0.005860845621139852,
+        "object_id": "HIP_14328",
+        "signed_azimuth_error_deg": -0.01558600053868986,
+        "signed_elevation_error_deg": 0.004697382260388849
+      },
+      "512": {
+        "angular_error_deg": 0.021218244212682636,
+        "cross_track_error_deg": -0.0028077517629481867,
+        "object_id": "HIP_14328",
+        "signed_azimuth_error_deg": -0.0074667758406690155,
+        "signed_elevation_error_deg": 0.021031822296549763
+      }
+    },
+    "HIP_23875": {
+      "1024": {
+        "angular_error_deg": 0.010932282016721548,
+        "cross_track_error_deg": 0.01064997311361718,
+        "object_id": "HIP_23875",
+        "signed_azimuth_error_deg": 0.014829510878342944,
+        "signed_elevation_error_deg": 0.0024693318701309863
+      },
+      "2048": {
+        "angular_error_deg": 0.0019800612308688067,
+        "cross_track_error_deg": -0.0011612458564224585,
+        "object_id": "HIP_23875",
+        "signed_azimuth_error_deg": -0.0016169719750962486,
+        "signed_elevation_error_deg": 0.0016038039055246145
+      },
+      "512": {
+        "angular_error_deg": 0.022212023269344145,
+        "cross_track_error_deg": 0.018059923693080196,
+        "object_id": "HIP_23875",
+        "signed_azimuth_error_deg": 0.025147465820936077,
+        "signed_elevation_error_deg": 0.012933850359395649
+      }
+    },
+    "HIP_25336": {
+      "1024": {
+        "angular_error_deg": 0.04574540538121124,
+        "cross_track_error_deg": -0.01918731208804316,
+        "object_id": "HIP_25336",
+        "signed_azimuth_error_deg": -0.033356869035486625,
+        "signed_elevation_error_deg": 0.0415315390801112
+      },
+      "2048": {
+        "angular_error_deg": 0.02011724429672923,
+        "cross_track_error_deg": 0.006504671264078408,
+        "object_id": "HIP_25336",
+        "signed_azimuth_error_deg": 0.011308278433119767,
+        "signed_elevation_error_deg": 0.019037141671248037
+      },
+      "512": {
+        "angular_error_deg": 0.023236420287305524,
+        "cross_track_error_deg": 0.021177581861939444,
+        "object_id": "HIP_25336",
+        "signed_azimuth_error_deg": 0.036816924716475796,
+        "signed_elevation_error_deg": 0.009568060227195474
+      }
+    },
+    "HIP_25930": {
+      "1024": {
+        "angular_error_deg": 0.05715842621371108,
+        "cross_track_error_deg": 0.03445758141507721,
+        "object_id": "HIP_25930",
+        "signed_azimuth_error_deg": 0.051526705014850904,
+        "signed_elevation_error_deg": 0.045615918748140416
+      },
+      "2048": {
+        "angular_error_deg": 0.024577431226323984,
+        "cross_track_error_deg": 0.014727099834412796,
+        "object_id": "HIP_25930",
+        "signed_azimuth_error_deg": 0.022022408356264123,
+        "signed_elevation_error_deg": 0.019678553967253265
+      },
+      "512": {
+        "angular_error_deg": 0.015539878343699595,
+        "cross_track_error_deg": 0.0007667068630965259,
+        "object_id": "HIP_25930",
+        "signed_azimuth_error_deg": 0.0011465075825185522,
+        "signed_elevation_error_deg": -0.015520947220757364
+      }
+    },
+    "HIP_26241": {
+      "1024": {
+        "angular_error_deg": 0.4920500838633645,
+        "cross_track_error_deg": -0.05214472261231745,
+        "object_id": "HIP_26241",
+        "signed_azimuth_error_deg": -0.07056955011435662,
+        "signed_elevation_error_deg": 0.4893009847597014
+      },
+      "2048": {
+        "angular_error_deg": 0.507448517295639,
+        "cross_track_error_deg": -0.06761022553421306,
+        "object_id": "HIP_26241",
+        "signed_azimuth_error_deg": -0.09149963716467369,
+        "signed_elevation_error_deg": 0.5029607977184298
+      },
+      "512": {
+        "angular_error_deg": 0.4484385844352772,
+        "cross_track_error_deg": -0.034315317103189164,
+        "object_id": "HIP_26241",
+        "signed_azimuth_error_deg": -0.04644029862825505,
+        "signed_elevation_error_deg": 0.4471331196293207
+      }
+    },
+    "HIP_26311": {
+      "1024": {
+        "angular_error_deg": 0.035325753999703446,
+        "cross_track_error_deg": -0.008008802115610525,
+        "object_id": "HIP_26311",
+        "signed_azimuth_error_deg": -0.011728077097131973,
+        "signed_elevation_error_deg": -0.03440533080215147
+      },
+      "2048": {
+        "angular_error_deg": 0.011823182814579919,
+        "cross_track_error_deg": 0.004137183652221905,
+        "object_id": "HIP_26311",
+        "signed_azimuth_error_deg": 0.006058485168921379,
+        "signed_elevation_error_deg": 0.01107587030866597
+      },
+      "512": {
+        "angular_error_deg": 0.021662532758197173,
+        "cross_track_error_deg": -0.021577608203600433,
+        "object_id": "HIP_26311",
+        "signed_azimuth_error_deg": -0.03159821518005401,
+        "signed_elevation_error_deg": 0.0019206385039112206
+      }
+    },
+    "HIP_26727": {
+      "1024": {
+        "angular_error_deg": 0.02689912112592354,
+        "cross_track_error_deg": 0.010813459983593544,
+        "object_id": "HIP_26727",
+        "signed_azimuth_error_deg": 0.015554560805298934,
+        "signed_elevation_error_deg": -0.024628841567754023
+      },
+      "2048": {
+        "angular_error_deg": 0.018052736148588672,
+        "cross_track_error_deg": -0.017179563426349607,
+        "object_id": "HIP_26727",
+        "signed_azimuth_error_deg": -0.024711846562439632,
+        "signed_elevation_error_deg": 0.005549183893613474
+      },
+      "512": {
+        "angular_error_deg": 0.01996947850808573,
+        "cross_track_error_deg": -0.01978579149099096,
+        "object_id": "HIP_26727",
+        "signed_azimuth_error_deg": -0.02846076069033643,
+        "signed_elevation_error_deg": -0.002698789579078209
+      }
+    },
+    "HIP_27366": {
+      "1024": {
+        "angular_error_deg": 0.019922084619309128,
+        "cross_track_error_deg": 0.0015764172851739173,
+        "object_id": "HIP_27366",
+        "signed_azimuth_error_deg": 0.002001533792764576,
+        "signed_elevation_error_deg": -0.019859599462456856
+      },
+      "2048": {
+        "angular_error_deg": 0.004247070980765964,
+        "cross_track_error_deg": 0.0037990005366583283,
+        "object_id": "HIP_27366",
+        "signed_azimuth_error_deg": 0.004823486791451614,
+        "signed_elevation_error_deg": -0.001898639830649529
+      },
+      "512": {
+        "angular_error_deg": 0.00969605366496281,
+        "cross_track_error_deg": 0.0030719210822708837,
+        "object_id": "HIP_27366",
+        "signed_azimuth_error_deg": 0.003900333948820389,
+        "signed_elevation_error_deg": -0.00919649787186927
+      }
+    },
+    "HIP_30324": {
+      "1024": {
+        "angular_error_deg": 0.05343389424990935,
+        "cross_track_error_deg": 0.05136182196796386,
+        "object_id": "HIP_30324",
+        "signed_azimuth_error_deg": 0.058009129547457405,
+        "signed_elevation_error_deg": -0.014723740028372845
+      },
+      "2048": {
+        "angular_error_deg": 0.1177331531753641,
+        "cross_track_error_deg": -0.11601444667994823,
+        "object_id": "HIP_30324",
+        "signed_azimuth_error_deg": -0.13102917320634333,
+        "signed_elevation_error_deg": 0.020105341058656023
+      },
+      "512": {
+        "angular_error_deg": 0.003963678612348429,
+        "cross_track_error_deg": -0.0016828479954177997,
+        "object_id": "HIP_30324",
+        "signed_azimuth_error_deg": -0.0019006441678754982,
+        "signed_elevation_error_deg": -0.003588687619636488
+      }
+    },
+    "HIP_3179": {
+      "1024": {
+        "angular_error_deg": 0.013166746813099752,
+        "cross_track_error_deg": 0.001578846818075863,
+        "object_id": "HIP_3179",
+        "signed_azimuth_error_deg": 0.0023264902011987942,
+        "signed_elevation_error_deg": 0.013071766530771356
+      },
+      "2048": {
+        "angular_error_deg": 0.001719471084891996,
+        "cross_track_error_deg": 0.0013779119989887397,
+        "object_id": "HIP_3179",
+        "signed_azimuth_error_deg": 0.0020304051837456427,
+        "signed_elevation_error_deg": -0.0010285440231925236
+      },
+      "512": {
+        "angular_error_deg": 0.011080662793394638,
+        "cross_track_error_deg": 0.009808347075760232,
+        "object_id": "HIP_3179",
+        "signed_azimuth_error_deg": 0.014452968521368348,
+        "signed_elevation_error_deg": -0.0051544203441338254
+      }
+    },
+    "HIP_4427": {
+      "1024": {
+        "angular_error_deg": 0.03486733403791123,
+        "cross_track_error_deg": -0.006552685244552376,
+        "object_id": "HIP_4427",
+        "signed_azimuth_error_deg": -0.010092631047882605,
+        "signed_elevation_error_deg": -0.03424563096972122
+      },
+      "2048": {
+        "angular_error_deg": 0.0176296938367378,
+        "cross_track_error_deg": -0.002406653139970701,
+        "object_id": "HIP_4427",
+        "signed_azimuth_error_deg": -0.0037067951985250147,
+        "signed_elevation_error_deg": -0.017464594400841804
+      },
+      "512": {
+        "angular_error_deg": 0.012903248416764376,
+        "cross_track_error_deg": 0.01106713387473307,
+        "object_id": "HIP_4427",
+        "signed_azimuth_error_deg": 0.01704591244453013,
+        "signed_elevation_error_deg": -0.006632929895324935
+      }
+    },
+    "HIP_5447": {
+      "1024": {
+        "angular_error_deg": 0.018129736982868117,
+        "cross_track_error_deg": 0.009315397816390769,
+        "object_id": "HIP_5447",
+        "signed_azimuth_error_deg": 0.01359403867780884,
+        "signed_elevation_error_deg": -0.015552674830601632
+      },
+      "2048": {
+        "angular_error_deg": 0.012164596985661632,
+        "cross_track_error_deg": 0.01195284925539927,
+        "object_id": "HIP_5447",
+        "signed_azimuth_error_deg": 0.01744289382918396,
+        "signed_elevation_error_deg": 0.002261151779521242
+      },
+      "512": {
+        "angular_error_deg": 0.003382509175672096,
+        "cross_track_error_deg": -0.003338433033187015,
+        "object_id": "HIP_5447",
+        "signed_azimuth_error_deg": -0.004871803509729489,
+        "signed_elevation_error_deg": -0.0005441702286219652
+      }
+    },
+    "HIP_746": {
+      "1024": {
+        "angular_error_deg": 0.014446224335168376,
+        "cross_track_error_deg": 1.444411019904353e-05,
+        "object_id": "HIP_746",
+        "signed_azimuth_error_deg": 1.99072772488762e-05,
+        "signed_elevation_error_deg": 0.01444621710432159
+      },
+      "2048": {
+        "angular_error_deg": 0.025072952208920203,
+        "cross_track_error_deg": 0.02427184904583517,
+        "object_id": "HIP_746",
+        "signed_azimuth_error_deg": 0.033452142197745616,
+        "signed_elevation_error_deg": -0.006282437588701839
+      },
+      "512": {
+        "angular_error_deg": 0.027872358476940844,
+        "cross_track_error_deg": -0.02312375432428633,
+        "object_id": "HIP_746",
+        "signed_azimuth_error_deg": -0.03186980589492805,
+        "signed_elevation_error_deg": -0.015557077993292978
+      }
+    },
+    "HIP_9640": {
+      "1024": {
+        "angular_error_deg": 0.04058427140674007,
+        "cross_track_error_deg": -0.036730474750577634,
+        "object_id": "HIP_9640",
+        "signed_azimuth_error_deg": -0.0709293683507326,
+        "signed_elevation_error_deg": -0.0172419484075661
+      },
+      "2048": {
+        "angular_error_deg": 0.013471434916753186,
+        "cross_track_error_deg": -0.007344778468937143,
+        "object_id": "HIP_9640",
+        "signed_azimuth_error_deg": -0.01418333144385997,
+        "signed_elevation_error_deg": 0.011293863616899102
+      },
+      "512": {
+        "angular_error_deg": 0.01406860331641135,
+        "cross_track_error_deg": -0.005943432124636832,
+        "object_id": "HIP_9640",
+        "signed_azimuth_error_deg": -0.011477224002646835,
+        "signed_elevation_error_deg": -0.012751008927786245
+      }
+    }
+  },
+  "solver_configuration": {
+    "global_search": true,
+    "ground_truth_used_for_selection": false,
+    "max_nfev": 60,
+    "max_starts": 5
+  },
+  "source_transfer_report": "new_york_resolution_transfer_20260929.json"
+}

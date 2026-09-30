@@ -33,12 +33,14 @@ CSV_FIELDS = (
     'run_index',
     'record_type',
     'sample_id',
+    'attempt_id',
     'sample_index',
     'repetition_index',
     'is_outlier',
     'timestamp_utc',
     'sample_timestamp_utc',
     'request_timestamp_utc',
+    'request_timestamp_ns',
     'request_yaw_degrees',
     'random_seed',
     'evaluation_config_json',
@@ -58,6 +60,8 @@ CSV_FIELDS = (
     'inlier_count',
     'outlier_count',
     'attempted_count',
+    'planned_repetition_count',
+    'attempted_repetition_count',
     'valid_count',
     'failure_count',
     'valid_estimate',
@@ -300,8 +304,8 @@ class RandomLocalisationEvaluator(Node):
         self.declare_parameter('fixed_altitude', 0.0)
         self.declare_parameter('result_timeout_seconds', 180.0)
         self.declare_parameter('poll_interval_seconds', 0.25)
-        self.declare_parameter('max_samples', 20)
-        self.declare_parameter('max_reps', 10)
+        self.declare_parameter('planned_repetition_count', 0)
+        self.declare_parameter('attempted_repetition_count', 0)
 
         self.debug_dir = self._resolve_debug_dir()
         self.pose_path = self.debug_dir / self.get_parameter('pose_filename').value if self.debug_dir else None
@@ -333,10 +337,6 @@ class RandomLocalisationEvaluator(Node):
             )
         self.result_timeout_seconds = float(self.get_parameter('result_timeout_seconds').value)
         self.poll_interval_seconds = float(self.get_parameter('poll_interval_seconds').value)
-        self.max_samples = int(self.get_parameter('max_samples').value)
-        self.max_reps = int(self.get_parameter('max_reps').value)
-        if self.max_samples <= 0 or self.max_reps <= 0:
-            raise ValueError('random evaluation limits must be greater than zero')
         self.fixed_altitude = float(self.get_parameter('fixed_altitude').value)
         self.code_revision = os.environ.get('CELESTIAL_CODE_REVISION', '')
         self.dependency_versions = self._load_dependency_versions()
@@ -446,14 +446,6 @@ class RandomLocalisationEvaluator(Node):
         if reps <= 0:
             response.success = False
             response.message = 'reps must be greater than zero'
-            return response
-        if samples > self.max_samples:
-            response.success = False
-            response.message = f'samples must not exceed {self.max_samples}'
-            return response
-        if reps > self.max_reps:
-            response.success = False
-            response.message = f'reps must not exceed {self.max_reps}'
             return response
         for name, value in variance_values.items():
             if not math.isfinite(value) or value < 0.0:
@@ -575,8 +567,6 @@ class RandomLocalisationEvaluator(Node):
                             repetition_index=repetition_index,
                             attempted_count=reps,
                             valid_count=len(estimates),
-                            identified_objects_used=estimated.get('identified_objects_used', ''),
-                            used_object_types=estimated.get('used_object_types', {}),
                             random_seed=random_seed,
                             evaluation_config_json=evaluation_config_json,
                             code_revision=self.code_revision,
@@ -650,6 +640,8 @@ class RandomLocalisationEvaluator(Node):
                             repetition_index=repetition_index,
                             attempted_count=reps,
                             valid_count=len(estimates),
+                            identified_objects_used=estimated.get('identified_objects_used', ''),
+                            used_object_types=estimated.get('used_object_types', {}),
                             random_seed=random_seed,
                             evaluation_config_json=evaluation_config_json,
                             code_revision=self.code_revision,
@@ -719,6 +711,7 @@ class RandomLocalisationEvaluator(Node):
                         sample_ground_truth_latitude=ground_truth_latitude,
                         sample_ground_truth_longitude=ground_truth_longitude,
                         request_timestamp_utc=self._timestamp_to_utc(estimate['timestamp']),
+                        request_timestamp_ns=self._timestamp_ns(estimate['timestamp']),
                         request_yaw_degrees=estimate['yaw'],
                         estimated_heading_degrees=estimate['heading'],
                         used_object_types=estimate['used_object_types'],
@@ -850,9 +843,16 @@ class RandomLocalisationEvaluator(Node):
         return _timestamp_from_nanoseconds(timestamp_ns)
 
     @staticmethod
+    def _timestamp_ns(timestamp):
+        return int(timestamp.sec) * NANOSECONDS_PER_SECOND + int(timestamp.nanosec)
+
+    @staticmethod
     def _timestamp_to_utc(timestamp):
-        timestamp_seconds = timestamp.sec + timestamp.nanosec / NANOSECONDS_PER_SECOND
-        return datetime.fromtimestamp(timestamp_seconds, timezone.utc).isoformat().replace('+00:00', 'Z')
+        whole_seconds = int(timestamp.sec)
+        date_text = datetime.fromtimestamp(whole_seconds, timezone.utc).strftime(
+            '%Y-%m-%dT%H:%M:%S'
+        )
+        return f'{date_text}.{int(timestamp.nanosec):09d}Z'
 
     def _wait_for_pose(self, expected_timestamp, timeout_seconds):
         deadline = time.monotonic() + timeout_seconds
@@ -1115,11 +1115,17 @@ class RandomLocalisationEvaluator(Node):
             'run_index': run_index,
             'record_type': 'failure',
             'sample_id': sample_id,
+            'attempt_id': (
+                f'{sample_id}/summary'
+                if not repetition_index
+                else f'{sample_id}/repetition-{repetition_index}'
+            ),
             'sample_index': sample_index,
             'repetition_index': repetition_index,
             'timestamp_utc': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
             'sample_timestamp_utc': self._timestamp_to_utc(sample_timestamp),
             'request_timestamp_utc': self._timestamp_to_utc(request_timestamp),
+            'request_timestamp_ns': self._timestamp_ns(request_timestamp),
             'request_yaw_degrees': request_yaw,
             'random_seed': random_seed,
             'evaluation_config_json': evaluation_config_json,
@@ -1137,8 +1143,10 @@ class RandomLocalisationEvaluator(Node):
             ),
             'identified_star_ids': '[]',
             'attempted_count': attempted_count,
+            'planned_repetition_count': attempted_count,
+            'attempted_repetition_count': repetition_index,
             'valid_count': valid_count,
-            'failure_count': '',
+            'failure_count': 1,
             'valid_estimate': False,
             'failure_reason': failure_reason,
         })
@@ -1166,6 +1174,7 @@ class RandomLocalisationEvaluator(Node):
         sample_ground_truth_latitude='',
         sample_ground_truth_longitude='',
         request_timestamp_utc='',
+        request_timestamp_ns='',
         request_yaw_degrees='',
         estimated_heading_degrees='',
         used_object_types=None,
@@ -1195,6 +1204,11 @@ class RandomLocalisationEvaluator(Node):
             'run_index': run_index,
             'record_type': record_type,
             'sample_id': sample_id,
+            'attempt_id': (
+                f'{sample_id}/summary'
+                if not repetition_index
+                else f'{sample_id}/repetition-{repetition_index}'
+            ),
             'sample_index': sample_index,
             'repetition_index': repetition_index,
             'is_outlier': is_outlier,
@@ -1203,6 +1217,7 @@ class RandomLocalisationEvaluator(Node):
             'sample_ground_truth_latitude': sample_ground_truth_latitude,
             'sample_ground_truth_longitude': sample_ground_truth_longitude,
             'request_timestamp_utc': request_timestamp_utc,
+            'request_timestamp_ns': request_timestamp_ns,
             'request_yaw_degrees': request_yaw_degrees,
             'random_seed': random_seed,
             'evaluation_config_json': evaluation_config_json,
@@ -1224,6 +1239,8 @@ class RandomLocalisationEvaluator(Node):
             'inlier_count': inlier_count,
             'outlier_count': outlier_count,
             'attempted_count': attempted_count,
+            'planned_repetition_count': attempted_count,
+            'attempted_repetition_count': attempted_count,
             'valid_count': valid_count,
             'failure_count': failure_count,
             'valid_estimate': valid_estimate,

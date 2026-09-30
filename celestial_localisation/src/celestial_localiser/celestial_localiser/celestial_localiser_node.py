@@ -238,6 +238,7 @@ class CelestialLocalizerNode(Node):
                     'heading': result.selected_start[2],
                 },
                 'starts_tried': int(result.starts_tried),
+                'start_diagnostics': result.start_diagnostics,
                 'boundary_solution': bool(result.boundary_solution),
             },
             'covariance_diagonal': (

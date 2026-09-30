@@ -22,6 +22,8 @@ def _package_file(*parts):
 def generate_launch_description():
     camera_input_topic = _env('CELESTIAL_CAMERA_TOPIC', '/camera/camera/color/image_raw')
     sky_map_topic = _env('CELESTIAL_SKY_MAP_TOPIC', '/sky_map')
+    face_topic = _env('CELESTIAL_FACE_TOPIC', '/celestial_faces')
+    direction_source = _env('CELESTIAL_DIRECTION_SOURCE', 'original_face')
     observations_topic = _env('CELESTIAL_OBSERVATIONS_TOPIC', '/celestial_observations')
     debug_output_dir = _env('CELESTIAL_DEBUG_OUTPUT_DIR', '')
     metrics_filename = _env(
@@ -55,6 +57,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'output_topic': sky_map_topic,
+            'face_output_topic': face_topic if direction_source == 'original_face' else '',
             'load_gps_service': _env('CELESTIAL_LOAD_GPS_SERVICE', '/test/load_gps'),
             'frame_id': _env('CELESTIAL_SKY_MAP_FRAME', 'sky_map'),
             'panorama_width': int(_env('CELESTIAL_PANORAMA_WIDTH', '2048')),
@@ -86,7 +89,21 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'input_topic': sky_map_topic,
+            'face_input_topic': face_topic,
             'output_topic': observations_topic,
+            'direction_source': direction_source,
+            'face_match_radius_degrees': float(
+                _env('CELESTIAL_FACE_MATCH_RADIUS_DEGREES', '2.0')
+            ),
+            'face_match_ambiguity_margin_degrees': float(
+                _env('CELESTIAL_FACE_MATCH_AMBIGUITY_MARGIN_DEGREES', '0.25')
+            ),
+            'face_duplicate_radius_degrees': float(
+                _env('CELESTIAL_FACE_DUPLICATE_RADIUS_DEGREES', '0.15')
+            ),
+            'face_sync_timeout_seconds': float(
+                _env('CELESTIAL_FACE_SYNC_TIMEOUT_SECONDS', '1.0')
+            ),
             'detect_stars': _env('CELESTIAL_DETECT_STARS', 'true') == 'true',
             'detect_sun': _env('CELESTIAL_DETECT_SUN', 'true') == 'true',
             'detect_moon': _env('CELESTIAL_DETECT_MOON', 'true') == 'true',
@@ -147,9 +164,9 @@ def generate_launch_description():
             'fixed_altitude': float(_env('CELESTIAL_FIXED_ALTITUDE', '0.0')),
             'initial_latitude': float(_env('CELESTIAL_INITIAL_LATITUDE', '51.5')),
             'initial_longitude': float(_env('CELESTIAL_INITIAL_LONGITUDE', '-0.1')),
-            'solver_max_nfev': int(_env('CELESTIAL_SOLVER_MAX_NFEV', '30')),
-            'solver_max_starts': int(_env('CELESTIAL_SOLVER_MAX_STARTS', '25')),
-            'global_search': _env('CELESTIAL_SOLVER_GLOBAL_SEARCH', 'false') == 'true',
+            'solver_max_nfev': int(_env('CELESTIAL_SOLVER_MAX_NFEV', '60')),
+            'solver_max_starts': int(_env('CELESTIAL_SOLVER_MAX_STARTS', '5')),
+            'global_search': _env('CELESTIAL_SOLVER_GLOBAL_SEARCH', 'true') == 'true',
             'stateful_tracking': _env('CELESTIAL_LOCALIZER_STATEFUL_TRACKING', 'true') == 'true',
             'publish_tf': _env('CELESTIAL_PUBLISH_TF', 'true') == 'true',
             'map_frame': _env('CELESTIAL_MAP_FRAME', 'map'),
@@ -199,12 +216,6 @@ def generate_launch_description():
             ),
             'poll_interval_seconds': float(
                 _env('CELESTIAL_RANDOM_EVALUATION_POLL_INTERVAL', '0.25')
-            ),
-            'max_samples': int(
-                _env('CELESTIAL_RANDOM_EVALUATION_MAX_SAMPLES', '20')
-            ),
-            'max_reps': int(
-                _env('CELESTIAL_RANDOM_EVALUATION_MAX_REPS', '10')
             ),
         }],
     )

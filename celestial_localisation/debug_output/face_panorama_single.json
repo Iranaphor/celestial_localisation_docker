@@ -1,0 +1,274 @@
+{
+  "configuration": {
+    "altitude": 0.0,
+    "browser_executable": "",
+    "data_root": "/opt/stellarium/data",
+    "engine_js": "/opt/stellarium/stellarium-web-engine.js",
+    "engine_wasm": "/opt/stellarium/stellarium-web-engine.wasm",
+    "face_duplicate_radius": 0.15,
+    "face_fov": 95.0,
+    "face_match_ambiguity_margin": 0.25,
+    "face_match_radius": 2.0,
+    "face_size": 512,
+    "global_search": true,
+    "heading": 17.0,
+    "initial_heading": 0.0,
+    "initial_latitude": 51.5,
+    "initial_longitude": -0.1,
+    "latitude": 23.0,
+    "longitude": -70.0,
+    "max_candidates": 64,
+    "max_nfev": 30,
+    "max_starts": 5,
+    "min_elevation": 25.0,
+    "panorama_height": 1024,
+    "panorama_width": 2048,
+    "star_threshold": 5.0,
+    "star_tile_size": 512,
+    "timeout": 60.0,
+    "timestamp": 1700000000.0
+  },
+  "counts": {
+    "common_ids": 25,
+    "deduplicated_face_detections": 349,
+    "face_detections": 384,
+    "face_matched_to_panorama_ids": 25,
+    "face_stars_lost_during_matching": 6,
+    "face_stars_rejected_as_ambiguous": 1,
+    "panorama_identified": 32
+  },
+  "face_errors_deg": {
+    "count": 25,
+    "max_deg": 0.09611683666719366,
+    "median_deg": 0.060597937457143786,
+    "p90_deg": 0.08961435854641
+  },
+  "paired_solver_results": {
+    "face": {
+      "cost": 1.3104619760895275e-05,
+      "direction_build_seconds": 0.00033051999344024807,
+      "failure_reason": "",
+      "geographic_error_meters": 2168.5953050084,
+      "heading": 16.976009100649065,
+      "latitude": 23.009133132862775,
+      "longitude": -69.98127929071059,
+      "max_residual": 0.0018159852423100084,
+      "message": "`ftol` termination condition is satisfied.",
+      "rms_residual": 0.0010238994382687357,
+      "runtime_seconds": 0.9760100889980095,
+      "selected_nfev": 26,
+      "starts_tried": 5,
+      "total_nfev": 120,
+      "total_runtime_seconds": 0.9763408699946012,
+      "valid": true
+    },
+    "panorama": {
+      "cost": 3.780934272334946e-05,
+      "direction_build_seconds": 0.0003092929982813075,
+      "failure_reason": "",
+      "geographic_error_meters": 3963.8990359571167,
+      "heading": 17.062676354135547,
+      "latitude": 23.03558311841068,
+      "longitude": -69.99766063858222,
+      "max_residual": 0.003172578474140269,
+      "message": "`ftol` termination condition is satisfied.",
+      "rms_residual": 0.0017391812586492795,
+      "runtime_seconds": 1.1606368270004168,
+      "selected_nfev": 27,
+      "starts_tried": 5,
+      "total_nfev": 138,
+      "total_runtime_seconds": 1.1609465229994385,
+      "valid": true
+    }
+  },
+  "pairing": {
+    "ambiguity_margin_degrees": 0.25,
+    "ambiguous_object_ids": [
+      "HIP_112724"
+    ],
+    "duplicate_radius_degrees": 0.15,
+    "face_match_radius_degrees": 2.0,
+    "lost_object_ids": [
+      "HIP_116584",
+      "HIP_2599",
+      "HIP_92041",
+      "HIP_93085",
+      "HIP_93683",
+      "HIP_93864"
+    ],
+    "method": "mutual nearest original-face centroid to observed panorama direction",
+    "uses_ground_truth_for_pairing": false
+  },
+  "panorama_errors_deg": {
+    "count": 25,
+    "max_deg": 0.16598774810763162,
+    "median_deg": 0.09657217290070357,
+    "p90_deg": 0.15979253581971214
+  },
+  "rows": [
+    {
+      "face_error_deg": 0.03978229665241366,
+      "object_id": "HIP_100345",
+      "panorama_error_deg": 0.06172711211577544,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.08247455204697196,
+      "object_id": "HIP_102422",
+      "panorama_error_deg": 0.050218331101019184,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.06016539672927938,
+      "object_id": "HIP_105199",
+      "panorama_error_deg": 0.09657217290070357,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.03389521426362568,
+      "object_id": "HIP_109492",
+      "panorama_error_deg": 0.07969239066168811,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.04079792585601868,
+      "object_id": "HIP_111169",
+      "panorama_error_deg": 0.08469089726416154,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.02069162844066817,
+      "object_id": "HIP_116727",
+      "panorama_error_deg": 0.12356180464200878,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.09437422954603533,
+      "object_id": "HIP_2920",
+      "panorama_error_deg": 0.1627700878505611,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.06123083140803979,
+      "object_id": "HIP_3179",
+      "panorama_error_deg": 0.15761180016213786,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.06587309941290023,
+      "object_id": "HIP_4427",
+      "panorama_error_deg": 0.15703769308527274,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.050300084338616206,
+      "object_id": "HIP_5447",
+      "panorama_error_deg": 0.07468601062981566,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.04724737673793514,
+      "object_id": "HIP_6686",
+      "panorama_error_deg": 0.12842787568508804,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.08116109816180642,
+      "object_id": "HIP_746",
+      "panorama_error_deg": 0.15969529985561598,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.06926449346283646,
+      "object_id": "HIP_7607",
+      "panorama_error_deg": 0.09262805878923781,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.09572977935834057,
+      "object_id": "HIP_8886",
+      "panorama_error_deg": 0.16598774810763162,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.05782143243642927,
+      "object_id": "HIP_89341",
+      "panorama_error_deg": 0.08539431175384224,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.062202300767068244,
+      "object_id": "HIP_89962",
+      "panorama_error_deg": 0.04746934526757696,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.058058226085268234,
+      "object_id": "HIP_90496",
+      "panorama_error_deg": 0.08593900727255026,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.04946413058231768,
+      "object_id": "HIP_91117",
+      "panorama_error_deg": 0.0989289266446134,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.060597937457143786,
+      "object_id": "HIP_92855",
+      "panorama_error_deg": 0.14888015652025025,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.08219467258609478,
+      "object_id": "HIP_93506",
+      "panorama_error_deg": 0.15985735979577625,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.0488931662903954,
+      "object_id": "HIP_93747",
+      "panorama_error_deg": 0.08902637059328211,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.09611683666719366,
+      "object_id": "HIP_93805",
+      "panorama_error_deg": 0.058232657804742335,
+      "source_face": "zenith"
+    },
+    {
+      "face_error_deg": 0.08002443286948825,
+      "object_id": "HIP_94141",
+      "panorama_error_deg": 0.14487583174852828,
+      "source_face": "azimuth_180"
+    },
+    {
+      "face_error_deg": 0.06527318180207736,
+      "object_id": "HIP_9640",
+      "panorama_error_deg": 0.12545975122731712,
+      "source_face": "azimuth_0"
+    },
+    {
+      "face_error_deg": 0.05050684997368618,
+      "object_id": "HIP_99473",
+      "panorama_error_deg": 0.06590246936568697,
+      "source_face": "zenith"
+    }
+  ],
+  "solver_configuration": {
+    "global_search": true,
+    "initial_heading": 0.0,
+    "initial_latitude": 51.5,
+    "initial_longitude": -0.1,
+    "max_nfev": 30,
+    "max_starts": 5
+  },
+  "timing": {
+    "matching_seconds": 0.1769385229999898,
+    "render_seconds": 4.085518093997962,
+    "render_shared_by_both": true,
+    "scene_total_seconds": 12.135697013989557
+  }
+}

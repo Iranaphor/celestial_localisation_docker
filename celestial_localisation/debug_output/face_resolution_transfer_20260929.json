@@ -1,0 +1,1974 @@
+{
+  "configuration": {
+    "face_sizes": [
+      512,
+      1024,
+      2048
+    ],
+    "identification_source": "512-face composed panorama only",
+    "pairing_uses_ground_truth": false,
+    "panorama_height": 1024,
+    "panorama_width": 2048,
+    "solver": {
+      "global_search": true,
+      "max_nfev": 60,
+      "max_starts": 5
+    }
+  },
+  "scenes": [
+    {
+      "canonical_id_count": 37,
+      "canonical_ids": [
+        "HIP_100453",
+        "HIP_101076",
+        "HIP_102098",
+        "HIP_102422",
+        "HIP_102488",
+        "HIP_104060",
+        "HIP_104732",
+        "HIP_104887",
+        "HIP_105102",
+        "HIP_105199",
+        "HIP_106032",
+        "HIP_106481",
+        "HIP_107259",
+        "HIP_107533",
+        "HIP_109492",
+        "HIP_111169",
+        "HIP_113726",
+        "HIP_116584",
+        "HIP_18246",
+        "HIP_18532",
+        "HIP_19343",
+        "HIP_23015",
+        "HIP_23453",
+        "HIP_23767",
+        "HIP_24608",
+        "HIP_25428",
+        "HIP_26451",
+        "HIP_28358",
+        "HIP_28360",
+        "HIP_28380",
+        "HIP_29655",
+        "HIP_30343",
+        "HIP_32246",
+        "HIP_94376",
+        "HIP_97165",
+        "HIP_98110",
+        "HIP_99675"
+      ],
+      "canonical_render_seconds": 4.0586110790027305,
+      "cases": [
+        {
+          "ambiguous_canonical_ids": [],
+          "angular_error_all_matched_ids_deg": {
+            "count": 31,
+            "max": 0.12272264310924702,
+            "mean": 0.0368249810005446,
+            "median": 0.035194113594251744,
+            "p90": 0.056605225967224115
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 19,
+            "max": 0.06170035538656208,
+            "mean": 0.03259086623507323,
+            "median": 0.03138749697593082,
+            "p90": 0.04630157760713061
+          },
+          "canonical_panorama_id_count": 37,
+          "common_all_face_sizes_count": 19,
+          "common_all_face_sizes_ids": [
+            "HIP_100453",
+            "HIP_102098",
+            "HIP_102422",
+            "HIP_102488",
+            "HIP_104732",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_23015",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_25428",
+            "HIP_28360",
+            "HIP_28380",
+            "HIP_30343",
+            "HIP_94376",
+            "HIP_97165"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_101076",
+            "HIP_107259",
+            "HIP_113726",
+            "HIP_116584",
+            "HIP_19343",
+            "HIP_28358"
+          ],
+          "face_size": 512,
+          "matched_id_count": 31,
+          "matched_ids": [
+            "HIP_100453",
+            "HIP_102098",
+            "HIP_102422",
+            "HIP_102488",
+            "HIP_104060",
+            "HIP_104732",
+            "HIP_104887",
+            "HIP_105102",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_106481",
+            "HIP_107533",
+            "HIP_109492",
+            "HIP_111169",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_23015",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_24608",
+            "HIP_25428",
+            "HIP_26451",
+            "HIP_28360",
+            "HIP_28380",
+            "HIP_29655",
+            "HIP_30343",
+            "HIP_32246",
+            "HIP_94376",
+            "HIP_97165",
+            "HIP_98110",
+            "HIP_99675"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 4.0586110790027305,
+          "rows": [
+            {
+              "angular_error_degrees": 0.03034403143325144,
+              "object_id": "HIP_100453"
+            },
+            {
+              "angular_error_degrees": 0.023390020699326445,
+              "object_id": "HIP_102098"
+            },
+            {
+              "angular_error_degrees": 0.0414099988400502,
+              "object_id": "HIP_102422"
+            },
+            {
+              "angular_error_degrees": 0.008293070012534882,
+              "object_id": "HIP_102488"
+            },
+            {
+              "angular_error_degrees": 0.030412370350995564,
+              "object_id": "HIP_104060"
+            },
+            {
+              "angular_error_degrees": 0.036895462010129915,
+              "object_id": "HIP_104732"
+            },
+            {
+              "angular_error_degrees": 0.026404292587740446,
+              "object_id": "HIP_104887"
+            },
+            {
+              "angular_error_degrees": 0.044948575683092455,
+              "object_id": "HIP_105102"
+            },
+            {
+              "angular_error_degrees": 0.04341251430356224,
+              "object_id": "HIP_105199"
+            },
+            {
+              "angular_error_degrees": 0.04501976029254644,
+              "object_id": "HIP_106032"
+            },
+            {
+              "angular_error_degrees": 0.010370576894632486,
+              "object_id": "HIP_106481"
+            },
+            {
+              "angular_error_degrees": 0.01779270422937317,
+              "object_id": "HIP_107533"
+            },
+            {
+              "angular_error_degrees": 0.044290809171213,
+              "object_id": "HIP_109492"
+            },
+            {
+              "angular_error_degrees": 0.035194113594251744,
+              "object_id": "HIP_111169"
+            },
+            {
+              "angular_error_degrees": 0.06170035538656208,
+              "object_id": "HIP_18246"
+            },
+            {
+              "angular_error_degrees": 0.020138814626920444,
+              "object_id": "HIP_18532"
+            },
+            {
+              "angular_error_degrees": 0.045387945467334344,
+              "object_id": "HIP_23015"
+            },
+            {
+              "angular_error_degrees": 0.03138749697593082,
+              "object_id": "HIP_23453"
+            },
+            {
+              "angular_error_degrees": 0.01978120200414125,
+              "object_id": "HIP_23767"
+            },
+            {
+              "angular_error_degrees": 0.12272264310924702,
+              "object_id": "HIP_24608"
+            },
+            {
+              "angular_error_degrees": 0.02219939287241194,
+              "object_id": "HIP_25428"
+            },
+            {
+              "angular_error_degrees": 0.04941093866894952,
+              "object_id": "HIP_26451"
+            },
+            {
+              "angular_error_degrees": 0.012937707957915013,
+              "object_id": "HIP_28360"
+            },
+            {
+              "angular_error_degrees": 0.028553729997279762,
+              "object_id": "HIP_28380"
+            },
+            {
+              "angular_error_degrees": 0.056605225967224115,
+              "object_id": "HIP_29655"
+            },
+            {
+              "angular_error_degrees": 0.04995610616631572,
+              "object_id": "HIP_30343"
+            },
+            {
+              "angular_error_degrees": 0.06155167827747578,
+              "object_id": "HIP_32246"
+            },
+            {
+              "angular_error_degrees": 0.03569908198120383,
+              "object_id": "HIP_94376"
+            },
+            {
+              "angular_error_degrees": 0.018428958267761485,
+              "object_id": "HIP_97165"
+            },
+            {
+              "angular_error_degrees": 0.044607757858213914,
+              "object_id": "HIP_98110"
+            },
+            {
+              "angular_error_degrees": 0.022327075329295384,
+              "object_id": "HIP_99675"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 474.28357282699204,
+            "heading": 0.01129167209114304,
+            "latitude": 51.5116530101007,
+            "longitude": -0.12832060010129404,
+            "observation_count": 19,
+            "rms_residual": 0.0005984565380909842,
+            "runtime_seconds": 1.201099678000901,
+            "valid": true
+          }
+        },
+        {
+          "ambiguous_canonical_ids": [
+            "HIP_24608"
+          ],
+          "angular_error_all_matched_ids_deg": {
+            "count": 21,
+            "max": 0.07448266377580584,
+            "mean": 0.01534457456700534,
+            "median": 0.007778413973487194,
+            "p90": 0.04732565916671474
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 19,
+            "max": 0.07448266377580584,
+            "mean": 0.016600572609201066,
+            "median": 0.008135482703848248,
+            "p90": 0.04761143150921969
+          },
+          "canonical_panorama_id_count": 37,
+          "common_all_face_sizes_count": 19,
+          "common_all_face_sizes_ids": [
+            "HIP_100453",
+            "HIP_102098",
+            "HIP_102422",
+            "HIP_102488",
+            "HIP_104732",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_23015",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_25428",
+            "HIP_28360",
+            "HIP_28380",
+            "HIP_30343",
+            "HIP_94376",
+            "HIP_97165"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_101076",
+            "HIP_104060",
+            "HIP_104887",
+            "HIP_105102",
+            "HIP_106481",
+            "HIP_107259",
+            "HIP_107533",
+            "HIP_111169",
+            "HIP_113726",
+            "HIP_116584",
+            "HIP_19343",
+            "HIP_24608",
+            "HIP_28358",
+            "HIP_29655",
+            "HIP_98110",
+            "HIP_99675"
+          ],
+          "face_size": 1024,
+          "matched_id_count": 21,
+          "matched_ids": [
+            "HIP_100453",
+            "HIP_102098",
+            "HIP_102422",
+            "HIP_102488",
+            "HIP_104732",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_23015",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_25428",
+            "HIP_26451",
+            "HIP_28360",
+            "HIP_28380",
+            "HIP_30343",
+            "HIP_32246",
+            "HIP_94376",
+            "HIP_97165"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 9.844907017992227,
+          "rows": [
+            {
+              "angular_error_degrees": 0.04732565916671474,
+              "object_id": "HIP_100453"
+            },
+            {
+              "angular_error_degrees": 0.07448266377580584,
+              "object_id": "HIP_102098"
+            },
+            {
+              "angular_error_degrees": 0.021932186925378825,
+              "object_id": "HIP_102422"
+            },
+            {
+              "angular_error_degrees": 0.007778413973487194,
+              "object_id": "HIP_102488"
+            },
+            {
+              "angular_error_degrees": 0.0036299784793890903,
+              "object_id": "HIP_104732"
+            },
+            {
+              "angular_error_degrees": 0.008135482703848248,
+              "object_id": "HIP_105199"
+            },
+            {
+              "angular_error_degrees": 0.012539623849115993,
+              "object_id": "HIP_106032"
+            },
+            {
+              "angular_error_degrees": 0.0069526669929301605,
+              "object_id": "HIP_109492"
+            },
+            {
+              "angular_error_degrees": 0.007203555253548734,
+              "object_id": "HIP_18246"
+            },
+            {
+              "angular_error_degrees": 0.012469804364734719,
+              "object_id": "HIP_18532"
+            },
+            {
+              "angular_error_degrees": 0.009285156490240573,
+              "object_id": "HIP_23015"
+            },
+            {
+              "angular_error_degrees": 0.004355564979541678,
+              "object_id": "HIP_23453"
+            },
+            {
+              "angular_error_degrees": 0.008668711673175716,
+              "object_id": "HIP_23767"
+            },
+            {
+              "angular_error_degrees": 0.048754520879239496,
+              "object_id": "HIP_25428"
+            },
+            {
+              "angular_error_degrees": 0.0026600706958637304,
+              "object_id": "HIP_26451"
+            },
+            {
+              "angular_error_degrees": 0.02055034858841481,
+              "object_id": "HIP_28360"
+            },
+            {
+              "angular_error_degrees": 0.004490548601811483,
+              "object_id": "HIP_28380"
+            },
+            {
+              "angular_error_degrees": 0.006057486839485491,
+              "object_id": "HIP_30343"
+            },
+            {
+              "angular_error_degrees": 0.004165115636428195,
+              "object_id": "HIP_32246"
+            },
+            {
+              "angular_error_degrees": 0.0065264407667935675,
+              "object_id": "HIP_94376"
+            },
+            {
+              "angular_error_degrees": 0.0042720652711639336,
+              "object_id": "HIP_97165"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 618.1107862778485,
+            "heading": -0.0004785901052167752,
+            "latitude": 51.501849053621264,
+            "longitude": -0.12732533409199315,
+            "observation_count": 19,
+            "rms_residual": 0.0004302246269186373,
+            "runtime_seconds": 1.163778671005275,
+            "valid": true
+          }
+        },
+        {
+          "ambiguous_canonical_ids": [],
+          "angular_error_all_matched_ids_deg": {
+            "count": 21,
+            "max": 0.4945589611539597,
+            "mean": 0.03386729270400886,
+            "median": 0.009887831237610193,
+            "p90": 0.030565853515979895
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 19,
+            "max": 0.032401942788517185,
+            "mean": 0.010487233702803203,
+            "median": 0.005007312780673061,
+            "p90": 0.02805586000571972
+          },
+          "canonical_panorama_id_count": 37,
+          "common_all_face_sizes_count": 19,
+          "common_all_face_sizes_ids": [
+            "HIP_100453",
+            "HIP_102098",
+            "HIP_102422",
+            "HIP_102488",
+            "HIP_104732",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_23015",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_25428",
+            "HIP_28360",
+            "HIP_28380",
+            "HIP_30343",
+            "HIP_94376",
+            "HIP_97165"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_101076",
+            "HIP_104060",
+            "HIP_104887",
+            "HIP_105102",
+            "HIP_106481",
+            "HIP_107259",
+            "HIP_107533",
+            "HIP_113726",
+            "HIP_116584",
+            "HIP_19343",
+            "HIP_26451",
+            "HIP_28358",
+            "HIP_29655",
+            "HIP_32246",
+            "HIP_98110",
+            "HIP_99675"
+          ],
+          "face_size": 2048,
+          "matched_id_count": 21,
+          "matched_ids": [
+            "HIP_100453",
+            "HIP_102098",
+            "HIP_102422",
+            "HIP_102488",
+            "HIP_104732",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_111169",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_23015",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_24608",
+            "HIP_25428",
+            "HIP_28360",
+            "HIP_28380",
+            "HIP_30343",
+            "HIP_94376",
+            "HIP_97165"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 22.159224433999043,
+          "rows": [
+            {
+              "angular_error_degrees": 0.032401942788517185,
+              "object_id": "HIP_100453"
+            },
+            {
+              "angular_error_degrees": 0.027428361628154676,
+              "object_id": "HIP_102098"
+            },
+            {
+              "angular_error_degrees": 0.010485858092843314,
+              "object_id": "HIP_102422"
+            },
+            {
+              "angular_error_degrees": 0.01111920516696433,
+              "object_id": "HIP_102488"
+            },
+            {
+              "angular_error_degrees": 0.003545600453600252,
+              "object_id": "HIP_104732"
+            },
+            {
+              "angular_error_degrees": 0.030565853515979895,
+              "object_id": "HIP_105199"
+            },
+            {
+              "angular_error_degrees": 0.0009195582126623916,
+              "object_id": "HIP_106032"
+            },
+            {
+              "angular_error_degrees": 0.009887831237610193,
+              "object_id": "HIP_109492"
+            },
+            {
+              "angular_error_degrees": 0.017396745276965542,
+              "object_id": "HIP_111169"
+            },
+            {
+              "angular_error_degrees": 0.0040143072282863524,
+              "object_id": "HIP_18246"
+            },
+            {
+              "angular_error_degrees": 0.005007312780673061,
+              "object_id": "HIP_18532"
+            },
+            {
+              "angular_error_degrees": 0.0025864222561888172,
+              "object_id": "HIP_23015"
+            },
+            {
+              "angular_error_degrees": 0.016488987447837083,
+              "object_id": "HIP_23453"
+            },
+            {
+              "angular_error_degrees": 0.002903582750872186,
+              "object_id": "HIP_23767"
+            },
+            {
+              "angular_error_degrees": 0.4945589611539597,
+              "object_id": "HIP_24608"
+            },
+            {
+              "angular_error_degrees": 0.015760907399064352,
+              "object_id": "HIP_25428"
+            },
+            {
+              "angular_error_degrees": 0.013541981936743797,
+              "object_id": "HIP_28360"
+            },
+            {
+              "angular_error_degrees": 0.0015696110107403113,
+              "object_id": "HIP_28380"
+            },
+            {
+              "angular_error_degrees": 0.004749036305565481,
+              "object_id": "HIP_30343"
+            },
+            {
+              "angular_error_degrees": 0.001588304924604756,
+              "object_id": "HIP_94376"
+            },
+            {
+              "angular_error_degrees": 0.004692775216352424,
+              "object_id": "HIP_97165"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 195.70325234583544,
+            "heading": 0.001895731290705025,
+            "latitude": 51.50845052371636,
+            "longitude": -0.1255312368528287,
+            "observation_count": 19,
+            "rms_residual": 0.0002483815199312056,
+            "runtime_seconds": 1.186748570005875,
+            "valid": true
+          }
+        }
+      ],
+      "common_all_face_sizes_ids": [
+        "HIP_100453",
+        "HIP_102098",
+        "HIP_102422",
+        "HIP_102488",
+        "HIP_104732",
+        "HIP_105199",
+        "HIP_106032",
+        "HIP_109492",
+        "HIP_18246",
+        "HIP_18532",
+        "HIP_23015",
+        "HIP_23453",
+        "HIP_23767",
+        "HIP_25428",
+        "HIP_28360",
+        "HIP_28380",
+        "HIP_30343",
+        "HIP_94376",
+        "HIP_97165"
+      ],
+      "face_sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "scene": {
+        "altitude": 35.0,
+        "heading": 0.0,
+        "latitude": 51.5074,
+        "longitude": -0.1278,
+        "scene_id": "london_00_h000",
+        "timestamp": 1700000000
+      }
+    },
+    {
+      "canonical_id_count": 27,
+      "canonical_ids": [
+        "HIP_10064",
+        "HIP_105199",
+        "HIP_106032",
+        "HIP_109492",
+        "HIP_111169",
+        "HIP_112724",
+        "HIP_14328",
+        "HIP_22449",
+        "HIP_23875",
+        "HIP_25336",
+        "HIP_25606",
+        "HIP_25930",
+        "HIP_25985",
+        "HIP_26207",
+        "HIP_26241",
+        "HIP_26311",
+        "HIP_26727",
+        "HIP_27366",
+        "HIP_30324",
+        "HIP_3179",
+        "HIP_32349",
+        "HIP_4427",
+        "HIP_5447",
+        "HIP_6686",
+        "HIP_746",
+        "HIP_7607",
+        "HIP_9640"
+      ],
+      "canonical_render_seconds": 4.15697920799721,
+      "cases": [
+        {
+          "ambiguous_canonical_ids": [],
+          "angular_error_all_matched_ids_deg": {
+            "count": 25,
+            "max": 0.4484385844352772,
+            "mean": 0.059281520318864744,
+            "median": 0.023236420287305524,
+            "p90": 0.07020653472238571
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 17,
+            "max": 0.4484385844352772,
+            "mean": 0.04603984049993321,
+            "median": 0.02121824419550569,
+            "p90": 0.046018208389154755
+          },
+          "canonical_panorama_id_count": 27,
+          "common_all_face_sizes_count": 17,
+          "common_all_face_sizes_ids": [
+            "HIP_105199",
+            "HIP_109492",
+            "HIP_112724",
+            "HIP_14328",
+            "HIP_23875",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_26241",
+            "HIP_26311",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_30324",
+            "HIP_3179",
+            "HIP_4427",
+            "HIP_5447",
+            "HIP_746",
+            "HIP_9640"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_25606",
+            "HIP_25985"
+          ],
+          "face_size": 512,
+          "matched_id_count": 25,
+          "matched_ids": [
+            "HIP_10064",
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_111169",
+            "HIP_112724",
+            "HIP_14328",
+            "HIP_22449",
+            "HIP_23875",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_26207",
+            "HIP_26241",
+            "HIP_26311",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_30324",
+            "HIP_3179",
+            "HIP_32349",
+            "HIP_4427",
+            "HIP_5447",
+            "HIP_6686",
+            "HIP_746",
+            "HIP_7607",
+            "HIP_9640"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 4.15697920799721,
+          "rows": [
+            {
+              "angular_error_degrees": 0.031654904753269944,
+              "object_id": "HIP_10064"
+            },
+            {
+              "angular_error_degrees": 0.045405355908638034,
+              "object_id": "HIP_105199"
+            },
+            {
+              "angular_error_degrees": 0.044738759258634665,
+              "object_id": "HIP_106032"
+            },
+            {
+              "angular_error_degrees": 0.035090168868670876,
+              "object_id": "HIP_109492"
+            },
+            {
+              "angular_error_degrees": 0.06392679269441141,
+              "object_id": "HIP_111169"
+            },
+            {
+              "angular_error_degrees": 0.04693748710992984,
+              "object_id": "HIP_112724"
+            },
+            {
+              "angular_error_degrees": 0.02121824419550569,
+              "object_id": "HIP_14328"
+            },
+            {
+              "angular_error_degrees": 0.01813625994326181,
+              "object_id": "HIP_22449"
+            },
+            {
+              "angular_error_degrees": 0.02221202328575259,
+              "object_id": "HIP_23875"
+            },
+            {
+              "angular_error_degrees": 0.023236420287305524,
+              "object_id": "HIP_25336"
+            },
+            {
+              "angular_error_degrees": 0.015539878367153108,
+              "object_id": "HIP_25930"
+            },
+            {
+              "angular_error_degrees": 0.07439302940770187,
+              "object_id": "HIP_26207"
+            },
+            {
+              "angular_error_degrees": 0.4484385844352772,
+              "object_id": "HIP_26241"
+            },
+            {
+              "angular_error_degrees": 0.021662532758197173,
+              "object_id": "HIP_26311"
+            },
+            {
+              "angular_error_degrees": 0.01996947854458791,
+              "object_id": "HIP_26727"
+            },
+            {
+              "angular_error_degrees": 0.00969605374014076,
+              "object_id": "HIP_27366"
+            },
+            {
+              "angular_error_degrees": 0.003963678612348429,
+              "object_id": "HIP_30324"
+            },
+            {
+              "angular_error_degrees": 0.011080662760502678,
+              "object_id": "HIP_3179"
+            },
+            {
+              "angular_error_degrees": 0.37849493787158595,
+              "object_id": "HIP_32349"
+            },
+            {
+              "angular_error_degrees": 0.01290324838851841,
+              "object_id": "HIP_4427"
+            },
+            {
+              "angular_error_degrees": 0.0033825093911717084,
+              "object_id": "HIP_5447"
+            },
+            {
+              "angular_error_degrees": 0.04646702370877312,
+              "object_id": "HIP_6686"
+            },
+            {
+              "angular_error_degrees": 0.027872358476940844,
+              "object_id": "HIP_746"
+            },
+            {
+              "angular_error_degrees": 0.041549011835115356,
+              "object_id": "HIP_7607"
+            },
+            {
+              "angular_error_degrees": 0.014068603368223846,
+              "object_id": "HIP_9640"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 3613.7534377868596,
+            "heading": 45.01962343853262,
+            "latitude": 40.68078670317733,
+            "longitude": -73.99861485189511,
+            "observation_count": 17,
+            "rms_residual": 0.0018651674984257217,
+            "runtime_seconds": 1.2319552159897285,
+            "valid": true
+          }
+        },
+        {
+          "ambiguous_canonical_ids": [],
+          "angular_error_all_matched_ids_deg": {
+            "count": 19,
+            "max": 0.49205008386262383,
+            "mean": 0.05005880359925823,
+            "median": 0.01992208465589814,
+            "p90": 0.054351246570206665
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 17,
+            "max": 0.49205008386262383,
+            "mean": 0.05543949679623327,
+            "median": 0.02689912112592354,
+            "p90": 0.055053041479488675
+          },
+          "canonical_panorama_id_count": 27,
+          "common_all_face_sizes_count": 17,
+          "common_all_face_sizes_ids": [
+            "HIP_105199",
+            "HIP_109492",
+            "HIP_112724",
+            "HIP_14328",
+            "HIP_23875",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_26241",
+            "HIP_26311",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_30324",
+            "HIP_3179",
+            "HIP_4427",
+            "HIP_5447",
+            "HIP_746",
+            "HIP_9640"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_10064",
+            "HIP_106032",
+            "HIP_111169",
+            "HIP_22449",
+            "HIP_26207",
+            "HIP_32349",
+            "HIP_6686",
+            "HIP_7607"
+          ],
+          "face_size": 1024,
+          "matched_id_count": 19,
+          "matched_ids": [
+            "HIP_105199",
+            "HIP_109492",
+            "HIP_112724",
+            "HIP_14328",
+            "HIP_23875",
+            "HIP_25336",
+            "HIP_25606",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26241",
+            "HIP_26311",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_30324",
+            "HIP_3179",
+            "HIP_4427",
+            "HIP_5447",
+            "HIP_746",
+            "HIP_9640"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 9.447325379995164,
+          "rows": [
+            {
+              "angular_error_degrees": 0.05364945166092466,
+              "object_id": "HIP_105199"
+            },
+            {
+              "angular_error_degrees": 0.007995485224796773,
+              "object_id": "HIP_109492"
+            },
+            {
+              "angular_error_degrees": 0.006390156223158068,
+              "object_id": "HIP_112724"
+            },
+            {
+              "angular_error_degrees": 0.011774987328271607,
+              "object_id": "HIP_14328"
+            },
+            {
+              "angular_error_degrees": 0.010932282016721548,
+              "object_id": "HIP_23875"
+            },
+            {
+              "angular_error_degrees": 0.04574540538917848,
+              "object_id": "HIP_25336"
+            },
+            {
+              "angular_error_degrees": 0.0070355358139461135,
+              "object_id": "HIP_25606"
+            },
+            {
+              "angular_error_degrees": 0.05715842620733468,
+              "object_id": "HIP_25930"
+            },
+            {
+              "angular_error_degrees": 0.0016102870359947033,
+              "object_id": "HIP_25985"
+            },
+            {
+              "angular_error_degrees": 0.49205008386262383,
+              "object_id": "HIP_26241"
+            },
+            {
+              "angular_error_degrees": 0.035325753999703446,
+              "object_id": "HIP_26311"
+            },
+            {
+              "angular_error_degrees": 0.02689912112592354,
+              "object_id": "HIP_26727"
+            },
+            {
+              "angular_error_degrees": 0.01992208465589814,
+              "object_id": "HIP_27366"
+            },
+            {
+              "angular_error_degrees": 0.053433894243088496,
+              "object_id": "HIP_30324"
+            },
+            {
+              "angular_error_degrees": 0.013166746840780449,
+              "object_id": "HIP_3179"
+            },
+            {
+              "angular_error_degrees": 0.03486733403791123,
+              "object_id": "HIP_4427"
+            },
+            {
+              "angular_error_degrees": 0.018129737002971262,
+              "object_id": "HIP_5447"
+            },
+            {
+              "angular_error_degrees": 0.014446224309939313,
+              "object_id": "HIP_746"
+            },
+            {
+              "angular_error_degrees": 0.04058427140674007,
+              "object_id": "HIP_9640"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 3527.822391549576,
+            "heading": 45.02292744829144,
+            "latitude": 40.683466056235815,
+            "longitude": -73.99005774292999,
+            "observation_count": 17,
+            "rms_residual": 0.0020888294771986907,
+            "runtime_seconds": 1.2260333430022001,
+            "valid": true
+          }
+        },
+        {
+          "ambiguous_canonical_ids": [],
+          "angular_error_all_matched_ids_deg": {
+            "count": 23,
+            "max": 0.5074485172963573,
+            "mean": 0.04986867661651338,
+            "median": 0.012164596985661632,
+            "p90": 0.10149985625984548
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 17,
+            "max": 0.5074485172963573,
+            "mean": 0.049414511112268404,
+            "median": 0.013571641878214117,
+            "p90": 0.06903326241023391
+          },
+          "canonical_panorama_id_count": 27,
+          "common_all_face_sizes_count": 17,
+          "common_all_face_sizes_ids": [
+            "HIP_105199",
+            "HIP_109492",
+            "HIP_112724",
+            "HIP_14328",
+            "HIP_23875",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_26241",
+            "HIP_26311",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_30324",
+            "HIP_3179",
+            "HIP_4427",
+            "HIP_5447",
+            "HIP_746",
+            "HIP_9640"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_10064",
+            "HIP_22449",
+            "HIP_26207",
+            "HIP_7607"
+          ],
+          "face_size": 2048,
+          "matched_id_count": 23,
+          "matched_ids": [
+            "HIP_105199",
+            "HIP_106032",
+            "HIP_109492",
+            "HIP_111169",
+            "HIP_112724",
+            "HIP_14328",
+            "HIP_23875",
+            "HIP_25336",
+            "HIP_25606",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26241",
+            "HIP_26311",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_30324",
+            "HIP_3179",
+            "HIP_32349",
+            "HIP_4427",
+            "HIP_5447",
+            "HIP_6686",
+            "HIP_746",
+            "HIP_9640"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 22.040181149001,
+          "rows": [
+            {
+              "angular_error_degrees": 0.03656666856062236,
+              "object_id": "HIP_105199"
+            },
+            {
+              "angular_error_degrees": 0.0037221358569705302,
+              "object_id": "HIP_106032"
+            },
+            {
+              "angular_error_degrees": 0.006360307906385149,
+              "object_id": "HIP_109492"
+            },
+            {
+              "angular_error_degrees": 0.011939578033504962,
+              "object_id": "HIP_111169"
+            },
+            {
+              "angular_error_degrees": 0.013571641878214117,
+              "object_id": "HIP_112724"
+            },
+            {
+              "angular_error_degrees": 0.007510524047160519,
+              "object_id": "HIP_14328"
+            },
+            {
+              "angular_error_degrees": 0.0019800612308688067,
+              "object_id": "HIP_23875"
+            },
+            {
+              "angular_error_degrees": 0.020117244278612202,
+              "object_id": "HIP_25336"
+            },
+            {
+              "angular_error_degrees": 0.005783763587324124,
+              "object_id": "HIP_25606"
+            },
+            {
+              "angular_error_degrees": 0.024577431226323984,
+              "object_id": "HIP_25930"
+            },
+            {
+              "angular_error_degrees": 0.003536191511722234,
+              "object_id": "HIP_25985"
+            },
+            {
+              "angular_error_degrees": 0.5074485172963573,
+              "object_id": "HIP_26241"
+            },
+            {
+              "angular_error_degrees": 0.011823182845406198,
+              "object_id": "HIP_26311"
+            },
+            {
+              "angular_error_degrees": 0.018052736148588672,
+              "object_id": "HIP_26727"
+            },
+            {
+              "angular_error_degrees": 0.004247071066581509,
+              "object_id": "HIP_27366"
+            },
+            {
+              "angular_error_degrees": 0.11773315318465118,
+              "object_id": "HIP_30324"
+            },
+            {
+              "angular_error_degrees": 0.001719471296855256,
+              "object_id": "HIP_3179"
+            },
+            {
+              "angular_error_degrees": 0.27789109126899825,
+              "object_id": "HIP_32349"
+            },
+            {
+              "angular_error_degrees": 0.017629693816064454,
+              "object_id": "HIP_4427"
+            },
+            {
+              "angular_error_degrees": 0.012164596985661632,
+              "object_id": "HIP_5447"
+            },
+            {
+              "angular_error_degrees": 0.0040601130127247255,
+              "object_id": "HIP_6686"
+            },
+            {
+              "angular_error_degrees": 0.025072952223456374,
+              "object_id": "HIP_746"
+            },
+            {
+              "angular_error_degrees": 0.013471434916753186,
+              "object_id": "HIP_9640"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 5471.602398599547,
+            "heading": 45.01953620004447,
+            "latitude": 40.66378555947215,
+            "longitude": -74.01173990563655,
+            "observation_count": 17,
+            "rms_residual": 0.0020777412231942544,
+            "runtime_seconds": 1.1679992230056087,
+            "valid": true
+          }
+        }
+      ],
+      "common_all_face_sizes_ids": [
+        "HIP_105199",
+        "HIP_109492",
+        "HIP_112724",
+        "HIP_14328",
+        "HIP_23875",
+        "HIP_25336",
+        "HIP_25930",
+        "HIP_26241",
+        "HIP_26311",
+        "HIP_26727",
+        "HIP_27366",
+        "HIP_30324",
+        "HIP_3179",
+        "HIP_4427",
+        "HIP_5447",
+        "HIP_746",
+        "HIP_9640"
+      ],
+      "face_sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "scene": {
+        "altitude": 10.0,
+        "heading": 45.0,
+        "latitude": 40.7128,
+        "longitude": -74.006,
+        "scene_id": "new_york_00_h045",
+        "timestamp": 1700028800
+      }
+    },
+    {
+      "canonical_id_count": 35,
+      "canonical_ids": [
+        "HIP_10064",
+        "HIP_14328",
+        "HIP_14354",
+        "HIP_14576",
+        "HIP_15863",
+        "HIP_17358",
+        "HIP_17702",
+        "HIP_18246",
+        "HIP_18532",
+        "HIP_20894",
+        "HIP_23015",
+        "HIP_23416",
+        "HIP_23453",
+        "HIP_23685",
+        "HIP_23767",
+        "HIP_23875",
+        "HIP_24436",
+        "HIP_24674",
+        "HIP_25336",
+        "HIP_25606",
+        "HIP_25930",
+        "HIP_25985",
+        "HIP_26241",
+        "HIP_26311",
+        "HIP_26451",
+        "HIP_26727",
+        "HIP_27072",
+        "HIP_27288",
+        "HIP_27366",
+        "HIP_3179",
+        "HIP_5447",
+        "HIP_6686",
+        "HIP_8796",
+        "HIP_8886",
+        "HIP_9640"
+      ],
+      "canonical_render_seconds": 4.069184159001452,
+      "cases": [
+        {
+          "ambiguous_canonical_ids": [
+            "HIP_26241"
+          ],
+          "angular_error_all_matched_ids_deg": {
+            "count": 28,
+            "max": 0.06856149618051856,
+            "mean": 0.026795808133532974,
+            "median": 0.02214494047358094,
+            "p90": 0.0509534123109486
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 21,
+            "max": 0.051927201213320166,
+            "mean": 0.025615349086941255,
+            "median": 0.021942611520110063,
+            "p90": 0.04523273155169971
+          },
+          "canonical_panorama_id_count": 35,
+          "common_all_face_sizes_count": 21,
+          "common_all_face_sizes_ids": [
+            "HIP_10064",
+            "HIP_14328",
+            "HIP_14354",
+            "HIP_15863",
+            "HIP_17358",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_20894",
+            "HIP_23015",
+            "HIP_23416",
+            "HIP_23767",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26311",
+            "HIP_26451",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_5447",
+            "HIP_8796",
+            "HIP_9640"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_23685",
+            "HIP_23875",
+            "HIP_24674",
+            "HIP_25606",
+            "HIP_26241",
+            "HIP_27072",
+            "HIP_27288"
+          ],
+          "face_size": 512,
+          "matched_id_count": 28,
+          "matched_ids": [
+            "HIP_10064",
+            "HIP_14328",
+            "HIP_14354",
+            "HIP_14576",
+            "HIP_15863",
+            "HIP_17358",
+            "HIP_17702",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_20894",
+            "HIP_23015",
+            "HIP_23416",
+            "HIP_23453",
+            "HIP_23767",
+            "HIP_24436",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26311",
+            "HIP_26451",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_3179",
+            "HIP_5447",
+            "HIP_6686",
+            "HIP_8796",
+            "HIP_8886",
+            "HIP_9640"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 4.069184159001452,
+          "rows": [
+            {
+              "angular_error_degrees": 0.022869553626950864,
+              "object_id": "HIP_10064"
+            },
+            {
+              "angular_error_degrees": 0.051927201213320166,
+              "object_id": "HIP_14328"
+            },
+            {
+              "angular_error_degrees": 0.035036802429433994,
+              "object_id": "HIP_14354"
+            },
+            {
+              "angular_error_degrees": 0.015058563638476127,
+              "object_id": "HIP_14576"
+            },
+            {
+              "angular_error_degrees": 0.011380686345549729,
+              "object_id": "HIP_15863"
+            },
+            {
+              "angular_error_degrees": 0.02672281429704974,
+              "object_id": "HIP_17358"
+            },
+            {
+              "angular_error_degrees": 0.01466430474371344,
+              "object_id": "HIP_17702"
+            },
+            {
+              "angular_error_degrees": 0.04523273155169971,
+              "object_id": "HIP_18246"
+            },
+            {
+              "angular_error_degrees": 0.01801762388454821,
+              "object_id": "HIP_18532"
+            },
+            {
+              "angular_error_degrees": 0.033206967148356914,
+              "object_id": "HIP_20894"
+            },
+            {
+              "angular_error_degrees": 0.015636561745053196,
+              "object_id": "HIP_23015"
+            },
+            {
+              "angular_error_degrees": 0.028993845450476646,
+              "object_id": "HIP_23416"
+            },
+            {
+              "angular_error_degrees": 0.05934672803134716,
+              "object_id": "HIP_23453"
+            },
+            {
+              "angular_error_degrees": 0.050536074209932204,
+              "object_id": "HIP_23767"
+            },
+            {
+              "angular_error_degrees": 0.06856149618051856,
+              "object_id": "HIP_24436"
+            },
+            {
+              "angular_error_degrees": 0.010626102693293036,
+              "object_id": "HIP_25336"
+            },
+            {
+              "angular_error_degrees": 0.019457283551419857,
+              "object_id": "HIP_25930"
+            },
+            {
+              "angular_error_degrees": 0.017448517704476852,
+              "object_id": "HIP_25985"
+            },
+            {
+              "angular_error_degrees": 0.01605737779158299,
+              "object_id": "HIP_26311"
+            },
+            {
+              "angular_error_degrees": 0.033364537423581225,
+              "object_id": "HIP_26451"
+            },
+            {
+              "angular_error_degrees": 0.021942611520110063,
+              "object_id": "HIP_26727"
+            },
+            {
+              "angular_error_degrees": 0.01888379118560982,
+              "object_id": "HIP_27366"
+            },
+            {
+              "angular_error_degrees": 0.008094275389452009,
+              "object_id": "HIP_3179"
+            },
+            {
+              "angular_error_degrees": 0.014465812373067951,
+              "object_id": "HIP_5447"
+            },
+            {
+              "angular_error_degrees": 0.024287659502597782,
+              "object_id": "HIP_6686"
+            },
+            {
+              "angular_error_degrees": 0.030409966677969896,
+              "object_id": "HIP_8796"
+            },
+            {
+              "angular_error_degrees": 0.02234726942705182,
+              "object_id": "HIP_8886"
+            },
+            {
+              "angular_error_degrees": 0.01570546800228331,
+              "object_id": "HIP_9640"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 383.2019922940944,
+            "heading": 30.00471656664802,
+            "latitude": -0.18273280976610173,
+            "longitude": -78.4650171627789,
+            "observation_count": 21,
+            "rms_residual": 0.00048322236623081206,
+            "runtime_seconds": 1.4654752929927781,
+            "valid": true
+          }
+        },
+        {
+          "ambiguous_canonical_ids": [
+            "HIP_14576",
+            "HIP_17702",
+            "HIP_24436",
+            "HIP_24674",
+            "HIP_26241",
+            "HIP_3179"
+          ],
+          "angular_error_all_matched_ids_deg": {
+            "count": 23,
+            "max": 0.04733631777880648,
+            "mean": 0.016214462096887237,
+            "median": 0.009108335772383383,
+            "p90": 0.03196963547808908
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 21,
+            "max": 0.04733631777880648,
+            "mean": 0.016925814679820683,
+            "median": 0.009592509137365092,
+            "p90": 0.03210345053577846
+          },
+          "canonical_panorama_id_count": 35,
+          "common_all_face_sizes_count": 21,
+          "common_all_face_sizes_ids": [
+            "HIP_10064",
+            "HIP_14328",
+            "HIP_14354",
+            "HIP_15863",
+            "HIP_17358",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_20894",
+            "HIP_23015",
+            "HIP_23416",
+            "HIP_23767",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26311",
+            "HIP_26451",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_5447",
+            "HIP_8796",
+            "HIP_9640"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_14576",
+            "HIP_17702",
+            "HIP_23453",
+            "HIP_23685",
+            "HIP_23875",
+            "HIP_24436",
+            "HIP_24674",
+            "HIP_26241",
+            "HIP_27072",
+            "HIP_27288",
+            "HIP_3179",
+            "HIP_8886"
+          ],
+          "face_size": 1024,
+          "matched_id_count": 23,
+          "matched_ids": [
+            "HIP_10064",
+            "HIP_14328",
+            "HIP_14354",
+            "HIP_15863",
+            "HIP_17358",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_20894",
+            "HIP_23015",
+            "HIP_23416",
+            "HIP_23767",
+            "HIP_25336",
+            "HIP_25606",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26311",
+            "HIP_26451",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_5447",
+            "HIP_6686",
+            "HIP_8796",
+            "HIP_9640"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 9.107548025000142,
+          "rows": [
+            {
+              "angular_error_degrees": 0.0016310399764550493,
+              "object_id": "HIP_10064"
+            },
+            {
+              "angular_error_degrees": 0.009592509137365092,
+              "object_id": "HIP_14328"
+            },
+            {
+              "angular_error_degrees": 0.002176582342494178,
+              "object_id": "HIP_14354"
+            },
+            {
+              "angular_error_degrees": 0.03143437524733156,
+              "object_id": "HIP_15863"
+            },
+            {
+              "angular_error_degrees": 0.0067764616725144436,
+              "object_id": "HIP_17358"
+            },
+            {
+              "angular_error_degrees": 0.004936384998834294,
+              "object_id": "HIP_18246"
+            },
+            {
+              "angular_error_degrees": 0.0085118397211739,
+              "object_id": "HIP_18532"
+            },
+            {
+              "angular_error_degrees": 0.04733631777880648,
+              "object_id": "HIP_20894"
+            },
+            {
+              "angular_error_degrees": 0.0014908980587185088,
+              "object_id": "HIP_23015"
+            },
+            {
+              "angular_error_degrees": 0.004801681282214664,
+              "object_id": "HIP_23416"
+            },
+            {
+              "angular_error_degrees": 0.0009562703149374877,
+              "object_id": "HIP_23767"
+            },
+            {
+              "angular_error_degrees": 0.02716288601569155,
+              "object_id": "HIP_25336"
+            },
+            {
+              "angular_error_degrees": 0.009108335772383383,
+              "object_id": "HIP_25606"
+            },
+            {
+              "angular_error_degrees": 0.02647935853807201,
+              "object_id": "HIP_25930"
+            },
+            {
+              "angular_error_degrees": 0.0039710593699862325,
+              "object_id": "HIP_25985"
+            },
+            {
+              "angular_error_degrees": 0.03210345053577846,
+              "object_id": "HIP_26311"
+            },
+            {
+              "angular_error_degrees": 0.008630351728075506,
+              "object_id": "HIP_26451"
+            },
+            {
+              "angular_error_degrees": 0.02744510513094941,
+              "object_id": "HIP_26727"
+            },
+            {
+              "angular_error_degrees": 0.029743701813359728,
+              "object_id": "HIP_27366"
+            },
+            {
+              "angular_error_degrees": 0.020286155028712533,
+              "object_id": "HIP_5447"
+            },
+            {
+              "angular_error_degrees": 0.008382184179788685,
+              "object_id": "HIP_6686"
+            },
+            {
+              "angular_error_degrees": 0.023477150338206056,
+              "object_id": "HIP_8796"
+            },
+            {
+              "angular_error_degrees": 0.03649852924655719,
+              "object_id": "HIP_9640"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 620.5221264227325,
+            "heading": 29.993686893447368,
+            "latitude": -0.1853198539833331,
+            "longitude": -78.46466967848372,
+            "observation_count": 21,
+            "rms_residual": 0.00037417346504849017,
+            "runtime_seconds": 1.4926463439915096,
+            "valid": true
+          }
+        },
+        {
+          "ambiguous_canonical_ids": [
+            "HIP_24436",
+            "HIP_24674",
+            "HIP_26241"
+          ],
+          "angular_error_all_matched_ids_deg": {
+            "count": 26,
+            "max": 0.02428815132481697,
+            "mean": 0.007998798260208701,
+            "median": 0.0056058496070353625,
+            "p90": 0.018929830726126667
+          },
+          "angular_error_common_all_sizes_deg": {
+            "count": 21,
+            "max": 0.02428815132481697,
+            "mean": 0.008561133581192766,
+            "median": 0.00635674999947244,
+            "p90": 0.020324303904079185
+          },
+          "canonical_panorama_id_count": 35,
+          "common_all_face_sizes_count": 21,
+          "common_all_face_sizes_ids": [
+            "HIP_10064",
+            "HIP_14328",
+            "HIP_14354",
+            "HIP_15863",
+            "HIP_17358",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_20894",
+            "HIP_23015",
+            "HIP_23416",
+            "HIP_23767",
+            "HIP_25336",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26311",
+            "HIP_26451",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_5447",
+            "HIP_8796",
+            "HIP_9640"
+          ],
+          "dropped_canonical_ids": [
+            "HIP_23453",
+            "HIP_23685",
+            "HIP_23875",
+            "HIP_24436",
+            "HIP_24674",
+            "HIP_26241",
+            "HIP_27072",
+            "HIP_27288",
+            "HIP_6686"
+          ],
+          "face_size": 2048,
+          "matched_id_count": 26,
+          "matched_ids": [
+            "HIP_10064",
+            "HIP_14328",
+            "HIP_14354",
+            "HIP_14576",
+            "HIP_15863",
+            "HIP_17358",
+            "HIP_17702",
+            "HIP_18246",
+            "HIP_18532",
+            "HIP_20894",
+            "HIP_23015",
+            "HIP_23416",
+            "HIP_23767",
+            "HIP_25336",
+            "HIP_25606",
+            "HIP_25930",
+            "HIP_25985",
+            "HIP_26311",
+            "HIP_26451",
+            "HIP_26727",
+            "HIP_27366",
+            "HIP_3179",
+            "HIP_5447",
+            "HIP_8796",
+            "HIP_8886",
+            "HIP_9640"
+          ],
+          "new_ids_relative_to_canonical": [],
+          "render_seconds": 22.13716460800788,
+          "rows": [
+            {
+              "angular_error_degrees": 0.007005221720606706,
+              "object_id": "HIP_10064"
+            },
+            {
+              "angular_error_degrees": 0.00635674999947244,
+              "object_id": "HIP_14328"
+            },
+            {
+              "angular_error_degrees": 0.001716478526842415,
+              "object_id": "HIP_14354"
+            },
+            {
+              "angular_error_degrees": 0.003951857586698052,
+              "object_id": "HIP_14576"
+            },
+            {
+              "angular_error_degrees": 0.013989657155703172,
+              "object_id": "HIP_15863"
+            },
+            {
+              "angular_error_degrees": 0.0006267867449756945,
+              "object_id": "HIP_17358"
+            },
+            {
+              "angular_error_degrees": 0.004854949214598285,
+              "object_id": "HIP_17702"
+            },
+            {
+              "angular_error_degrees": 0.004024836755957708,
+              "object_id": "HIP_18246"
+            },
+            {
+              "angular_error_degrees": 0.0042713158972166885,
+              "object_id": "HIP_18532"
+            },
+            {
+              "angular_error_degrees": 0.02428815132481697,
+              "object_id": "HIP_20894"
+            },
+            {
+              "angular_error_degrees": 0.0031749508235652123,
+              "object_id": "HIP_23015"
+            },
+            {
+              "angular_error_degrees": 0.009118540733739612,
+              "object_id": "HIP_23416"
+            },
+            {
+              "angular_error_degrees": 0.0004145446924533848,
+              "object_id": "HIP_23767"
+            },
+            {
+              "angular_error_degrees": 0.020324303904079185,
+              "object_id": "HIP_25336"
+            },
+            {
+              "angular_error_degrees": 0.006643176590573986,
+              "object_id": "HIP_25606"
+            },
+            {
+              "angular_error_degrees": 0.0011822872369117966,
+              "object_id": "HIP_25930"
+            },
+            {
+              "angular_error_degrees": 0.003740371334099899,
+              "object_id": "HIP_25985"
+            },
+            {
+              "angular_error_degrees": 0.01662251093313806,
+              "object_id": "HIP_26311"
+            },
+            {
+              "angular_error_degrees": 0.0016331420077889862,
+              "object_id": "HIP_26451"
+            },
+            {
+              "angular_error_degrees": 0.017535357548174153,
+              "object_id": "HIP_26727"
+            },
+            {
+              "angular_error_degrees": 0.007379173334651864,
+              "object_id": "HIP_27366"
+            },
+            {
+              "angular_error_degrees": 0.008793852318441332,
+              "object_id": "HIP_3179"
+            },
+            {
+              "angular_error_degrees": 0.002330905099188773,
+              "object_id": "HIP_5447"
+            },
+            {
+              "angular_error_degrees": 0.012558039192700812,
+              "object_id": "HIP_8796"
+            },
+            {
+              "angular_error_degrees": 0.00394111385006649,
+              "object_id": "HIP_8886"
+            },
+            {
+              "angular_error_degrees": 0.021490480238964577,
+              "object_id": "HIP_9640"
+            }
+          ],
+          "solver_common_all_sizes": {
+            "failure_reason": "",
+            "geographic_error_meters": 301.13430907001083,
+            "heading": 30.001079864904856,
+            "latitude": -0.1822086492203108,
+            "longitude": -78.4655509577977,
+            "observation_count": 21,
+            "rms_residual": 0.00019237707667471064,
+            "runtime_seconds": 1.499938248001854,
+            "valid": true
+          }
+        }
+      ],
+      "common_all_face_sizes_ids": [
+        "HIP_10064",
+        "HIP_14328",
+        "HIP_14354",
+        "HIP_15863",
+        "HIP_17358",
+        "HIP_18246",
+        "HIP_18532",
+        "HIP_20894",
+        "HIP_23015",
+        "HIP_23416",
+        "HIP_23767",
+        "HIP_25336",
+        "HIP_25930",
+        "HIP_25985",
+        "HIP_26311",
+        "HIP_26451",
+        "HIP_26727",
+        "HIP_27366",
+        "HIP_5447",
+        "HIP_8796",
+        "HIP_9640"
+      ],
+      "face_sizes": [
+        512,
+        1024,
+        2048
+      ],
+      "scene": {
+        "altitude": 2850.0,
+        "heading": 30.0,
+        "latitude": -0.1807,
+        "longitude": -78.4678,
+        "scene_id": "quito_00_h030",
+        "timestamp": 1700018000
+      }
+    }
+  ]
+}

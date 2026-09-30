@@ -2,6 +2,7 @@
 from astropy.coordinates import EarthLocation, AltAz, SkyCoord, get_body
 from astropy.time import Time
 import astropy.units as u
+import numpy as np
 
 
 class EphemerisProvider:
@@ -11,31 +12,101 @@ class EphemerisProvider:
 
     def __init__(self, star_database_path=''):
         self.star_coordinates = {}
+        self._star_coord_cache = {}
+        self._star_batch_cache = {}
+        self._time_cache = {}
         self.star_catalogue = ''
         self.error = ''
         self._load_star_catalogue(star_database_path)
 
     def predict(self, object_id, timestamp, latitude, longitude, altitude=0.0):
         location = EarthLocation(lat=latitude * u.deg, lon=longitude * u.deg, height=altitude * u.m)
-        time = Time(timestamp, format='unix')
+        time = self._time(timestamp)
         frame = AltAz(obstime=time, location=location)
 
         normalised_id = object_id.strip().lower()
         if normalised_id in self.SUPPORTED_BODIES:
             celestial_object = get_body(normalised_id, time, location)
         else:
-            coordinates = self.star_coordinates.get(normalised_id)
-            if coordinates is None:
+            celestial_object = self._star_coord(normalised_id)
+            if celestial_object is None:
                 return None
-            right_ascension, declination = coordinates
-            celestial_object = SkyCoord(
+
+        altaz = celestial_object.transform_to(frame)
+        return float(altaz.az.deg), float(altaz.alt.deg)
+
+    def predict_many(self, object_ids, timestamp, latitude, longitude, altitude=0.0):
+        """Predict a fixed object list in one frame transform.
+
+        The observer frame remains candidate-location dependent. Catalogue
+        coordinates and the observation time are cached because they are
+        constant throughout a solve.
+        """
+        object_ids = list(object_ids)
+        results = [None] * len(object_ids)
+        if not object_ids:
+            return results
+
+        location = EarthLocation(
+            lat=latitude * u.deg,
+            lon=longitude * u.deg,
+            height=altitude * u.m,
+        )
+        time = self._time(timestamp)
+        frame = AltAz(obstime=time, location=location)
+        star_indices = []
+        star_keys = []
+        body_indices = []
+        for index, object_id in enumerate(object_ids):
+            normalised_id = object_id.strip().lower()
+            if normalised_id in self.SUPPORTED_BODIES:
+                body_indices.append((index, normalised_id))
+                continue
+            if self._star_coord(normalised_id) is not None:
+                star_indices.append(index)
+                star_keys.append(normalised_id)
+
+        if star_indices:
+            cache_key = tuple(star_keys)
+            star_coordinates = self._star_batch_cache.get(cache_key)
+            if star_coordinates is None:
+                star_coordinates = SkyCoord(
+                    ra=[self.star_coordinates[key][0] for key in star_keys] * u.deg,
+                    dec=[self.star_coordinates[key][1] for key in star_keys] * u.deg,
+                    frame='icrs',
+                )
+                self._star_batch_cache[cache_key] = star_coordinates
+            altaz = star_coordinates.transform_to(frame)
+            for index, azimuth, elevation in zip(
+                star_indices,
+                np.asarray(altaz.az.deg).reshape(-1),
+                np.asarray(altaz.alt.deg).reshape(-1),
+            ):
+                results[index] = (float(azimuth), float(elevation))
+
+        for index, body_name in body_indices:
+            celestial_object = get_body(body_name, time, location)
+            altaz = celestial_object.transform_to(frame)
+            results[index] = (float(altaz.az.deg), float(altaz.alt.deg))
+        return results
+
+    def _time(self, timestamp):
+        timestamp = float(timestamp)
+        if timestamp not in self._time_cache:
+            self._time_cache[timestamp] = Time(timestamp, format='unix')
+        return self._time_cache[timestamp]
+
+    def _star_coord(self, normalised_id):
+        if normalised_id not in self.star_coordinates:
+            return None
+        if normalised_id not in self._star_coord_cache:
+            right_ascension, declination = self.star_coordinates[normalised_id]
+            self._star_coord_cache[normalised_id] = SkyCoord(
                 ra=right_ascension * u.deg,
                 dec=declination * u.deg,
                 frame='icrs',
             )
-
-        altaz = celestial_object.transform_to(frame)
-        return float(altaz.az.deg), float(altaz.alt.deg)
+        return self._star_coord_cache[normalised_id]
 
     def _load_star_catalogue(self, database_path):
         try:
