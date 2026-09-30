@@ -84,6 +84,7 @@
       --globe-filter: none;
       --domain-sensor: #76c9d9;
       --domain-celestial: #94e3c4;
+      --domain-ephemeris: #4fcf91;
       --domain-condition: #e4d47b;
       --domain-satellite: #b4a0e8;
       --domain-aircraft: #ff9d6b;
@@ -153,6 +154,7 @@
       --globe-filter: saturate(0.92) brightness(1.08);
       --domain-sensor: #287d91;
       --domain-celestial: #1f806a;
+      --domain-ephemeris: #168b5a;
       --domain-condition: #8d7415;
       --domain-satellite: #735eae;
       --domain-aircraft: #b6532c;
@@ -1818,6 +1820,7 @@
 
     .tech-node.domain-sensor { --domain-accent: var(--domain-sensor); }
     .tech-node.domain-celestial { --domain-accent: var(--domain-celestial); }
+    .tech-node.domain-celestial.tech-node-ephemeris { --domain-accent: var(--domain-ephemeris); }
     .tech-node.domain-satellite { --domain-accent: var(--domain-satellite); }
     .tech-node.domain-aircraft { --domain-accent: var(--domain-aircraft); }
     .tech-node.domain-atmosphere { --domain-accent: var(--domain-atmosphere); }
@@ -1837,7 +1840,7 @@
     .tech-node[data-status="partial"]::before,
     .tech-node[data-status="partial"]::after {
       position: absolute;
-      z-index: 0;
+      z-index: 2;
       inset: 1px;
       border-radius: 2px;
       background: linear-gradient(135deg, transparent 49.35%, color-mix(in srgb, var(--domain-accent) 46%, transparent) 50%, transparent 50.65%);
@@ -1860,7 +1863,9 @@
     .tech-node[data-status="partial"] {
       border-style: dashed;
       border-top-style: solid;
-      opacity: 0.72;
+      background: var(--flow-wip-card-background);
+      filter: grayscale(0.18) saturate(0.55);
+      opacity: 0.38;
     }
 
     .tech-node.is-current {
@@ -1871,7 +1876,12 @@
       transform: translateY(-2px);
     }
 
-    .tech-node[data-status="locked"].is-current { opacity: 0.64; }
+    .tech-node[data-status="locked"].is-current,
+    .tech-node[data-status="partial"].is-current {
+      background: var(--flow-wip-card-background);
+      filter: grayscale(0.18) saturate(0.55);
+      opacity: 0.38;
+    }
 
     .tech-tree-board { --selection-accent: var(--ground); }
     .tech-tree-board.has-selection .tech-node:not(.is-selected):not(.is-connected) {
@@ -1887,14 +1897,14 @@
     }
 
     .tech-node.is-selected {
-      border-color: var(--selection-accent);
-      border-top-color: var(--selection-accent);
-      box-shadow: 0 0 0 4px color-mix(in srgb, var(--selection-accent) 18%, transparent), 0 8px 22px rgba(0, 0, 0, 0.14);
+      border-color: color-mix(in srgb, var(--domain-accent) 82%, var(--line-strong));
+      border-top-color: var(--domain-accent);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--domain-accent) 18%, transparent), 0 8px 22px rgba(0, 0, 0, 0.14);
     }
 
     .tech-node.is-connected {
-      border-color: color-mix(in srgb, var(--selection-accent) 72%, var(--line-strong));
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--selection-accent) 10%, transparent), 0 8px 18px rgba(0, 0, 0, 0.08);
+      border-color: color-mix(in srgb, var(--domain-accent) 72%, var(--line-strong));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--domain-accent) 10%, transparent), 0 8px 18px rgba(0, 0, 0, 0.08);
     }
 
     .tech-link.is-highlighted {
@@ -2485,10 +2495,10 @@
     .tech-node-fisheye-calibration { grid-column: 2; grid-row: 3; }
     .tech-node-celestial-detector { grid-column: 4; grid-row: 1; }
     .tech-node-ephemeris { grid-column: 3; grid-row: 2; }
-    .tech-node-catalogue { grid-column: 4; grid-row: 2; }
     .tech-node-celestial-pose { grid-column: 5; grid-row: 1; }
     .tech-node-dwarflab { grid-column: 1; grid-row: 4; }
     .tech-node-dwarflab-calibration { grid-column: 2; grid-row: 4; }
+    .tech-node-dwarflab-api { grid-column: 3; grid-row: 4; }
     .tech-node-dwarflab-pose { grid-column: 4; grid-row: 4; }
     .tech-node-pose-merge { grid-column: 5; grid-row: 3; }
     .tech-node-publish-pose { grid-column: 6; grid-row: 3; }
@@ -2501,8 +2511,12 @@
     .tech-node-overcast { grid-column: 5; grid-row: 2; }
     .tech-node-solar-cues { grid-column: 1; grid-row: 3; }
     .tech-node-aircraft { grid-column: 2; grid-row: 3; }
+    .tech-node-detect-flightpath { grid-column: 3; grid-row: 4; }
+    .tech-node-localise-flight { grid-column: 3; grid-row: 5; }
     .tech-node-star-catalogue { grid-column: 3; grid-row: 3; }
     .tech-node-satellites { grid-column: 4; grid-row: 3; }
+    .tech-node-identify-satellite { grid-column: 5; grid-row: 4; }
+    .tech-node-localise-satellite { grid-column: 5; grid-row: 5; }
     .tech-node-cloud-segmentation { grid-column: 5; grid-row: 3; }
     .tech-node-polarization { grid-column: 1; grid-row: 4; }
     .tech-node-cloud-layers { grid-column: 5; grid-row: 4; }
@@ -2968,6 +2982,85 @@
       margin: 0;
     }
 
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour="green"] {
+      --timeline-color: #159b62;
+      --timeline-background-mix: 30%;
+      --timeline-locked-background-mix: 24%;
+    }
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour="yellow"] { --timeline-color: #d8b94d; }
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour="red"] { --timeline-color: #df625e; }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour] {
+      background: color-mix(in srgb, var(--timeline-color) var(--timeline-background-mix, 22%), var(--flow-card-background));
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="locked"][data-timeline-colour] {
+      background: color-mix(in srgb, var(--timeline-color) var(--timeline-locked-background-mix, 17%), var(--flow-wip-card-background));
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="locked"],
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="partial"] {
+      filter: none;
+      opacity: 1;
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="locked"]::before,
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="locked"]::after { opacity: 0.82; }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="partial"]::before,
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-status="partial"]::after { opacity: 0.48; }
+
+    .tech-tree-viewport.is-dependency-mode .tech-tree-board.has-selection .tech-node:not(.is-selected):not(.is-connected) {
+      filter: none;
+      opacity: 1;
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node.is-selected,
+    .tech-tree-viewport.is-dependency-mode .tech-node.is-connected,
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour].is-selected,
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour].is-connected {
+      filter: none;
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour].is-selected {
+      border-color: color-mix(in srgb, var(--domain-accent) 82%, var(--line-strong));
+      border-top-color: var(--domain-accent);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--domain-accent) 18%, transparent), 0 8px 22px rgba(0, 0, 0, 0.14);
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-node[data-timeline-colour].is-connected {
+      border-color: color-mix(in srgb, var(--domain-accent) 72%, var(--line-strong));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--domain-accent) 10%, transparent), 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-node[data-status="ready"] {
+      border-color: color-mix(in srgb, var(--domain-accent) 72%, var(--line-strong));
+      border-top-color: var(--domain-accent);
+      background: color-mix(in srgb, var(--domain-accent) 12%, var(--flow-card-background));
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--domain-accent) 18%, transparent), 0 8px 22px rgba(0, 0, 0, 0.14);
+    }
+
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-node[data-status="ready"] .tech-node-status {
+      color: var(--domain-accent);
+    }
+
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-tree-board.has-selection .tech-node[data-status="ready"] {
+      filter: none;
+      opacity: 1;
+    }
+
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-node[data-status="locked"],
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-node[data-status="partial"] {
+      filter: grayscale(0.88) saturate(0.2);
+      opacity: 0.2;
+    }
+
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-tree-board.has-selection .tech-node[data-status="locked"],
+    .tech-tree-viewport.is-unlocked-highlight-mode .tech-tree-board.has-selection .tech-node[data-status="partial"] {
+      filter: grayscale(0.94) saturate(0.12);
+      opacity: 0.16;
+    }
+
     .tech-stage-label {
       --stage-accent: var(--ground);
       position: absolute;
@@ -3034,6 +3127,54 @@
       color: var(--ground);
       outline: none;
     }
+
+    .tech-tree-timeline-tool[data-readiness-mode="dependency"] {
+      border-color: var(--category-near);
+      background: color-mix(in srgb, var(--category-near) 15%, var(--chart-background));
+      color: var(--category-near);
+    }
+
+    .tech-tree-timeline-tool[data-readiness-mode="unlocked"] {
+      border-color: var(--ground);
+      background: color-mix(in srgb, var(--ground) 15%, var(--chart-background));
+      color: var(--ground);
+    }
+
+    .tech-tree-timeline-key {
+      position: absolute;
+      z-index: 5;
+      top: 52px;
+      right: 12px;
+      display: none;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 8px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--chart-background) 90%, transparent);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 0.49rem;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+
+    .tech-tree-viewport.is-dependency-mode .tech-tree-timeline-key { display: flex; }
+    .tech-tree-timeline-key span { display: inline-flex; align-items: center; gap: 4px; }
+    .tech-tree-timeline-key i {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border: 1px solid color-mix(in srgb, currentColor 72%, var(--line-strong));
+      border-radius: 2px;
+    }
+
+    .tech-tree-timeline-key [data-timeline-tone="green"] i { background: #159b62; }
+    .tech-tree-timeline-key [data-timeline-tone="yellow"] i { background: #d8b94d; }
+    .tech-tree-timeline-key [data-timeline-tone="red"] i { background: #df625e; }
 
     .tech-tree-zoom {
       position: absolute;
@@ -3471,12 +3612,12 @@
                       <div class="tech-asset-art tech-asset-realsense" aria-hidden="true"><span class="tech-asset-label">RealSense</span></div>
                       <figcaption>placeholder / hardware asset</figcaption>
                     </figure>
-                    <div class="tech-dependency"><span>Unlocks</span><strong>image capture</strong></div>
+                    <div class="tech-dependency"><span>Unlocks</span><strong>servo-controlled image capture</strong></div>
                   </article>
-                  <article class="tech-node tech-node-image-capture flow-step domain-sensor" id="node-image-capture" data-step="02" data-status="ready">
-                    <div class="tech-node-head"><span class="tech-node-id">02 / preparation</span><span class="tech-node-status">unlocked</span></div>
-                    <h4>Image capture</h4>
-                    <p>Acquire and timestamp the camera frame.</p>
+                  <article class="tech-node tech-node-image-capture flow-step domain-sensor" id="node-image-capture" data-step="02" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">02 / preparation</span><span class="tech-node-status">locked</span></div>
+                    <h4>Servo-Controlled Image Capture</h4>
+                    <p>Move the camera with the servo and acquire a timestamped frame.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>RealSense</strong></div>
                   </article>
                   <article class="tech-node tech-node-stellarium flow-step domain-sensor" id="node-stellarium" data-step="03" data-status="ready">
@@ -3531,27 +3672,27 @@
                     <p>Predict celestial directions for UTC and observer state.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>UTC + ephemerides</strong></div>
                   </article>
-                  <article class="tech-node tech-node-catalogue flow-step domain-celestial" id="node-catalogue" data-step="10" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">10 / research unlock</span><span class="tech-node-status">locked</span></div>
-                    <h4>Identify star catalogue entries</h4>
-                    <p>Turn anonymous star patterns into named references.</p>
-                    <div class="tech-dependency"><span>Requires</span><strong>raw star detections</strong></div>
-                  </article>
-                  <article class="tech-node tech-node-celestial-pose flow-step domain-celestial" id="node-celestial-pose" data-step="11" data-status="ready">
-                    <div class="tech-node-head"><span class="tech-node-id">11 / merge</span><span class="tech-node-status">unlocked</span></div>
+                  <article class="tech-node tech-node-celestial-pose flow-step domain-celestial" id="node-celestial-pose" data-step="10" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">10 / merge</span><span class="tech-node-status">unlocked</span></div>
                     <h4>Solve celestial pose</h4>
                     <p>Match observations against predicted directions.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>detector + ephemeris</strong></div>
                   </article>
-                  <article class="tech-node tech-node-dwarflab flow-step domain-sensor" id="node-dwarflab" data-step="12" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">12 / sensor endpoint</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-dwarflab flow-step domain-sensor" id="node-dwarflab" data-step="11" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">11 / sensor endpoint</span><span class="tech-node-status">unlocked</span></div>
                     <h4>DWARFLAB3</h4>
                     <p>Telescope or external observation source.</p>
                     <figure class="flow-media tech-node-media tech-node-asset" role="img" aria-label="DWARFLAB3 telescope image placeholder">
                       <div class="tech-asset-art tech-asset-dwarflab" aria-hidden="true"><span class="tech-asset-label">DWARFLAB3</span></div>
                       <figcaption>placeholder / telescope asset</figcaption>
                     </figure>
-                    <div class="tech-dependency"><span>Unlocks</span><strong>telescope calibration</strong></div>
+                    <div class="tech-dependency"><span>Unlocks</span><strong>telescope calibration + API control</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-dwarflab-api flow-step domain-sensor" id="node-dwarflab-api-control" data-step="12" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">12 / API preparation</span><span class="tech-node-status">locked</span></div>
+                    <h4>API Control and Image Capture</h4>
+                    <p>Control the telescope API and capture a timestamped image.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>DWARFLAB3</strong></div>
                   </article>
                   <article class="tech-node tech-node-dwarflab-calibration flow-step domain-sensor" id="node-dwarflab-calibration" data-step="13" data-status="locked">
                     <div class="tech-node-head"><span class="tech-node-id">13 / calibration</span><span class="tech-node-status">locked</span></div>
@@ -3577,15 +3718,15 @@
                     <p>Expose a geographic fix and pose to other nodes.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>pose candidate merge</strong></div>
                   </article>
-                  <article class="tech-node tech-node-temporal-refinement flow-step domain-fusion" id="node-temporal-refinement" data-step="17" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">17 / temporal research</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-temporal-refinement flow-step domain-fusion" id="node-temporal-refinement" data-step="17" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">17 / temporal research</span><span class="tech-node-status">unlocked</span></div>
                     <h4>Refine pose over time</h4>
                     <p>Fuse multiple published pose estimates across a sliding window to reduce noise and expose uncertainty.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>published poses + time history</strong></div>
                   </article>
                   <article class="tech-node tech-node-evaluate flow-step domain-fusion" id="node-evaluate" data-step="18" data-status="ready">
                     <div class="tech-node-head"><span class="tech-node-id">18 / evaluation</span><span class="tech-node-status">unlocked</span></div>
-                    <h4>Evaluate the fix</h4>
+                    <h4>Evaluate celestial fix</h4>
                     <p>Compare truth and estimate, then preserve metrics.</p>
                     <div class="tech-dependency"><span>Accepts</span><strong>published pose + optional refinement</strong></div>
                   </article>
@@ -3597,6 +3738,12 @@
                   <button class="tech-tree-tool" id="tech-zoom-reset" type="button" aria-label="Reset diagram view" title="Reset diagram view">↺</button>
                   <button class="tech-tree-tool" id="tech-zoom-in" type="button" aria-label="Zoom in" title="Zoom in">+</button>
                   <button class="tech-tree-tool" id="tech-tree-fullscreen" type="button" aria-label="Expand graph panel" aria-pressed="false" title="Expand graph panel">&#x26F6;</button>
+                  <button class="tech-tree-tool tech-tree-timeline-tool" id="tech-tree-timeline" type="button" data-readiness-mode="normal" aria-label="Switch to dependency view" title="Switch to dependency view">&#9680;</button>
+                </div>
+                <div class="tech-tree-timeline-key" id="tech-tree-timeline-key" aria-label="Development readiness colour scale" aria-hidden="true">
+                  <span data-timeline-tone="green"><i></i>ready to start</span>
+                  <span data-timeline-tone="yellow"><i></i>has dependency</span>
+                  <span data-timeline-tone="red"><i></i>cannot start yet</span>
                 </div>
                 <span class="tech-tree-zoom" id="tech-tree-zoom" aria-live="polite">--%</span>
               </div>
@@ -3638,7 +3785,7 @@
                   </article>
                   <article class="tech-node tech-node-overcast flow-step domain-atmosphere" id="node-overcast" data-step="22" data-status="locked">
                     <div class="tech-node-head"><span class="tech-node-id">22 / branch</span><span class="tech-node-status">locked</span></div>
-                    <h4>Overcast / poor visibility</h4>
+                    <h4>Overcast / poor visibility route</h4>
                     <p>Fall back toward cloud motion and contextual priors.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>condition classifier</strong></div>
                   </article>
@@ -3654,44 +3801,68 @@
                     <p>Separate aircraft motion from stable celestial candidates.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>daylight + motion evidence</strong></div>
                   </article>
-                  <article class="tech-node tech-node-star-catalogue flow-step domain-celestial" id="node-star-catalogue" data-step="25" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">25 / stellar unlock</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-detect-flightpath flow-step domain-aircraft" id="node-detect-flightpath" data-step="25" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">25 / flightpath</span><span class="tech-node-status">locked</span></div>
+                    <h4>Detect flightpath</h4>
+                    <p>Track the aircraft path as a distinct moving-object observation.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>aircraft detection</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-localise-flight flow-step domain-aircraft" id="node-localise-flight" data-step="26" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">26 / flight solve</span><span class="tech-node-status">locked</span></div>
+                    <h4>Localise flight</h4>
+                    <p>Estimate the aircraft position and motion for fusion.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>flightpath track</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-star-catalogue flow-step domain-celestial" id="node-star-catalogue" data-step="27" data-status="ready">
+                    <div class="tech-node-head"><span class="tech-node-id">27 / stellar unlock</span><span class="tech-node-status">unlocked</span></div>
                     <h4>Catalogue star identities</h4>
                     <p>Validate patterns and name the raw star detections.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>nighttime + detector</strong></div>
                   </article>
-                  <article class="tech-node tech-node-satellites flow-step domain-satellite" id="node-satellites" data-step="26" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">26 / moving objects</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-satellites flow-step domain-satellite" id="node-satellites" data-step="28" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">28 / moving objects</span><span class="tech-node-status">locked</span></div>
                     <h4>Track satellites</h4>
                     <p>Add predictable orbital references without making them mandatory.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>nighttime + temporal evidence</strong></div>
                   </article>
-                  <article class="tech-node tech-node-cloud-segmentation flow-step domain-atmosphere" id="node-cloud-segmentation" data-step="27" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">27 / atmosphere</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-identify-satellite flow-step domain-satellite" id="node-identify-satellite" data-step="29" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">29 / satellite identity</span><span class="tech-node-status">locked</span></div>
+                    <h4>Identify satellite</h4>
+                    <p>Match moving observations against orbital references.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>satellite track</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-localise-satellite flow-step domain-satellite" id="node-localise-satellite" data-step="30" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">30 / satellite solve</span><span class="tech-node-status">locked</span></div>
+                    <h4>Localise satellite</h4>
+                    <p>Estimate the satellite position for condition-adaptive fusion.</p>
+                    <div class="tech-dependency"><span>Requires</span><strong>identified satellite</strong></div>
+                  </article>
+                  <article class="tech-node tech-node-cloud-segmentation flow-step domain-atmosphere" id="node-cloud-segmentation" data-step="31" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">31 / atmosphere</span><span class="tech-node-status">locked</span></div>
                     <h4>Segment cloud regions</h4>
                     <p>Turn visible cloud texture into trackable regions.</p>
-                    <div class="tech-dependency"><span>Requires</span><strong>overcast route</strong></div>
+                    <div class="tech-dependency"><span>Requires</span><strong>daytime or overcast route</strong></div>
                   </article>
-                  <article class="tech-node tech-node-polarization flow-step domain-celestial" id="node-polarization" data-step="28" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">28 / daylight research</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-polarization flow-step domain-celestial" id="node-polarization" data-step="32" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">32 / daylight research</span><span class="tech-node-status">locked</span></div>
                     <h4>Polarized sunlight</h4>
                     <p>Explore absolute heading when the solar disc is obscured.</p>
-                    <div class="tech-dependency"><span>Requires</span><strong>daytime + new sensor</strong></div>
+                    <div class="tech-dependency"><span>Requires</span><strong>daytime or overcast route</strong></div>
                   </article>
-                  <article class="tech-node tech-node-cloud-layers flow-step domain-atmosphere" id="node-cloud-layers" data-step="29" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">29 / atmospheric research</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-cloud-layers flow-step domain-atmosphere" id="node-cloud-layers" data-step="33" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">33 / atmospheric research</span><span class="tech-node-status">locked</span></div>
                     <h4>Cloud layers + parallax</h4>
                     <p>Estimate layer motion, deformation, and relative odometry.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>cloud segmentation + history</strong></div>
                   </article>
-                  <article class="tech-node tech-node-imu flow-step domain-fusion" id="node-imu" data-step="30" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">30 / motion research</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-imu flow-step domain-fusion" id="node-imu" data-step="34" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">34 / motion research</span><span class="tech-node-status">locked</span></div>
                     <h4>Compensate camera rotation</h4>
                     <p>Use IMU evidence before interpreting sky motion as translation.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>IMU + temporal tracks</strong></div>
                   </article>
-                  <article class="tech-node tech-node-fusion flow-step domain-fusion" id="node-fusion" data-step="31" data-status="locked">
-                    <div class="tech-node-head"><span class="tech-node-id">31 / final unlock</span><span class="tech-node-status">locked</span></div>
+                  <article class="tech-node tech-node-fusion flow-step domain-fusion" id="node-fusion" data-step="35" data-status="locked">
+                    <div class="tech-node-head"><span class="tech-node-id">35 / final unlock</span><span class="tech-node-status">locked</span></div>
                     <h4>Condition-adaptive fusion</h4>
                     <p>Combine whichever absolute and relative cues are trustworthy.</p>
                     <div class="tech-dependency"><span>Requires</span><strong>available branches + uncertainty</strong></div>
@@ -3910,6 +4081,8 @@
       techZoomOut: document.getElementById("tech-zoom-out"),
       techZoomReset: document.getElementById("tech-zoom-reset"),
       techTreeFullscreen: document.getElementById("tech-tree-fullscreen"),
+      techTreeTimeline: document.getElementById("tech-tree-timeline"),
+      techTreeTimelineKey: document.getElementById("tech-tree-timeline-key"),
       recordViewButtons: [...document.querySelectorAll("[data-record-view]")]
     };
     const state = { rows: [], filtered: [], selectedIndex: -1, sort: "run", recordView: "summary" };
@@ -3919,44 +4092,83 @@
     let pointListRenderFrame = 0;
     const TECH_TREE_LINKS = {
       pipeline: [
-        { from: "node-realsense", to: "node-image-capture", status: "built" },
+        { from: "node-realsense", to: "node-image-capture", status: "locked" },
         { from: "node-stellarium", to: "node-render-sky", status: "built" },
-        { from: "node-image-capture", to: "node-create-panorama", status: "built" },
+        { from: "node-dwarflab-api-control", to: "node-create-panorama", status: "locked" },
+        { from: "node-image-capture", to: "node-create-panorama", status: "locked" },
         { from: "node-render-sky", to: "node-create-panorama", status: "built" },
         { from: "node-fisheye", to: "node-fisheye-calibration", status: "locked" },
         { from: "node-create-panorama", to: "node-celestial-detector", status: "built" },
-        { from: "node-fisheye-calibration", to: "node-celestial-detector", status: "locked", route: "top-left", lane: 2, topY: 18 },
-        { from: "node-celestial-detector", to: "node-celestial-pose", status: "built", route: "left-rail", lane: 0 },
-        { from: "node-ephemeris", to: "node-celestial-pose", status: "built", route: "top-left", lane: 1 },
-        { from: "node-catalogue", to: "node-celestial-pose", status: "optional", route: "bottom-right", lane: 0 },
+        { from: "node-fisheye-calibration", to: "node-celestial-detector", status: "locked", route: "right-rail", lane: 1 },
+        { from: "node-celestial-detector", to: "node-celestial-pose", status: "built", route: "straight-down" },
+        { from: "node-solar-cues", to: "node-celestial-pose", status: "optional", route: "bottom-right", lane: 4, exitOffset: 20, bottomOffset: 44 },
+        { from: "node-star-catalogue", to: "node-celestial-pose", status: "locked" },
+        { from: "node-polarization", to: "node-celestial-pose", status: "locked" },
+        { from: "node-ephemeris", to: "node-celestial-pose", status: "built", route: "right-rail", lane: 0 },
         { from: "node-dwarflab", to: "node-dwarflab-calibration", status: "locked" },
+        { from: "node-dwarflab", to: "node-dwarflab-api-control", status: "locked" },
         { from: "node-dwarflab-calibration", to: "node-dwarflab-pose", status: "locked" },
-        { from: "node-celestial-pose", to: "node-pose-merge", status: "built" },
         { from: "node-dwarflab-pose", to: "node-pose-merge", status: "locked", route: "right-rail", lane: 0 },
+        { from: "node-celestial-pose", to: "node-pose-merge", status: "built" },
         { from: "node-pose-merge", to: "node-publish-pose", status: "partial" },
-        { from: "node-publish-pose", to: "node-temporal-refinement", status: "locked" },
+        { from: "node-publish-pose", to: "node-temporal-refinement", status: "built" },
         { from: "node-temporal-refinement", to: "node-evaluate", status: "optional" },
         { from: "node-publish-pose", to: "node-evaluate", status: "built" },
         { from: "node-celestial-detector", to: "node-condition-classifier", status: "locked" },
-        { from: "node-celestial-detector", to: "node-catalogue", status: "optional", route: "right-rail", lane: 2, exitOffset: 20 },
         { from: "node-condition-classifier", to: "node-daytime", status: "locked" },
-        { from: "node-condition-classifier", to: "node-nighttime", status: "locked" },
         { from: "node-condition-classifier", to: "node-overcast", status: "locked" },
-        { from: "node-daytime", to: "node-solar-cues", status: "partial" },
+        { from: "node-condition-classifier", to: "node-nighttime", status: "locked" },
         { from: "node-daytime", to: "node-aircraft", status: "locked" },
+        { from: "node-daytime", to: "node-solar-cues", status: "partial" },
+        { from: "node-daytime", to: "node-polarization", status: "locked", route: "bottom-middle", lane: 0, exitOffset: 20 },
+        { from: "node-daytime", to: "node-cloud-segmentation", status: "locked" },
+        { from: "node-overcast", to: "node-polarization", status: "locked" },
         { from: "node-nighttime", to: "node-star-catalogue", status: "locked" },
         { from: "node-nighttime", to: "node-satellites", status: "locked" },
         { from: "node-overcast", to: "node-cloud-segmentation", status: "locked" },
-        { from: "node-daytime", to: "node-polarization", status: "locked", route: "bottom-middle", lane: 0, exitOffset: 20 },
-        { from: "node-solar-cues", to: "node-celestial-pose", status: "optional", route: "bottom-right", lane: 4, exitOffset: 20, bottomOffset: 44 },
-        { from: "node-star-catalogue", to: "node-celestial-pose", status: "locked" },
         { from: "node-cloud-segmentation", to: "node-cloud-layers", status: "locked" },
-        { from: "node-aircraft", to: "node-fusion", status: "locked", route: "left-rail", lane: 2 },
-        { from: "node-star-catalogue", to: "node-fusion", status: "locked", route: "left-rail", lane: 3, exitOffset: 40 },
-        { from: "node-satellites", to: "node-fusion", status: "optional", route: "right-rail", lane: 2 },
+        { from: "node-aircraft", to: "node-detect-flightpath", status: "locked" },
+        { from: "node-detect-flightpath", to: "node-localise-flight", status: "locked", route: "straight-down" },
+        { from: "node-satellites", to: "node-identify-satellite", status: "locked", route: "straight-down" },
+        { from: "node-identify-satellite", to: "node-localise-satellite", status: "locked", route: "straight-down" },
+        { from: "node-imu", to: "node-fusion", status: "locked" },
+        { from: "node-localise-flight", to: "node-fusion", status: "locked", route: "orthogonal" },
+        { from: "node-evaluate", to: "node-fusion", status: "built" },
         { from: "node-cloud-layers", to: "node-fusion", status: "locked", route: "right-rail", lane: 1 },
-        { from: "node-imu", to: "node-fusion", status: "locked" }
+        { from: "node-localise-satellite", to: "node-fusion", status: "optional", route: "right-rail", lane: 2 }
       ]
+    };
+    const TECH_TREE_TIMELINE_COLOURS = {
+      green: new Set([
+        "node-fisheye",
+        "node-dwarflab-api-control",
+        "node-dwarflab-calibration",
+        "node-condition-classifier",
+        "node-aircraft",
+        "node-solar-cues"
+      ]),
+      yellow: new Set([
+        "node-daytime",
+        "node-nighttime",
+        "node-overcast",
+        "node-satellites",
+        "node-cloud-segmentation",
+        "node-dwarflab-pose"
+      ]),
+      red: new Set([
+        "node-image-capture",
+        "node-fisheye-calibration",
+        "node-polarization",
+        "node-cloud-layers",
+        "node-pose-merge",
+        "node-imu",
+        "node-fusion"
+      ])
+    };
+    const TECH_TREE_TIMELINE_LABELS = {
+      green: "ready to start",
+      yellow: "has a hardware or software dependency",
+      red: "cannot start yet"
     };
     const TECH_TREE_CANVAS = { width: 1540, height: 3610, nodeWidth: 214 };
     const TECH_TREE_CONTENT_OFFSET_X = 112;
@@ -3969,33 +4181,37 @@
     const TECH_TREE_HORIZONTAL_LANE_ATTEMPTS = 24;
     const TECH_TREE_PAN_PADDING = 48;
     const TECH_TREE_LAYOUT = {
-      "node-realsense": [40, 54],
-      "node-stellarium": [350, 54],
-      "node-fisheye": [660, 54],
-      "node-dwarflab": [970, 54],
-      "node-image-capture": [40, 328],
-      "node-render-sky": [350, 328],
-      "node-fisheye-calibration": [660, 328],
-      "node-dwarflab-calibration": [970, 328],
-      "node-create-panorama": [195, 631],
-      "node-ephemeris": [760, 631],
-      "node-dwarflab-pose": [970, 631],
-      "node-celestial-detector": [195, 934],
+      "node-dwarflab": [195, 54],
+      "node-realsense": [660, 54],
+      "node-stellarium": [970, 54],
+      "node-fisheye": [1190, 54],
+      "node-dwarflab-calibration": [40, 328],
+      "node-dwarflab-api-control": [350, 328],
+      "node-image-capture": [660, 328],
+      "node-render-sky": [970, 328],
+      "node-fisheye-calibration": [1190, 328],
+      "node-create-panorama": [350, 631],
+      "node-ephemeris": [1190, 631],
+      "node-dwarflab-pose": [40, 631],
+      "node-celestial-detector": [350, 934],
       "node-condition-classifier": [505, 1237],
-      "node-catalogue": [1000, 1237],
       "node-daytime": [40, 1530],
-      "node-nighttime": [600, 1530],
-      "node-overcast": [1160, 1530],
-      "node-solar-cues": [40, 1828],
-      "node-aircraft": [270, 1828],
-      "node-star-catalogue": [500, 1828],
-      "node-satellites": [730, 1828],
-      "node-cloud-segmentation": [960, 1828],
-      "node-polarization": [1190, 1828],
-      "node-celestial-pose": [505, 2146],
+      "node-nighttime": [1160, 1530],
+      "node-overcast": [600, 1530],
+      "node-solar-cues": [270, 1828],
+      "node-aircraft": [40, 1828],
+      "node-star-catalogue": [960, 1828],
+      "node-satellites": [1190, 1828],
+      "node-identify-satellite": [1190, 2146],
+      "node-localise-satellite": [1190, 2464],
+      "node-cloud-segmentation": [730, 1828],
+      "node-polarization": [500, 1828],
+      "node-celestial-pose": [385.6666667, 2146],
       "node-cloud-layers": [940, 2146],
       "node-pose-merge": [505, 2464],
-      "node-publish-pose": [505, 2752],
+      "node-publish-pose": [760, 2752],
+      "node-detect-flightpath": [40, 2146],
+      "node-localise-flight": [40, 2464],
       "node-imu": [40, 3040],
       "node-temporal-refinement": [285, 3040],
       "node-evaluate": [940, 3040],
@@ -4009,13 +4225,12 @@
       [1201, "05 / what the sky contains"],
       [1494, "06 / condition-specific evidence"],
       [2110, "07 / pose candidates"],
-      [2428, "08 / publish + refine"],
+      [2680, "08 / publish + refine"],
       [3004, "09 / adaptive fusion"]
     ];
     const TECH_TREE_RESEARCH_RATINGS = {
       "node-fisheye": 1,
       "node-fisheye-calibration": 1,
-      "node-catalogue": 2,
       "node-dwarflab": 3,
       "node-dwarflab-calibration": 3,
       "node-dwarflab-pose": 3,
@@ -4057,17 +4272,6 @@
         motivation: "Projection error becomes pose error. A measured calibration model is the difference between a convenient camera feed and an observation source that can support a defensible fix.",
         chapters: ["Calibration, ray mapping, and uncertainty"],
         outcome: "A repeatable pixel-to-ray transform with error bounds suitable for the detector and pose solver."
-      },
-      {
-        nodeId: "node-catalogue",
-        icon: "✦",
-        domain: "celestial",
-        area: "Reference identity",
-        title: "Star catalogue entries",
-        description: "Turn anonymous star detections into named catalogue references that can strengthen matching and reporting.",
-        motivation: "The current solver can use celestial geometry without explaining every star. Catalogue identity would make observations auditable, expose mismatches earlier, and support richer evidence fusion.",
-        chapters: ["Candidate matching under incomplete skies", "Catalogue uncertainty and pose confidence"],
-        outcome: "Named, confidence-scored stellar observations that make the localisation evidence inspectable."
       },
       {
         nodeId: "node-dwarflab",
@@ -6547,6 +6751,60 @@
       });
     }
 
+    function getTechTreeTimelineColour(node) {
+      if (!node || node.dataset.status === "ready") return null;
+      return Object.entries(TECH_TREE_TIMELINE_COLOURS).find(([, nodeIds]) => nodeIds.has(node.id))?.[0] || null;
+    }
+
+    function setTechTreeTimelineMode(mode = "normal") {
+      const viewport = dom.techTreeViewport;
+      const board = dom.techTreeBoards[0];
+      if (!viewport || !board) return;
+      const modes = ["normal", "dependency", "unlocked"];
+      const currentMode = modes.includes(mode) ? mode : "normal";
+      const labels = {
+        normal: "Switch to dependency view",
+        dependency: "Switch to unlocked work highlight",
+        unlocked: "Return to normal view"
+      };
+      viewport.dataset.readinessMode = currentMode;
+      viewport.classList.toggle("is-dependency-mode", currentMode === "dependency");
+      viewport.classList.toggle("is-unlocked-highlight-mode", currentMode === "unlocked");
+      if (dom.techTreeTimeline) dom.techTreeTimeline.dataset.readinessMode = currentMode;
+      dom.techTreeTimeline?.removeAttribute("aria-pressed");
+      const label = labels[currentMode];
+      dom.techTreeTimeline?.setAttribute("aria-label", label);
+      dom.techTreeTimeline?.setAttribute("title", label);
+      dom.techTreeTimelineKey?.setAttribute("aria-hidden", String(currentMode !== "dependency"));
+      dom.techTreeTimelineKey?.setAttribute("aria-label", "Development readiness colour scale");
+
+      board.querySelectorAll(".tech-node").forEach((node) => {
+        node.style.removeProperty("--timeline-color");
+        delete node.dataset.timelineColour;
+        delete node.dataset.timelineDepth;
+        delete node.dataset.timelineScore;
+        node.removeAttribute("title");
+        if (currentMode !== "dependency") {
+          return;
+        }
+        const colour = getTechTreeTimelineColour(node);
+        if (!colour) return;
+        const title = node.querySelector("h4")?.textContent.trim() || node.id;
+        node.dataset.timelineColour = colour;
+        node.title = `${title}: ${TECH_TREE_TIMELINE_LABELS[colour]}`;
+      });
+    }
+
+    function initTechTreeTimeline() {
+      dom.techTreeTimeline?.addEventListener("click", () => {
+        const modes = ["normal", "dependency", "unlocked"];
+        const currentMode = dom.techTreeViewport?.dataset.readinessMode || "normal";
+        const currentIndex = Math.max(0, modes.indexOf(currentMode));
+        setTechTreeTimelineMode(modes[(currentIndex + 1) % modes.length]);
+      });
+      setTechTreeTimelineMode("normal");
+    }
+
     function updateTechTreeSelection() {
       const board = dom.techTreeBoards[0];
       if (!board) return;
@@ -6555,9 +6813,15 @@
       const links = [...board.querySelectorAll(".tech-link")];
       const connectedIds = new Set(selectedId ? [selectedId] : []);
       const connectedLinks = new Set();
+      const unlockedOnlyMode = dom.techTreeViewport?.dataset.readinessMode === "unlocked";
       if (selectedId) {
         (TECH_TREE_LINKS[board.dataset.techTree] || []).forEach((link) => {
           if (link.from !== selectedId && link.to !== selectedId) return;
+          const sourceNode = board.querySelector(`#${link.from}`);
+          const targetNode = board.querySelector(`#${link.to}`);
+          const canHighlight = !unlockedOnlyMode
+            || (sourceNode?.dataset.status === "ready" && targetNode?.dataset.status === "ready");
+          if (!canHighlight) return;
           connectedIds.add(link.from);
           connectedIds.add(link.to);
           connectedLinks.add(`${link.from}->${link.to}`);
@@ -7128,7 +7392,16 @@
           const staggeredRoute = !sameRow && targetIsBelow
             ? buildStaggeredTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, horizontalOffset, occupiedIndex)
             : null;
-          const routedPoints = staggeredRoute?.points || (sameRow
+          const routedPoints = link.route === "straight-down"
+            ? [routedStart, goal]
+            : link.route === "orthogonal"
+              ? [
+                routedStart,
+                { x: routedStart.x, y: goal.y - TECH_TREE_TARGET_APPROACH },
+                { x: goal.x, y: goal.y - TECH_TREE_TARGET_APPROACH },
+                goal
+              ]
+            : staggeredRoute?.points || (sameRow
             ? [routedStart, goal]
             : routeTechTreePath(routedStart, goal, obstacles, occupiedSegments, boardWidth, boardHeight, occupiedIndex));
           const approachY = Math.max(routedStart.y + 1, goal.y - TECH_TREE_TARGET_APPROACH - horizontalOffset);
@@ -7854,6 +8127,7 @@
     applyTechTreeResearchRatings();
     initTechTreeNavigation();
     initTechTreeSelection();
+    initTechTreeTimeline();
     renderResearchTiles();
     applyTheme(themeMode);
     initDescriptionProgress();
